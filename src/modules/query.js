@@ -6,6 +6,8 @@ let urls = {
     role_check_engineer: "/test_engineer",
     role_check_pm: "/test_pm",
     role_check_admin: "/test_admin",
+    admin_settings_get: "/settings/get",
+    admin_settings_set: "/settings/set",
 };
 
 export default {

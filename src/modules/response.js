@@ -24,6 +24,13 @@ export default {
                 case "role_check_admin":
                     break;
 
+                case "admin_settings_get":
+                    context.dispatch("admin_settings_get", payload);
+                    break;
+                case "admin_settings_set":
+                    context.dispatch("admin_settings_set", payload);
+                    break;
+
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
                 // console.log("Wrong queryName " + payload.queryName);
@@ -46,6 +53,22 @@ export default {
                     role: "guest",
                     email: ""
                 }, { root: true });
+            }
+
+        },
+
+        admin_settings_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('admin/updateSettings', payload.settings, { root: true });
+            }
+
+        },
+
+        admin_settings_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_ADMIN_001", { root: true })
             }
 
         },

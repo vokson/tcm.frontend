@@ -6,6 +6,7 @@ import query from "./modules/query";
 import response from "./modules/response";
 import notify from "./modules/notify";
 import test_roles from "./modules/test_roles";
+import admin from "./modules/admin";
 
 Vue.use(Vuex)
 
@@ -20,7 +21,7 @@ export default new Vuex.Store({
       surname: "",
       role: "guest",
       email: ""
-    }
+    },
   },
 
   mutations: {
@@ -53,6 +54,7 @@ export default new Vuex.Store({
     query,
     response,
     notify,
-    test_roles
+    test_roles,
+    admin
   }
 });

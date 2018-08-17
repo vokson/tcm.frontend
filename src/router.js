@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Role from './views/Role.vue'
+import Admin from './views/Admin.vue'
 
 Vue.use(Router)
 
@@ -25,6 +26,12 @@ export default new Router({
       path: '/roles',
       name: 'roles',
       component: Role
+    },
+
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin
     },
 
   ]

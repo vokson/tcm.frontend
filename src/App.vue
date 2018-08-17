@@ -6,15 +6,7 @@
       <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
       <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
       <b-nav-item :to="{ name: 'roles' }">Test Role</b-nav-item>
-      <!-- <b-nav-item>
-          <router-link to="/">Home</router-link>
-      </b-nav-item> -->
-      <!-- <b-nav-item>
-          <router-link to="/login">Login</router-link>
-       </b-nav-item> -->
-      <!-- <b-nav-item>
-          <router-link to="/roles">Roles</router-link>
-      </b-nav-item> -->
+      <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
     </b-nav>
 
     <router-view/>
