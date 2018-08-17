@@ -11,23 +11,39 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    accessToken: null,
+    // accessToken: null,
     apiResponse: null,
-    language: "RUS"
+    language: "RUS",
+    user: {
+      access_token: "",
+      name: "",
+      surname: "",
+      role: "guest",
+      email: ""
+    }
   },
 
   mutations: {
+    setLanguage: (state, data) => {
+      state.language = data;
+    },
+
     setApiResponse: (state, data) => {
       state.apiResponse = data;
     },
 
-    setAccessToken: (state, token) => {
-      state.accessToken = token;
-      window.$cookies.set("access_token", token);
+    setUser: (state, data) => {
+      state.user.access_token = data.access_token;
+      state.user.name = data.name;
+      state.user.surname = data.surname;
+      state.user.role = data.role;
+      state.user.email = data.email;
+
+      window.$cookies.set("access_token", data.access_token);
     },
 
     setAccessTokenUsingCookie: (state) => {
-      state.accessToken = window.$cookies.get("access_token");
+      state.user.access_token = window.$cookies.get("access_token");
     },
 
   },

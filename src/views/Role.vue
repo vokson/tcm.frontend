@@ -1,5 +1,5 @@
 <template>
-    <div id="roles">
+    <div>
         <h1>Roles</h1>
         <button type="button" v-on:click="checkGuest">Guest</button>
         <button type="button" v-on:click="checkEngineer">Engineer</button>

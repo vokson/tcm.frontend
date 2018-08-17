@@ -13,6 +13,7 @@ export default {
 
             switch (payload.queryName) {
                 case "auth_login":
+                case "auth_login_by_token":
                     context.dispatch("auth_login", payload);
                     break;
 
@@ -25,19 +26,26 @@ export default {
 
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
-                    console.log("Wrong queryName " + payload.queryName);
+                // console.log("Wrong queryName " + payload.queryName);
             }
         },
 
         auth_login: (context, payload) => {
 
             if (payload.success == 1) {
-                context.commit('setAccessToken', payload.access_token, { root: true });
+                context.commit('setUser', payload, { root: true });
                 context.dispatch('notify/showNotifyByCode', "E_AUTH_001", { root: true })
+
             }
 
             if (payload.success == 0) {
-                context.commit('setAccessToken', "", { root: true });
+                context.commit('setUser', {
+                    access_token: "",
+                    name: "",
+                    surname: "",
+                    role: "guest",
+                    email: ""
+                }, { root: true });
             }
 
         },

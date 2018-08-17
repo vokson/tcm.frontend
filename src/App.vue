@@ -2,13 +2,23 @@
   <div id="app">
     <notifications group="notify-group" />
 
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/roles">Roles</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <b-nav tabs>
+      <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
+      <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
+      <b-nav-item :to="{ name: 'roles' }">Test Role</b-nav-item>
+      <!-- <b-nav-item>
+          <router-link to="/">Home</router-link>
+      </b-nav-item> -->
+      <!-- <b-nav-item>
+          <router-link to="/login">Login</router-link>
+       </b-nav-item> -->
+      <!-- <b-nav-item>
+          <router-link to="/roles">Roles</router-link>
+      </b-nav-item> -->
+    </b-nav>
+
     <router-view/>
+
   </div>
 </template>
 
@@ -16,13 +26,22 @@
 import { mapState, mapMutations } from "vuex";
 
 export default {
+
+  mounted: function () {
+
+    this.$nextTick(function () {
+      this.$store.commit('setAccessTokenUsingCookie');
+      this.$store.dispatch('auth/loginByToken', this.$store.state.user.access_token);
+    })
+  },
+
   computed: {
     ...mapState({
       show: state => state.notify.show
     })
   },
   watch: {
-    show() {
+    show () {
       if (this.show) {
         this.$notify({
           title: this.$store.state.notify.title,
@@ -39,14 +58,3 @@ export default {
   }
 };
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

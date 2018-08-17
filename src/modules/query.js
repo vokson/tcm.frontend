@@ -1,5 +1,6 @@
 let urls = {
     auth_login: "/auth/login",
+    auth_login_by_token: "/auth/login/token",
     auth_check_token: "/auth/check_token",
     role_check_guest: "/test_guest",
     role_check_engineer: "/test_engineer",
@@ -21,7 +22,7 @@ export default {
             context.state.name = payload.queryName;
 
             let data = payload.data
-            data.access_token = context.rootState.accessToken;
+            data.access_token = context.rootState.user.access_token;
 
             window.$axios({
                 url: urls[payload.queryName],

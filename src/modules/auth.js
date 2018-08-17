@@ -26,8 +26,26 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
+        loginByToken: (context, token) => {
+
+            let parameters = {
+                queryName: "auth_login_by_token",
+                data: {
+                    access_token: token
+                },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
         logout: (context) => {
-            context.commit('setAccessToken', "", { root: true });
+            context.commit('setUser', {
+                access_token: "",
+                name: "",
+                surname: "",
+                role: "guest",
+                email: ""
+            }, { root: true });
             context.dispatch('notify/showNotifyByCode', "E_AUTH_002", { root: true })
         },
 

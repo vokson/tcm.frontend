@@ -1,5 +1,6 @@
+import '@babel/polyfill'
 import Vue from 'vue'
-// import Vuex from 'vuex'
+import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -7,11 +8,8 @@ import VueCookies from 'vue-cookies'
 import Notifications from 'vue-notification'
 import axios from 'axios'
 import sha256 from 'sha256'
-// import VueAxios from 'vue-axios'
 
-// Vue.use(Vuex)
 Vue.use(VueCookies);
-// Vue.use(VueAxios, axios)
 Vue.use(Notifications)
 
 Vue.config.productionTip = false
