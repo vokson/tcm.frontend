@@ -1,6 +1,10 @@
 let urls = {
     auth_login: "/auth/login",
-    auth_check_token: "/auth/check_token"
+    auth_check_token: "/auth/check_token",
+    role_check_guest: "/test_guest",
+    role_check_engineer: "/test_engineer",
+    role_check_pm: "/test_pm",
+    role_check_admin: "/test_admin",
 };
 
 export default {

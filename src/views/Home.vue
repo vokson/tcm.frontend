@@ -2,6 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button type="button" v-on:click="note">notification</button>
   </div>
 </template>
 
@@ -13,6 +14,17 @@ export default {
   name: "home",
   components: {
     HelloWorld
+  },
+
+  methods: {
+    note: function() {
+      console.log(this.$notify);
+      this.$notify({
+        group: "foo",
+        type: "error",
+        text: "Ошибка авторизации"
+      });
+    }
   }
 };
 </script>

@@ -24,27 +24,11 @@ export default {
             };
 
             context.dispatch('query/send', parameters, { root: true })
-
-            // window.$axios({
-            //     url: "/auth/login",
-            //     data: {
-            //         email: payload.email,
-            //         password: payload.password
-            //     }
-            // })
-            //     .then(function (response) {
-            //         context.commit('setApiResponse', response.data, { root: true });
-            //         if (response.data.success == 1) {
-            //             context.commit('setAccessToken', response.data.access_token, { root: true });
-            //         }
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
         },
 
-        logout: ({ commit }) => {
-            commit('setAccessToken', "", { root: true });
+        logout: (context) => {
+            context.commit('setAccessToken', "", { root: true });
+            context.dispatch('notify/showNotifyByCode', "E_AUTH_002", { root: true })
         },
 
     }

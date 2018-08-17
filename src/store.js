@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
-import sha256 from 'sha256'
+
 import auth from "./modules/auth";
 import query from "./modules/query";
 import response from "./modules/response";
+import notify from "./modules/notify";
+import test_roles from "./modules/test_roles";
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     apiResponse: null,
+    language: "RUS"
   },
 
   mutations: {
@@ -33,22 +35,8 @@ export default new Vuex.Store({
   modules: {
     auth,
     query,
-    response
+    response,
+    notify,
+    test_roles
   }
 });
-
-
-// store.$axios = axios.create({
-//   baseURL: "http://tcm.api/api",
-//   method: 'post'
-// });
-
-window.$axios = axios.create({
-  baseURL: "http://tcm.api/api",
-  method: 'post'
-});
-
-window.$sha256 = sha256
-
-
-// export default store;
