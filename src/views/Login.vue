@@ -1,13 +1,42 @@
+
 <template>
   <div>
-    <h1>Login</h1>
-    <input type="text" name="email" v-model="email" placeholder="E-mail" />
-    <input type="password" name="password" v-model="password" placeholder="Password" />
-    <br/>
-    <button type="button" v-on:click="login">Login</button>
-    <button type="button" v-on:click="logout">Logout</button>
-    <button type="button" v-on:click="getTokenFromCookie">Get Cookie Token</button>
-    <button type="button" v-on:click="checkToken">Check Token</button>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h3 v-if="language === 'RUS'">Вход</h3>
+          <h3 v-else-if="language === 'ENG'">Login</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <input type="e-mail" name="email" v-model="email" placeholder="E-mail" />
+        </div>
+
+        <div class="col-2">
+          <input type="password" name="password" v-model="password" placeholder="Password" />
+        </div>
+
+        <div class="col-6" />
+      </div>
+
+      <div class="row">
+
+        <div class="col-1">
+          <button v-if="language === 'ENG'" type="button" class="btn btn-primary" v-on:click="login">Login</button>
+          <button v-else-if="language === 'RUS'" type="button" class="btn btn-primary" v-on:click="login">Войти</button>
+        </div>
+
+        <div class="col-1">
+          <button v-if="language === 'ENG'" type="button" class="btn btn-secondary" v-on:click="logout">Logout</button>
+          <button v-else-if="language === 'RUS'" type="button" class="btn btn-secondary" v-on:click="logout">Выйти</button>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -19,14 +48,18 @@ export default {
     return {
       email: "",
       password: "",
-      // isLoggedIn: false,
     };
   },
 
   computed: {
     newToken: function () {
       return this.$store.state.user.access_token;
+    },
+
+    language: function () {
+      return this.$store.state.language;
     }
+
   },
 
   watch: {
@@ -45,13 +78,13 @@ export default {
   },
 
   methods: {
-    getTokenFromCookie: function () {
-      this.$store.commit("setAccessTokenUsingCookie");
-    },
+    // getTokenFromCookie: function () {
+    //   this.$store.commit("setAccessTokenUsingCookie");
+    // },
 
-    checkToken: function () {
-      this.$store.dispatch("auth/checkAccessToken");
-    },
+    // checkToken: function () {
+    //   this.$store.dispatch("auth/checkAccessToken");
+    // },
 
     login: function () {
       this.$store.dispatch("auth/login", {
@@ -67,13 +100,8 @@ export default {
 };
 </script>
 
-<style scoped>
-#login {
-  width: 500px;
-  border: 1px solid #cccccc;
-  background-color: #ffffff;
-  margin: auto;
-  margin-top: 200px;
-  padding: 20px;
+<style>
+.row {
+  margin-top: 5px;
 }
 </style>

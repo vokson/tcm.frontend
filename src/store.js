@@ -5,8 +5,8 @@ import auth from "./modules/auth";
 import query from "./modules/query";
 import response from "./modules/response";
 import notify from "./modules/notify";
-import test_roles from "./modules/test_roles";
 import admin from "./modules/admin";
+import roles from "./modules/roles";
 
 Vue.use(Vuex)
 
@@ -22,6 +22,12 @@ export default new Vuex.Store({
       role: "guest",
       email: ""
     },
+  },
+
+  getters: {
+    isAuthenticated: function (state) {
+      return (state.user.access_token == "") ? false : true;
+    }
   },
 
   mutations: {
@@ -54,7 +60,7 @@ export default new Vuex.Store({
     query,
     response,
     notify,
-    test_roles,
-    admin
+    admin,
+    roles
   }
 });

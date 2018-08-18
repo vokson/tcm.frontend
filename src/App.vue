@@ -5,7 +5,6 @@
     <b-nav tabs>
       <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
       <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
-      <b-nav-item :to="{ name: 'roles' }">Test Role</b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
     </b-nav>
 
@@ -22,8 +21,10 @@ export default {
   mounted: function () {
 
     this.$nextTick(function () {
+
       this.$store.commit('setAccessTokenUsingCookie');
       this.$store.dispatch('auth/loginByToken', this.$store.state.user.access_token);
+
     })
   },
 
