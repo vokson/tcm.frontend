@@ -31,6 +31,21 @@ export default {
                     context.dispatch("admin_settings_set", payload);
                     break;
 
+                case "log_get":
+                    context.dispatch("log_get", payload);
+                    break;
+                case "log_set":
+                    context.dispatch("log_set", payload);
+                    break;
+
+                case "title_get":
+                    context.dispatch("title_get", payload);
+                    break;
+
+                case "user_get":
+                    context.dispatch("user_get", payload);
+                    break;
+
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
                 // console.log("Wrong queryName " + payload.queryName);
@@ -68,10 +83,45 @@ export default {
         admin_settings_set: (context, payload) => {
 
             if (payload.success == 1) {
+                //dfs
                 context.dispatch('notify/showNotifyByCode', "E_ADMIN_001", { root: true })
+
             }
 
         },
+
+        log_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('log/updateItems', payload.items, { root: true });
+            }
+
+        },
+
+        log_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_LOG_001", { root: true })
+            }
+
+        },
+
+        title_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('title/update', payload.items, { root: true });
+            }
+
+        },
+
+        user_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('users/update', payload.items, { root: true });
+            }
+
+        },
+
 
 
     }

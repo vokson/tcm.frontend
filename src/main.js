@@ -15,25 +15,28 @@ Vue.use(Notifications)
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  // if (to.matched.some(record => record.meta.requiresAuth)) {
 
-    store.commit('roles/path', {
-      path: to.path,
-      role: store.state.user.role
-    });
+  // if (to.path != '/login') {
 
-    if (store.getters['roles/mayEnter'] == false) {
 
-      store.dispatch('notify/showNotifyByCode', 104);
+  store.commit('roles/path', {
+    path: to.path,
+    role: (store.state.user.role == undefined) ? 'guest' : store.state.user.role
+  });
 
-      next({ name: 'login' })
+  if (store.getters['roles/mayEnter'] == false) {
 
-    } else {
-      next()
-    }
+    store.dispatch('notify/showNotifyByCode', 104);
+    next({ name: 'login' })
+
   } else {
-    next() // всегда так или иначе нужно вызвать next()!
+    next();
   }
+  // } else {
+  // next();
+  // }
+
 })
 
 new Vue({

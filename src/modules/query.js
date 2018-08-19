@@ -8,6 +8,10 @@ let urls = {
     role_check_admin: "/test_admin",
     admin_settings_get: "/settings/get",
     admin_settings_set: "/settings/set",
+    log_set: "/logs/set",
+    log_get: "/logs/get",
+    title_get: "/titles/get",
+    user_get: "/users/get",
 };
 
 export default {
@@ -21,19 +25,26 @@ export default {
 
         send: (context, payload) => {
 
-            context.state.name = payload.queryName;
+            // context.state.name = payload.queryName;
 
             let data = payload.data
             data.access_token = context.rootState.user.access_token;
+            let query_name = payload.queryName
+
+            let responseFunction = function (response) {
+                // console.log(query_name);
+                response.data.queryName = query_name;
+                context.dispatch('response/use', response.data, { root: true });
+            };
+
+            // Пробрасываем имя запроса в response, чтобы точно знать от какой функции ответ
+            responseFunction.bind(this);
 
             window.$axios({
                 url: urls[payload.queryName],
                 data: data
             })
-                .then(function (response) {
-                    response.data.queryName = context.state.name;
-                    context.dispatch('response/use', response.data, { root: true });
-                })
+                .then(responseFunction)
                 .catch(function (error) {
                     console.log(error);
                 });

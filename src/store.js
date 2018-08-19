@@ -7,6 +7,9 @@ import response from "./modules/response";
 import notify from "./modules/notify";
 import admin from "./modules/admin";
 import roles from "./modules/roles";
+import log from "./modules/log";
+import title from "./modules/title";
+import users from "./modules/users";
 
 Vue.use(Vuex)
 
@@ -61,6 +64,9 @@ export default new Vuex.Store({
     response,
     notify,
     admin,
-    roles
+    roles,
+    log,
+    title,
+    users
   }
 });

@@ -1,9 +1,12 @@
 let guest = [
     '/home',
-    '/login'
+    '/login',
+    '/'
 ];
 
-let engineer = [];
+let engineer = [
+    '/log'
+];
 
 let pm = [];
 
@@ -34,6 +37,7 @@ export default {
 
     mutations: {
         path: function (state, payload) {
+            // console.log(payload);
             state.isOk = false;
 
             if (permissions.hasOwnProperty(payload.role)) {

@@ -60,6 +60,34 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 301:
+            return {
+                title: "Ошибка Журнала Событий - 301",
+                text: "Ошибка в поле \"Кому\"",
+                type: "error"
+            }
+
+        case 302:
+            return {
+                title: "Ошибка Журнала Событий - 302",
+                text: "Ошибка в поле \"От\"",
+                type: "error"
+            }
+
+        case 303:
+            return {
+                title: "Ошибка Журнала Событий - 303",
+                text: "Ошибка в поле \"Титул\"",
+                type: "error"
+            }
+
+        case 304:
+            return {
+                title: "Ошибка Журнала Событий - 304",
+                text: "Ошибка в поле \"Текст\"",
+                type: "error"
+            }
+
         case "E_AUTH_001":
             return {
                 text: "Добро пожаловать !!!",
@@ -82,6 +110,12 @@ let getRusText = function (code) {
         case "E_ADMIN_001":
             return {
                 text: "Настройки сохранены",
+                type: "success"
+            }
+
+        case "E_LOG_001":
+            return {
+                text: "Запись добавлена",
                 type: "success"
             }
 
@@ -147,6 +181,34 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 301:
+            return {
+                title: "Log Error - 301",
+                text: "Wrong input \"To\"",
+                type: "error"
+            }
+
+        case 302:
+            return {
+                title: "Log Error - 302",
+                text: "Wrong input \"From\"",
+                type: "error"
+            }
+
+        case 303:
+            return {
+                title: "Log Error - 303",
+                text: "Wrong input \"Title\"",
+                type: "error"
+            }
+
+        case 304:
+            return {
+                title: "Log Error - 304",
+                text: "Wrong input \"Text\"",
+                type: "error"
+            }
+
         case "E_AUTH_001":
             return {
                 text: "You are successfully logged in",
@@ -169,6 +231,12 @@ let getEngText = function (code) {
         case "E_ADMIN_001":
             return {
                 text: "Setting have been saved",
+                type: "success"
+            }
+
+        case "E_LOG_001":
+            return {
+                text: "Log has been saved",
                 type: "success"
             }
 
@@ -199,9 +267,6 @@ export default {
     },
 
     mutations: {
-        // showNotifyByCode(state, code, rootState) {
-        //     state = Object.assign(getText(rootState.language, code), { show: true })
-        // },
 
         setState (state, newState) {
             state.title = newState.title;
@@ -215,6 +280,7 @@ export default {
             state.text = text;
             state.type = type;
             state.show = true;
+            // 12
         },
 
         disableNotify (state) {
