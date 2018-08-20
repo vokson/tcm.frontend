@@ -10,6 +10,7 @@ let urls = {
     admin_settings_set: "/settings/set",
     log_set: "/logs/set",
     log_get: "/logs/get",
+    log_delete: "/logs/delete",
     title_get: "/titles/get",
     user_get: "/users/get",
 };

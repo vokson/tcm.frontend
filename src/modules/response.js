@@ -37,6 +37,9 @@ export default {
                 case "log_set":
                     context.dispatch("log_set", payload);
                     break;
+                case "log_delete":
+                    context.dispatch("log_delete", payload);
+                    break;
 
                 case "title_get":
                     context.dispatch("title_get", payload);
@@ -56,6 +59,7 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('setUser', payload, { root: true });
+                // context.commit('users/setUserId', payload.id, { root: true });
                 context.dispatch('notify/showNotifyByCode', "E_AUTH_001", { root: true })
 
             }
@@ -102,6 +106,14 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_LOG_001", { root: true })
+            }
+
+        },
+
+        log_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_LOG_002", { root: true })
             }
 
         },

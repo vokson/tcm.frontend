@@ -48,6 +48,7 @@ export default new Vuex.Store({
       state.user.surname = data.surname;
       state.user.role = data.role;
       state.user.email = data.email;
+      state.user.id = data.id;
 
       window.$cookies.set("access_token", data.access_token);
     },

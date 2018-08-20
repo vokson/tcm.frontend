@@ -88,6 +88,20 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 305:
+            return {
+                title: "Ошибка Журнала Событий - 305",
+                text: "Ошибка в поле \"Номер записи\"",
+                type: "error"
+            }
+
+        case 306:
+            return {
+                title: "Ошибка Журнала Событий - 306",
+                text: "Ошибка в поле \"Дата\"",
+                type: "error"
+            }
+
         case "E_AUTH_001":
             return {
                 text: "Добро пожаловать !!!",
@@ -115,7 +129,13 @@ let getRusText = function (code) {
 
         case "E_LOG_001":
             return {
-                text: "Запись добавлена",
+                text: "Запись сохранена",
+                type: "success"
+            }
+
+        case "E_LOG_002":
+            return {
+                text: "Запись удалена",
                 type: "success"
             }
 
@@ -209,6 +229,21 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 305:
+            return {
+                title: "Log Error - 305",
+                text: "Wrong input \"ID\"",
+                type: "error"
+            }
+
+        case 306:
+            return {
+                title: "Log Error - 306",
+                text: "Wrong input \"Date\"",
+                type: "error"
+            }
+
+
         case "E_AUTH_001":
             return {
                 text: "You are successfully logged in",
@@ -237,6 +272,12 @@ let getEngText = function (code) {
         case "E_LOG_001":
             return {
                 text: "Log has been saved",
+                type: "success"
+            }
+
+        case "E_LOG_002":
+            return {
+                text: "Log has been deleted",
                 type: "success"
             }
 

@@ -2,7 +2,8 @@ export default {
     namespaced: true,
 
     state: {
-        items: null
+        items: null,
+        userId: null
     },
 
     getters: {
@@ -12,7 +13,15 @@ export default {
     },
 
     mutations: {
+        // setUserId: function (state, id) {
+        //     state.userId = id;
+        // },
+
         update: function (state, data) {
+            // state.items = data.map(function (item) {
+            //     item.isMe = (item.id == state.userId)
+            //     return item;
+            // });
             state.items = data;
         },
     },

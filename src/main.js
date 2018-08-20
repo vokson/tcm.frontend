@@ -7,6 +7,7 @@ import store from './store'
 import VueCookies from 'vue-cookies'
 import Notifications from 'vue-notification'
 import Datepicker from 'vuejs-datepicker';
+import { VueEditor } from 'vue2-editor';
 import axios from 'axios'
 import sha256 from 'sha256'
 
@@ -14,6 +15,7 @@ Vue.use(VueCookies);
 Vue.use(Notifications)
 
 Vue.component("datepicker", Datepicker);
+Vue.component("editor", VueEditor);
 
 
 Vue.config.productionTip = false
