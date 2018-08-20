@@ -19,11 +19,11 @@ export default {
 
     actions: {
 
-        getItems: (context) => {
+        getItems: (context, payload) => {
 
             let parameters = {
                 queryName: "log_get",
-                data: {},
+                data: payload,
             };
 
             context.dispatch('query/send', parameters, { root: true })

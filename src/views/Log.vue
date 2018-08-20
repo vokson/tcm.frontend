@@ -58,13 +58,26 @@
 
       <div class="col-2">
         <button type="button" class="btn btn-success" v-on:click="addItem">{{ (language == 'RUS') ? 'Добавить' : 'Add' }}</button>
-        <button type="button" class="btn" v-on:click="getTitles">getTitles</button>
-        <button type="button" class="btn" v-on:click="getUsers">getUsers</button>
+
+        <!-- <button type="button" class="btn" v-on:click="getTitles">getTitles</button> -->
+        <!-- <button type="button" class="btn" v-on:click="getUsers">getUsers</button> -->
       </div>
 
     </div>
 
     <br/>
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-block btn-warning" v-on:click="getItems">
+          {{ (language == 'RUS') ? 'Найти' : 'Search' }}
+          <span class="badge badge-light">{{countOfItems}}</span>
+        </button>
+      </div>
+      <!-- <div class="col-6">
+        <label v-if="language === 'RUS'">Кол-во найденных результатов: {{countOfItems}}</label>
+        <label v-if="language === 'ENG'">Count of results: {{countOfItems}}</label>
+      </div> -->
+    </div>
 
     <div class="row">
 
@@ -72,7 +85,7 @@
         <thead>
           <tr>
             <th class="td-date text-center">Date</th>
-            <th class="td-title">Title</th>
+            <th class="text-center">Title</th>
             <th class="text-center">From</th>
             <th class="text-center">What</th>
             <th class="text-center">To</th>
@@ -80,12 +93,29 @@
         </thead>
         <tbody>
 
+          <tr>
+            <td class="td-date">
+              <datepicker v-model="search.date" :format="date_format" :bootstrap-styling="true" :language="ru"></datepicker>
+            </td>
+            <td class="text-center"><input type="text" v-model="search.title" placeholder="Титул" /></td>
+            <td class="text-center"><input type="text" v-model="search.from" placeholder="От" /></td>
+            <td class="text-center"><input type="text" v-model="search.what" placeholder="Текст" /></td>
+            <td class="text-center"><input type="text" v-model="search.to" placeholder="Кому" /></td>
+          </tr>
+
+          <!-- <tr>
+            <td>
+              <label v-if="language === 'RUS'">Кол-во найденных результатов: {{countOfItems}}</label>
+              <label v-if="language === 'ENG'">Count of results: {{countOfItems}}</label>
+            </td>
+          </tr> -->
+
           <tr v-for="item in items" :key="item.id">
-            <td>{{item.date}}</td>
-            <td>{{item.title}}</td>
-            <td>{{item.from}}</td>
+            <td class="text-center">{{formatDate(item.date)}}</td>
+            <td class="text-center">{{item.title}}</td>
+            <td class="text-center">{{item.from}}</td>
             <td>{{item.what}}</td>
-            <td>{{item.to}}</td>
+            <td class="text-center">{{item.to}}</td>
           </tr>
 
         </tbody>
@@ -96,6 +126,8 @@
 </template>
 
 <script>
+import { ru } from 'vuejs-datepicker/dist/locale'
+
 export default {
   name: "Log",
 
@@ -103,15 +135,27 @@ export default {
   data: function () {
     return {
 
+      date_format: "dd.MM.yyyy",
+      ru: ru,
+
       titleId: null,
       toId: null,
       fromId: null,
       text: "",
 
+      search: {
+        to: "",
+        from: "",
+        what: "",
+        title: "",
+        date: null,
+      }
+
     };
   },
 
   mounted: function () {
+
     this.$nextTick(function () {
       this.getTitles();
       this.getUsers();
@@ -135,9 +179,19 @@ export default {
       return this.$store.getters['users/give'];
     },
 
+    countOfItems: function () {
+      return this.items.length;
+    }
+
   },
 
   methods: {
+    formatDate: function (timestamp) {
+      let date = new Date();
+      date.setTime(timestamp * 1000); // переводим в миллисекунды
+      return date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
+    },
+
     getTitles: function () {
       this.$store.dispatch('title/get');
     },
@@ -146,16 +200,22 @@ export default {
       this.$store.dispatch('users/get');
     },
 
-    // getItems: function () {
-    //   this.$store.dispatch('log/getItems');
-    // },
+    getItems: function () {
+      this.$store.dispatch('log/getItems', {
+        to: this.search.to,
+        from: this.search.from,
+        title: this.search.title,
+        what: this.search.what,
+        date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
+      });
+    },
 
     addItem: function () {
       this.$store.dispatch('log/setItem', {
         to: this.toId,
         from: this.fromId,
         title: this.titleId,
-        what: this.text
+        what: this.text,
       });
     },
   }
@@ -164,11 +224,11 @@ export default {
 
 <style>
 .td-date {
-  width: 120px;
+  width: 130px;
 }
 
 .td-title {
-  width: 160px;
+  width: 120px;
 }
 
 .text-center {

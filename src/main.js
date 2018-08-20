@@ -6,19 +6,19 @@ import router from './router'
 import store from './store'
 import VueCookies from 'vue-cookies'
 import Notifications from 'vue-notification'
+import Datepicker from 'vuejs-datepicker';
 import axios from 'axios'
 import sha256 from 'sha256'
 
 Vue.use(VueCookies);
 Vue.use(Notifications)
 
+Vue.component("datepicker", Datepicker);
+
+
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  // if (to.matched.some(record => record.meta.requiresAuth)) {
-
-  // if (to.path != '/login') {
-
 
   store.commit('roles/path', {
     path: to.path,
@@ -33,10 +33,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-  // } else {
-  // next();
-  // }
-
 })
 
 new Vue({
