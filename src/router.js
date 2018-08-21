@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Admin from './views/Admin.vue'
 import Log from './views/Log.vue'
+import Status from './views/Status.vue'
 
 
 Vue.use(Router)
@@ -32,6 +33,12 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: Admin,
+    },
+
+    {
+      path: '/admin/status',
+      name: 'status',
+      component: Status,
     },
 
     {

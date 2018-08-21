@@ -10,6 +10,7 @@ import roles from "./modules/roles";
 import log from "./modules/log";
 import title from "./modules/title";
 import users from "./modules/users";
+import status from "./modules/status";
 
 Vue.use(Vuex)
 
@@ -68,6 +69,7 @@ export default new Vuex.Store({
     roles,
     log,
     title,
-    users
+    users,
+    status
   }
 });

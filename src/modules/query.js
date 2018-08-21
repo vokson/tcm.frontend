@@ -13,6 +13,10 @@ let urls = {
     log_delete: "/logs/delete",
     title_get: "/titles/get",
     user_get: "/users/get",
+    status_get: "/statuses/get",
+    status_set: "/statuses/set",
+    status_add: "/statuses/add",
+    status_delete: "/statuses/delete",
 };
 
 export default {

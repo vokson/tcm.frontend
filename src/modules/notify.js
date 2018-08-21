@@ -42,14 +42,14 @@ let getRusText = function (code) {
         case 201:
             return {
                 title: "Ошибка Администрирования - 201",
-                text: "Неверное имя параметра настроек",
+                text: "Неверное имя параметра name в запросе",
                 type: "error"
             }
 
         case 202:
             return {
                 title: "Ошибка Администрирования - 202",
-                text: "Неверное значение параметра настроек",
+                text: "Неверное значение параметра value в запросе",
                 type: "error"
             }
 
@@ -57,6 +57,20 @@ let getRusText = function (code) {
             return {
                 title: "Ошибка Администрирования - 203",
                 text: "Значение settings не передано в запросе",
+                type: "error"
+            }
+
+        case 204:
+            return {
+                title: "Ошибка Администрирования - 204",
+                text: "Значение items не передано в запросе",
+                type: "error"
+            }
+
+        case 205:
+            return {
+                title: "Ошибка Администрирования - 205",
+                text: "Неверное значение параметра id в запросе",
                 type: "error"
             }
 
@@ -127,6 +141,24 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_STATUS_001":
+            return {
+                text: "Записи сохранены",
+                type: "success"
+            }
+
+        case "E_STATUS_002":
+            return {
+                text: "Запись удалена",
+                type: "success"
+            }
+
+        case "E_STATUS_003":
+            return {
+                text: "Новая запись добавлена. Обновите имя",
+                type: "success"
+            }
+
         case "E_LOG_001":
             return {
                 text: "Запись сохранена",
@@ -183,21 +215,35 @@ let getEngText = function (code) {
         case 201:
             return {
                 title: "Admin Error - 201",
-                text: "Wrong parameter name in settings",
+                text: "Wrong parameter name in request",
                 type: "error"
             }
 
         case 202:
             return {
                 title: "Admin Error - 202",
-                text: "Wrong parameter value in settings",
+                text: "Wrong parameter value in request",
                 type: "error"
             }
 
         case 203:
             return {
                 title: "Admin Error - 203",
-                text: "Settigs are nmissed in request",
+                text: "Settigs are missed in request",
+                type: "error"
+            }
+
+        case 204:
+            return {
+                title: "Admin Error - 204",
+                text: "Items are missed in request",
+                type: "error"
+            }
+
+        case 205:
+            return {
+                title: "Admin Error - 205",
+                text: "Wrong parameter id in request",
                 type: "error"
             }
 
@@ -266,6 +312,24 @@ let getEngText = function (code) {
         case "E_ADMIN_001":
             return {
                 text: "Setting have been saved",
+                type: "success"
+            }
+
+        case "E_STATUS_001":
+            return {
+                text: "Statuses have been saved",
+                type: "success"
+            }
+
+        case "E_STATUS_002":
+            return {
+                text: "Status has been deleted",
+                type: "success"
+            }
+
+        case "E_STATUS_003":
+            return {
+                text: "Status has been added. Please, update name.",
                 type: "success"
             }
 

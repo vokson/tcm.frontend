@@ -11,7 +11,8 @@ let engineer = [
 let pm = [];
 
 let admin = [
-    '/admin'
+    '/admin',
+    '/admin/status'
 ];
 
 let permissions = {

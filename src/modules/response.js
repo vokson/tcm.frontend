@@ -49,6 +49,20 @@ export default {
                     context.dispatch("user_get", payload);
                     break;
 
+                case "status_get":
+                    context.dispatch("status_get", payload);
+                    break;
+                case "status_set":
+                    context.dispatch("status_set", payload);
+                    break;
+                case "status_add":
+                    context.dispatch("status_add", payload);
+                    break;
+                case "status_delete":
+                    context.dispatch("status_delete", payload);
+                    break;
+
+
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
                 // console.log("Wrong queryName " + payload.queryName);
@@ -130,6 +144,40 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('users/update', payload.items, { root: true });
+            }
+
+        },
+
+        status_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('status/update', payload.items, { root: true });
+            }
+
+        },
+
+        status_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_STATUS_001", { root: true })
+            }
+
+        },
+
+        status_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_STATUS_002", { root: true })
+                context.dispatch('status/get', payload, { root: true });
+            }
+
+        },
+
+        status_add: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_STATUS_003", { root: true })
+                context.dispatch('status/get', payload, { root: true });
             }
 
         },

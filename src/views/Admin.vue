@@ -35,6 +35,8 @@
       </div>
 
     </div>
+
+    <b-nav-item :to="{ name: 'status' }">Edit Statuses</b-nav-item>
   </div>
 
 </template>
