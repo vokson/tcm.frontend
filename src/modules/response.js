@@ -44,6 +44,12 @@ export default {
                 case "title_get":
                     context.dispatch("title_get", payload);
                     break;
+                case "title_set":
+                    context.dispatch("title_set", payload);
+                    break;
+                case "title_delete":
+                    context.dispatch("title_delete", payload);
+                    break;
 
                 case "user_get":
                     context.dispatch("user_get", payload);
@@ -120,6 +126,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_LOG_001", { root: true })
+                context.dispatch('log/getItems', {}, { root: true });
             }
 
         },
@@ -128,6 +135,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_LOG_002", { root: true })
+                context.dispatch('log/getItems', {}, { root: true });
             }
 
         },
@@ -136,6 +144,24 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('title/update', payload.items, { root: true });
+            }
+
+        },
+
+        title_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_TITLE_001", { root: true })
+                context.dispatch('title/get', {}, { root: true });
+            }
+
+        },
+
+        title_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_TITLE_002", { root: true })
+                context.dispatch('title/get', {}, { root: true });
             }
 
         },
@@ -160,6 +186,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_STATUS_001", { root: true })
+
             }
 
         },

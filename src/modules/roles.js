@@ -8,7 +8,9 @@ let engineer = [
     '/log'
 ];
 
-let pm = [];
+let pm = [
+    '/title'
+];
 
 let admin = [
     '/admin',

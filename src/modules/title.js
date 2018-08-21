@@ -19,11 +19,33 @@ export default {
 
     actions: {
 
-        get: (context) => {
+        del: (context, payload) => {
+
+            let parameters = {
+                queryName: "title_delete",
+                data: {
+                    id: payload.id
+                },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+        get: (context, payload) => {
 
             let parameters = {
                 queryName: "title_get",
-                data: {},
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+        set: (context, payload) => {
+
+            let parameters = {
+                queryName: "title_set",
+                data: payload,
             };
 
             context.dispatch('query/send', parameters, { root: true })

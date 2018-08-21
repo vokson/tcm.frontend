@@ -5,6 +5,7 @@ import Login from './views/Login.vue'
 import Admin from './views/Admin.vue'
 import Log from './views/Log.vue'
 import Status from './views/Status.vue'
+import Title from './views/Title.vue'
 
 
 Vue.use(Router)
@@ -46,6 +47,13 @@ export default new Router({
       name: 'log',
       component: Log
     },
+
+    {
+      path: '/title',
+      name: 'title',
+      component: Title
+    },
+
 
   ]
 })

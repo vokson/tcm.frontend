@@ -116,6 +116,34 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 401:
+            return {
+                title: "Ошибка Списка Титулов - 401",
+                text: "Ошибка в поле \"Номер записи\"",
+                type: "error"
+            }
+
+        case 402:
+            return {
+                title: "Ошибка Списка Титулов - 402",
+                text: "Ошибка в поле \"Титул\"",
+                type: "error"
+            }
+
+        case 403:
+            return {
+                title: "Ошибка Списка Титулов - 403",
+                text: "Ошибка в поле \"Статус\"",
+                type: "error"
+            }
+
+        case 404:
+            return {
+                title: "Ошибка Списка Титулов - 404",
+                text: "Ошибка в поле \"Предшественник\"",
+                type: "error"
+            }
+
         case "E_AUTH_001":
             return {
                 text: "Добро пожаловать !!!",
@@ -168,6 +196,18 @@ let getRusText = function (code) {
         case "E_LOG_002":
             return {
                 text: "Запись удалена",
+                type: "success"
+            }
+
+        case "E_TITLE_001":
+            return {
+                text: "Титул сохранен",
+                type: "success"
+            }
+
+        case "E_TITLE_002":
+            return {
+                text: "Титул удален",
                 type: "success"
             }
 
@@ -289,6 +329,34 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 401:
+            return {
+                title: "Title Error - 401",
+                text: "Wrong input \"ID\"",
+                type: "error"
+            }
+
+        case 402:
+            return {
+                title: "Title Error - 402",
+                text: "Wrong input \"Title\"",
+                type: "error"
+            }
+
+        case 403:
+            return {
+                title: "Title Error - 403",
+                text: "Wrong input \"Status\"",
+                type: "error"
+            }
+
+        case 404:
+            return {
+                title: "Title Error - 404",
+                text: "Wrong input \"Predecessor\"",
+                type: "error"
+            }
+
 
         case "E_AUTH_001":
             return {
@@ -342,6 +410,18 @@ let getEngText = function (code) {
         case "E_LOG_002":
             return {
                 text: "Log has been deleted",
+                type: "success"
+            }
+
+        case "E_TITLE_001":
+            return {
+                text: "Title has been saved",
+                type: "success"
+            }
+
+        case "E_TITLE_002":
+            return {
+                text: "Title has been deleted",
                 type: "success"
             }
 

@@ -252,7 +252,7 @@ export default {
     },
 
     getTitles: function () {
-      this.$store.dispatch('title/get');
+      this.$store.dispatch('title/get', {});
     },
 
     getUsers: function () {
@@ -325,9 +325,7 @@ export default {
       date.setTime(itemToBeModified.date * 1000);
       this.targetItem.date = date;
 
-      console.log(this.isNewItemMayBeAdded);
       this.isNewItemMayBeAdded = false;
-      console.log(this.isNewItemMayBeAdded);
     }
   }
 };

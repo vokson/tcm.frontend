@@ -12,6 +12,8 @@ let urls = {
     log_get: "/logs/get",
     log_delete: "/logs/delete",
     title_get: "/titles/get",
+    title_set: "/titles/set",
+    title_delete: "/titles/delete",
     user_get: "/users/get",
     status_get: "/statuses/get",
     status_set: "/statuses/set",
