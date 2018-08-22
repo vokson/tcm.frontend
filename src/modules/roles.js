@@ -14,7 +14,9 @@ let pm = [
 
 let admin = [
     '/admin',
-    '/admin/status'
+    '/admin/status',
+    '/admin/setting',
+    '/admin/user',
 ];
 
 let permissions = {

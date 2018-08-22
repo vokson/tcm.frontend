@@ -5,7 +5,9 @@ import Login from './views/Login.vue'
 import Admin from './views/Admin.vue'
 import Log from './views/Log.vue'
 import Status from './views/Status.vue'
+import Setting from './views/Setting.vue'
 import Title from './views/Title.vue'
+import User from './views/User.vue'
 
 
 Vue.use(Router)
@@ -40,6 +42,18 @@ export default new Router({
       path: '/admin/status',
       name: 'status',
       component: Status,
+    },
+
+    {
+      path: '/admin/setting',
+      name: 'setting',
+      component: Setting,
+    },
+
+    {
+      path: '/admin/user',
+      name: 'user',
+      component: User,
     },
 
     {

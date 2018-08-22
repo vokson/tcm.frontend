@@ -49,6 +49,18 @@ export default {
             context.dispatch('notify/showNotifyByCode', "E_AUTH_002", { root: true })
         },
 
+        changePassword: (context, payload) => {
+
+            let parameters = {
+                queryName: "auth_change_password",
+                data: {
+                    new_password: payload.new_password,
+                },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
     }
 
 }

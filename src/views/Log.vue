@@ -256,7 +256,7 @@ export default {
     },
 
     getUsers: function () {
-      this.$store.dispatch('users/get');
+      this.$store.dispatch('users/get', {});
     },
 
     getItems: function () {

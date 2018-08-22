@@ -2,39 +2,39 @@ export default {
     namespaced: true,
 
     state: {
-        settings: null
+        items: null
     },
 
     getters: {
-        giveSettings: function (state) {
-            return state.settings;
+        give: function (state) {
+            return state.items;
         }
     },
 
     mutations: {
-        updateSettings: function (state, data) {
-            state.settings = data;
+        update: function (state, data) {
+            state.items = data;
         },
     },
 
     actions: {
 
-        getSettings: (context) => {
+        get: (context) => {
 
             let parameters = {
-                queryName: "admin_settings_get",
+                queryName: "setting_get",
                 data: {},
             };
 
             context.dispatch('query/send', parameters, { root: true })
         },
 
-        setSettings: (context) => {
+        set: (context) => {
 
             let parameters = {
-                queryName: "admin_settings_set",
+                queryName: "setting_set",
                 data: {
-                    settings: context.state.settings
+                    items: context.state.items
                 },
             };
 

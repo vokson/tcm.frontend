@@ -5,7 +5,7 @@ import auth from "./modules/auth";
 import query from "./modules/query";
 import response from "./modules/response";
 import notify from "./modules/notify";
-import admin from "./modules/admin";
+import setting from "./modules/setting";
 import roles from "./modules/roles";
 import log from "./modules/log";
 import title from "./modules/title";
@@ -24,7 +24,8 @@ export default new Vuex.Store({
       name: "",
       surname: "",
       role: "guest",
-      email: ""
+      email: "",
+      isDefaultPassword: false
     },
   },
 
@@ -50,6 +51,7 @@ export default new Vuex.Store({
       state.user.role = data.role;
       state.user.email = data.email;
       state.user.id = data.id;
+      state.user.isDefaultPassword = data.isDefaultPassword;
 
       window.$cookies.set("access_token", data.access_token);
     },
@@ -65,11 +67,11 @@ export default new Vuex.Store({
     query,
     response,
     notify,
-    admin,
+    setting,
     roles,
     log,
     title,
     users,
-    status
+    status,
   }
 });

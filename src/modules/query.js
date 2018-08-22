@@ -2,19 +2,28 @@ let urls = {
     auth_login: "/auth/login",
     auth_login_by_token: "/auth/login/token",
     auth_check_token: "/auth/check_token",
+    auth_change_password: "/auth/change_password",
+
     role_check_guest: "/test_guest",
     role_check_engineer: "/test_engineer",
     role_check_pm: "/test_pm",
     role_check_admin: "/test_admin",
-    admin_settings_get: "/settings/get",
-    admin_settings_set: "/settings/set",
+
+    setting_get: "/settings/get",
+    setting_set: "/settings/set",
+
     log_set: "/logs/set",
     log_get: "/logs/get",
     log_delete: "/logs/delete",
+
     title_get: "/titles/get",
     title_set: "/titles/set",
     title_delete: "/titles/delete",
+
     user_get: "/users/get",
+    user_set: "/users/set",
+    user_delete: "/users/delete",
+
     status_get: "/statuses/get",
     status_set: "/statuses/set",
     status_add: "/statuses/add",
@@ -31,8 +40,6 @@ export default {
     actions: {
 
         send: (context, payload) => {
-
-            // context.state.name = payload.queryName;
 
             let data = payload.data
             data.access_token = context.rootState.user.access_token;

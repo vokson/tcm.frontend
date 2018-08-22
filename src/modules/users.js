@@ -13,26 +13,42 @@ export default {
     },
 
     mutations: {
-        // setUserId: function (state, id) {
-        //     state.userId = id;
-        // },
 
         update: function (state, data) {
-            // state.items = data.map(function (item) {
-            //     item.isMe = (item.id == state.userId)
-            //     return item;
-            // });
             state.items = data;
         },
     },
 
     actions: {
 
-        get: (context) => {
+        get: (context, payload) => {
 
             let parameters = {
                 queryName: "user_get",
-                data: {},
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+
+        set: (context, payload) => {
+
+            let parameters = {
+                queryName: "user_set",
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+        del: (context, payload) => {
+
+            let parameters = {
+                queryName: "user_delete",
+                data: {
+                    id: payload.id
+                },
             };
 
             context.dispatch('query/send', parameters, { root: true })

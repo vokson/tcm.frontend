@@ -39,6 +39,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 105:
+            return {
+                title: "Ошибка авторизации - 105",
+                text: "Некорректный новый пароль",
+                type: "error"
+            }
+
         case 201:
             return {
                 title: "Ошибка Администрирования - 201",
@@ -144,6 +151,49 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 501:
+            return {
+                title: "Ошибка Списка Пользователей - 501",
+                text: "Ошибка в поле \"Номер записи\"",
+                type: "error"
+            }
+
+        case 502:
+            return {
+                title: "Ошибка Списка Пользователей - 502",
+                text: "Ошибка в поле \"E-mail\"",
+                type: "error"
+            }
+
+        case 503:
+            return {
+                title: "Ошибка Списка Пользователей - 503",
+                text: "Ошибка в поле \"Surname\"",
+                type: "error"
+            }
+
+        case 504:
+            return {
+                title: "Ошибка Списка Пользователей - 504",
+                text: "Ошибка в поле \"Name\"",
+                type: "error"
+            }
+
+        case 505:
+            return {
+                title: "Ошибка Списка Пользователей - 505",
+                text: "Ошибка в поле \"Role\"",
+                type: "error"
+            }
+
+        case 506:
+            return {
+                title: "Ошибка Списка Пользователей - 506",
+                text: "Ошибка в поле \"Active\"",
+                type: "error"
+            }
+
+
         case "E_AUTH_001":
             return {
                 text: "Добро пожаловать !!!",
@@ -156,6 +206,12 @@ let getRusText = function (code) {
                 type: "warn"
             }
 
+        case "E_AUTH_003":
+            return {
+                text: "Новый пароль сохранен",
+                type: "success"
+            }
+
         case "E_RESPONSE_001":
             return {
                 title: "Ошибка обработчика ответов",
@@ -163,7 +219,7 @@ let getRusText = function (code) {
                 type: "error"
             }
 
-        case "E_ADMIN_001":
+        case "E_SETTING_001":
             return {
                 text: "Настройки сохранены",
                 type: "success"
@@ -211,6 +267,19 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_USER_001":
+            return {
+                text: "Пользователь сохранен",
+                type: "success"
+            }
+
+        case "E_USER_002":
+            return {
+                text: "Пользователь удален",
+                type: "success"
+            }
+
+
         default:
             return {
                 title: "Ошибка Уведомления",
@@ -249,6 +318,13 @@ let getEngText = function (code) {
             return {
                 title: "Authentication Error - 104",
                 text: "Permission denied",
+                type: "error"
+            }
+
+        case 105:
+            return {
+                title: "Authentication Error - 105",
+                text: "Incorrect new password",
                 type: "error"
             }
 
@@ -357,6 +433,48 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 501:
+            return {
+                title: "Title Error - 501",
+                text: "Wrong input \"ID\"",
+                type: "error"
+            }
+
+        case 502:
+            return {
+                title: "Title Error - 502",
+                text: "Wrong input \"E-mail\"",
+                type: "error"
+            }
+
+        case 503:
+            return {
+                title: "Title Error - 503",
+                text: "Wrong input \"Surname\"",
+                type: "error"
+            }
+
+        case 504:
+            return {
+                title: "Title Error - 504",
+                text: "Wrong input \"Name\"",
+                type: "error"
+            }
+
+        case 505:
+            return {
+                title: "Title Error - 505",
+                text: "Wrong input \"Role\"",
+                type: "error"
+            }
+
+        case 506:
+            return {
+                title: "Title Error - 506",
+                text: "Wrong input \"Active\"",
+                type: "error"
+            }
+
 
         case "E_AUTH_001":
             return {
@@ -370,6 +488,12 @@ let getEngText = function (code) {
                 type: "warn"
             }
 
+        case "E_AUTH_003":
+            return {
+                text: "New password has been saved",
+                type: "success"
+            }
+
         case "E_RESPONSE_001":
             return {
                 title: "Response Error",
@@ -377,7 +501,7 @@ let getEngText = function (code) {
                 type: "error"
             }
 
-        case "E_ADMIN_001":
+        case "E_SETTING_001":
             return {
                 text: "Setting have been saved",
                 type: "success"
@@ -425,6 +549,19 @@ let getEngText = function (code) {
                 type: "success"
             }
 
+        case "E_USER_001":
+            return {
+                text: "User has been saved",
+                type: "success"
+            }
+
+        case "E_USER_002":
+            return {
+                text: "User has been deleted",
+                type: "success"
+            }
+
+
         default:
             return {
                 title: "Notification Error",
@@ -465,7 +602,7 @@ export default {
             state.text = text;
             state.type = type;
             state.show = true;
-            // 12
+            // 123
         },
 
         disableNotify (state) {

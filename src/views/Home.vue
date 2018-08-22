@@ -62,8 +62,61 @@
           <p>{{role}}</p>
         </div>
       </div>
+      <div v-if="isDefaultPassword === true" class="row">
+        <div class="col-5">
+          <span v-if="language === 'RUS'" class="badge badge-danger">У вас стандартный пароль. Смените его.</span>
+          <span v-else-if="language === 'ENG'" class="badge badge-danger">You have default password. Change it.</span>
+
+          <!-- <p v-if="language === 'RUS'">У вас стандартный пароль. Смените его.</p> -->
+          <!-- <p v-else-if="language === 'ENG'">You have default password. Change it.</p> -->
+        </div>
+      </div>
 
     </div>
+
+    <div class="container">
+      <div class="row">
+        <h5 v-if="language === 'RUS'">Сменить пароль (не менее 4-х символов, без пробелов)</h5>
+        <h5 v-else-if="language === 'ENG'">Change password (not less than 4 symbols, without spaces)</h5>
+      </div>
+
+      <div class="row">
+        <div class="col-5">
+          <p v-if="language === 'RUS'">Новый пароль:</p>
+          <p v-else-if="language === 'ENG'">New password:</p>
+        </div>
+        <div class="col-2">
+          <input type="password" v-model="new_password_1" />
+        </div>
+        <div class="col-1">
+          <span v-if="isNewPasswordOk_1 === true" class="badge badge-success">OK</span>
+          <span v-else class="badge badge-danger">FAIL</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-5">
+          <p v-if="language === 'RUS'">Новый пароль еще раз:</p>
+          <p v-else-if="language === 'ENG'">New password again:</p>
+        </div>
+        <div class="col-2">
+          <input type="password" v-model="new_password_2" />
+        </div>
+        <div class="col-1">
+          <span v-if="isNewPasswordOk_2 === true" class="badge badge-success">OK</span>
+          <span v-else class="badge badge-danger">FAIL</span>
+        </div>
+      </div>
+
+      <div v-if="isNewPasswordOk_1 === true && isNewPasswordOk_2 === true" class="row">
+        <div class="col-1">
+          <button v-if="language === 'RUS'" type="button" class="btn btn-danger" v-on:click="changePassword">Сохранить</button>
+          <button v-else-if="language === 'ENG'" type="button" class="btn btn-danger" v-on:click="changePassword">Save</button>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
@@ -75,7 +128,9 @@ export default {
   data: function () {
     return {
       selected: "",
-      choose_language: ""
+      choose_language: "",
+      new_password_1: "",
+      new_password_2: ""
     };
   },
 
@@ -86,6 +141,18 @@ export default {
   computed: {
     language: function () {
       return this.$store.state.language;
+    },
+
+    isNewPasswordOk_1: function () {
+      return (this.new_password_1.indexOf(" ") != -1 || this.new_password_1.length < 4) ? false : true;
+    },
+
+    isNewPasswordOk_2: function () {
+      return ((this.new_password_2 === this.new_password_1) && (this.isNewPasswordOk_1 === true)) ? true : false;
+    },
+
+    isDefaultPassword: function () {
+      return this.$store.state.user.isDefaultPassword;
     },
 
     email: function () {
@@ -110,7 +177,17 @@ export default {
     choose_language: function (newLang) {
       this.$store.commit('setLanguage', newLang)
     },
+
+  },
+
+  methods: {
+    changePassword: function () {
+      this.$store.dispatch('auth/changePassword', {
+        new_password: window.$sha256(this.new_password_1)
+      });
+    },
   }
+
 };
 </script>
 
