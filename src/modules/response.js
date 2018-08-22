@@ -25,6 +25,7 @@ export default {
                 case "role_check_engineer":
                 case "role_check_pm":
                 case "role_check_admin":
+
                     break;
 
                 case "setting_get":
@@ -143,7 +144,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_LOG_001", { root: true })
-                context.dispatch('log/getItems', {}, { root: true });
+                context.dispatch('log/getItems', context.rootGetters['log/givePreviousSearch'], { root: true });
             }
 
         },
@@ -243,6 +244,7 @@ export default {
             }
 
         },
+
 
 
 

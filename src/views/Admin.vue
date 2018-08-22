@@ -15,6 +15,10 @@
         <h4>Edit Statuses</h4>
       </b-nav-item>
 
+      <b-nav-item v-on:click="getDatabaseBackup">
+        <h4>Database Backup</h4>
+      </b-nav-item>
+
     </b-nav>
 
   </div>
@@ -28,6 +32,12 @@ export default {
   data: function () {
     return {};
   },
+
+  methods: {
+    getDatabaseBackup: function () {
+      this.$store.dispatch("service/getDatabaseBackup");
+    }
+  }
 
 };
 </script>

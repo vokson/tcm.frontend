@@ -4,6 +4,8 @@ let urls = {
     auth_check_token: "/auth/check_token",
     auth_change_password: "/auth/change_password",
 
+    service_database_backup: "/service/database/backup",
+
     role_check_guest: "/test_guest",
     role_check_engineer: "/test_engineer",
     role_check_pm: "/test_pm",
@@ -46,6 +48,7 @@ export default {
             let query_name = payload.queryName
 
             let responseFunction = function (response) {
+
                 // console.log(query_name);
                 response.data.queryName = query_name;
                 context.dispatch('response/use', response.data, { root: true });
@@ -57,6 +60,31 @@ export default {
             window.$axios({
                 url: urls[payload.queryName],
                 data: data
+            })
+                .then(responseFunction)
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
+        sendInOrderToGetFile: (context, payload) => {
+
+            let data = payload.data
+            data.access_token = context.rootState.user.access_token;
+
+            let responseFunction = function (response) {
+
+                let filename = response.headers['content-filename'];
+                window.$download(response.data, filename);
+            };
+
+            window.$axios({
+                url: urls[payload.queryName],
+                data: data,
+                headers: {
+                    'Accept': '*/* ',
+                },
+                responseType: 'blob'
             })
                 .then(responseFunction)
                 .catch(function (error) {

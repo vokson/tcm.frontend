@@ -134,7 +134,7 @@
         </thead>
         <tbody>
 
-          <tr>
+          <tr v-on:keyup.enter.prevent="getItems">
             <td></td>
             <td class="td-date">
               <datepicker v-model="search.date" :format="date_format" :bootstrap-styling="true" :language="languageForDatePicker"></datepicker>
@@ -152,9 +152,6 @@
             <td class="text-center">{{item.from}}</td>
             <td v-html="item.what"></td>
             <td class="text-center">{{item.to}}</td>
-            <!-- <td> -->
-            <!-- <button type="button" class="btn" :value="item.id"></button> -->
-            <!-- </td> -->
           </tr>
 
         </tbody>

@@ -10,6 +10,7 @@ import Datepicker from 'vuejs-datepicker';
 import { VueEditor } from 'vue2-editor';
 import axios from 'axios'
 import sha256 from 'sha256'
+import fileDownload from 'js-file-download'
 
 Vue.use(VueCookies);
 Vue.use(Notifications)
@@ -45,7 +46,9 @@ new Vue({
 
 window.$axios = axios.create({
   baseURL: "http://tcm.api/api",
-  method: 'post'
+  method: 'post',
+
 });
 
 window.$sha256 = sha256
+window.$download = fileDownload

@@ -2,7 +2,14 @@ export default {
     namespaced: true,
 
     state: {
-        items: null
+        items: null,
+        previousSearch: {
+            to: "",
+            from: "",
+            date: "",
+            title: "",
+            what: ""
+        }
     },
 
     getters: {
@@ -10,9 +17,9 @@ export default {
             return state.items;
         },
 
-        // userId: function ({ rootState }) {
-        //     return rootState.user.id;
-        // }
+        givePreviousSearch: function (state) {
+            return state.previousSearch;
+        }
     },
 
     mutations: {
@@ -30,7 +37,9 @@ export default {
                 data: payload,
             };
 
-            context.dispatch('query/send', parameters, { root: true })
+
+            context.dispatch('query/send', parameters, { root: true });
+            context.state.previousSearch = payload;
         },
 
         setItem: (context, payload) => {
