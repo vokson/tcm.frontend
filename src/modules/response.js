@@ -153,7 +153,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_LOG_002", { root: true })
-                context.dispatch('log/getItems', {}, { root: true });
+                context.dispatch('log/getItems', context.rootGetters['log/givePreviousSearch'], { root: true });
             }
 
         },
@@ -170,7 +170,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_TITLE_001", { root: true })
-                context.dispatch('title/get', {}, { root: true });
+                context.dispatch('title/get', context.rootGetters['title/givePreviousSearch'], { root: true });
             }
 
         },
@@ -179,7 +179,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_TITLE_002", { root: true })
-                context.dispatch('title/get', {}, { root: true });
+                context.dispatch('title/get', context.rootGetters['title/givePreviousSearch'], { root: true });
             }
 
         },
@@ -196,7 +196,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_USER_001", { root: true })
-                context.dispatch('users/get', {}, { root: true });
+                context.dispatch('users/get', context.rootGetters['users/givePreviousSearch'], { root: true });
             }
 
         },
@@ -205,7 +205,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_USER_002", { root: true })
-                context.dispatch('users/get', {}, { root: true });
+                context.dispatch('users/get', context.rootGetters['users/givePreviousSearch'], { root: true });
             }
 
         },
@@ -222,7 +222,6 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_STATUS_001", { root: true })
-
             }
 
         },

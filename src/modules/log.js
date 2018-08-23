@@ -3,13 +3,7 @@ export default {
 
     state: {
         items: null,
-        previousSearch: {
-            to: "",
-            from: "",
-            date: "",
-            title: "",
-            what: ""
-        }
+        previousSearch: {}
     },
 
     getters: {
@@ -37,9 +31,8 @@ export default {
                 data: payload,
             };
 
-
-            context.dispatch('query/send', parameters, { root: true });
             context.state.previousSearch = payload;
+            context.dispatch('query/send', parameters, { root: true });
         },
 
         setItem: (context, payload) => {

@@ -113,7 +113,7 @@
         </thead>
         <tbody>
 
-          <tr class="text-center">
+          <tr v-on:keyup.enter.prevent="getItems" class="text-center">
             <td></td>
             <td><input type="text" v-model="search.name" placeholder="Титул" /></td>
             <td><input type="text" v-model="search.status" placeholder="Статус" /></td>

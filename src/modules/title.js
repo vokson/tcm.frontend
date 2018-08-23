@@ -2,12 +2,17 @@ export default {
     namespaced: true,
 
     state: {
-        items: null
+        items: null,
+        previousSearch: {}
     },
 
     getters: {
         give: function (state) {
             return state.items;
+        },
+
+        givePreviousSearch: function (state) {
+            return state.previousSearch;
         }
     },
 
@@ -38,7 +43,8 @@ export default {
                 data: payload,
             };
 
-            context.dispatch('query/send', parameters, { root: true })
+            context.state.previousSearch = payload;
+            context.dispatch('query/send', parameters, { root: true });
         },
 
         set: (context, payload) => {

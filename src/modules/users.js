@@ -3,12 +3,17 @@ export default {
 
     state: {
         items: null,
-        userId: null
+        userId: null,
+        previousSearch: {}
     },
 
     getters: {
         give: function (state) {
             return state.items;
+        },
+
+        givePreviousSearch: function (state) {
+            return state.previousSearch;
         }
     },
 
@@ -28,6 +33,7 @@ export default {
                 data: payload,
             };
 
+            context.state.previousSearch = payload;
             context.dispatch('query/send', parameters, { root: true })
         },
 

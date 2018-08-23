@@ -111,7 +111,7 @@
         </thead>
         <tbody>
 
-          <tr class="text-center">
+          <tr v-on:keyup.enter.prevent="getItems" class="text-center">
             <td></td>
             <td><input type="text" v-model="search.email" /></td>
             <td><input type="text" v-model="search.surname" /></td>
