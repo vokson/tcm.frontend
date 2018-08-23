@@ -45,7 +45,7 @@ new Vue({
 }).$mount('#app');
 
 window.$axios = axios.create({
-  baseURL: "http://tcm.api/api",
+  baseURL: "http://192.168.14.15:81/api",
   method: 'post',
 
 });
