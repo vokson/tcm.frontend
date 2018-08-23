@@ -45,7 +45,7 @@ new Vue({
 }).$mount('#app');
 
 window.$axios = axios.create({
-  baseURL: "http://192.168.14.15:81/api",
+  baseURL: "http://192.168.14.15:82/api",
   method: 'post',
 
 });
