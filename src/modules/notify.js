@@ -81,6 +81,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 206:
+            return {
+                title: "Ошибка Базы Данных - 206",
+                text: "Попытка удаления связанного объекта. Нарушение целостности базы данных",
+                type: "error"
+            }
+
         case 301:
             return {
                 title: "Ошибка Журнала Событий - 301",
@@ -360,6 +367,13 @@ let getEngText = function (code) {
             return {
                 title: "Admin Error - 205",
                 text: "Wrong parameter id in request",
+                type: "error"
+            }
+
+        case 206:
+            return {
+                title: "Admin Error - 206",
+                text: "Item to be deleted is used in other place of database",
                 type: "error"
             }
 

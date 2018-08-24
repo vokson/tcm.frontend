@@ -8,6 +8,8 @@ let engineer = [
     '/log'
 ];
 
+let group_leader = [];
+
 let pm = [
     '/title'
 ];
@@ -22,8 +24,9 @@ let admin = [
 let permissions = {
     guest: guest,
     engineer: guest.concat(engineer),
-    pm: guest.concat(engineer).concat(pm),
-    admin: guest.concat(engineer).concat(pm).concat(admin)
+    group_leader: guest.concat(engineer).concat(group_leader),
+    pm: guest.concat(engineer).concat(group_leader).concat(pm),
+    admin: guest.concat(engineer).concat(group_leader).concat(pm).concat(admin)
 }
 
 
