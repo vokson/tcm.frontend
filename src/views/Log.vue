@@ -111,6 +111,7 @@
 
     <br/>
     <div class="row">
+      <input type="checkbox" v-model="search.is_only_last" title="Только последние записи / Only last rows">
       <div class="col">
         <button type="button" class="btn btn-block btn-success" v-on:click="getItems">
           {{ (language == 'RUS') ? 'Найти' : 'Search' }}
@@ -197,6 +198,7 @@ export default {
         what: "",
         title: "",
         date: null,
+        is_only_last: true
       }
 
     };
@@ -262,6 +264,7 @@ export default {
         from: this.search.from,
         title: this.search.title,
         what: this.search.what,
+        is_only_last: this.search.is_only_last,
         date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
       });
     },
