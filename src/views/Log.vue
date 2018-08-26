@@ -63,10 +63,10 @@
             <label v-else-if="language === 'ENG'">Title</label>
           </div>
           <div class="col-9">
-
-            <select class="form-control" v-bind:value="targetItem.title" v-on:change="targetItem.title = $event.target.value">
+            <input type="text" v-model="targetItem.title" class="form-control" />
+            <!-- <select class="form-control" v-bind:value="targetItem.title" v-on:change="targetItem.title = $event.target.value">
               <option v-for="item in titles" :key="item.id" v-bind:value="item.id">{{item.name}}</option>
-            </select>
+            </select> -->
           </div>
         </div>
 
@@ -177,6 +177,7 @@ export default {
       ru: ru,
       isNewItemMayBeAdded: true,
 
+
       customEditorToolbar: [
         ['bold', 'underline'],
         // [{ 'list': 'ordered' }, { 'list': 'bullet' }],
@@ -188,7 +189,7 @@ export default {
         to: 0,
         from: 0,
         what: "",
-        title: 0,
+        title: "",
         date: new Date()
       },
 
@@ -211,7 +212,7 @@ export default {
       this.getUsers();
       this.targetItem.from = this.$store.state.user.id;
       this.targetItem.to = 0;
-      this.targetItem.title = 0;
+      // this.targetItem.title = 0;
     })
   },
 
@@ -239,7 +240,7 @@ export default {
 
     countOfItems: function () {
       return (this.items == null) ? 0 : this.items.length;
-    }
+    },
 
   },
 
@@ -269,22 +270,47 @@ export default {
       });
     },
 
+    getTargetItemTitleId: function () {
+      //    Ищем id от title
+      let localTitle = this.titles.filter(obj => {
+        return obj.name === this.targetItem.title
+      });
+
+      return (localTitle.length > 0) ? localTitle[0].id : 0;
+    },
+
     addItem: function () {
+
+      let titleId = this.getTargetItemTitleId();
+
+      if (titleId == 0) {
+        this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
+        return;
+      }
+
       this.$store.dispatch('log/setItem', {
         to: this.targetItem.to,
         from: this.targetItem.from,
-        title: this.targetItem.title,
+        title: titleId,
         what: this.targetItem.what,
         date: Math.round(this.targetItem.date.getTime() / 1000)
       });
     },
 
     modifyItem: function () {
+
+      let titleId = this.getTargetItemTitleId();
+
+      if (titleId == 0) {
+        this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
+        return;
+      }
+
       this.$store.dispatch('log/setItem', {
         id: this.targetItem.id,
         to: this.targetItem.to,
         from: this.targetItem.from,
-        title: this.targetItem.title,
+        title: titleId,
         what: this.targetItem.what,
         date: Math.round(this.targetItem.date.getTime() / 1000)
       });
@@ -310,13 +336,14 @@ export default {
         return (obj.surname + ' ' + obj.name) === itemToBeModified.from
       })[0].id;
 
-      let localTitle = this.titles.filter(obj => {
-        return obj.name === itemToBeModified.title
-      })[0].id;
+      // let localTitle = this.titles.filter(obj => {
+      //   return obj.name === itemToBeModified.title
+      // })[0].id;
 
       this.targetItem.id = itemToBeModified.id;
 
-      this.targetItem.title = localTitle;
+      // this.targetItem.title = localTitle;
+      this.targetItem.title = itemToBeModified.title;
       this.targetItem.to = localTo;
       this.targetItem.from = localFrom;
       this.targetItem.what = itemToBeModified.what;

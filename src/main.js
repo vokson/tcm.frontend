@@ -38,15 +38,15 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-new Vue({
+window.$app = new Vue({
   store,
   router,
   render: h => h(App)
 }).$mount('#app');
 
 window.$axios = axios.create({
-  // baseURL: "http://192.168.14.15:82/api",
-  baseURL: "http://tcm.api/api",
+  baseURL: "http://192.168.14.15:82/api",
+  // baseURL: "http://tcm.api/api",
   method: 'post',
 
 });

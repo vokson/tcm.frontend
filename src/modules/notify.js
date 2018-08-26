@@ -616,7 +616,7 @@ export default {
             state.text = text;
             state.type = type;
             state.show = true;
-            // 123
+            // 12
         },
 
         disableNotify (state) {
