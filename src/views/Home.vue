@@ -115,6 +115,27 @@
         </div>
       </div>
 
+      <div class="row">
+        <br/>
+      </div>
+
+      <div class="row">
+
+        <h5 v-if="language === 'RUS'">История изменений</h5>
+        <h5 v-else-if="language === 'ENG'">History of versions</h5>
+      </div>
+
+      <div class="row actual_version_color">
+        <div class="col-1">
+          <p>1.0.0</p>
+        </div>
+
+        <div class="col-4">
+          <p>Первый пробный релиз / The first deployment</p>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -194,5 +215,9 @@ export default {
 <style>
 .container {
   margin-top: 5%;
+}
+
+.actual_version_color {
+  color: red;
 }
 </style>
