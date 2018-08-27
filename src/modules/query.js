@@ -6,11 +6,6 @@ let urls = {
 
     service_database_backup: "/service/database/backup",
 
-    role_check_guest: "/test_guest",
-    role_check_engineer: "/test_engineer",
-    role_check_pm: "/test_pm",
-    role_check_admin: "/test_admin",
-
     setting_get: "/settings/get",
     setting_set: "/settings/set",
 
@@ -24,6 +19,7 @@ let urls = {
 
     user_get: "/users/get",
     user_set: "/users/set",
+    user_set_default_password: "/users/set/default/password",
     user_delete: "/users/delete",
 
     status_get: "/statuses/get",

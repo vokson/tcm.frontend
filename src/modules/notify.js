@@ -286,6 +286,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_USER_003":
+            return {
+                text: "Пользователю установлен пароль по умолчанию",
+                type: "success"
+            }
+
 
         default:
             return {
@@ -569,9 +575,16 @@ let getEngText = function (code) {
                 type: "success"
             }
 
+
         case "E_USER_002":
             return {
                 text: "User has been deleted",
+                type: "success"
+            }
+
+        case "E_USER_003":
+            return {
+                text: "Default password has been applied to user",
                 type: "success"
             }
 

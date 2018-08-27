@@ -70,13 +70,18 @@
 
         <div v-else class="row">
           <div class="col-5" />
-          <div class="col-7">
+          <div class="col-12">
             <div class="row">
               <div class="col">
                 <button type="button" class="btn btn-block btn-warning" v-on:click="modifyItem">Modify</button>
               </div>
               <div class="col">
                 <button type="button" class="btn btn-block btn-danger" v-on:click="deleteItem">Delete</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-block btn-danger" v-on:click="setDefaultPassword">Set Default Password</button>
               </div>
             </div>
           </div>
@@ -206,6 +211,12 @@ export default {
         name: this.targetItem.name,
         role: this.targetItem.role,
         active: this.targetItem.active,
+      });
+    },
+
+    setDefaultPassword: function () {
+      this.$store.dispatch('users/setDefaultPassword', {
+        id: this.targetItem.id
       });
     },
 
