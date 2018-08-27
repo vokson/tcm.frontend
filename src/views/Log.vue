@@ -71,7 +71,12 @@
         </div>
 
         <div v-if="isNewItemMayBeAdded == true" class="row">
-          <div class="col-3" />
+          <div class="col-3">
+            <button type="button" class="btn btn-warning" v-on:click="switchUsers">
+              <img src="./img/reverse.png" width="20" height="20">
+            </button>
+          </div>
+
           <div class="col-9">
             <button type="button" class="btn btn-block btn-primary" v-on:click="addItem">
               {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
@@ -353,6 +358,12 @@ export default {
       this.targetItem.date = date;
 
       this.isNewItemMayBeAdded = false;
+    },
+
+    switchUsers: function () {
+      let temp = this.targetItem.to;
+      this.targetItem.to = this.targetItem.from;
+      this.targetItem.from = temp;
     }
   }
 };

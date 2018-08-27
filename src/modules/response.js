@@ -25,7 +25,6 @@ export default {
                 case "role_check_engineer":
                 case "role_check_pm":
                 case "role_check_admin":
-
                     break;
 
                 case "setting_get":
@@ -60,6 +59,9 @@ export default {
                     break;
                 case "user_set":
                     context.dispatch("user_set", payload);
+                    break;
+                case "user_set_default_password":
+                    context.dispatch("user_set_default_password", payload);
                     break;
                 case "user_delete":
                     context.dispatch("user_delete", payload);
@@ -125,7 +127,7 @@ export default {
         setting_set: (context, payload) => {
 
             if (payload.success == 1) {
-                //dfs
+                //dfs1
                 context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
 
             }
@@ -197,6 +199,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_USER_001", { root: true })
                 context.dispatch('users/get', context.rootGetters['users/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        user_set_default_password: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_USER_003", { root: true })
             }
 
         },

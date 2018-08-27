@@ -48,6 +48,16 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
+        setDefaultPassword: (context, payload) => {
+
+            let parameters = {
+                queryName: "user_set_default_password",
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
         del: (context, payload) => {
 
             let parameters = {
