@@ -5,14 +5,13 @@ let guest = [
 ];
 
 let engineer = [
-    '/log'
+    '/log',
+    '/title'
 ];
 
 let group_leader = [];
 
-let pm = [
-    '/title'
-];
+let pm = [];
 
 let admin = [
     '/admin',
