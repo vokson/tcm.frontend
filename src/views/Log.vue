@@ -72,9 +72,9 @@
 
         <div v-if="isNewItemMayBeAdded == true" class="row">
           <div class="col-3">
-            <button type="button" class="btn btn-warning" v-on:click="switchUsers">
-              <img src="./img/reverse.png" width="20" height="20">
-            </button>
+            <!-- <button type="button" class="btn btn-warning" v-on:click="switchUsers" title="От <> Кому / From <> To"> -->
+            <img src="./img/reverse.jpg" width="40" height="40" v-on:click="switchUsers" title="От <> Кому / From <> To">
+            <!-- </button> -->
           </div>
 
           <div class="col-9">
@@ -85,7 +85,13 @@
         </div>
 
         <div v-else class="row">
-          <div class="col-3" />
+          <div class="col-3">
+            <!-- <button type="button" class="btn btn-warning" v-on:click="resetToAdd"> -->
+            <!--  -->
+            <img src="./img/plus.png" width="40" height="40" v-on:click="resetToAdd" title="Вернуться к Добавить / Back to ADD">
+            <!-- </button> -->
+          </div>
+
           <div class="col-9">
             <div class="row">
               <div class="col">
@@ -364,6 +370,11 @@ export default {
       let temp = this.targetItem.to;
       this.targetItem.to = this.targetItem.from;
       this.targetItem.from = temp;
+    },
+
+    resetToAdd: function () {
+      this.targetItem.id = null;
+      this.isNewItemMayBeAdded = true;
     }
   }
 };
