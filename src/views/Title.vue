@@ -238,8 +238,8 @@ export default {
         name: this.targetItem.name,
         status: this.targetItem.status,
         predecessor: this.targetItem.predecessor,
-        description: this.search.description,
-        volume: this.search.volume,
+        description: this.targetItem.description,
+        volume: this.targetItem.volume,
       });
     },
 
@@ -249,8 +249,8 @@ export default {
         name: this.targetItem.name,
         status: this.targetItem.status,
         predecessor: this.targetItem.predecessor,
-        description: this.search.description,
-        volume: this.search.volume,
+        description: this.targetItem.description,
+        volume: this.targetItem.volume,
       });
     },
 
