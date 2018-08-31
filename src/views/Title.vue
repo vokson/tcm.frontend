@@ -51,12 +51,31 @@
           <div class="col-7">
             <input type="text" class="form-control" v-model="targetItem.predecessor">
           </div>
+        </div>
 
-          <!-- <div class="col-7">
-            <select class="form-control" v-bind:value="targetItem.predecessor" v-on:change="targetItem.predecessor = $event.target.value">
-              <option v-for="item in items" :key="item.id" v-bind:value="item.id">{{item.name}}</option>
-            </select>
-          </div> -->
+        <div class="row">
+          <div class="col-5">
+
+            <label v-if="language === 'RUS'">Описание</label>
+            <label v-else-if="language === 'ENG'">Description</label>
+          </div>
+
+          <div class="col-7">
+            <input type="text" class="form-control" v-model="targetItem.description">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-5">
+
+            <label v-if="language === 'RUS'">Объем</label>
+            <label v-else-if="language === 'ENG'">Volume</label>
+          </div>
+
+          <div class="col-7">
+            <input type="text" class="form-control" v-model="targetItem.volume">
+          </div>
+
         </div>
 
         <div v-if="isNewItemMayBeAdded == true" class="row">
@@ -109,6 +128,8 @@
             <th>Title</th>
             <th>Status</th>
             <th>Predecessor</th>
+            <th>Description</th>
+            <th>Volume</th>
           </tr>
         </thead>
         <tbody>
@@ -118,6 +139,8 @@
             <td><input type="text" v-model="search.name" placeholder="Титул" /></td>
             <td><input type="text" v-model="search.status" placeholder="Статус" /></td>
             <td><input type="text" v-model="search.predecessor" placeholder="Предшественник" /></td>
+            <td><input type="text" v-model="search.description" placeholder="Описание" /></td>
+            <td><input type="text" v-model="search.volume" placeholder="Объем" /></td>
           </tr>
 
           <tr class="text-center" v-for="item in items" :key="item.id" v-on:click="editItem(item.id)">
@@ -125,6 +148,8 @@
             <td>{{item.name}}</td>
             <td>{{item.status}}</td>
             <td>{{item.predecessor}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.volume}}</td>
           </tr>
 
         </tbody>
@@ -148,13 +173,17 @@ export default {
         id: null,
         name: "",
         status: 0,
-        predecessor: ""
+        predecessor: "",
+        description: "",
+        volume: ""
       },
 
       search: {
         name: "",
         status: "",
-        predecessor: ""
+        predecessor: "",
+        description: "",
+        volume: ""
       }
 
     };
@@ -165,7 +194,6 @@ export default {
     this.$nextTick(function () {
       this.getStatuses();
       this.targetItem.status = 0;
-      // this.targetItem.predecessor = 0;
     })
 
   },
@@ -200,6 +228,8 @@ export default {
         name: this.search.name,
         status: this.search.status,
         predecessor: this.search.predecessor,
+        description: this.search.description,
+        volume: this.search.volume,
       });
     },
 
@@ -207,7 +237,9 @@ export default {
       this.$store.dispatch('title/set', {
         name: this.targetItem.name,
         status: this.targetItem.status,
-        predecessor: this.targetItem.predecessor
+        predecessor: this.targetItem.predecessor,
+        description: this.targetItem.description,
+        volume: this.targetItem.volume,
       });
     },
 
@@ -216,13 +248,15 @@ export default {
         id: this.targetItem.id,
         name: this.targetItem.name,
         status: this.targetItem.status,
-        predecessor: this.targetItem.predecessor
+        predecessor: this.targetItem.predecessor,
+        description: this.targetItem.description,
+        volume: this.targetItem.volume,
       });
     },
 
     deleteItem: function () {
       this.$store.dispatch('title/del', {
-        id: this.targetItem.id,
+        id: this.targetItem.id
       });
     },
 
@@ -236,18 +270,12 @@ export default {
         return obj.name === itemToBeModified.status
       })[0].id;
 
-      // let localPredecessor = 0;
-      // if (itemToBeModified.predecessor !== "") {
-      //   localPredecessor = this.items.filter(obj => {
-      //     return obj.name === itemToBeModified.predecessor
-      //   })[0].id;
-      // }
-
       this.targetItem.id = itemToBeModified.id;
       this.targetItem.name = itemToBeModified.name;
       this.targetItem.status = localStatus;
       this.targetItem.predecessor = itemToBeModified.predecessor;
-      // this.targetItem.predecessor = localPredecessor;
+      this.targetItem.description = itemToBeModified.description;
+      this.targetItem.volume = itemToBeModified.volume;
 
       this.isNewItemMayBeAdded = false;
     }
