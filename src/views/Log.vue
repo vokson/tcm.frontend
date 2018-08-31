@@ -375,6 +375,7 @@ export default {
     resetToAdd: function () {
       this.targetItem.id = null;
       this.isNewItemMayBeAdded = true;
+      this.targetItem.date = new Date();
     }
   }
 };

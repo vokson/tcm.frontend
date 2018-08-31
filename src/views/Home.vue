@@ -127,6 +127,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.3.1</p>
+        </div>
+        <div class="col-4">
+          <p>Исправлена ошибка в назначении даты при переходе из редактирования в добавление в Log</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.3.0</p>
         </div>
         <div class="col-4">
