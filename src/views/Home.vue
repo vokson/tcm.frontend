@@ -127,6 +127,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.4.0</p>
+        </div>
+        <div class="col-4">
+          <p>Теперь пользователь с правами доступа "engineer" может изменять/удалять только свои записи в Log. Пользователь с правами доступа выше "engineer" может удалять/изменять любые записи.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.3.1</p>
         </div>
         <div class="col-4">
