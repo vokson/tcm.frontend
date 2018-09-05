@@ -36,7 +36,6 @@
           <div class="col-9">
             <select class="form-control" v-bind:value="targetItem.from" v-on:change="targetItem.from = $event.target.value">
               <option v-for="item in users" :key="item.id" v-bind:value="item.id">
-                <!-- <option v-for="item in users" :key="item.id" v-bind:value="item.id" v-bind:selected="item.isMe"> -->
                 {{item.surname}} {{item.name}}
               </option>
             </select>
@@ -64,17 +63,12 @@
           </div>
           <div class="col-9">
             <input type="text" v-model="targetItem.title" class="form-control" />
-            <!-- <select class="form-control" v-bind:value="targetItem.title" v-on:change="targetItem.title = $event.target.value">
-              <option v-for="item in titles" :key="item.id" v-bind:value="item.id">{{item.name}}</option>
-            </select> -->
           </div>
         </div>
 
         <div v-if="isNewItemMayBeAdded == true" class="row">
           <div class="col-3">
-            <!-- <button type="button" class="btn btn-warning" v-on:click="switchUsers" title="От <> Кому / From <> To"> -->
             <img src="./img/reverse.jpg" width="40" height="40" v-on:click="switchUsers" title="От <> Кому / From <> To">
-            <!-- </button> -->
           </div>
 
           <div class="col-9">
@@ -86,10 +80,7 @@
 
         <div v-else class="row">
           <div class="col-3">
-            <!-- <button type="button" class="btn btn-warning" v-on:click="resetToAdd"> -->
-            <!--  -->
             <img src="./img/plus.png" width="40" height="40" v-on:click="resetToAdd" title="Вернуться к Добавить / Back to ADD">
-            <!-- </button> -->
           </div>
 
           <div class="col-9">
@@ -112,8 +103,9 @@
 
       <div class="col-8">
         <div class="row">
-          <div class="col">
-            <editor v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
+          <div class="col" id="col-drop-area">
+            <editor v-if="isDragging == false" v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
+            <div v-else id="drop-area"> Drop Here / Бросай Сюда</div>
           </div>
         </div>
       </div>
@@ -187,6 +179,7 @@ export default {
       en: en,
       ru: ru,
       isNewItemMayBeAdded: true,
+      isDragging: false,
 
 
       customEditorToolbar: [
@@ -223,7 +216,42 @@ export default {
       this.getUsers();
       this.targetItem.from = this.$store.state.user.id;
       this.targetItem.to = 0;
-      // this.targetItem.title = 0;
+
+      // Очищаем установленные по умолчанию обработчики событий
+      let dropArea = document.getElementById('col-drop-area');
+
+      function preventDefaults (e) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+      });
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.startDragging, false)
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.stopDragging, false)
+      });
+
+      dropArea.addEventListener('drop', handleDrop, false)
+
+      function handleDrop (e) {
+        let dt = e.dataTransfer
+        let files = dt.files
+        handleFiles(files)
+      }
+
+      function handleFiles (files) {
+        files = [...files]
+        // initializeProgress(files.length) // <- Добавили эту строку
+        files.forEach(this.uploadFile)
+        // files.forEach(previewFile)
+      }
+
     })
   },
 
@@ -376,6 +404,18 @@ export default {
       this.targetItem.id = null;
       this.isNewItemMayBeAdded = true;
       this.targetItem.date = new Date();
+    },
+
+    startDragging: function () {
+      this.isDragging = true;
+    },
+
+    stopDragging: function () {
+      this.isDragging = false;
+    },
+
+    uploadFile: function (file, i) {
+      console.log(i + " : " + file);
     }
   }
 };
@@ -392,5 +432,18 @@ export default {
 
 .text-center {
   text-align: center;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  height: 200px;
+  /* font-family: sans-serif; */
+  margin-top: 40px;
+  padding-top: 80px;
+  text-align: center;
+  /* vertical-align: middle; */
+  font: 21pt bold arial;
+  color: gray;
 }
 </style>
