@@ -112,6 +112,34 @@
 
     </div>
 
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-8">
+
+        <div class="row" v-for="item in attachedFiles" :key="item.uin">
+          <div class="col-1">
+            <span v-if="item.uploadedSize >= item.actualSize" class="badge badge-success">OK</span>
+            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.actualSize*100)}}% </span>
+          </div>
+          <div class="col-7">
+            {{item.name}}
+          </div>
+          <div class="col-2">
+            {{formatBytes(item.actualSize)}}
+            <!-- <button type="button" class="btn btn-success btn-sm"> -->
+            <!-- Скачать -->
+            <!-- </button> -->
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-danger btn-sm">
+              Удалить
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <br/>
     <div class="row">
       <input type="checkbox" v-model="search.is_only_last" title="Только последние записи / Only last rows">
@@ -181,6 +209,13 @@ export default {
       isNewItemMayBeAdded: true,
       isDragging: false,
 
+      attachedFiles: [
+        {
+          name: "test",
+          actualSize: 100,
+          uploadedSize: 100
+        }
+      ],
 
       customEditorToolbar: [
         ['bold', 'underline'],
@@ -237,20 +272,13 @@ export default {
         dropArea.addEventListener(eventName, this.stopDragging, false)
       });
 
-      dropArea.addEventListener('drop', handleDrop, false)
+      ['drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.handleDrop, false)
+      });
 
-      function handleDrop (e) {
-        let dt = e.dataTransfer
-        let files = dt.files
-        handleFiles(files)
-      }
+      // dropArea.addEventListener('drop', handleDrop, false)
 
-      function handleFiles (files) {
-        files = [...files]
-        // initializeProgress(files.length) // <- Добавили эту строку
-        files.forEach(this.uploadFile)
-        // files.forEach(previewFile)
-      }
+
 
     })
   },
@@ -415,8 +443,78 @@ export default {
     },
 
     uploadFile: function (file, i) {
-      console.log(i + " : " + file);
+
+      let uin = this.guid();
+
+      this.attachedFiles.push({
+        uin: uin,
+        name: file.name,
+        actualSize: file.size,
+        uploadedSize: 0
+      });
+
+      var url = 'http://tcm.api/api/upload_file';
+      var xhr = new XMLHttpRequest();
+      var formData = new FormData();
+      xhr.open('POST', url, true);
+
+      let progressCallback = this.updateProgress.bind(this);
+
+      // Добавили следующие слушатели
+      xhr.upload.addEventListener("progress", function (e) {
+        progressCallback(uin, e.loaded, e.total)
+      });
+
+
+      xhr.addEventListener('readystatechange', function (e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          console.log("OK");
+        }
+        else if (xhr.readyState == 4 && xhr.status != 200) {
+          console.log("ERROR");
+        }
+      })
+      formData.append('test_file', file)
+      xhr.send(formData);
+
+    },
+
+    handleDrop: function (e) {
+      let dt = e.dataTransfer;
+      let files = dt.files;
+      files = [...files];
+      files.forEach(this.uploadFile);
+    },
+
+    formatBytes: function (bytes, decimals) {
+      if (bytes == 0) return '0 Bytes';
+      var k = 1024,
+        dm = decimals || 2,
+        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    },
+
+    guid: function () {
+      function s4 () {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    },
+
+    updateProgress: function (uin, uploadedBytes, totalBytes) {
+
+      this.attachedFiles.map(function (item) {
+        if (item.uin == uin) {
+          item.uploadedSize = uploadedBytes;
+          item.actualSize = totalBytes;
+        }
+      });
+
     }
+
   }
 };
 </script>
