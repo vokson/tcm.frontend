@@ -13,6 +13,11 @@ let urls = {
     log_get: "/logs/get",
     log_delete: "/logs/delete",
 
+    log_file_get: "/logs/file/get",
+    log_file_upload: "/logs/file/upload",
+    log_file_download: "/logs/file/download",
+    log_file_delete: "/logs/file/delete",
+
     title_get: "/titles/get",
     title_set: "/titles/set",
     title_delete: "/titles/delete",
@@ -70,7 +75,7 @@ export default {
 
             let responseFunction = function (response) {
 
-                let filename = response.headers['content-filename'];
+                let filename = decodeURIComponent(response.headers['content-filename']);
                 window.$download(response.data, filename);
             };
 

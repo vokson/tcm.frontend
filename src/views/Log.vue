@@ -118,20 +118,17 @@
 
         <div class="row" v-for="item in attachedFiles" :key="item.uin">
           <div class="col-1">
-            <span v-if="item.uploadedSize >= item.actualSize" class="badge badge-success">OK</span>
-            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.actualSize*100)}}% </span>
+            <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
+            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
           </div>
           <div class="col-7">
-            {{item.name}}
+            <a href="#" v-on:click="downloadFile(item.id)">{{item.original_name}}</a>
           </div>
           <div class="col-2">
-            {{formatBytes(item.actualSize)}}
-            <!-- <button type="button" class="btn btn-success btn-sm"> -->
-            <!-- Скачать -->
-            <!-- </button> -->
+            {{formatBytes(item.size)}}
           </div>
           <div class="col-2">
-            <button type="button" class="btn btn-danger btn-sm">
+            <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteFile(item.id)">
               Удалить
             </button>
           </div>
@@ -209,13 +206,13 @@ export default {
       isNewItemMayBeAdded: true,
       isDragging: false,
 
-      attachedFiles: [
-        {
-          name: "test",
-          actualSize: 100,
-          uploadedSize: 100
-        }
-      ],
+      // attachedFiles: [
+      //   {
+      //     name: "test",
+      //     actualSize: 100,
+      //     uploadedSize: 100
+      //   }
+      // ],
 
       customEditorToolbar: [
         ['bold', 'underline'],
@@ -277,9 +274,6 @@ export default {
       });
 
       // dropArea.addEventListener('drop', handleDrop, false)
-
-
-
     })
   },
 
@@ -309,6 +303,10 @@ export default {
       return (this.items == null) ? 0 : this.items.length;
     },
 
+    attachedFiles: function () {
+      return this.$store.getters['log_file/give'];
+    }
+
   },
 
   methods: {
@@ -334,6 +332,24 @@ export default {
         what: this.search.what,
         is_only_last: this.search.is_only_last,
         date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
+      });
+    },
+
+    getFiles: function () {
+      this.$store.dispatch('log_file/get', {
+        id: this.targetItem.id
+      });
+    },
+
+    deleteFile: function (file_id) {
+      this.$store.dispatch('log_file/delete', {
+        id: file_id
+      });
+    },
+
+    downloadFile: function (file_id) {
+      this.$store.dispatch('log_file/download', {
+        id: file_id
       });
     },
 
@@ -403,13 +419,7 @@ export default {
         return (obj.surname + ' ' + obj.name) === itemToBeModified.from
       })[0].id;
 
-      // let localTitle = this.titles.filter(obj => {
-      //   return obj.name === itemToBeModified.title
-      // })[0].id;
-
       this.targetItem.id = itemToBeModified.id;
-
-      // this.targetItem.title = localTitle;
       this.targetItem.title = itemToBeModified.title;
       this.targetItem.to = localTo;
       this.targetItem.from = localFrom;
@@ -420,6 +430,8 @@ export default {
       this.targetItem.date = date;
 
       this.isNewItemMayBeAdded = false;
+
+      this.getFiles();
     },
 
     switchUsers: function () {
@@ -444,16 +456,16 @@ export default {
 
     uploadFile: function (file, i) {
 
-      let uin = this.guid();
+      // let uin = this.guid();
 
-      this.attachedFiles.push({
-        uin: uin,
-        name: file.name,
-        actualSize: file.size,
-        uploadedSize: 0
-      });
+      // this.attachedFiles.push({
+      //   uin: uin,
+      //   name: file.name,
+      //   actualSize: file.size,
+      //   uploadedSize: 0
+      // });
 
-      var url = 'http://tcm.api/api/upload_file';
+      var url = 'http://tcm.api/api/logs/file/upload';
       var xhr = new XMLHttpRequest();
       var formData = new FormData();
       xhr.open('POST', url, true);
@@ -474,7 +486,8 @@ export default {
           console.log("ERROR");
         }
       })
-      formData.append('test_file', file)
+      formData.append('log_file', file);
+      formData.append('id', this.targetItem.id);
       xhr.send(formData);
 
     },

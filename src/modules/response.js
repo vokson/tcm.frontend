@@ -80,6 +80,22 @@ export default {
                     context.dispatch("status_delete", payload);
                     break;
 
+                case "log_file_get":
+                    context.dispatch("log_file_get", payload);
+                    break;
+
+                case "log_file_upload":
+                    context.dispatch("log_file_upload", payload);
+                    break;
+
+                case "log_file_download":
+                    context.dispatch("log_file_download", payload);
+                    break;
+
+                case "log_file_delete":
+                    context.dispatch("log_file_delete", payload);
+                    break;
+
 
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -254,6 +270,27 @@ export default {
 
         },
 
+        log_file_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('log_file/update', payload.items, { root: true });
+            }
+
+        },
+
+        log_file_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_STATUS_002", { root: true });
+
+                context.dispatch('log_file/get', {
+                    id: payload.log_id
+                }, { root: true });
+
+            }
+
+        },
 
 
 

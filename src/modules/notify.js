@@ -292,6 +292,18 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_FILE_001":
+            return {
+                text: "Файл сохранен",
+                type: "success"
+            }
+
+        case "E_FILE_002":
+            return {
+                text: "Файл удален",
+                type: "success"
+            }
+
 
         default:
             return {
@@ -585,6 +597,18 @@ let getEngText = function (code) {
         case "E_USER_003":
             return {
                 text: "Default password has been applied to user",
+                type: "success"
+            }
+
+        case "E_FILE_001":
+            return {
+                text: "File has been saved",
+                type: "success"
+            }
+
+        case "E_FILE_002":
+            return {
+                text: "File has been deleted",
                 type: "success"
             }
 
