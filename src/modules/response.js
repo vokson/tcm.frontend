@@ -284,9 +284,11 @@ export default {
 
                 context.dispatch('notify/showNotifyByCode', "E_FILE_002", { root: true });
 
-                context.dispatch('log_file/get', {
-                    log_id: payload.log_id
-                }, { root: true });
+                // context.dispatch('log_file/get', {
+                //     log_id: payload.log_id
+                // }, { root: true });
+
+                context.commit('log_file/deleteSuccess', payload.uin, { root: true });
 
             }
 
@@ -298,9 +300,12 @@ export default {
 
                 context.dispatch('notify/showNotifyByCode', "E_FILE_001", { root: true });
 
-                context.dispatch('log_file/get', {
-                    log_id: payload.log_id
-                }, { root: true });
+                // context.dispatch('log_file/get', {
+                //     log_id: payload.log_id
+                // }, { root: true });
+
+                context.commit('log_file/uploadSuccess', payload.uin, { root: true });
+
             }
 
         },
