@@ -282,12 +282,25 @@ export default {
 
             if (payload.success == 1) {
 
-                context.dispatch('notify/showNotifyByCode', "E_STATUS_002", { root: true });
+                context.dispatch('notify/showNotifyByCode', "E_FILE_002", { root: true });
 
                 context.dispatch('log_file/get', {
-                    id: payload.log_id
+                    log_id: payload.log_id
                 }, { root: true });
 
+            }
+
+        },
+
+        log_file_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_FILE_001", { root: true });
+
+                context.dispatch('log_file/get', {
+                    log_id: payload.log_id
+                }, { root: true });
             }
 
         },

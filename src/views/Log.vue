@@ -137,6 +137,26 @@
       </div>
     </div>
 
+    <!-- <div class="row">
+      <div class="col-4"></div>
+      <div class="col-8">
+
+        <div class="row" v-for="item in uploadingFiles" :key="item.id">
+          <div class="col-1">
+            <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
+            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
+          </div>
+          <div class="col-7">
+            {{item.name}}
+          </div>
+          <div class="col-2">
+            {{formatBytes(item.size)}}
+          </div>
+        </div>
+
+      </div>
+    </div> -->
+
     <br/>
     <div class="row">
       <input type="checkbox" v-model="search.is_only_last" title="Только последние записи / Only last rows">
@@ -205,14 +225,6 @@ export default {
       ru: ru,
       isNewItemMayBeAdded: true,
       isDragging: false,
-
-      // attachedFiles: [
-      //   {
-      //     name: "test",
-      //     actualSize: 100,
-      //     uploadedSize: 100
-      //   }
-      // ],
 
       customEditorToolbar: [
         ['bold', 'underline'],
@@ -305,6 +317,10 @@ export default {
 
     attachedFiles: function () {
       return this.$store.getters['log_file/give'];
+    },
+
+    uploadingFiles: function () {
+      return this.$store.getters['log_file/giveUploadingItems'];
     }
 
   },
@@ -337,7 +353,7 @@ export default {
 
     getFiles: function () {
       this.$store.dispatch('log_file/get', {
-        id: this.targetItem.id
+        log_id: this.targetItem.id
       });
     },
 
@@ -465,30 +481,49 @@ export default {
       //   uploadedSize: 0
       // });
 
-      var url = 'http://tcm.api/api/logs/file/upload';
-      var xhr = new XMLHttpRequest();
-      var formData = new FormData();
-      xhr.open('POST', url, true);
+      // var url = 'http://tcm.api/api/logs/file/upload';
+      // var xhr = new XMLHttpRequest();
+      // var formData = new FormData();
+      // xhr.open('POST', url, true);
 
-      let progressCallback = this.updateProgress.bind(this);
+      // let progressCallback = this.updateProgress.bind(this);
 
-      // Добавили следующие слушатели
-      xhr.upload.addEventListener("progress", function (e) {
-        progressCallback(uin, e.loaded, e.total)
+      // // Добавили следующие слушатели
+      // xhr.upload.addEventListener("progress", function (e) {
+      //   progressCallback(uin, e.loaded, e.total)
+      // });
+
+
+      // xhr.addEventListener('readystatechange', function (e) {
+      //   if (xhr.readyState == 4 && xhr.status == 200) {
+      //     console.log("OK");
+      //   }
+      //   else if (xhr.readyState == 4 && xhr.status != 200) {
+      //     console.log("ERROR");
+      //   }
+      // })
+
+      // formData.append('log_file', file);
+      // formData.append('id', this.targetItem.id);
+      // xhr.send(formData);
+
+      // this.attachedFiles.push({
+      //   uin: uin,
+      //   name: file.name,
+      //   actualSize: file.size,
+      //   uploadedSize: 0
+      // });
+
+
+
+      this.$store.dispatch('log_file/upload', {
+        log_file: file,
+        log_id: this.targetItem.id,
+        uin: this.guid(),
+        // progressCallback: function (e) {
+        //   progressCallback(uin, e.loaded, e.total)
+        // }
       });
-
-
-      xhr.addEventListener('readystatechange', function (e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          console.log("OK");
-        }
-        else if (xhr.readyState == 4 && xhr.status != 200) {
-          console.log("ERROR");
-        }
-      })
-      formData.append('log_file', file);
-      formData.append('id', this.targetItem.id);
-      xhr.send(formData);
 
     },
 
@@ -519,12 +554,18 @@ export default {
 
     updateProgress: function (uin, uploadedBytes, totalBytes) {
 
-      this.attachedFiles.map(function (item) {
-        if (item.uin == uin) {
-          item.uploadedSize = uploadedBytes;
-          item.actualSize = totalBytes;
-        }
+      this.$store.commit('log_file/updateProgress', {
+        id: uin,
+        size: totalBytes,
+        uploadedSize: uploadedBytes
       });
+
+      // this.attachedFiles.map(function (item) {
+      //   if (item.uin == uin) {
+      //     item.uploadedSize = uploadedBytes;
+      //     item.actualSize = totalBytes;
+      //   }
+      // });
 
     }
 
