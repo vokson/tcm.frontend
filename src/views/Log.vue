@@ -468,13 +468,21 @@ export default {
       let uin = this.guid();
       let progressCallback = this.updateProgress.bind(this);
 
+      let badUploadFunction = function () {
+        this.$store.commit('log_file/deleteSuccess', uin, { root: true });
+      };
+
       this.$store.dispatch('log_file/upload', {
         log_file: file,
         log_id: this.targetItem.id,
         uin: uin,
+
         progressCallback: function (e) {
           progressCallback(uin, e.loaded, e.total)
-        }
+        },
+
+        badFileUploadCallback: badUploadFunction.bind(this)
+
       });
 
     },

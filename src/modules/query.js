@@ -99,6 +99,11 @@ export default {
 
             let responseFunction = function (response) {
 
+                // Если загрузка файла не удалась, надо что-то делать..
+                if (response.data.success == 0) {
+                    payload.data.badFileUploadCallback();
+                }
+
                 // console.log(query_name);
                 response.data.queryName = query_name;
                 context.dispatch('response/use', response.data, { root: true });
