@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" v-on:keyup.enter.prevent="login">
         <div class="col-2">
           <input type="e-mail" name="email" v-model="email" placeholder="E-mail" />
         </div>
@@ -69,22 +69,9 @@ export default {
       }
     },
 
-    // isLoggedIn: function () {
-    //   if (this.isLoggedIn === true) {
-    //     this.isLoggedIn = false;
-
-    //   }
-    // }
   },
 
   methods: {
-    // getTokenFromCookie: function () {
-    //   this.$store.commit("setAccessTokenUsingCookie");
-    // },
-
-    // checkToken: function () {
-    //   this.$store.dispatch("auth/checkAccessToken");
-    // },
 
     login: function () {
       this.$store.dispatch("auth/login", {
