@@ -105,7 +105,9 @@
         <div class="row">
           <div class="col" id="col-drop-area">
             <editor v-if="isDragging == false" v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
-            <div v-else id="drop-area"> Drop Here / Бросай Сюда</div>
+            <div v-else id="drop-area">
+              Drop Here / Бросай Сюда (max 20 MB)
+            </div>
           </div>
         </div>
       </div>
@@ -136,26 +138,6 @@
 
       </div>
     </div>
-
-    <!-- <div class="row">
-      <div class="col-4"></div>
-      <div class="col-8">
-
-        <div class="row" v-for="item in uploadingFiles" :key="item.id">
-          <div class="col-1">
-            <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
-            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
-          </div>
-          <div class="col-7">
-            {{item.name}}
-          </div>
-          <div class="col-2">
-            {{formatBytes(item.size)}}
-          </div>
-        </div>
-
-      </div>
-    </div> -->
 
     <br/>
     <div class="row">
@@ -225,6 +207,7 @@ export default {
       ru: ru,
       isNewItemMayBeAdded: true,
       isDragging: false,
+      maxFileSize: 20 * 1024 * 1024,
 
       customEditorToolbar: [
         ['bold', 'underline'],
@@ -472,57 +455,26 @@ export default {
 
     uploadFile: function (file, i) {
 
-      // let uin = this.guid();
+      if (this.targetItem.id == null) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_003", { root: true });
+        return;
+      }
 
-      // this.attachedFiles.push({
-      //   uin: uin,
-      //   name: file.name,
-      //   actualSize: file.size,
-      //   uploadedSize: 0
-      // });
+      if (file.size > this.maxFileSize) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
+        return;
+      }
 
-      // var url = 'http://tcm.api/api/logs/file/upload';
-      // var xhr = new XMLHttpRequest();
-      // var formData = new FormData();
-      // xhr.open('POST', url, true);
-
-      // let progressCallback = this.updateProgress.bind(this);
-
-      // // Добавили следующие слушатели
-      // xhr.upload.addEventListener("progress", function (e) {
-      //   progressCallback(uin, e.loaded, e.total)
-      // });
-
-
-      // xhr.addEventListener('readystatechange', function (e) {
-      //   if (xhr.readyState == 4 && xhr.status == 200) {
-      //     console.log("OK");
-      //   }
-      //   else if (xhr.readyState == 4 && xhr.status != 200) {
-      //     console.log("ERROR");
-      //   }
-      // })
-
-      // formData.append('log_file', file);
-      // formData.append('id', this.targetItem.id);
-      // xhr.send(formData);
-
-      // this.attachedFiles.push({
-      //   uin: uin,
-      //   name: file.name,
-      //   actualSize: file.size,
-      //   uploadedSize: 0
-      // });
-
-
+      let uin = this.guid();
+      let progressCallback = this.updateProgress.bind(this);
 
       this.$store.dispatch('log_file/upload', {
         log_file: file,
         log_id: this.targetItem.id,
-        uin: this.guid(),
-        // progressCallback: function (e) {
-        //   progressCallback(uin, e.loaded, e.total)
-        // }
+        uin: uin,
+        progressCallback: function (e) {
+          progressCallback(uin, e.loaded, e.total)
+        }
       });
 
     },
@@ -555,17 +507,10 @@ export default {
     updateProgress: function (uin, uploadedBytes, totalBytes) {
 
       this.$store.commit('log_file/updateProgress', {
-        id: uin,
+        uin: uin,
         size: totalBytes,
         uploadedSize: uploadedBytes
       });
-
-      // this.attachedFiles.map(function (item) {
-      //   if (item.uin == uin) {
-      //     item.uploadedSize = uploadedBytes;
-      //     item.actualSize = totalBytes;
-      //   }
-      // });
 
     }
 

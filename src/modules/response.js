@@ -304,7 +304,7 @@ export default {
                 //     log_id: payload.log_id
                 // }, { root: true });
 
-                context.commit('log_file/uploadSuccess', payload.uin, { root: true });
+                context.commit('log_file/uploadSuccess', payload, { root: true });
 
             }
 

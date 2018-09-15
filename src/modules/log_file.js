@@ -2,74 +2,23 @@ export default {
     namespaced: true,
 
     state: {
-        items: [],
-        // uploadingItems: []
-        // previousSearch: {}
+        items: []
     },
 
     getters: {
         give: function (state) {
             return state.items;
-        },
-
-        // giveUploadingItems: function (state) {
-        //     return state.uploadingItems;
-        // },
-
-        // givePreviousSearch: function (state) {
-        // return state.previousSearch;
-        // }
+        }
     },
 
     mutations: {
         update: function (state, data) {
-
-
 
             data.map(function (e) {
                 e.uploadedSize = e.size;
             });
 
             state.items = data;
-
-            // let uploadingItems = state.items.filter(function (e) {
-            //     return (e.uploadedSize < e.size);
-            // });
-
-
-            // uploadingItems = uploadingItems.map(function (e1) {
-            //     if (!data.find(function (e2) {
-            //         if (e2.uin == e1.uin) {
-            //             return true;
-            //         }
-            //     })) {
-            //         return e1;
-            //     }
-
-            // });
-
-            // console.log(uploadingItems);
-            // // console.log(data);
-
-
-            // state.items = uploadingItems;
-            // state.items.concat(data);
-
-            // // data.map(function (newElem) {
-
-            // //     let isFound = false;
-
-            // //     state.items = state.items.map(function (oldElem) {
-            // //         if (newElem.uin == oldElem.uin) {
-            // //             isFound = true;
-            // //         }
-            // //         return (newElem.uin == oldElem.uin) ? newElem : oldElem;
-            // //     });
-
-            // //     if (!isFound) {
-            // //         state.items.push(newElem);
-            // //     }
-            // // });
 
         },
 
@@ -85,33 +34,31 @@ export default {
             });
         },
 
-        uploadSuccess: function (state, uin) {
+        uploadSuccess: function (state, data) {
 
-            // TODO
+            for (let i = 0; i < state.items.length; i++) {
+
+                if (state.items[i].uin == data.uin) {
+                    state.items[i].id = data.id;
+                    break;
+                }
+            }
 
         },
 
-        // addUploadingItem: function (state, data) {
 
-        //     state.uploadingItems.push({
-        //         id: data.uin,
-        //         name: data.name,
-        //         size: data.size,
-        //         uploadedSize: 0
-        //     });
+        updateProgress: function (state, data) {
 
-        // },
+            for (let i = 0; i < state.items.length; i++) {
 
-        // updateProgress: function (state, data) {
+                if (state.items[i].uin == data.uin) {
+                    state.items[i].size = data.size;
+                    state.items[i].uploadedSize = data.uploadedSize;
+                    break;
+                }
+            }
 
-        //     this.uploadingFiles.map(function (item) {
-        //         if (item.id == data.uin) {
-        //             item.uploadedSize = data.size;
-        //             item.size = data.size;
-        //         }
-        //     });
-
-        // },
+        },
 
 
     },
@@ -139,7 +86,6 @@ export default {
                 },
             };
 
-            // context.state.previousSearch = payload;
             context.dispatch('query/send', parameters, { root: true });
         },
 
@@ -152,7 +98,6 @@ export default {
                 },
             };
 
-            // context.state.previousSearch = payload;
             context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
         },
 

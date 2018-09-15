@@ -116,12 +116,6 @@ export default {
 
             formData.append('access_token', context.rootState.user.access_token);
 
-            // let responseFunction = function (response) {
-
-            //     let filename = decodeURIComponent(response.headers['content-filename']);
-            //     window.$download(response.data, filename);
-            // };
-
             window.$axios({
                 url: urls[payload.queryName],
                 data: formData,
@@ -129,7 +123,7 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 },
 
-                // onUploadProgress: payload.progressCallback,
+                onUploadProgress: payload.data.progressCallback,
             })
                 .then(responseFunction)
                 .catch(function (error) {
