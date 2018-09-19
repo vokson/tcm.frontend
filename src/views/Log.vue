@@ -123,13 +123,18 @@
             <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
             <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
           </div>
-          <div class="col-7">
+
+          <div class="col-7" v-if="item.id != null">
             <a href="#" v-on:click="downloadFile(item.id)">{{item.original_name}}</a>
           </div>
+          <div class="col-7" v-else>
+            {{item.original_name}}
+          </div>
+
           <div class="col-2">
             {{formatBytes(item.size)}}
           </div>
-          <div class="col-2">
+          <div class="col-2" v-if="item.id != null">
             <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteFile(item.id)">
               Удалить
             </button>
