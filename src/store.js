@@ -12,6 +12,7 @@ import title from "./modules/title";
 import users from "./modules/users";
 import status from "./modules/status";
 import service from "./modules/service";
+import log_file from "./modules/log_file";
 
 Vue.use(Vuex)
 
@@ -74,6 +75,7 @@ export default new Vuex.Store({
     title,
     users,
     status,
-    service
+    service,
+    log_file
   }
 });

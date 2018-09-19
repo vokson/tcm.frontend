@@ -36,7 +36,6 @@
           <div class="col-9">
             <select class="form-control" v-bind:value="targetItem.from" v-on:change="targetItem.from = $event.target.value">
               <option v-for="item in users" :key="item.id" v-bind:value="item.id">
-                <!-- <option v-for="item in users" :key="item.id" v-bind:value="item.id" v-bind:selected="item.isMe"> -->
                 {{item.surname}} {{item.name}}
               </option>
             </select>
@@ -64,17 +63,12 @@
           </div>
           <div class="col-9">
             <input type="text" v-model="targetItem.title" class="form-control" />
-            <!-- <select class="form-control" v-bind:value="targetItem.title" v-on:change="targetItem.title = $event.target.value">
-              <option v-for="item in titles" :key="item.id" v-bind:value="item.id">{{item.name}}</option>
-            </select> -->
           </div>
         </div>
 
         <div v-if="isNewItemMayBeAdded == true" class="row">
           <div class="col-3">
-            <!-- <button type="button" class="btn btn-warning" v-on:click="switchUsers" title="От <> Кому / From <> To"> -->
             <img src="./img/reverse.jpg" width="40" height="40" v-on:click="switchUsers" title="От <> Кому / From <> To">
-            <!-- </button> -->
           </div>
 
           <div class="col-9">
@@ -86,10 +80,7 @@
 
         <div v-else class="row">
           <div class="col-3">
-            <!-- <button type="button" class="btn btn-warning" v-on:click="resetToAdd"> -->
-            <!--  -->
             <img src="./img/plus.png" width="40" height="40" v-on:click="resetToAdd" title="Вернуться к Добавить / Back to ADD">
-            <!-- </button> -->
           </div>
 
           <div class="col-9">
@@ -112,12 +103,40 @@
 
       <div class="col-8">
         <div class="row">
-          <div class="col">
-            <editor v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
+          <div class="col" id="col-drop-area">
+            <editor v-if="isDragging == false" v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
+            <div v-else id="drop-area">
+              Drop Here / Бросай Сюда (max 20 MB)
+            </div>
           </div>
         </div>
       </div>
 
+    </div>
+
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-8">
+
+        <div class="row" v-for="item in attachedFiles" :key="item.uin">
+          <div class="col-1">
+            <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
+            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
+          </div>
+          <div class="col-7">
+            <a href="#" v-on:click="downloadFile(item.id)">{{item.original_name}}</a>
+          </div>
+          <div class="col-2">
+            {{formatBytes(item.size)}}
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteFile(item.id)">
+              Удалить
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <br/>
@@ -187,7 +206,8 @@ export default {
       en: en,
       ru: ru,
       isNewItemMayBeAdded: true,
-
+      isDragging: false,
+      maxFileSize: 20 * 1024 * 1024,
 
       customEditorToolbar: [
         ['bold', 'underline'],
@@ -223,7 +243,32 @@ export default {
       this.getUsers();
       this.targetItem.from = this.$store.state.user.id;
       this.targetItem.to = 0;
-      // this.targetItem.title = 0;
+
+      // Очищаем установленные по умолчанию обработчики событий
+      let dropArea = document.getElementById('col-drop-area');
+
+      function preventDefaults (e) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+      });
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.startDragging, false)
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.stopDragging, false)
+      });
+
+      ['drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.handleDrop, false)
+      });
+
+      // dropArea.addEventListener('drop', handleDrop, false)
     })
   },
 
@@ -253,6 +298,14 @@ export default {
       return (this.items == null) ? 0 : this.items.length;
     },
 
+    attachedFiles: function () {
+      return this.$store.getters['log_file/give'];
+    },
+
+    uploadingFiles: function () {
+      return this.$store.getters['log_file/giveUploadingItems'];
+    }
+
   },
 
   methods: {
@@ -278,6 +331,24 @@ export default {
         what: this.search.what,
         is_only_last: this.search.is_only_last,
         date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
+      });
+    },
+
+    getFiles: function () {
+      this.$store.dispatch('log_file/get', {
+        log_id: this.targetItem.id
+      });
+    },
+
+    deleteFile: function (file_id) {
+      this.$store.dispatch('log_file/delete', {
+        id: file_id
+      });
+    },
+
+    downloadFile: function (file_id) {
+      this.$store.dispatch('log_file/download', {
+        id: file_id
       });
     },
 
@@ -347,13 +418,7 @@ export default {
         return (obj.surname + ' ' + obj.name) === itemToBeModified.from
       })[0].id;
 
-      // let localTitle = this.titles.filter(obj => {
-      //   return obj.name === itemToBeModified.title
-      // })[0].id;
-
       this.targetItem.id = itemToBeModified.id;
-
-      // this.targetItem.title = localTitle;
       this.targetItem.title = itemToBeModified.title;
       this.targetItem.to = localTo;
       this.targetItem.from = localFrom;
@@ -364,6 +429,8 @@ export default {
       this.targetItem.date = date;
 
       this.isNewItemMayBeAdded = false;
+
+      this.getFiles();
     },
 
     switchUsers: function () {
@@ -376,7 +443,85 @@ export default {
       this.targetItem.id = null;
       this.isNewItemMayBeAdded = true;
       this.targetItem.date = new Date();
+    },
+
+    startDragging: function () {
+      this.isDragging = true;
+    },
+
+    stopDragging: function () {
+      this.isDragging = false;
+    },
+
+    uploadFile: function (file, i) {
+
+      if (this.targetItem.id == null) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_003", { root: true });
+        return;
+      }
+
+      if (file.size > this.maxFileSize) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
+        return;
+      }
+
+      let uin = this.guid();
+      let progressCallback = this.updateProgress.bind(this);
+
+      let badUploadFunction = function () {
+        this.$store.commit('log_file/deleteSuccess', uin, { root: true });
+      };
+
+      this.$store.dispatch('log_file/upload', {
+        log_file: file,
+        log_id: this.targetItem.id,
+        uin: uin,
+
+        progressCallback: function (e) {
+          progressCallback(uin, e.loaded, e.total)
+        },
+
+        badFileUploadCallback: badUploadFunction.bind(this)
+
+      });
+
+    },
+
+    handleDrop: function (e) {
+      let dt = e.dataTransfer;
+      let files = dt.files;
+      files = [...files];
+      files.forEach(this.uploadFile);
+    },
+
+    formatBytes: function (bytes, decimals) {
+      if (bytes == 0) return '0 Bytes';
+      var k = 1024,
+        dm = decimals || 2,
+        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    },
+
+    guid: function () {
+      function s4 () {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    },
+
+    updateProgress: function (uin, uploadedBytes, totalBytes) {
+
+      this.$store.commit('log_file/updateProgress', {
+        uin: uin,
+        size: totalBytes,
+        uploadedSize: uploadedBytes
+      });
+
     }
+
   }
 };
 </script>
@@ -392,5 +537,18 @@ export default {
 
 .text-center {
   text-align: center;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  height: 200px;
+  /* font-family: sans-serif; */
+  margin-top: 40px;
+  padding-top: 80px;
+  text-align: center;
+  /* vertical-align: middle; */
+  font: 21pt bold arial;
+  color: gray;
 }
 </style>

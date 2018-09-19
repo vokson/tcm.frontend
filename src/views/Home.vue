@@ -127,6 +127,25 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.5.1</p>
+        </div>
+        <div class="col-4">
+          <p>Исправлена ошибка с добавлением файлов не в свои записи.</p>
+          <p>Можно логиниться, используя Enter.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>1.5.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлена возможность добавления файлов к записям в Log.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.4.0</p>
         </div>
         <div class="col-4">

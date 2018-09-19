@@ -200,6 +200,48 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 601:
+            return {
+                title: "Ошибка Файловой Системы - 601",
+                text: "Файл не существует",
+                type: "error"
+            }
+
+        case 602:
+            return {
+                title: "Ошибка Файловой Системы - 602",
+                text: "Ошибка передачи файла на сервер",
+                type: "error"
+            }
+
+        case 603:
+            return {
+                title: "Ошибка Файловой Системы - 603",
+                text: "Ошибка удаления файла на сервере",
+                type: "error"
+            }
+
+        case 604:
+            return {
+                title: "Ошибка Файловой Системы - 604",
+                text: "Неверный ID",
+                type: "error"
+            }
+
+        case 605:
+            return {
+                title: "Ошибка Файловой Системы - 605",
+                text: "Неверный UIN",
+                type: "error"
+            }
+
+        case 606:
+            return {
+                title: "Ошибка Файловой Системы - 606",
+                text: "Ошибка сохранения файла на сервере",
+                type: "error"
+            }
+
 
         case "E_AUTH_001":
             return {
@@ -290,6 +332,30 @@ let getRusText = function (code) {
             return {
                 text: "Пользователю установлен пароль по умолчанию",
                 type: "success"
+            }
+
+        case "E_FILE_001":
+            return {
+                text: "Файл сохранен",
+                type: "success"
+            }
+
+        case "E_FILE_002":
+            return {
+                text: "Файл удален",
+                type: "success"
+            }
+
+        case "E_FILE_003":
+            return {
+                text: "Выберите запись до добавления файла",
+                type: "warning"
+            }
+
+        case "E_FILE_004":
+            return {
+                text: "Максимальный размер файла 20 MB",
+                type: "error"
             }
 
 
@@ -495,6 +561,48 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 601:
+            return {
+                title: "File System Error - 601",
+                text: "File doesn't exist",
+                type: "error"
+            }
+
+        case 602:
+            return {
+                title: "File System Error - 602",
+                text: "Error of file transfering to server",
+                type: "error"
+            }
+
+        case 603:
+            return {
+                title: "File System Error - 603",
+                text: "Error of file's deletion on server",
+                type: "error"
+            }
+
+        case 604:
+            return {
+                title: "File System Error - 604",
+                text: "Wrong ID",
+                type: "error"
+            }
+
+        case 605:
+            return {
+                title: "File System Error - 605",
+                text: "Wrong UIN",
+                type: "error"
+            }
+
+        case 606:
+            return {
+                title: "File System Error - 606",
+                text: "Error of storage file on server",
+                type: "error"
+            }
+
 
         case "E_AUTH_001":
             return {
@@ -586,6 +694,30 @@ let getEngText = function (code) {
             return {
                 text: "Default password has been applied to user",
                 type: "success"
+            }
+
+        case "E_FILE_001":
+            return {
+                text: "File has been saved",
+                type: "success"
+            }
+
+        case "E_FILE_002":
+            return {
+                text: "File has been deleted",
+                type: "success"
+            }
+
+        case "E_FILE_003":
+            return {
+                text: "Please, choose log before add file",
+                type: "warning"
+            }
+
+        case "E_FILE_004":
+            return {
+                text: "Max size of file is 20 MB",
+                type: "error"
             }
 
 
