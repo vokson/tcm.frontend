@@ -182,7 +182,13 @@
           </tr>
 
           <tr v-for="item in items" :key="item.id" v-on:click="editItem(item.id)">
-            <td class="text-center">{{item.id}}</td>
+            <td class="text-center">
+              {{item.id}}
+              <br/>
+              <input type="checkbox" v-bind:checked="item.is_new" title="Новое сообщение? / Is new message?" v-on:click="modifyIsNewMessageCheckbox()">
+              <br/>
+              <span v-if="item.is_new" class="badge badge-danger">NEW</span>
+            </td>
             <td class="text-center">{{formatDate(item.date)}}</td>
             <td class="text-center">{{item.title}}</td>
             <td class="text-center">{{item.from}}</td>
@@ -380,9 +386,18 @@ export default {
         from: this.targetItem.from,
         title: titleId,
         what: this.targetItem.what,
+        is_new: this.targetItem.is_new,
         date: Math.round(this.targetItem.date.getTime() / 1000)
       });
     },
+
+    modifyIsNewMessageCheckbox: function () {
+      this.$nextTick(function () {
+        this.targetItem.is_new = !this.targetItem.is_new;
+        this.modifyItem();
+      });
+    },
+
 
     modifyItem: function () {
 
@@ -399,6 +414,7 @@ export default {
         from: this.targetItem.from,
         title: titleId,
         what: this.targetItem.what,
+        is_new: this.targetItem.is_new,
         date: Math.round(this.targetItem.date.getTime() / 1000)
       });
     },
@@ -428,6 +444,7 @@ export default {
       this.targetItem.to = localTo;
       this.targetItem.from = localFrom;
       this.targetItem.what = itemToBeModified.what;
+      this.targetItem.is_new = itemToBeModified.is_new;
 
       let date = new Date();
       date.setTime(itemToBeModified.date * 1000);

@@ -18,6 +18,11 @@ export default {
 
     mutations: {
         updateItems: function (state, data) {
+
+            data.forEach(element => {
+                element.is_new = parseInt(element.is_new);
+            });
+
             state.items = data;
         },
     },
