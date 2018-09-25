@@ -60,6 +60,16 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
+        switchNewMessage: (context, payload) => {
+
+            let parameters = {
+                queryName: "log_new_message_switch",
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
     }
 
 }
