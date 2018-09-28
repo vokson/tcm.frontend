@@ -47,6 +47,7 @@ export default {
                 email: ""
             }, { root: true });
             context.dispatch('notify/showNotifyByCode', "E_AUTH_002", { root: true })
+            context.commit('log/setCountOfNewMessages', 0, { root: true });
         },
 
         changePassword: (context, payload) => {

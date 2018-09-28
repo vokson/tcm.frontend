@@ -100,6 +100,10 @@ export default {
                     context.dispatch("log_new_message_switch", payload);
                     break;
 
+                case "log_new_message_count":
+                    context.dispatch("log_new_message_count", payload);
+                    break;
+
 
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -321,6 +325,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_LOG_001", { root: true })
                 context.dispatch('log/getItems', context.rootGetters['log/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        log_new_message_count: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('log/setCountOfNewMessages', payload.count, { root: true });
             }
 
         },

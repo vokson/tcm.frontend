@@ -19,6 +19,7 @@ let urls = {
     log_file_delete: "/logs/file/delete",
 
     log_new_message_switch: "/logs/new/message/switch",
+    log_new_message_count: "/logs/new/message/count",
 
     title_get: "/titles/get",
     title_set: "/titles/set",
