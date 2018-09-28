@@ -12,7 +12,7 @@ import axios from 'axios'
 import sha256 from 'sha256'
 import fileDownload from 'js-file-download'
 import VueTimers from 'vue-timers'
- 
+
 
 
 Vue.use(VueCookies);
@@ -49,8 +49,8 @@ window.$app = new Vue({
 }).$mount('#app');
 
 window.$axios = axios.create({
-  // baseURL: "http://api.agpp/api",
-  baseURL: "http://tcm.api/api",
+  baseURL: "http://api.agpp/api",
+  // baseURL: "http://tcm.api/api",
   method: 'post',
 
 });
