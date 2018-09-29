@@ -7,6 +7,7 @@
       <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
       <b-nav-item :to="{ name: 'log' }">Log</b-nav-item>
       <b-nav-item :to="{ name: 'title' }">Title</b-nav-item>
+      <b-nav-item :to="{ name: 'news' }">News</b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
       <b-nav-item disabled>
         New Messages

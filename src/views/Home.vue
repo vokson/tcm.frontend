@@ -4,8 +4,12 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3 v-if="language === 'RUS'">Проектный офис АГПЗ</h3>
-          <h3 v-else-if="language === 'ENG'">AGPP Design Office</h3>
+          <h3 v-if="language === 'RUS'">Проектный офис АГПЗ
+            <span class="actual_version_color">(v.{{version}})</span>
+          </h3>
+          <h3 v-else-if="language === 'ENG'">AGPP Design Office
+            <span class="actual_version_color">(v.{{version}})</span>
+          </h3>
         </div>
       </div>
       <div class="row">
@@ -66,9 +70,6 @@
         <div class="col-5">
           <span v-if="language === 'RUS'" class="badge badge-danger">У вас стандартный пароль. Смените его.</span>
           <span v-else-if="language === 'ENG'" class="badge badge-danger">You have default password. Change it.</span>
-
-          <!-- <p v-if="language === 'RUS'">У вас стандартный пароль. Смените его.</p> -->
-          <!-- <p v-else-if="language === 'ENG'">You have default password. Change it.</p> -->
         </div>
       </div>
 
@@ -126,6 +127,15 @@
             </div>
 
             <div class="row actual_version_color">
+              <div class="col-1">
+                <p>1.7.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлена вкладка "News", на которой автоматически обновляются последние записи в Log.</p>
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col-1">
                 <p>1.6.0</p>
               </div>
@@ -222,7 +232,8 @@ export default {
       selected: "",
       choose_language: "",
       new_password_1: "",
-      new_password_2: ""
+      new_password_2: "",
+      version: '1.7.0'
     };
   },
 

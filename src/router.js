@@ -8,6 +8,7 @@ import Status from './views/Status.vue'
 import Setting from './views/Setting.vue'
 import Title from './views/Title.vue'
 import User from './views/User.vue'
+import LastLog from './views/LastLog.vue'
 
 
 Vue.use(Router)
@@ -66,6 +67,12 @@ export default new Router({
       path: '/title',
       name: 'title',
       component: Title
+    },
+
+    {
+      path: '/news',
+      name: 'news',
+      component: LastLog
     },
 
 
