@@ -193,7 +193,7 @@
                   <tbody>
 
                     <tr v-on:keyup.enter.prevent="getItems">
-                      <td></td>
+                      <td> <img src="./img/clean.png" width="35" height="35" v-on:click="cleanSearch"> </td>
                       <td class="td-date">
                         <datepicker v-model="search.date" :format="date_format" :bootstrap-styling="true" :language="languageForDatePicker"></datepicker>
                       </td>
@@ -582,6 +582,14 @@ export default {
 
     switchNewMessageSearchCheckBox: function () {
       this.search.is_new = (this.search.is_new === null) ? true : null;
+    },
+
+    cleanSearch: function () {
+      this.search.to = "";
+      this.search.from = "";
+      this.search.what = "";
+      this.search.title = "";
+      this.search.date = null;
     }
 
   }
