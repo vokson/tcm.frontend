@@ -130,6 +130,14 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 307:
+            return {
+                title: "Ошибка Журнала Событий - 307",
+                text: "Ошибка в галочке \"Новое Сообщение ?\"",
+                type: "error"
+            }
+
+
         case 401:
             return {
                 title: "Ошибка Списка Титулов - 401",
@@ -488,6 +496,13 @@ let getEngText = function (code) {
             return {
                 title: "Log Error - 306",
                 text: "Wrong input \"Date\"",
+                type: "error"
+            }
+
+        case 307:
+            return {
+                title: "Log Error - 307",
+                text: "Wrong input check box \"Is New Message ?\"",
                 type: "error"
             }
 

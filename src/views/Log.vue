@@ -64,132 +64,169 @@
           <div class="col-9">
             <input type="text" v-model="targetItem.title" class="form-control" />
           </div>
-        </div>
-
-        <div v-if="isNewItemMayBeAdded == true" class="row">
-          <div class="col-3">
-            <img src="./img/reverse.jpg" width="40" height="40" v-on:click="switchUsers" title="От <> Кому / From <> To">
           </div>
 
-          <div class="col-9">
-            <button type="button" class="btn btn-block btn-primary" v-on:click="addItem">
-              {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
-            </button>
-          </div>
-        </div>
-
-        <div v-else class="row">
-          <div class="col-3">
-            <img src="./img/plus.png" width="40" height="40" v-on:click="resetToAdd" title="Вернуться к Добавить / Back to ADD">
+          <div v-if="isNewItemMayBeAdded == true" class="row">
+            <div class="col-3">
+              <img src="./img/reverse.jpg" width="40" height="40" v-on:click="switchUsers" title="От <> Кому / From <> To">
           </div>
 
-          <div class="col-9">
-            <div class="row">
-              <div class="col">
-                <button type="button" class="btn btn-block btn-warning" v-on:click="modifyItem">
-                  {{ (language == 'RUS') ? 'Изменить' : 'Modify' }}
-                </button>
-              </div>
-              <div class="col">
-                <button type="button" class="btn btn-block btn-danger" v-on:click="deleteItem">
-                  {{ (language == 'RUS') ? 'Удалить' : 'Delete' }}
+              <div class="col-9">
+                <button type="button" class="btn btn-block btn-primary" v-on:click="addItem">
+                  {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
                 </button>
               </div>
             </div>
+
+            <div v-else class="row">
+              <div class="col-3">
+                <img src="./img/plus.png" width="40" height="40" v-on:click="resetToAdd" title="Вернуться к Добавить / Back to ADD">
           </div>
-        </div>
 
-      </div>
+                <div class="col-9">
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="btn btn-block btn-warning" v-on:click="modifyItem">
+                        {{ (language == 'RUS') ? 'Изменить' : 'Modify' }}
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button type="button" class="btn btn-block btn-danger" v-on:click="deleteItem">
+                        {{ (language == 'RUS') ? 'Удалить' : 'Delete' }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-      <div class="col-8">
-        <div class="row">
-          <div class="col" id="col-drop-area">
-            <editor v-if="isDragging == false" v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
-            <div v-else id="drop-area">
-              Drop Here / Бросай Сюда (max 20 MB)
+            </div>
+
+            <div class="col-8">
+              <div class="row">
+                <div class="col" id="col-drop-area">
+                  <editor v-if="isDragging == false" v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
+                  <div v-else id="drop-area">
+                    Drop Here / Бросай Сюда (max 20 MB)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-4"></div>
+            <div class="col-8">
+
+              <div class="row" v-for="item in attachedFiles" :key="item.uin">
+                <div class="col-1">
+                  <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
+                  <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
+                </div>
+
+                <div class="col-7" v-if="item.id != null">
+                  <a href="#" v-on:click="downloadFile(item.id)">{{item.original_name}}</a>
+                </div>
+                <div class="col-7" v-else>
+                  {{item.original_name}}
+                </div>
+
+                <div class="col-2">
+                  {{formatBytes(item.size)}}
+                </div>
+                <div class="col-2" v-if="item.id != null">
+                  <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteFile(item.id)">
+                    Удалить
+                  </button>
+                </div>
+              </div>
+
             </div>
           </div>
-        </div>
-      </div>
 
-    </div>
+          <br/>
+          <div class="row">
+            <div class="col-4">
 
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-8">
+              <div class="row">
+                <div class="col-7">
+                  {{ (language == 'RUS') ? 'Только последние записи' : 'Only last rows' }}
+                </div>
+                <div class="col-5">
+                  <input type="checkbox" v-model="search.is_only_last">
+                </div>
+                </div>
 
-        <div class="row" v-for="item in attachedFiles" :key="item.uin">
-          <div class="col-1">
-            <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
-            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
-          </div>
-          <div class="col-7">
-            <a href="#" v-on:click="downloadFile(item.id)">{{item.original_name}}</a>
-          </div>
-          <div class="col-2">
-            {{formatBytes(item.size)}}
-          </div>
-          <div class="col-2">
-            <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteFile(item.id)">
-              Удалить
-            </button>
-          </div>
-        </div>
+                <div class="row">
+                  <div class="col-7">
+                    {{ (language == 'RUS') ? 'Только новые сообщения' : 'Only new messages' }}
+                  </div>
+                  <div class="col-5">
+                    <input type="checkbox" v-on:click="switchNewMessageSearchCheckBox">
+                </div>
+                  </div>
 
-      </div>
-    </div>
+                </div>
 
-    <br/>
-    <div class="row">
-      <input type="checkbox" v-model="search.is_only_last" title="Только последние записи / Only last rows">
-      <div class="col">
-        <button type="button" class="btn btn-block btn-success" v-on:click="getItems">
-          {{ (language == 'RUS') ? 'Найти' : 'Search' }}
-          <span class="badge badge-light">{{countOfItems}}</span>
-        </button>
-      </div>
-    </div>
+                <div class="col-8">
+                  <button type="button" class="btn btn-block btn-success" v-on:click="getItems">
+                    {{ (language == 'RUS') ? 'Найти' : 'Search' }}
+                    <span class="badge badge-light">{{countOfItems}}</span>
+                  </button>
+                </div>
 
-    <div class="row">
+              </div>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th class="text-center">ID</th>
-            <th class="td-date text-center">Date</th>
-            <th class="text-center">Title</th>
-            <th class="text-center">From (surname)</th>
-            <th class="text-center">What</th>
-            <th class="text-center">To (surname)</th>
-          </tr>
-        </thead>
-        <tbody>
+              <div class="row">
 
-          <tr v-on:keyup.enter.prevent="getItems">
-            <td></td>
-            <td class="td-date">
-              <datepicker v-model="search.date" :format="date_format" :bootstrap-styling="true" :language="languageForDatePicker"></datepicker>
-            </td>
-            <td class="text-center"><input type="text" v-model="search.title" placeholder="Титул" /></td>
-            <td class="text-center"><input type="text" v-model="search.from" placeholder="От (фамилия)" /></td>
-            <td class="text-center"><input type="text" v-model="search.what" placeholder="Текст" /></td>
-            <td class="text-center"><input type="text" v-model="search.to" placeholder="Кому (фамилия)" /></td>
-          </tr>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center">ID</th>
+                      <th class="td-date text-center">Date</th>
+                      <th class="text-center">Title</th>
+                      <th class="text-center">From (surname)</th>
+                      <th class="text-center">What</th>
+                      <th class="text-center">To (surname)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
-          <tr v-for="item in items" :key="item.id" v-on:click="editItem(item.id)">
-            <td class="text-center">{{item.id}}</td>
-            <td class="text-center">{{formatDate(item.date)}}</td>
-            <td class="text-center">{{item.title}}</td>
-            <td class="text-center">{{item.from}}</td>
-            <td v-html="item.what"></td>
-            <td class="text-center">{{item.to}}</td>
-          </tr>
+                    <tr v-on:keyup.enter.prevent="getItems">
+                      <td> <img src="./img/clean.png" width="35" height="35" v-on:click="cleanSearch"> </td>
+                      <td class="td-date">
+                        <datepicker v-model="search.date" :format="date_format" :bootstrap-styling="true" :language="languageForDatePicker"></datepicker>
+                      </td>
+                      <td class="text-center"><input type="text" v-model="search.title" placeholder="Титул" /></td>
+                      <td class="text-center"><input type="text" v-model="search.from" placeholder="От (фамилия)" /></td>
+                      <td class="text-center"><input type="text" v-model="search.what" placeholder="Текст" /></td>
+                      <td class="text-center"><input type="text" v-model="search.to" placeholder="Кому (фамилия)" /></td>
+                    </tr>
 
-        </tbody>
-      </table>
-    </div>
+                    <tr v-for="item in items" :key="item.id" v-on:click="editItem(item.id)">
+                      <td class="text-center">
+                        {{item.id}}
 
-  </div>
+                        <div v-if="item.to == (userSurname + ' ' + userName)">
+                          <br/>
+                          <input type="checkbox" v-bind:checked="item.is_new" title="Новое сообщение? / Is new message?" v-on:click="modifyIsNewMessageCheckbox(item.id)">
+                          <br/>
+                          <span v-if="item.is_new" class="badge badge-danger">NEW</span>
+                        </div>
+
+                      </td>
+                      <td class="text-center">{{formatDate(item.date)}}</td>
+                      <td class="text-center">{{item.title}}</td>
+                      <td class="text-center">{{item.from}}</td>
+                      <td v-html="item.what"></td>
+                      <td class="text-center">{{item.to}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
 </template>
 
 <script>
@@ -230,7 +267,8 @@ export default {
         what: "",
         title: "",
         date: null,
-        is_only_last: true
+        is_new: null,
+        is_only_last: false
       }
 
     };
@@ -304,6 +342,14 @@ export default {
 
     uploadingFiles: function () {
       return this.$store.getters['log_file/giveUploadingItems'];
+    },
+
+    userName: function () {
+      return this.$store.state.user.name;
+    },
+
+    userSurname: function () {
+      return this.$store.state.user.surname;
     }
 
   },
@@ -324,14 +370,20 @@ export default {
     },
 
     getItems: function () {
-      this.$store.dispatch('log/getItems', {
+      let queryObject = {
         to: this.search.to,
         from: this.search.from,
         title: this.search.title,
         what: this.search.what,
         is_only_last: this.search.is_only_last,
         date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
-      });
+      };
+
+      if (this.search.is_new !== null) {
+        queryObject["is_new"] = this.search.is_new
+      }
+
+      this.$store.dispatch('log/getItems', queryObject);
     },
 
     getFiles: function () {
@@ -375,9 +427,15 @@ export default {
         from: this.targetItem.from,
         title: titleId,
         what: this.targetItem.what,
+        is_new: this.targetItem.is_new,
         date: Math.round(this.targetItem.date.getTime() / 1000)
       });
     },
+
+    modifyIsNewMessageCheckbox: function (id) {
+      this.$store.dispatch('log/switchNewMessage', { id: id });
+    },
+
 
     modifyItem: function () {
 
@@ -520,6 +578,18 @@ export default {
         uploadedSize: uploadedBytes
       });
 
+    },
+
+    switchNewMessageSearchCheckBox: function () {
+      this.search.is_new = (this.search.is_new === null) ? true : null;
+    },
+
+    cleanSearch: function () {
+      this.search.to = "";
+      this.search.from = "";
+      this.search.what = "";
+      this.search.title = "";
+      this.search.date = null;
     }
 
   }

@@ -4,8 +4,12 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3 v-if="language === 'RUS'">Проектный офис АГПЗ</h3>
-          <h3 v-else-if="language === 'ENG'">AGPP Design Office</h3>
+          <h3 v-if="language === 'RUS'">Проектный офис АГПЗ
+            <span class="actual_version_color">(v.{{version}})</span>
+          </h3>
+          <h3 v-else-if="language === 'ENG'">AGPP Design Office
+            <span class="actual_version_color">(v.{{version}})</span>
+          </h3>
         </div>
       </div>
       <div class="row">
@@ -66,9 +70,6 @@
         <div class="col-5">
           <span v-if="language === 'RUS'" class="badge badge-danger">У вас стандартный пароль. Смените его.</span>
           <span v-else-if="language === 'ENG'" class="badge badge-danger">You have default password. Change it.</span>
-
-          <!-- <p v-if="language === 'RUS'">У вас стандартный пароль. Смените его.</p> -->
-          <!-- <p v-else-if="language === 'ENG'">You have default password. Change it.</p> -->
         </div>
       </div>
 
@@ -88,119 +89,146 @@
         <div class="col-2">
           <input type="password" v-model="new_password_1" />
         </div>
-        <div class="col-1">
-          <span v-if="isNewPasswordOk_1 === true" class="badge badge-success">OK</span>
-          <span v-else class="badge badge-danger">FAIL</span>
+          <div class="col-1">
+            <span v-if="isNewPasswordOk_1 === true" class="badge badge-success">OK</span>
+            <span v-else class="badge badge-danger">FAIL</span>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="col-5">
+            <p v-if="language === 'RUS'">Новый пароль еще раз:</p>
+            <p v-else-if="language === 'ENG'">New password again:</p>
+          </div>
+          <div class="col-2">
+            <input type="password" v-model="new_password_2" />
+        </div>
+            <div class="col-1">
+              <span v-if="isNewPasswordOk_2 === true" class="badge badge-success">OK</span>
+              <span v-else class="badge badge-danger">FAIL</span>
+            </div>
+          </div>
+
+          <div v-if="isNewPasswordOk_1 === true && isNewPasswordOk_2 === true" class="row">
+            <div class="col-1">
+              <button v-if="language === 'RUS'" type="button" class="btn btn-danger" v-on:click="changePassword">Сохранить</button>
+              <button v-else-if="language === 'ENG'" type="button" class="btn btn-danger" v-on:click="changePassword">Save</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <br/>
       </div>
 
-      <div class="row">
-        <div class="col-5">
-          <p v-if="language === 'RUS'">Новый пароль еще раз:</p>
-          <p v-else-if="language === 'ENG'">New password again:</p>
-        </div>
-        <div class="col-2">
-          <input type="password" v-model="new_password_2" />
-        </div>
-        <div class="col-1">
-          <span v-if="isNewPasswordOk_2 === true" class="badge badge-success">OK</span>
-          <span v-else class="badge badge-danger">FAIL</span>
-        </div>
-      </div>
+            <div class="row">
 
-      <div v-if="isNewPasswordOk_1 === true && isNewPasswordOk_2 === true" class="row">
-        <div class="col-1">
-          <button v-if="language === 'RUS'" type="button" class="btn btn-danger" v-on:click="changePassword">Сохранить</button>
-          <button v-else-if="language === 'ENG'" type="button" class="btn btn-danger" v-on:click="changePassword">Save</button>
-        </div>
-      </div>
+              <h5 v-if="language === 'RUS'">История изменений</h5>
+              <h5 v-else-if="language === 'ENG'">History of versions</h5>
+            </div>
 
-      <div class="row">
-        <br/>
-      </div>
+            <div class="row actual_version_color">
+              <div class="col-1">
+                <p>1.8.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлена "метла" в Log.</p>
+              </div>
+            </div>
 
-      <div class="row">
+            <div class="row">
+              <div class="col-1">
+                <p>1.7.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлена вкладка "News", на которой автоматически обновляются последние записи в Log.</p>
+              </div>
+            </div>
 
-        <h5 v-if="language === 'RUS'">История изменений</h5>
-        <h5 v-else-if="language === 'ENG'">History of versions</h5>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.6.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлена фукция "Новые сообщения".</p>
+              </div>
+            </div>
 
-      <div class="row actual_version_color">
-        <div class="col-1">
-          <p>1.5.1</p>
-        </div>
-        <div class="col-4">
-          <p>Исправлена ошибка с добавлением файлов не в свои записи.</p>
-          <p>Можно логиниться, используя Enter.</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.5.1</p>
+              </div>
+              <div class="col-4">
+                <p>Исправлена ошибка с добавлением файлов не в свои записи.</p>
+                <p>Можно логиниться, используя Enter.</p>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-1">
-          <p>1.5.0</p>
-        </div>
-        <div class="col-4">
-          <p>Добавлена возможность добавления файлов к записям в Log.</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.5.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлена возможность добавления файлов к записям в Log.</p>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-1">
-          <p>1.4.0</p>
-        </div>
-        <div class="col-4">
-          <p>Теперь пользователь с правами доступа "engineer" может изменять/удалять только свои записи в Log. Пользователь с правами доступа выше "engineer" может удалять/изменять любые записи.</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.4.0</p>
+              </div>
+              <div class="col-4">
+                <p>Теперь пользователь с правами доступа "engineer" может изменять/удалять только свои записи в Log. Пользователь с правами доступа выше "engineer" может удалять/изменять любые записи.</p>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-1">
-          <p>1.3.1</p>
-        </div>
-        <div class="col-4">
-          <p>Исправлена ошибка в назначении даты при переходе из редактирования в добавление в Log</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.3.1</p>
+              </div>
+              <div class="col-4">
+                <p>Исправлена ошибка в назначении даты при переходе из редактирования в добавление в Log</p>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-1">
-          <p>1.3.0</p>
-        </div>
-        <div class="col-4">
-          <p>Добавлены поля "Описание", "Объем" в Title</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.3.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлены поля "Описание", "Объем" в Title</p>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-1">
-          <p>1.2.0</p>
-        </div>
-        <div class="col-4">
-          <p>Добавлена кнопка "Назад к Добавить" в Log</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.2.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлена кнопка "Назад к Добавить" в Log</p>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-1">
-          <p>1.1.0</p>
-        </div>
-        <div class="col-4">
-          <p>Добавлен сброс пароля по умолчанию. Добавлена кнопка сменить пользователей в Log</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.1.0</p>
+              </div>
+              <div class="col-4">
+                <p>Добавлен сброс пароля по умолчанию. Добавлена кнопка сменить пользователей в Log</p>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-1">
-          <p>1.0.0</p>
-        </div>
-        <div class="col-4">
-          <p>Первый пробный релиз / The first deployment</p>
-        </div>
-      </div>
+            <div class="row">
+              <div class="col-1">
+                <p>1.0.0</p>
+              </div>
+              <div class="col-4">
+                <p>Первый пробный релиз / The first deployment</p>
+              </div>
+            </div>
 
-    </div>
+          </div>
 
-  </div>
+        </div>
 </template>
 
 <script>
@@ -213,7 +241,8 @@ export default {
       selected: "",
       choose_language: "",
       new_password_1: "",
-      new_password_2: ""
+      new_password_2: "",
+      version: '1.8.0'
     };
   },
 

@@ -18,6 +18,11 @@ let urls = {
     log_file_download: "/logs/file/download",
     log_file_delete: "/logs/file/delete",
 
+    log_new_message_switch: "/logs/new/message/switch",
+    log_new_message_count: "/logs/new/message/count",
+
+    log_get_last_articles: "/logs/get/last/articles",
+
     title_get: "/titles/get",
     title_set: "/titles/set",
     title_delete: "/titles/delete",

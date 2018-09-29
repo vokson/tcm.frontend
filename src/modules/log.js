@@ -3,7 +3,8 @@ export default {
 
     state: {
         items: null,
-        previousSearch: {}
+        previousSearch: {},
+        countOfNewMessages: 0
     },
 
     getters: {
@@ -13,13 +14,26 @@ export default {
 
         givePreviousSearch: function (state) {
             return state.previousSearch;
+        },
+
+        giveCountOfNewMessages: function (state) {
+            return state.countOfNewMessages;
         }
     },
 
     mutations: {
         updateItems: function (state, data) {
+
+            data.forEach(element => {
+                element.is_new = parseInt(element.is_new);
+            });
+
             state.items = data;
         },
+
+        setCountOfNewMessages: function (state, count) {
+            state.countOfNewMessages = count;
+        }
     },
 
     actions: {
@@ -54,6 +68,28 @@ export default {
 
             context.dispatch('query/send', parameters, { root: true })
         },
+
+        switchNewMessage: (context, payload) => {
+
+            let parameters = {
+                queryName: "log_new_message_switch",
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+        getCountOfNewMessages: (context, payload) => {
+
+            let parameters = {
+                queryName: "log_new_message_count",
+                data: payload,
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+
 
     }
 

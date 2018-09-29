@@ -96,10 +96,21 @@ export default {
                     context.dispatch("log_file_delete", payload);
                     break;
 
+                case "log_new_message_switch":
+                    context.dispatch("log_new_message_switch", payload);
+                    break;
+
+                case "log_new_message_count":
+                    context.dispatch("log_new_message_count", payload);
+                    break;
+
+                case "log_get_last_articles":
+                    context.dispatch("log_get_last_articles", payload);
+                    break;
+
 
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
-                // console.log("Wrong queryName " + payload.queryName);
             }
         },
 
@@ -175,6 +186,8 @@ export default {
             }
 
         },
+
+
 
         title_get: (context, payload) => {
 
@@ -283,11 +296,6 @@ export default {
             if (payload.success == 1) {
 
                 context.dispatch('notify/showNotifyByCode', "E_FILE_002", { root: true });
-
-                // context.dispatch('log_file/get', {
-                //     log_id: payload.log_id
-                // }, { root: true });
-
                 context.commit('log_file/deleteSuccess', payload.uin, { root: true });
 
             }
@@ -299,18 +307,36 @@ export default {
             if (payload.success == 1) {
 
                 context.dispatch('notify/showNotifyByCode', "E_FILE_001", { root: true });
-
-                // context.dispatch('log_file/get', {
-                //     log_id: payload.log_id
-                // }, { root: true });
-
                 context.commit('log_file/uploadSuccess', payload, { root: true });
 
             }
 
         },
 
+        log_new_message_switch: (context, payload) => {
 
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_LOG_001", { root: true })
+                context.dispatch('log/getItems', context.rootGetters['log/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        log_new_message_count: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('log/setCountOfNewMessages', payload.count, { root: true });
+            }
+
+        },
+
+        log_get_last_articles: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('last_logs/update', payload.items, { root: true });
+            }
+
+        }
 
     }
 

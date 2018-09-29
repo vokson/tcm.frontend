@@ -11,9 +11,13 @@ import { VueEditor } from 'vue2-editor';
 import axios from 'axios'
 import sha256 from 'sha256'
 import fileDownload from 'js-file-download'
+import VueTimers from 'vue-timers'
+
+
 
 Vue.use(VueCookies);
 Vue.use(Notifications)
+Vue.use(VueTimers)
 
 Vue.component("datepicker", Datepicker);
 Vue.component("editor", VueEditor);

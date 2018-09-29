@@ -13,6 +13,7 @@ import users from "./modules/users";
 import status from "./modules/status";
 import service from "./modules/service";
 import log_file from "./modules/log_file";
+import last_logs from "./modules/last_logs";
 
 Vue.use(Vuex)
 
@@ -76,6 +77,7 @@ export default new Vuex.Store({
     users,
     status,
     service,
-    log_file
+    log_file,
+    last_logs
   }
 });

@@ -7,10 +7,15 @@
       <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
       <b-nav-item :to="{ name: 'log' }">Log</b-nav-item>
       <b-nav-item :to="{ name: 'title' }">Title</b-nav-item>
+      <b-nav-item :to="{ name: 'news' }">News</b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
+      <b-nav-item disabled>
+        New Messages
+        <span class="badge badge-danger">{{count}}</span>
+      </b-nav-item>
     </b-nav>
 
-    <router-view/>
+    <router-view />
 
   </div>
 </template>
@@ -32,9 +37,14 @@ export default {
 
   computed: {
     ...mapState({
-      show: state => state.notify.show
+      show: state => state.notify.show,
+
+      count: function () {
+        return this.$store.getters['log/giveCountOfNewMessages'];
+      }
     })
   },
+
   watch: {
     show (newValue) {
       if (newValue) {
@@ -48,8 +58,20 @@ export default {
       this.disableNotify();
     }
   },
+
   methods: {
-    ...mapMutations("notify", ["disableNotify"])
-  }
+    ...mapMutations("notify", ["disableNotify"]),
+
+    refreshCountOfNewMessages: function () {
+      if (this.$store.state.user.access_token != "") {
+        this.$store.dispatch('log/getCountOfNewMessages', {});
+      }
+    }
+  },
+
+  timers: {
+    refreshCountOfNewMessages: { time: 10000, autostart: true, repeat: true }
+  },
+
 };
 </script>
