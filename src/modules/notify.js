@@ -250,6 +250,14 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 607:
+            return {
+                title: "Ошибка Файловой Системы - 607",
+                text: "Файл не может быть сохранен на сервере",
+                type: "error"
+            }
+
+
 
         case "E_AUTH_001":
             return {
@@ -615,6 +623,13 @@ let getEngText = function (code) {
             return {
                 title: "File System Error - 606",
                 text: "Error of storage file on server",
+                type: "error"
+            }
+
+        case 607:
+            return {
+                title: "File System Error - 607",
+                text: "File can not be saved on server",
                 type: "error"
             }
 
