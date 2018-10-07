@@ -761,47 +761,14 @@ let getEngText = function (code) {
 
 }
 
+import Vue from 'vue'
+
 export default {
     namespaced: true,
 
-    state: {
-        show: false,
-        title: '',
-        text: '',
-        type: ''
-    },
-
-    getters: {
-        getLanguage (state, getters, rootState) {
-            return rootState.language;
-        }
-    },
-
-    mutations: {
-
-        setState (state, newState) {
-            state.title = newState.title;
-            state.text = newState.text;
-            state.type = newState.type;
-            state.show = newState.show;
-        },
-
-        showNotify (state, { title, text, type }) {
-            state.title = title;
-            state.text = text;
-            state.type = type;
-            state.show = true;
-            // 12
-        },
-
-        disableNotify (state) {
-            state.show = false
-        }
-    },
-
     actions: {
-        showNotifyByCode ({ commit, rootState }, code) {
-            commit('setState', Object.assign(getText(rootState.language, code), { show: true }))
+        showNotifyByCode ({ rootState }, code) {
+            Vue.notify(Object.assign(getText(rootState.language, code), { group: "notify-group" }));
         },
     },
 }
