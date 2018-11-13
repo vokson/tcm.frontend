@@ -27,7 +27,6 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
 
-  });
     store.commit('roles/path', {
         path: to.path,
         role: (store.state.user.role == undefined) ? 'guest' : store.state.user.role
