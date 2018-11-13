@@ -27,31 +27,32 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
 
-  store.commit('roles/path', {
-    path: to.path,
-    role: (store.state.user.role == undefined) ? 'guest' : store.state.user.role
   });
+    store.commit('roles/path', {
+        path: to.path,
+        role: (store.state.user.role == undefined) ? 'guest' : store.state.user.role
+    });
 
-  if (store.getters['roles/mayEnter'] == false) {
+    if (store.getters['roles/mayEnter'] == false) {
 
-    store.dispatch('notify/showNotifyByCode', 104);
-    next({ name: 'login' })
+        store.dispatch('notify/showNotifyByCode', 104);
+        next({ name: 'login' })
 
-  } else {
-    next();
-  }
+    } else {
+        next();
+    }
 })
 
 window.$app = new Vue({
-  store,
-  router,
-  render: h => h(App)
+    store,
+    router,
+    render: h => h(App)
 }).$mount('#app');
 
 window.$axios = axios.create({
-  baseURL: "http://api.agpp/api",
-  // baseURL: "http://tcm.api/api",
-  method: 'post',
+    // baseURL: "http://api.agpp/api",
+    baseURL: "http://tcm.api/api",
+    method: 'post',
 
 });
 
