@@ -19,6 +19,10 @@
         <h4>Database Backup</h4>
       </b-nav-item>
 
+      <b-nav-item v-on:click="updateAttachmentStatus">
+        <h4>Update Statues of Logs With Attachments</h4>
+      </b-nav-item>
+
     </b-nav>
 
   </div>
@@ -36,7 +40,13 @@ export default {
   methods: {
     getDatabaseBackup: function () {
       this.$store.dispatch("service/getDatabaseBackup");
+    },
+
+    updateAttachmentStatus: function () {
+      this.$store.dispatch("service/updateAttachmentStatus");
     }
+
+
   }
 
 };

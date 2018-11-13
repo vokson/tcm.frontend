@@ -27,6 +27,10 @@ export default {
                 case "role_check_admin":
                     break;
 
+                case "service_database_update_attachment_status":
+                    context.dispatch("service_database_update_attachment_status", payload);
+                    break;
+
                 case "setting_get":
                     context.dispatch("setting_get", payload);
                     break;
@@ -139,6 +143,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_AUTH_003", { root: true })
                 context.dispatch('auth/loginByToken', context.rootState.user.access_token, { root: true });
+            }
+
+        },
+
+        service_database_update_attachment_status: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_DATABASE_001", { root: true })
             }
 
         },

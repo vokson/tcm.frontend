@@ -5,6 +5,7 @@ let urls = {
     auth_change_password: "/auth/change_password",
 
     service_database_backup: "/service/database/backup",
+    service_database_update_attachment_status: "/service/database/update/attachments",
 
     setting_get: "/settings/get",
     setting_set: "/settings/set",

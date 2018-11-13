@@ -308,6 +308,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_DATABASE_001":
+            return {
+                text: "База данных обновлена",
+                type: "success"
+            }
+
         case "E_LOG_001":
             return {
                 text: "Запись сохранена",
@@ -680,6 +686,12 @@ let getEngText = function (code) {
         case "E_STATUS_003":
             return {
                 text: "Status has been added. Please, update name.",
+                type: "success"
+            }
+
+        case "E_DATABASE_001":
+            return {
+                text: "Database has been updated",
                 type: "success"
             }
 
