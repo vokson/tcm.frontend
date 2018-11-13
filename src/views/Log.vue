@@ -205,7 +205,8 @@
 
           <tr v-for="item in items" :key="item.id" v-on:click="editItem(item.id)">
             <td class="text-center">
-              {{item.id}}
+              <div v-if="item.is_attachment_exist == 1">@{{item.id}}</div>
+              <div v-else>{{item.id}}</div>
 
               <div v-if="item.to == (userSurname + ' ' + userName)">
                 <br />
