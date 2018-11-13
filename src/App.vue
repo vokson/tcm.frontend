@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 
 export default {
 
@@ -36,31 +35,12 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      show: state => state.notify.show,
-
-      count: function () {
-        return this.$store.getters['log/giveCountOfNewMessages'];
-      }
-    })
-  },
-
-  watch: {
-    show (newValue) {
-      if (newValue) {
-        this.$notify({
-          title: this.$store.state.notify.title,
-          text: this.$store.state.notify.text,
-          type: this.$store.state.notify.type,
-          group: "notify-group"
-        });
-      }
-      this.disableNotify();
+    count: function () {
+      return this.$store.getters['log/giveCountOfNewMessages'];
     }
   },
 
   methods: {
-    ...mapMutations("notify", ["disableNotify"]),
 
     refreshCountOfNewMessages: function () {
       if (this.$store.state.user.access_token != "") {
