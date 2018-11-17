@@ -46,6 +46,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 106:
+            return {
+                title: "Ошибка авторизации - 106",
+                text: "У вас нет доступа к этой области титулов",
+                type: "error"
+            }
+
         case 201:
             return {
                 title: "Ошибка Администрирования - 201",
@@ -205,6 +212,13 @@ let getRusText = function (code) {
             return {
                 title: "Ошибка Списка Пользователей - 506",
                 text: "Ошибка в поле \"Active\"",
+                type: "error"
+            }
+
+        case 507:
+            return {
+                title: "Ошибка Списка Пользователей - 507",
+                text: "Ошибка в поле \"Persmission Expression\"",
                 type: "error"
             }
 
@@ -429,6 +443,13 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 106:
+            return {
+                title: "Authentication Error - 106",
+                text: "Error of permission expression",
+                type: "error"
+            }
+
         case 201:
             return {
                 title: "Admin Error - 201",
@@ -587,6 +608,13 @@ let getEngText = function (code) {
             return {
                 title: "Title Error - 506",
                 text: "Wrong input \"Active\"",
+                type: "error"
+            }
+
+        case 507:
+            return {
+                title: "Title Error - 507",
+                text: "Wrong input \"Permission Expression\"",
                 type: "error"
             }
 
