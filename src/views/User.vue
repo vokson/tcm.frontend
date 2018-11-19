@@ -210,6 +210,7 @@ export default {
         name: this.targetItem.name,
         role: this.targetItem.role,
         active: this.targetItem.active,
+        permission_expression: this.targetItem.permission_expression,
       });
     },
 
