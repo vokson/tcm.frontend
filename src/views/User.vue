@@ -61,6 +61,15 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-5">
+            <label>Permission Expression</label>
+          </div>
+          <div class="col-7">
+            <input type="text" class="form-control" v-model="targetItem.permission_expression">
+          </div>
+        </div>
+
         <div v-if="isNewItemMayBeAdded == true" class="row">
           <div class="col-5" />
           <div class="col-7">
@@ -91,7 +100,7 @@
 
     </div>
 
-    <br/>
+    <br />
     <div class="row">
       <div class="col">
         <button type="button" class="btn btn-block btn-success" v-on:click="getItems">
@@ -156,7 +165,8 @@ export default {
         surname: "",
         name: "",
         role: "",
-        active: ""
+        active: "",
+        permission_expression: "",
       },
 
       search: {
@@ -200,6 +210,7 @@ export default {
         name: this.targetItem.name,
         role: this.targetItem.role,
         active: this.targetItem.active,
+        permission_expression: this.targetItem.permission_expression,
       });
     },
 
@@ -211,6 +222,7 @@ export default {
         name: this.targetItem.name,
         role: this.targetItem.role,
         active: this.targetItem.active,
+        permission_expression: this.targetItem.permission_expression,
       });
     },
 
@@ -238,6 +250,7 @@ export default {
       this.targetItem.name = itemToBeModified.name;
       this.targetItem.role = itemToBeModified.role;
       this.targetItem.active = itemToBeModified.active;
+      this.targetItem.permission_expression = itemToBeModified.permission_expression;
 
       this.isNewItemMayBeAdded = false;
     }
