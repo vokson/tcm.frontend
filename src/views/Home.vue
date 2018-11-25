@@ -128,7 +128,7 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
-          <p>1.12.0</p>
+          <p>1.12.0 </p>
         </div>
         <div class="col-4">
           <p>Исправлена ошибка в удалении записей в Журнале Событий.</p>
