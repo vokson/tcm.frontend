@@ -249,8 +249,9 @@ export default {
 
       customEditorToolbar: [
         ['bold', 'underline'],
-        // [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        // ['image', 'code-block']
+        [{ 'list': 'ordered' }, { 'list': 'check' }],
+        [{ 'color': [] }, { 'background': [] }],
+        ['clean'],
       ],
 
       targetItem: {
