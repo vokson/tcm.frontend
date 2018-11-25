@@ -18,6 +18,7 @@ let urls = {
     log_file_upload: "/logs/file/upload",
     log_file_download: "/logs/file/download",
     log_file_delete: "/logs/file/delete",
+    log_files_delete_files_without_articles: "/logs/clean/files/without/articles",
 
     log_new_message_switch: "/logs/new/message/switch",
     log_new_message_count: "/logs/new/message/count",

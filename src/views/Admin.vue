@@ -23,6 +23,10 @@
         <h4>Update Statues of Logs With Attachments</h4>
       </b-nav-item>
 
+      <b-nav-item v-on:click="deleteFilesWithoutArticles">
+        <h4>Delete Files Without Articles</h4>
+      </b-nav-item>
+
     </b-nav>
 
   </div>
@@ -44,6 +48,10 @@ export default {
 
     updateAttachmentStatus: function () {
       this.$store.dispatch("service/updateAttachmentStatus");
+    },
+
+    deleteFilesWithoutArticles: function () {
+      this.$store.dispatch("service/deleteFilesWithoutArticles");
     }
 
 

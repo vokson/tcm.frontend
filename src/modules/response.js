@@ -100,6 +100,10 @@ export default {
                     context.dispatch("log_file_delete", payload);
                     break;
 
+                case "log_files_delete_files_without_articles":
+                    context.dispatch("log_files_delete_files_without_articles", payload);
+                    break;
+
                 case "log_new_message_switch":
                     context.dispatch("log_new_message_switch", payload);
                     break;
@@ -151,6 +155,14 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_DATABASE_001", { root: true })
+            }
+
+        },
+
+        log_files_delete_files_without_articles: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_FILE_005", { root: true })
             }
 
         },

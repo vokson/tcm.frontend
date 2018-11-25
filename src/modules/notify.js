@@ -144,6 +144,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 308:
+            return {
+                title: "Ошибка Журнала Событий - 308",
+                text: "Нельзя удалить запись из-за вложенных файлов",
+                type: "error"
+            }
+
 
         case 401:
             return {
@@ -394,6 +401,12 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case "E_FILE_005":
+            return {
+                text: "Файлы были успешно очищены",
+                type: "success"
+            }
+
 
         default:
             return {
@@ -538,6 +551,13 @@ let getEngText = function (code) {
             return {
                 title: "Log Error - 307",
                 text: "Wrong input check box \"Is New Message ?\"",
+                type: "error"
+            }
+
+        case 308:
+            return {
+                title: "Log Error - 308",
+                text: "Article can not be deleted, because of attached files",
                 type: "error"
             }
 
@@ -788,6 +808,12 @@ let getEngText = function (code) {
             return {
                 text: "Max size of file is 20 MB",
                 type: "error"
+            }
+
+        case "E_FILE_005":
+            return {
+                text: "Files have been cleaned successfully",
+                type: "success"
             }
 
 
