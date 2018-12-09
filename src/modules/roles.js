@@ -7,7 +7,8 @@ let guest = [
 let engineer = [
     '/log',
     '/title',
-    '/news'
+    '/news',
+    '/stat'
 ];
 
 let group_leader = [];
