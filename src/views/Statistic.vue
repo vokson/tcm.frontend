@@ -8,8 +8,68 @@
     </div>
 
     <div class="row">
+      <div class="col-2">
+        <!-- <b-form-group label="Выберите промежуток времени"> -->
+        <b-form-radio-group
+          id="chart_intervals"
+          v-model="interval"
+          name="radioSubComponent"
+        >
+          <b-form-radio
+            value="86400"
+            checked
+          >{{ (language == 'RUS') ? 'День' : 'Day' }}</b-form-radio>
+          <br />
+          <b-form-radio value="604800">{{ (language == 'RUS') ? 'Неделя' : 'Week' }}</b-form-radio>
+          <br />
+          <b-form-radio value="18446400">{{ (language == 'RUS') ? 'Месяц' : 'Month' }}</b-form-radio>
+
+        </b-form-radio-group>
+        <!-- </bs-form-group> -->
+      </div>
+
+      <div class="col-3">
+        <datepicker
+          v-model="startDate"
+          :format="date_format"
+          :bootstrap-styling="true"
+          :language="languageForDatePicker"
+        ></datepicker>
+        <datepicker
+          v-model="endDate"
+          :format="date_format"
+          :bootstrap-styling="true"
+          :language="languageForDatePicker"
+        ></datepicker>
+      </div>
+
+      <div class="col-4">
+        <input
+          type="text"
+          v-model="regExp"
+          placeholder="Regular expression (php)"
+        />
+        <a href="https://regex101.com/"> ? </a>
+      </div>
+
+      <div class="col-3">
+        <button
+          type="button"
+          class="btn btn-block btn-success"
+          v-on:click="drawChart"
+        >
+          {{ (language == 'RUS') ? 'Найти' : 'Search' }}
+        </button>
+      </div>
+
+    </div>
+
+    <div class="row">
       <div class="chart">
-        <line-log-article :chart-data="chart_data" :options="chart_options"></line-log-article>
+        <line-log-article
+          :chart-data="chart_data"
+          :options="chart_options"
+        ></line-log-article>
         <button @click="fillData()">Randomize</button>
       </div>
     </div>
@@ -20,12 +80,22 @@
 <script>
 
 import LineLogArticle from './LineChart.js'
+import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
   name: "Statistic",
 
   data () {
     return {
+      date_format: "dd.MM.yyyy",
+      en: en,
+      ru: ru,
+
+      interval: "86400",
+      startDate: new Date(),
+      endDate: new Date(),
+      regExp: "/.*/",
+
       chart_data: null,
 
       chart_options: {
@@ -46,6 +116,11 @@ export default {
   computed: {
     language: function () {
       return this.$store.state.language;
+    },
+
+    languageForDatePicker: function () {
+      if (this.language == "RUS") { return this.ru }
+      if (this.language == "ENG") { return this.en }
     },
 
   },
@@ -71,7 +146,9 @@ export default {
 
     getRandomInt () {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-    }
+    },
+
+    drawChart: function () { }
   }
 
 
