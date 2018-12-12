@@ -56,7 +56,7 @@
         <button
           type="button"
           class="btn btn-block btn-success"
-          v-on:click="drawChart"
+          v-on:click="getItemsForLogChart"
         >
           {{ (language == 'RUS') ? 'Найти' : 'Search' }}
         </button>
@@ -67,10 +67,10 @@
     <div class="row">
       <div class="chart">
         <line-log-article
-          :chart-data="chart_data"
-          :options="chart_options"
+          :chart-data="itemsForLogChart"
+          :options="optionsForLogChart"
         ></line-log-article>
-        <button @click="fillData()">Randomize</button>
+        <!-- <button @click="fillData()">Randomize</button> -->
       </div>
     </div>
 
@@ -96,9 +96,9 @@ export default {
       endDate: new Date(),
       regExp: "/.*/",
 
-      chart_data: null,
+      // chart_data: null,
 
-      chart_options: {
+      optionsForLogChart: {
         responsive: true,
         maintainAspectRatio: false
       }
@@ -121,6 +121,10 @@ export default {
     languageForDatePicker: function () {
       if (this.language == "RUS") { return this.ru }
       if (this.language == "ENG") { return this.en }
+    },
+
+    itemsForLogChart: function () {
+      return this.$store.getters['stat/giveCreatedLogs'];
     },
 
   },
@@ -148,7 +152,18 @@ export default {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5
     },
 
-    drawChart: function () { }
+    drawChart: function () { },
+
+    getItemsForLogChart: function () {
+      let queryObject = {
+        regular_expression: this.regExp,
+        interval: this.interval,
+        date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
+        date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
+      };
+
+      this.$store.dispatch('stat/getCreatedLogs', queryObject);
+    },
   }
 
 

@@ -116,6 +116,10 @@ export default {
                     context.dispatch("log_get_last_articles", payload);
                     break;
 
+                case "created_logs_chart_get":
+                    context.dispatch("created_logs_chart_get", payload);
+                    break;
+
 
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -358,6 +362,14 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('last_logs/update', payload.items, { root: true });
+            }
+
+        },
+
+        created_logs_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('stat/updateCreatedLogs', payload.items, { root: true });
             }
 
         }
