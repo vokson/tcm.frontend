@@ -124,6 +124,18 @@ export default {
     },
 
     itemsForLogChart: function () {
+      return {
+        labels: this.rawItemsForLogChart.labels,
+        datasets: [
+          {
+            label: 'Log Records',
+            data: this.rawItemsForLogChart.values
+          }
+        ]
+      }
+    },
+
+    rawItemsForLogChart: function () {
       return this.$store.getters['stat/giveCreatedLogs'];
     },
 
