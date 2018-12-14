@@ -9,72 +9,79 @@ import Setting from './views/Setting.vue'
 import Title from './views/Title.vue'
 import User from './views/User.vue'
 import LastLog from './views/LastLog.vue'
+import Statistic from './views/Statistic.vue'
 
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      redirect: '/home'
-    },
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            redirect: '/home'
+        },
 
-    {
-      path: '/home',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
+        {
+            path: '/home',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
 
-    {
-      path: '/admin',
-      name: 'admin',
-      component: Admin,
-    },
+        {
+            path: '/admin',
+            name: 'admin',
+            component: Admin,
+        },
 
-    {
-      path: '/admin/status',
-      name: 'status',
-      component: Status,
-    },
+        {
+            path: '/admin/status',
+            name: 'status',
+            component: Status,
+        },
 
-    {
-      path: '/admin/setting',
-      name: 'setting',
-      component: Setting,
-    },
+        {
+            path: '/admin/setting',
+            name: 'setting',
+            component: Setting,
+        },
 
-    {
-      path: '/admin/user',
-      name: 'user',
-      component: User,
-    },
+        {
+            path: '/admin/user',
+            name: 'user',
+            component: User,
+        },
 
-    {
-      path: '/log',
-      name: 'log',
-      component: Log
-    },
+        {
+            path: '/log',
+            name: 'log',
+            component: Log
+        },
 
-    {
-      path: '/title',
-      name: 'title',
-      component: Title
-    },
+        {
+            path: '/title',
+            name: 'title',
+            component: Title
+        },
 
-    {
-      path: '/news',
-      name: 'news',
-      component: LastLog
-    },
+        {
+            path: '/news',
+            name: 'news',
+            component: LastLog
+        },
+
+        {
+            path: '/stat',
+            name: 'stat',
+            component: Statistic
+        },
 
 
-  ]
+    ]
 })
