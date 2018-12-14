@@ -20,7 +20,11 @@
         </div>
 
         <div class="col-5">
-          <b-form-radio-group id="language-radio" v-model="choose_language" name="radioSubComponent">
+          <b-form-radio-group
+            id="language-radio"
+            v-model="choose_language"
+            name="radioSubComponent"
+          >
             <b-form-radio value="RUS">RU</b-form-radio>
             <b-form-radio value="ENG">EN</b-form-radio>
           </b-form-radio-group>
@@ -66,10 +70,19 @@
           <p>{{role}}</p>
         </div>
       </div>
-      <div v-if="isDefaultPassword === true" class="row">
+      <div
+        v-if="isDefaultPassword === true"
+        class="row"
+      >
         <div class="col-5">
-          <span v-if="language === 'RUS'" class="badge badge-danger">У вас стандартный пароль. Смените его.</span>
-          <span v-else-if="language === 'ENG'" class="badge badge-danger">You have default password. Change it.</span>
+          <span
+            v-if="language === 'RUS'"
+            class="badge badge-danger"
+          >У вас стандартный пароль. Смените его.</span>
+          <span
+            v-else-if="language === 'ENG'"
+            class="badge badge-danger"
+          >You have default password. Change it.</span>
         </div>
       </div>
 
@@ -87,11 +100,20 @@
           <p v-else-if="language === 'ENG'">New password:</p>
         </div>
         <div class="col-2">
-          <input type="password" v-model="new_password_1" />
+          <input
+            type="password"
+            v-model="new_password_1"
+          />
         </div>
         <div class="col-1">
-          <span v-if="isNewPasswordOk_1 === true" class="badge badge-success">OK</span>
-          <span v-else class="badge badge-danger">FAIL</span>
+          <span
+            v-if="isNewPasswordOk_1 === true"
+            class="badge badge-success"
+          >OK</span>
+          <span
+            v-else
+            class="badge badge-danger"
+          >FAIL</span>
         </div>
       </div>
 
@@ -101,18 +123,40 @@
           <p v-else-if="language === 'ENG'">New password again:</p>
         </div>
         <div class="col-2">
-          <input type="password" v-model="new_password_2" />
+          <input
+            type="password"
+            v-model="new_password_2"
+          />
         </div>
         <div class="col-1">
-          <span v-if="isNewPasswordOk_2 === true" class="badge badge-success">OK</span>
-          <span v-else class="badge badge-danger">FAIL</span>
+          <span
+            v-if="isNewPasswordOk_2 === true"
+            class="badge badge-success"
+          >OK</span>
+          <span
+            v-else
+            class="badge badge-danger"
+          >FAIL</span>
         </div>
       </div>
 
-      <div v-if="isNewPasswordOk_1 === true && isNewPasswordOk_2 === true" class="row">
+      <div
+        v-if="isNewPasswordOk_1 === true && isNewPasswordOk_2 === true"
+        class="row"
+      >
         <div class="col-1">
-          <button v-if="language === 'RUS'" type="button" class="btn btn-danger" v-on:click="changePassword">Сохранить</button>
-          <button v-else-if="language === 'ENG'" type="button" class="btn btn-danger" v-on:click="changePassword">Save</button>
+          <button
+            v-if="language === 'RUS'"
+            type="button"
+            class="btn btn-danger"
+            v-on:click="changePassword"
+          >Сохранить</button>
+          <button
+            v-else-if="language === 'ENG'"
+            type="button"
+            class="btn btn-danger"
+            v-on:click="changePassword"
+          >Save</button>
         </div>
       </div>
 
@@ -127,6 +171,15 @@
       </div>
 
       <div class="row actual_version_color">
+        <div class="col-1">
+          <p>1.13.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлена вкладка Статистика. Добавлен график добавления новых записей.</p>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-1">
           <p>1.12.0</p>
         </div>
@@ -305,7 +358,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.12.0'
+      version: '1.13.0'
     };
   },
 
