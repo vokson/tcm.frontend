@@ -22,7 +22,7 @@
           <br />
           <b-form-radio value="604800">{{ (language == 'RUS') ? 'Неделя' : 'Week' }}</b-form-radio>
           <br />
-          <b-form-radio value="18446400">{{ (language == 'RUS') ? 'Месяц' : 'Month' }}</b-form-radio>
+          <b-form-radio value="2635200">{{ (language == 'RUS') ? 'Месяц' : 'Month' }}</b-form-radio>
 
         </b-form-radio-group>
         <!-- </bs-form-group> -->
@@ -70,7 +70,6 @@
           :chart-data="itemsForLogChart"
           :options="optionsForLogChart"
         ></line-log-article>
-        <!-- <button @click="fillData()">Randomize</button> -->
       </div>
     </div>
 
@@ -100,13 +99,30 @@ export default {
 
       optionsForLogChart: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        scales: {
+
+          xAxes: [{
+            gridLines: {
+              display: true,
+              color: "white"
+            },
+            type: 'time',
+            time: {
+              unit: 'day'
+            }
+          }],
+
+          yAxes: [{
+            gridLines: {
+              display: true,
+              color: "white"
+            },
+
+          }]
+        }
       }
     }
-  },
-
-  mounted () {
-    this.fillData()
   },
 
   components: {
@@ -124,14 +140,35 @@ export default {
     },
 
     itemsForLogChart: function () {
-      return {
-        labels: this.rawItemsForLogChart.labels,
-        datasets: [
-          {
-            label: 'Log Records',
-            data: this.rawItemsForLogChart.values
-          }
-        ]
+      if (this.rawItemsForLogChart === null) {
+
+        return null;
+
+      } else {
+
+        return {
+
+          color: "red",
+
+          labels: this.rawItemsForLogChart.labels.map(function (value) {
+            return new Date(value * 1000);
+          }),
+
+          datasets: [
+            {
+              // fillColor: "rgba(151,249,190,0.5)",
+              // strokeColor: "rgba(255,255,255,1)",
+              // pointColor: "rgba(220,220,220,1)",
+              // pointStrokeColor: "#fff",
+              backgroundColor: "rgba(252,147,65,0.5)",
+              borderColor: "rgba(0,0,120,0.5)",
+              pointBackgroundColor: "rgba(255,0,0,0.7)",
+              label: 'Log Records',
+              data: this.rawItemsForLogChart.values
+            }
+          ]
+        }
+
       }
     },
 
@@ -142,29 +179,6 @@ export default {
   },
 
   methods: {
-
-    fillData () {
-      this.chart_data = {
-        labels: ['January', 'February', 'March', 'April', 'May'],
-        datasets: [
-          {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
-          }, {
-            label: 'Data Two',
-            backgroundColor: 'green',
-            data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
-          }
-        ]
-      }
-    },
-
-    getRandomInt () {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-    },
-
-    drawChart: function () { },
 
     getItemsForLogChart: function () {
       let queryObject = {
