@@ -15,6 +15,11 @@
           <div class="col">
             <label v-if="language === 'RUS'">Номер записи: {{targetItem.id}}</label>
             <label v-else-if="language === 'ENG'">Item's ID: {{targetItem.id}}</label>
+            <a
+              v-on:click='getHistoryItems'
+              v-if="targetItem.id !== null"
+              href="#"
+            > {{ (language == 'RUS') ? '(история)' : '(history)' }}</a>
           </div>
         </div>
 
@@ -24,7 +29,11 @@
             <label v-else-if="language === 'ENG'">Title</label>
           </div>
           <div class="col-7">
-            <input type="text" class="form-control" v-model="targetItem.name">
+            <input
+              type="text"
+              class="form-control"
+              v-model="targetItem.name"
+            >
           </div>
         </div>
 
@@ -35,8 +44,16 @@
           </div>
 
           <div class="col-7">
-            <select class="form-control" v-bind:value="targetItem.status" v-on:change="targetItem.status = $event.target.value">
-              <option v-for="item in statuses" :key="item.id" v-bind:value="item.id">{{item.name}}</option>
+            <select
+              class="form-control"
+              v-bind:value="targetItem.status"
+              v-on:change="targetItem.status = $event.target.value"
+            >
+              <option
+                v-for="item in statuses"
+                :key="item.id"
+                v-bind:value="item.id"
+              >{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -49,7 +66,11 @@
           </div>
 
           <div class="col-7">
-            <input type="text" class="form-control" v-model="targetItem.predecessor">
+            <input
+              type="text"
+              class="form-control"
+              v-model="targetItem.predecessor"
+            >
           </div>
         </div>
 
@@ -61,7 +82,11 @@
           </div>
 
           <div class="col-7">
-            <input type="text" class="form-control" v-model="targetItem.description">
+            <input
+              type="text"
+              class="form-control"
+              v-model="targetItem.description"
+            >
           </div>
         </div>
 
@@ -73,31 +98,53 @@
           </div>
 
           <div class="col-7">
-            <input type="text" class="form-control" v-model="targetItem.volume">
+            <input
+              type="text"
+              class="form-control"
+              v-model="targetItem.volume"
+            >
           </div>
 
         </div>
 
-        <div v-if="isNewItemMayBeAdded == true" class="row">
+        <div
+          v-if="isNewItemMayBeAdded == true"
+          class="row"
+        >
           <div class="col-5" />
           <div class="col-7">
-            <button type="button" class="btn btn-block btn-primary" v-on:click="addItem">
+            <button
+              type="button"
+              class="btn btn-block btn-primary"
+              v-on:click="addItem"
+            >
               {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
             </button>
           </div>
         </div>
 
-        <div v-else class="row">
+        <div
+          v-else
+          class="row"
+        >
           <div class="col-5" />
           <div class="col-7">
             <div class="row">
               <div class="col">
-                <button type="button" class="btn btn-block btn-warning" v-on:click="modifyItem">
+                <button
+                  type="button"
+                  class="btn btn-block btn-warning"
+                  v-on:click="modifyItem"
+                >
                   {{ (language == 'RUS') ? 'Изменить' : 'Modify' }}
                 </button>
               </div>
               <div class="col">
-                <button type="button" class="btn btn-block btn-danger" v-on:click="deleteItem">
+                <button
+                  type="button"
+                  class="btn btn-block btn-danger"
+                  v-on:click="deleteItem"
+                >
                   {{ (language == 'RUS') ? 'Удалить' : 'Delete' }}
                 </button>
               </div>
@@ -109,16 +156,45 @@
 
     </div>
 
-    <br/>
+    <!-- Таблица с историей данного титула -->
+    <div class="row">
+
+      <table class="table table-striped history-table">
+        <tbody>
+
+          <tr
+            class="text-center"
+            v-for="item in history_items"
+            :key="item.id"
+            v-on:click="editItem(item.id)"
+          >
+            <td>{{ new Date(item.date*1000).toLocaleString(language, dateOptions)}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.status}}</td>
+            <td>{{item.predecessor}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.volume}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Кнопка НАЙТИ -->
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-block btn-success" v-on:click="getItems">
+        <button
+          type="button"
+          class="btn btn-block btn-success"
+          v-on:click="getItems"
+        >
           {{ (language == 'RUS') ? 'Найти' : 'Search' }}
           <span class="badge badge-light">{{countOfItems}}</span>
         </button>
       </div>
     </div>
 
+    <!-- Таблица поиска титулов -->
     <div class="row">
 
       <table class="table table-striped">
@@ -134,16 +210,44 @@
         </thead>
         <tbody>
 
-          <tr v-on:keyup.enter.prevent="getItems" class="text-center">
+          <tr
+            v-on:keyup.enter.prevent="getItems"
+            class="text-center"
+          >
             <td></td>
-            <td><input type="text" v-model="search.name" placeholder="Титул" /></td>
-            <td><input type="text" v-model="search.status" placeholder="Статус" /></td>
-            <td><input type="text" v-model="search.predecessor" placeholder="Предшественник" /></td>
-            <td><input type="text" v-model="search.description" placeholder="Описание" /></td>
-            <td><input type="text" v-model="search.volume" placeholder="Объем" /></td>
+            <td><input
+                type="text"
+                v-model="search.name"
+                placeholder="Титул"
+              /></td>
+            <td><input
+                type="text"
+                v-model="search.status"
+                placeholder="Статус"
+              /></td>
+            <td><input
+                type="text"
+                v-model="search.predecessor"
+                placeholder="Предшественник"
+              /></td>
+            <td><input
+                type="text"
+                v-model="search.description"
+                placeholder="Описание"
+              /></td>
+            <td><input
+                type="text"
+                v-model="search.volume"
+                placeholder="Объем"
+              /></td>
           </tr>
 
-          <tr class="text-center" v-for="item in items" :key="item.id" v-on:click="editItem(item.id)">
+          <tr
+            class="text-center"
+            v-for="item in items"
+            :key="item.id"
+            v-on:click="editItem(item.id)"
+          >
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.status}}</td>
@@ -168,6 +272,15 @@ export default {
     return {
 
       isNewItemMayBeAdded: true,
+      formatOfDate: '',
+      dateOptions: {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+      },
 
       targetItem: {
         id: null,
@@ -207,6 +320,10 @@ export default {
       return this.$store.getters['title/give'];
     },
 
+    history_items: function () {
+      return this.$store.getters['title_history/give'];
+    },
+
     statuses: function () {
       return this.$store.getters['status/give'];
     },
@@ -230,6 +347,14 @@ export default {
         predecessor: this.search.predecessor,
         description: this.search.description,
         volume: this.search.volume,
+      });
+    },
+
+    getHistoryItems: function () {
+      if (this.targetItem.id === null) return;
+
+      this.$store.dispatch('title_history/get', {
+        id: this.targetItem.id
       });
     },
 
@@ -278,6 +403,8 @@ export default {
       this.targetItem.volume = itemToBeModified.volume;
 
       this.isNewItemMayBeAdded = false;
+
+      this.$store.commit('title_history/clear', {}, { root: true });
     }
   }
 };
@@ -286,5 +413,10 @@ export default {
 <style>
 .text-center {
   text-align: center;
+}
+
+.history-table {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 </style>

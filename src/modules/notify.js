@@ -180,6 +180,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 405:
+            return {
+                title: "Ошибка Списка Титулов - 405",
+                text: "Ошибка сохранения, возможно данный титул уже зарегистрирован",
+                type: "error"
+            }
+
         case 501:
             return {
                 title: "Ошибка Списка Пользователей - 501",
@@ -586,6 +593,13 @@ let getEngText = function (code) {
             return {
                 title: "Title Error - 404",
                 text: "Wrong input \"Predecessor\"",
+                type: "error"
+            }
+
+        case 405:
+            return {
+                title: "Title Error - 405",
+                text: "Saving error, probably the Title has been already registered",
                 type: "error"
             }
 
