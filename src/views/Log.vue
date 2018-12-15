@@ -24,7 +24,12 @@
             <label v-else-if="language === 'ENG'">Date</label>
           </div>
           <div class="col-9">
-            <datepicker v-model="targetItem.date" :format="date_format" :bootstrap-styling="true" :language="languageForDatePicker"></datepicker>
+            <datepicker
+              v-model="targetItem.date"
+              :format="date_format"
+              :bootstrap-styling="true"
+              :language="languageForDatePicker"
+            ></datepicker>
           </div>
         </div>
 
@@ -34,8 +39,16 @@
             <label v-else-if="language === 'ENG'">From</label>
           </div>
           <div class="col-9">
-            <select class="form-control" v-bind:value="targetItem.from" v-on:change="targetItem.from = $event.target.value">
-              <option v-for="item in users" :key="item.id" v-bind:value="item.id">
+            <select
+              class="form-control"
+              v-bind:value="targetItem.from"
+              v-on:change="targetItem.from = $event.target.value"
+            >
+              <option
+                v-for="item in users"
+                :key="item.id"
+                v-bind:value="item.id"
+              >
                 {{item.surname}} {{item.name}}
               </option>
             </select>
@@ -49,8 +62,16 @@
           </div>
           <div class="col-9">
 
-            <select class="form-control" v-bind:value="targetItem.to" v-on:change="targetItem.to = $event.target.value">
-              <option v-for="item in users" :key="item.id" v-bind:value="item.id">{{item.surname}} {{item.name}}</option>
+            <select
+              class="form-control"
+              v-bind:value="targetItem.to"
+              v-on:change="targetItem.to = $event.target.value"
+            >
+              <option
+                v-for="item in users"
+                :key="item.id"
+                v-bind:value="item.id"
+              >{{item.surname}} {{item.name}}</option>
             </select>
           </div>
         </div>
@@ -62,36 +83,70 @@
             <label v-else-if="language === 'ENG'">Title</label>
           </div>
           <div class="col-9">
-            <input type="text" v-model="targetItem.title" class="form-control" />
+            <input
+              type="text"
+              v-model="targetItem.title"
+              class="form-control"
+            />
           </div>
         </div>
 
-        <div v-if="isNewItemMayBeAdded == true" class="row">
+        <div
+          v-if="isNewItemMayBeAdded == true"
+          class="row"
+        >
           <div class="col-3">
-            <img src="./img/reverse.jpg" width="40" height="40" v-on:click="switchUsers" title="От <> Кому / From <> To">
+            <img
+              src="./img/reverse.jpg"
+              width="40"
+              height="40"
+              v-on:click="switchUsers"
+              title="От <> Кому / From <> To"
+            >
           </div>
 
           <div class="col-9">
-            <button type="button" class="btn btn-block btn-primary" v-on:click="addItem">
+            <button
+              type="button"
+              class="btn btn-block btn-primary"
+              v-on:click="addItem"
+            >
               {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
             </button>
           </div>
         </div>
 
-        <div v-else class="row">
+        <div
+          v-else
+          class="row"
+        >
           <div class="col-3">
-            <img src="./img/plus.png" width="40" height="40" v-on:click="resetToAdd" title="Вернуться к Добавить / Back to ADD">
+            <img
+              src="./img/plus.png"
+              width="40"
+              height="40"
+              v-on:click="resetToAdd"
+              title="Вернуться к Добавить / Back to ADD"
+            >
           </div>
 
           <div class="col-9">
             <div class="row">
               <div class="col">
-                <button type="button" class="btn btn-block btn-warning" v-on:click="modifyItem">
+                <button
+                  type="button"
+                  class="btn btn-block btn-warning"
+                  v-on:click="modifyItem"
+                >
                   {{ (language == 'RUS') ? 'Изменить' : 'Modify' }}
                 </button>
               </div>
               <div class="col">
-                <button type="button" class="btn btn-block btn-danger" v-on:click="deleteItem">
+                <button
+                  type="button"
+                  class="btn btn-block btn-danger"
+                  v-on:click="deleteItem"
+                >
                   {{ (language == 'RUS') ? 'Удалить' : 'Delete' }}
                 </button>
               </div>
@@ -103,9 +158,19 @@
 
       <div class="col-8">
         <div class="row">
-          <div class="col" id="col-drop-area">
-            <editor v-if="isDragging == false" v-model="targetItem.what" :editorToolbar="customEditorToolbar"></editor>
-            <div v-else id="drop-area">
+          <div
+            class="col"
+            id="col-drop-area"
+          >
+            <editor
+              v-if="isDragging == false"
+              v-model="targetItem.what"
+              :editorToolbar="customEditorToolbar"
+            ></editor>
+            <div
+              v-else
+              id="drop-area"
+            >
               Drop Here / Бросай Сюда (max 20 MB)
             </div>
           </div>
@@ -118,24 +183,57 @@
       <div class="col-4"></div>
       <div class="col-8">
 
-        <div class="row" v-for="item in attachedFiles" :key="item.uin">
+        <div v-if="attachedFiles.length > 0">
+          <a
+            href="#"
+            v-on:click="downloadAllFiles"
+          >{{ (language == 'RUS') ? 'Скачать все файлы zip архивом' : 'Download all files by zip archive' }}</a>
+        </div>
+
+        <div
+          class="row"
+          v-for="item in attachedFiles"
+          :key="item.uin"
+        >
           <div class="col-1">
-            <span v-if="item.uploadedSize >= item.size" class="badge badge-success">OK</span>
-            <span v-else class="badge badge-warning">{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
+            <span
+              v-if="item.uploadedSize >= item.size"
+              class="badge badge-success"
+            >OK</span>
+            <span
+              v-else
+              class="badge badge-warning"
+            >{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
           </div>
 
-          <div class="col-7" v-if="item.id != null">
-            <a href="#" v-on:click="downloadFile(item.id)">{{item.original_name}}</a>
+          <div
+            class="col-7"
+            v-if="item.id != null"
+          >
+            <a
+              href="#"
+              v-on:click="downloadFile(item.id)"
+            >{{item.original_name}}</a>
           </div>
-          <div class="col-7" v-else>
+          <div
+            class="col-7"
+            v-else
+          >
             {{item.original_name}}
           </div>
 
           <div class="col-2">
             {{formatBytes(item.size)}}
           </div>
-          <div class="col-2" v-if="item.id != null">
-            <button type="button" class="btn btn-danger btn-sm" v-on:click="deleteFile(item.id)">
+          <div
+            class="col-2"
+            v-if="item.id != null"
+          >
+            <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              v-on:click="deleteFile(item.id)"
+            >
               Удалить
             </button>
           </div>
@@ -153,7 +251,10 @@
             {{ (language == 'RUS') ? 'Только последние записи' : 'Only last rows' }}
           </div>
           <div class="col-5">
-            <input type="checkbox" v-model="search.is_only_last">
+            <input
+              type="checkbox"
+              v-model="search.is_only_last"
+            >
           </div>
         </div>
 
@@ -162,14 +263,21 @@
             {{ (language == 'RUS') ? 'Только новые сообщения' : 'Only new messages' }}
           </div>
           <div class="col-5">
-            <input type="checkbox" v-on:click="switchNewMessageSearchCheckBox">
+            <input
+              type="checkbox"
+              v-on:click="switchNewMessageSearchCheckBox"
+            >
           </div>
         </div>
 
       </div>
 
       <div class="col-8">
-        <button type="button" class="btn btn-block btn-success" v-on:click="getItems">
+        <button
+          type="button"
+          class="btn btn-block btn-success"
+          v-on:click="getItems"
+        >
           {{ (language == 'RUS') ? 'Найти' : 'Search' }}
           <span class="badge badge-light">{{countOfItems}}</span>
         </button>
@@ -193,26 +301,64 @@
         <tbody>
 
           <tr v-on:keyup.enter.prevent="getItems">
-            <td> <img src="./img/clean.png" width="35" height="35" v-on:click="cleanSearch"> </td>
+            <td> <img
+                src="./img/clean.png"
+                width="35"
+                height="35"
+                v-on:click="cleanSearch"
+              > </td>
             <td class="td-date">
-              <datepicker v-model="search.date" :format="date_format" :bootstrap-styling="true" :language="languageForDatePicker"></datepicker>
+              <datepicker
+                v-model="search.date"
+                :format="date_format"
+                :bootstrap-styling="true"
+                :language="languageForDatePicker"
+              ></datepicker>
             </td>
-            <td class="text-center"><input type="text" v-model="search.title" placeholder="Титул" /></td>
-            <td class="text-center"><input type="text" v-model="search.from" placeholder="От (фамилия)" /></td>
-            <td class="text-center"><input type="text" v-model="search.what" placeholder="Текст" /></td>
-            <td class="text-center"><input type="text" v-model="search.to" placeholder="Кому (фамилия)" /></td>
+            <td class="text-center"><input
+                type="text"
+                v-model="search.title"
+                placeholder="Титул"
+              /></td>
+            <td class="text-center"><input
+                type="text"
+                v-model="search.from"
+                placeholder="От (фамилия)"
+              /></td>
+            <td class="text-center"><input
+                type="text"
+                v-model="search.what"
+                placeholder="Текст"
+              /></td>
+            <td class="text-center"><input
+                type="text"
+                v-model="search.to"
+                placeholder="Кому (фамилия)"
+              /></td>
           </tr>
 
-          <tr v-for="item in items" :key="item.id" v-on:click="editItem(item.id)">
+          <tr
+            v-for="item in items"
+            :key="item.id"
+            v-on:click="editItem(item.id)"
+          >
             <td class="text-center">
               <div v-if="item.is_attachment_exist == 1">@{{item.id}}</div>
               <div v-else>{{item.id}}</div>
 
               <div v-if="item.to == (userSurname + ' ' + userName)">
                 <br />
-                <input type="checkbox" v-bind:checked="item.is_new" title="Новое сообщение? / Is new message?" v-on:click="modifyIsNewMessageCheckbox(item.id)">
+                <input
+                  type="checkbox"
+                  v-bind:checked="item.is_new"
+                  title="Новое сообщение? / Is new message?"
+                  v-on:click="modifyIsNewMessageCheckbox(item.id)"
+                >
                 <br />
-                <span v-if="item.is_new" class="badge badge-danger">NEW</span>
+                <span
+                  v-if="item.is_new"
+                  class="badge badge-danger"
+                >NEW</span>
               </div>
 
             </td>
@@ -308,7 +454,6 @@ export default {
         dropArea.addEventListener(eventName, this.handleDrop, false)
       });
 
-      // dropArea.addEventListener('drop', handleDrop, false)
     })
   },
 
@@ -403,6 +548,12 @@ export default {
     downloadFile: function (file_id) {
       this.$store.dispatch('log_file/download', {
         id: file_id
+      });
+    },
+
+    downloadAllFiles: function () {
+      this.$store.dispatch('log_file/downloadAll', {
+        id: this.targetItem.id
       });
     },
 

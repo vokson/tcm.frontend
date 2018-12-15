@@ -285,6 +285,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 608:
+            return {
+                title: "Ошибка Файловой Системы - 608",
+                text: "Не удалось создать ZIP архив",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -698,6 +705,13 @@ let getEngText = function (code) {
             return {
                 title: "File System Error - 607",
                 text: "File can not be saved on server",
+                type: "error"
+            }
+
+        case 608:
+            return {
+                title: "File System Error - 608",
+                text: "Zip archive can't be created",
                 type: "error"
             }
 

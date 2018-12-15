@@ -101,6 +101,18 @@ export default {
             context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
         },
 
+        downloadAll: (context, payload) => {
+
+            let parameters = {
+                queryName: "log_file_download_all",
+                data: {
+                    id: payload.id
+                }
+            };
+
+            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+        },
+
 
         upload: (context, payload) => {
 

@@ -17,6 +17,7 @@ let urls = {
     log_file_get: "/logs/file/get",
     log_file_upload: "/logs/file/upload",
     log_file_download: "/logs/file/download",
+    log_file_download_all: "/logs/file/download/all",
     log_file_delete: "/logs/file/delete",
     log_files_delete_files_without_articles: "/logs/clean/files/without/articles",
 
