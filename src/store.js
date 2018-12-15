@@ -9,6 +9,7 @@ import setting from "./modules/setting";
 import roles from "./modules/roles";
 import log from "./modules/log";
 import title from "./modules/title";
+import title_history from "./modules/title_history";
 import users from "./modules/users";
 import status from "./modules/status";
 import service from "./modules/service";
@@ -75,6 +76,7 @@ export default new Vuex.Store({
     roles,
     log,
     title,
+    title_history,
     users,
     status,
     service,

@@ -58,6 +58,10 @@ export default {
                     context.dispatch("title_delete", payload);
                     break;
 
+                case "title_history_get":
+                    context.dispatch("title_history_get", payload);
+                    break;
+
                 case "user_get":
                     context.dispatch("user_get", payload);
                     break;
@@ -239,6 +243,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_TITLE_002", { root: true })
                 context.dispatch('title/get', context.rootGetters['title/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        title_history_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('title_history/update', payload.items, { root: true });
             }
 
         },

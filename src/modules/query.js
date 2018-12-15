@@ -28,6 +28,7 @@ let urls = {
     title_get: "/titles/get",
     title_set: "/titles/set",
     title_delete: "/titles/delete",
+    title_history_get: "/titles/history/get",
 
     user_get: "/users/get",
     user_set: "/users/set",
