@@ -212,7 +212,7 @@ export default {
               backgroundColor: "rgba(252,147,65,0.5)",
               borderColor: "rgba(0,0,120,0.5)",
               pointBackgroundColor: "rgba(255,0,0,0.7)",
-              label: 'Count of Log Records / Кол-во новых записей',
+              label: 'Count of Log Records / Кол-во новых записей - ' + this.countOfItemsForLogChart,
               data: this.rawItemsForLogChart.values
             }
           ]
@@ -223,6 +223,10 @@ export default {
 
     rawItemsForLogChart: function () {
       return this.$store.getters['stat/giveCreatedLogs'];
+    },
+
+    countOfItemsForLogChart: function () {
+      return this.$store.getters['stat/giveCreatedLogsCount'];
     },
 
   },
@@ -267,7 +271,6 @@ export default {
     setRegExpToTQ: function () {
       this.regExp = '/^TQ.*/';
     },
-
 
   }
 
