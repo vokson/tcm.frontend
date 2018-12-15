@@ -96,9 +96,13 @@ export default {
                     context.dispatch("log_file_upload", payload);
                     break;
 
-                case "log_file_download":
-                    context.dispatch("log_file_download", payload);
-                    break;
+                // case "log_file_download":
+                //     context.dispatch("log_file_download", payload);
+                //     break;
+
+                // case "log_file_download_all":
+                //     context.dispatch("log_file_download_all", payload);
+                //     break;
 
                 case "log_file_delete":
                     context.dispatch("log_file_delete", payload);
