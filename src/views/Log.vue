@@ -183,7 +183,7 @@
       <div class="col-4"></div>
       <div class="col-8">
 
-        <div v-if="targetItem.id != null">
+        <div v-if="(targetItem.id != null) && (attachedFiles.length > 0)">
           <a
             href="#"
             v-on:click="downloadAllFiles"
