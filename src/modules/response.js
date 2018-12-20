@@ -128,6 +128,10 @@ export default {
                     context.dispatch("created_logs_chart_get", payload);
                     break;
 
+                case "created_titles_chart_get":
+                    context.dispatch("created_titles_chart_get", payload);
+                    break;
+
 
                 default:
                     context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -385,10 +389,18 @@ export default {
         created_logs_chart_get: (context, payload) => {
 
             if (payload.success == 1) {
-                context.commit('stat/updateCreatedLogs', payload.items, { root: true });
+                context.commit('chart_created_logs/updateCreatedLogs', payload.items, { root: true });
             }
 
-        }
+        },
+
+        created_titles_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_created_titles/updateCreatedTitles', payload.items, { root: true });
+            }
+
+        },
 
     }
 

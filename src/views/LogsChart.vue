@@ -222,11 +222,11 @@ export default {
     },
 
     rawItemsForLogChart: function () {
-      return this.$store.getters['stat/giveCreatedLogs'];
+      return this.$store.getters['chart_created_logs/giveCreatedLogs'];
     },
 
     countOfItemsForLogChart: function () {
-      return this.$store.getters['stat/giveCreatedLogsCount'];
+      return this.$store.getters['chart_created_logs/giveCreatedLogsCount'];
     },
 
   },
@@ -241,7 +241,7 @@ export default {
         date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
 
-      this.$store.dispatch('stat/getCreatedLogs', queryObject);
+      this.$store.dispatch('chart_created_logs/getCreatedLogs', queryObject);
     },
 
     setRegExpToAll: function () {

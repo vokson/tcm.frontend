@@ -15,7 +15,8 @@ import status from "./modules/status";
 import service from "./modules/service";
 import log_file from "./modules/log_file";
 import last_logs from "./modules/last_logs";
-import stat from "./modules/stat";
+import chart_created_logs from "./modules/chart_created_logs";
+import chart_created_titles from "./modules/chart_created_titles";
 
 Vue.use(Vuex)
 
@@ -82,6 +83,7 @@ export default new Vuex.Store({
     service,
     log_file,
     last_logs,
-    stat
+    chart_created_logs,
+    chart_created_titles,
   }
 });

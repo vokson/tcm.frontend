@@ -11,6 +11,20 @@
       <div class="col-2 settings">
 
         <div class="row">
+          <label
+            for="cumulativeCheckBox"
+            class="form-check-label"
+          >{{ (language == 'RUS') ? 'Кумулятивный график?' : 'Is cumulative chart?' }}</label>
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="cumulativeCheckBox"
+            v-model="isCumulativeChart"
+          >
+
+        </div>
+
+        <div class="row">
           <!-- <b-form-group label="Выберите промежуток времени"> -->
           <b-form-radio-group
             id="chart_intervals"
@@ -148,6 +162,8 @@ export default {
       endDate: new Date(),
       regExp: "/.*/",
 
+      isCumulativeChart: false,
+
       // chart_data: null,
 
       optionsForLogChart: {
@@ -222,11 +238,11 @@ export default {
     },
 
     rawItemsForLogChart: function () {
-      return this.$store.getters['stat/giveCreatedLogs'];
+      return (this.isCumulativeChart === false) ? (this.$store.getters['chart_created_titles/giveCreatedTitles']) : (this.$store.getters['chart_created_titles/giveCreatedTitlesCumulative']);
     },
 
     countOfItemsForLogChart: function () {
-      return this.$store.getters['stat/giveCreatedLogsCount'];
+      return this.$store.getters['chart_created_titles/giveCreatedTitlesCount'];
     },
 
   },
@@ -241,7 +257,7 @@ export default {
         date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
 
-      this.$store.dispatch('stat/getCreatedLogs', queryObject);
+      this.$store.dispatch('chart_created_titles/getCreatedTitles', queryObject);
     },
 
     setRegExpToAll: function () {
