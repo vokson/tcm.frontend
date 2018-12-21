@@ -42,6 +42,7 @@ let urls = {
     status_delete: "/statuses/delete",
 
     created_logs_chart_get: "charts/logs/created/get",
+    created_titles_chart_get: "charts/titles/created/get",
 };
 
 export default {

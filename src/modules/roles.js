@@ -8,7 +8,9 @@ let engineer = [
     '/log',
     '/title',
     '/news',
-    '/stat'
+    '/stat',
+    '/stat/chart/log',
+    '/stat/chart/title'
 ];
 
 let group_leader = [];

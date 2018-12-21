@@ -10,6 +10,8 @@ import Title from './views/Title.vue'
 import User from './views/User.vue'
 import LastLog from './views/LastLog.vue'
 import Statistic from './views/Statistic.vue'
+import LogsChart from './views/LogsChart.vue'
+import TitlesChart from './views/TitlesChart.vue'
 
 
 Vue.use(Router)
@@ -80,6 +82,18 @@ export default new Router({
             path: '/stat',
             name: 'stat',
             component: Statistic
+        },
+
+        {
+            path: '/stat/chart/log',
+            name: 'chart_created_logs',
+            component: LogsChart
+        },
+
+        {
+            path: '/stat/chart/title',
+            name: 'chart_created_titles',
+            component: TitlesChart
         },
 
 
