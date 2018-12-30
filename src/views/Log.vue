@@ -265,6 +265,7 @@
           <div class="col-5">
             <input
               type="checkbox"
+              v-bind:checked="search.is_new"
               v-on:click="switchNewMessageSearchCheckBox"
             >
           </div>
@@ -455,6 +456,9 @@ export default {
       });
 
     })
+
+    this.showNewMessages();
+
   },
 
   computed: {
@@ -497,7 +501,11 @@ export default {
 
     userSurname: function () {
       return this.$store.state.user.surname;
-    }
+    },
+
+    isNewMessagesToBeShown: function () {
+      return this.$store.getters['log/giveIsNewMessagesToBeShown'];
+    },
 
   },
 
@@ -743,8 +751,23 @@ export default {
       this.search.what = "";
       this.search.title = "";
       this.search.date = null;
+    },
+
+    showNewMessages: function () {
+      if (this.isNewMessagesToBeShown == true) {
+        this.search.is_new = true;
+        this.cleanSearch();
+        this.getItems();
+        this.$store.commit('log/setIsNewMessagesToBeShown', false, { root: true });
+      }
     }
 
+  },
+
+  watch: {
+    isNewMessagesToBeShown: function () {
+      this.showNewMessages();
+    }
   }
 };
 </script>

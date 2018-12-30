@@ -4,7 +4,8 @@ export default {
     state: {
         items: null,
         previousSearch: {},
-        countOfNewMessages: 0
+        countOfNewMessages: 0,
+        isNewMessagesToBeShown: false
     },
 
     getters: {
@@ -18,7 +19,11 @@ export default {
 
         giveCountOfNewMessages: function (state) {
             return state.countOfNewMessages;
-        }
+        },
+
+        giveIsNewMessagesToBeShown: function (state) {
+            return state.isNewMessagesToBeShown;
+        },
     },
 
     mutations: {
@@ -33,6 +38,10 @@ export default {
 
         setCountOfNewMessages: function (state, count) {
             state.countOfNewMessages = count;
+        },
+
+        setIsNewMessagesToBeShown: function (state, status) {
+            state.isNewMessagesToBeShown = status;
         }
     },
 
