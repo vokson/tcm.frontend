@@ -10,7 +10,10 @@
       <b-nav-item :to="{ name: 'news' }">News</b-nav-item>
       <b-nav-item :to="{ name: 'stat' }">Statistic</b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
-      <b-nav-item disabled>
+      <b-nav-item
+        :to="{ name: 'log' }"
+        v-on:click="onNewMessagesClick"
+      >
         New Messages
         <span class="badge badge-danger">{{count}}</span>
       </b-nav-item>
@@ -47,12 +50,17 @@ export default {
       if (this.$store.state.user.access_token != "") {
         this.$store.dispatch('log/getCountOfNewMessages', {});
       }
+    },
+
+    onNewMessagesClick: function () {
+      this.$store.commit('log/setIsNewMessagesToBeShown', true, { root: true });
     }
   },
 
   timers: {
     refreshCountOfNewMessages: { time: 10000, autostart: true, repeat: true }
   },
+
 
 };
 </script>
