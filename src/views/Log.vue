@@ -158,6 +158,31 @@
 
       <div class="col-8">
         <div class="row">
+          <div class="col-6">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label
+                  class="input-group-text"
+                  for="inputGroupSelect01"
+                >{{ (language == 'RUS') ? 'Добавить к тексту' : 'Add to text' }}</label>
+              </div>
+              <select
+                class="custom-select"
+                @change="wordToBeAddedOnChange()"
+                v-model="wordToBeAdded"
+              >
+                <option
+                  value=""
+                  selected
+                >{{ (language == 'RUS') ? 'Выберите' : 'Choose' }}...</option>
+                <option value="Согласовано в ">Согласовано в</option>
+                <option value="Отклонено в ">Отклонено в</option>
+                <option value="TQ пришел в ">TQ пришел в</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
           <div
             class="col"
             id="col-drop-area"
@@ -393,6 +418,7 @@ export default {
       isNewItemMayBeAdded: true,
       isDragging: false,
       maxFileSize: 20 * 1024 * 1024,
+      wordToBeAdded: "",
 
       customEditorToolbar: [
         ['bold', 'underline'],
@@ -760,6 +786,10 @@ export default {
         this.getItems();
         this.$store.commit('log/setIsNewMessagesToBeShown', false, { root: true });
       }
+    },
+
+    wordToBeAddedOnChange: function () {
+      this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
     }
 
   },
