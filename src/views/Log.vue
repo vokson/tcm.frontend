@@ -178,6 +178,7 @@
                 <option value="Согласовано в ">Согласовано в</option>
                 <option value="Отклонено в ">Отклонено в</option>
                 <option value="TQ пришел в ">TQ пришел в</option>
+                <option value="Ошибки пришли в ">Ошибки пришли в</option>
               </select>
             </div>
           </div>
