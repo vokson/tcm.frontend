@@ -12,6 +12,7 @@ import LastLog from './views/LastLog.vue'
 import Statistic from './views/Statistic.vue'
 import LogsChart from './views/LogsChart.vue'
 import TitlesChart from './views/TitlesChart.vue'
+import Checker from './views/Checker.vue'
 
 
 Vue.use(Router)
@@ -79,10 +80,17 @@ export default new Router({
         },
 
         {
+            path: '/checker',
+            name: 'checker',
+            component: Checker
+        },
+
+        {
             path: '/stat',
             name: 'stat',
             component: Statistic
         },
+
 
         {
             path: '/stat/chart/log',

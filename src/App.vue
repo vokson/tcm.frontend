@@ -9,6 +9,7 @@
       <b-nav-item :to="{ name: 'title' }">Title</b-nav-item>
       <b-nav-item :to="{ name: 'news' }">News</b-nav-item>
       <b-nav-item :to="{ name: 'stat' }">Statistic</b-nav-item>
+      <b-nav-item :to="{ name: 'checker' }">Check</b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
       <b-nav-item
         :to="{ name: 'log' }"

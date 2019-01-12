@@ -10,7 +10,8 @@ let engineer = [
     '/news',
     '/stat',
     '/stat/chart/log',
-    '/stat/chart/title'
+    '/stat/chart/title',
+    '/checker'
 ];
 
 let group_leader = [];
