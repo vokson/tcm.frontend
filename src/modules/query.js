@@ -43,6 +43,12 @@ let urls = {
 
     created_logs_chart_get: "charts/logs/created/get",
     created_titles_chart_get: "charts/titles/created/get",
+
+    checker_get: "/checker/get",
+    checker_delete: "/checker/delete",
+
+    checker_file_upload: "/checker/file/upload",
+    checker_file_download: "/checker/file/download",
 };
 
 export default {

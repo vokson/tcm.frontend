@@ -114,8 +114,8 @@
           <tr>
             <th class="text-center">ID</th>
             <th class="td-date text-center">Date</th>
-            <th class="td-file text-center">File</th>
-            <th class="text-center">Surname</th>
+            <th class="td-file text-center">Filename</th>
+            <th class="text-center">Who</th>
             <th class="text-center">Status</th>
           </tr>
         </thead>
@@ -138,14 +138,14 @@
             </td>
             <td class="text-center"><input
                 type="text"
-                v-model="search.file"
-                placeholder="Файл"
+                v-model="search.filename"
+                placeholder="Имя файла"
                 class="full-width"
               /></td>
             <td class="text-center"><input
                 type="text"
-                v-model="search.surname"
-                placeholder="Фамилия"
+                v-model="search.who"
+                placeholder="Кто ?"
                 class="full-width"
               /></td>
             <td class="text-center"><input
@@ -162,29 +162,10 @@
             :key="item.id"
             v-on:click="editItem(item.id)"
           >
-            <td class="text-center">
-              <div v-if="item.is_attachment_exist == 1">@{{item.id}}</div>
-              <div v-else>{{item.id}}</div>
-
-              <div v-if="item.to == (userSurname + ' ' + userName)">
-                <br />
-                <input
-                  type="checkbox"
-                  v-bind:checked="item.is_new"
-                  title="Новое сообщение? / Is new message?"
-                  v-on:click="modifyIsNewMessageCheckbox(item.id)"
-                >
-                <br />
-                <span
-                  v-if="item.is_new"
-                  class="badge badge-danger"
-                >NEW</span>
-              </div>
-
-            </td>
+            <td class="text-center"> </td>
             <td class="text-center">{{formatDate(item.date)}}</td>
-            <td class="text-center">{{item.file}}</td>
-            <td class="text-center">{{item.surname}}</td>
+            <td class="text-center">{{item.filename}}</td>
+            <td class="text-center">{{item.who}}</td>
             <td class="text-center">{{item.status}}</td>
           </tr>
 
@@ -199,7 +180,7 @@
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
-  name: "Log",
+  name: "Checker",
 
 
   data: function () {
@@ -208,31 +189,13 @@ export default {
       date_format: "dd.MM.yyyy",
       en: en,
       ru: ru,
-      isNewItemMayBeAdded: true,
       isDragging: false,
       maxFileSize: 20 * 1024 * 1024,
-      wordToBeAdded: "",
-
-      customEditorToolbar: [
-        ['bold', 'underline'],
-        [{ 'list': 'ordered' }, { 'list': 'check' }],
-        [{ 'color': [] }, { 'background': [] }],
-        ['clean'],
-      ],
-
-      targetItem: {
-        id: null,
-        to: 0,
-        from: 0,
-        what: "",
-        title: "",
-        date: new Date()
-      },
 
       search: {
-        surname: "",
+        who: "",
         status: "",
-        file: "",
+        filename: "",
         date: null,
         is_only_last: false
       }
@@ -243,10 +206,10 @@ export default {
   mounted: function () {
 
     this.$nextTick(function () {
-      this.getTitles();
-      this.getUsers();
-      this.targetItem.from = this.$store.state.user.id;
-      this.targetItem.to = 0;
+      // this.getTitles();
+      // this.getUsers();
+      // this.targetItem.from = this.$store.state.user.id;
+      // this.targetItem.to = 0;
 
       // Очищаем установленные по умолчанию обработчики событий
       let dropArea = document.getElementById('col-drop-area');
@@ -289,40 +252,32 @@ export default {
     },
 
     items: function () {
-      return this.$store.getters['log/giveItems'];
-    },
-
-    titles: function () {
-      return this.$store.getters['title/give'];
-    },
-
-    users: function () {
-      return this.$store.getters['users/give'];
+      return this.$store.getters['checker/giveItems'];
     },
 
     countOfItems: function () {
       return (this.items == null) ? 0 : this.items.length;
     },
 
-    attachedFiles: function () {
-      return this.$store.getters['log_file/give'];
-    },
+    // attachedFiles: function () {
+    //   return this.$store.getters['log_file/give'];
+    // },
 
     uploadingFiles: function () {
-      return this.$store.getters['log_file/giveUploadingItems'];
+      return this.$store.getters['checker_file/giveUploadingItems'];
     },
 
-    userName: function () {
-      return this.$store.state.user.name;
-    },
+    // userName: function () {
+    //   return this.$store.state.user.name;
+    // },
 
-    userSurname: function () {
-      return this.$store.state.user.surname;
-    },
+    // userSurname: function () {
+    //   return this.$store.state.user.surname;
+    // },
 
-    isNewMessagesToBeShown: function () {
-      return this.$store.getters['log/giveIsNewMessagesToBeShown'];
-    },
+    // isNewMessagesToBeShown: function () {
+    //   return this.$store.getters['log/giveIsNewMessagesToBeShown'];
+    // },
 
   },
 
@@ -333,153 +288,152 @@ export default {
       return ("0" + date.getDate()).slice(-2) + '.' + ("0" + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear()
     },
 
-    getTitles: function () {
-      this.$store.dispatch('title/get', {});
-    },
+    // getTitles: function () {
+    //   this.$store.dispatch('title/get', {});
+    // },
 
-    getUsers: function () {
-      this.$store.dispatch('users/get', {});
-    },
+    // getUsers: function () {
+    //   this.$store.dispatch('users/get', {});
+    // },
 
     getItems: function () {
       let queryObject = {
-        to: this.search.to,
-        from: this.search.from,
-        title: this.search.title,
-        what: this.search.what,
+        status: this.search.status,
+        who: this.search.who,
+        filename: this.search.filename,
         is_only_last: this.search.is_only_last,
         date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
       };
 
-      if (this.search.is_new !== null) {
-        queryObject["is_new"] = this.search.is_new
-      }
+      // if (this.search.is_new !== null) {
+      //   queryObject["is_new"] = this.search.is_new
+      // }
 
-      this.$store.dispatch('log/getItems', queryObject);
+      this.$store.dispatch('checker/getItems', queryObject);
     },
 
-    getFiles: function () {
-      this.$store.dispatch('log_file/get', {
-        log_id: this.targetItem.id
-      });
-    },
+    // getFiles: function () {
+    //   this.$store.dispatch('log_file/get', {
+    //     log_id: this.targetItem.id
+    //   });
+    // },
 
-    deleteFile: function (file_id) {
-      this.$store.dispatch('log_file/delete', {
-        id: file_id
-      });
-    },
+    // deleteFile: function (file_id) {
+    //   this.$store.dispatch('log_file/delete', {
+    //     id: file_id
+    //   });
+    // },
 
     downloadFile: function (file_id) {
-      this.$store.dispatch('log_file/download', {
+      this.$store.dispatch('checker_file/download', {
         id: file_id
       });
     },
 
-    downloadAllFiles: function () {
-      this.$store.dispatch('log_file/downloadAll', {
-        id: this.targetItem.id
-      });
-    },
+    // downloadAllFiles: function () {
+    //   this.$store.dispatch('log_file/downloadAll', {
+    //     id: this.targetItem.id
+    //   });
+    // },
 
-    getTargetItemTitleId: function () {
-      //    Ищем id от title
-      let localTitle = this.titles.filter(obj => {
-        return obj.name === this.targetItem.title
-      });
+    // getTargetItemTitleId: function () {
+    //   //    Ищем id от title
+    //   let localTitle = this.titles.filter(obj => {
+    //     return obj.name === this.targetItem.title
+    //   });
 
-      return (localTitle.length > 0) ? localTitle[0].id : 0;
-    },
+    //   return (localTitle.length > 0) ? localTitle[0].id : 0;
+    // },
 
-    addItem: function () {
+    // addItem: function () {
 
-      let titleId = this.getTargetItemTitleId();
+    //   let titleId = this.getTargetItemTitleId();
 
-      if (titleId == 0) {
-        this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
-        return;
-      }
+    //   if (titleId == 0) {
+    //     this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
+    //     return;
+    //   }
 
-      this.$store.dispatch('log/setItem', {
-        to: this.targetItem.to,
-        from: this.targetItem.from,
-        title: titleId,
-        what: this.targetItem.what,
-        is_new: this.targetItem.is_new,
-        date: Math.round(this.targetItem.date.getTime() / 1000)
-      });
-    },
+    //   this.$store.dispatch('log/setItem', {
+    //     to: this.targetItem.to,
+    //     from: this.targetItem.from,
+    //     title: titleId,
+    //     what: this.targetItem.what,
+    //     is_new: this.targetItem.is_new,
+    //     date: Math.round(this.targetItem.date.getTime() / 1000)
+    //   });
+    // },
 
-    modifyIsNewMessageCheckbox: function (id) {
-      this.$store.dispatch('log/switchNewMessage', { id: id });
-    },
+    // modifyIsNewMessageCheckbox: function (id) {
+    //   this.$store.dispatch('log/switchNewMessage', { id: id });
+    // },
 
 
-    modifyItem: function () {
+    // modifyItem: function () {
 
-      let titleId = this.getTargetItemTitleId();
+    //   let titleId = this.getTargetItemTitleId();
 
-      if (titleId == 0) {
-        this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
-        return;
-      }
+    //   if (titleId == 0) {
+    //     this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
+    //     return;
+    //   }
 
-      this.$store.dispatch('log/setItem', {
-        id: this.targetItem.id,
-        to: this.targetItem.to,
-        from: this.targetItem.from,
-        title: titleId,
-        what: this.targetItem.what,
-        date: Math.round(this.targetItem.date.getTime() / 1000)
-      });
-    },
+    //   this.$store.dispatch('log/setItem', {
+    //     id: this.targetItem.id,
+    //     to: this.targetItem.to,
+    //     from: this.targetItem.from,
+    //     title: titleId,
+    //     what: this.targetItem.what,
+    //     date: Math.round(this.targetItem.date.getTime() / 1000)
+    //   });
+    // },
 
     deleteItem: function () {
-      this.$store.dispatch('log/deleteItem', {
+      this.$store.dispatch('checker/deleteItem', {
         id: this.targetItem.id,
       });
     },
 
-    editItem: function (id) {
+    // editItem: function (id) {
 
-      let itemToBeModified = this.items.filter(obj => {
-        return obj.id === id
-      })[0];
+    //   let itemToBeModified = this.items.filter(obj => {
+    //     return obj.id === id
+    //   })[0];
 
-      let localTo = this.users.filter(obj => {
-        return (obj.surname + ' ' + obj.name) === itemToBeModified.to
-      })[0].id;
+    //   let localTo = this.users.filter(obj => {
+    //     return (obj.surname + ' ' + obj.name) === itemToBeModified.to
+    //   })[0].id;
 
-      let localFrom = this.users.filter(obj => {
-        return (obj.surname + ' ' + obj.name) === itemToBeModified.from
-      })[0].id;
+    //   let localFrom = this.users.filter(obj => {
+    //     return (obj.surname + ' ' + obj.name) === itemToBeModified.from
+    //   })[0].id;
 
-      this.targetItem.id = itemToBeModified.id;
-      this.targetItem.title = itemToBeModified.title;
-      this.targetItem.to = localTo;
-      this.targetItem.from = localFrom;
-      this.targetItem.what = itemToBeModified.what;
+    //   this.targetItem.id = itemToBeModified.id;
+    //   this.targetItem.title = itemToBeModified.title;
+    //   this.targetItem.to = localTo;
+    //   this.targetItem.from = localFrom;
+    //   this.targetItem.what = itemToBeModified.what;
 
-      let date = new Date();
-      date.setTime(itemToBeModified.date * 1000);
-      this.targetItem.date = date;
+    //   let date = new Date();
+    //   date.setTime(itemToBeModified.date * 1000);
+    //   this.targetItem.date = date;
 
-      this.isNewItemMayBeAdded = false;
+    //   this.isNewItemMayBeAdded = false;
 
-      this.getFiles();
-    },
+    //   this.getFiles();
+    // },
 
-    switchUsers: function () {
-      let temp = this.targetItem.to;
-      this.targetItem.to = this.targetItem.from;
-      this.targetItem.from = temp;
-    },
+    // switchUsers: function () {
+    //   let temp = this.targetItem.to;
+    //   this.targetItem.to = this.targetItem.from;
+    //   this.targetItem.from = temp;
+    // },
 
-    resetToAdd: function () {
-      this.targetItem.id = null;
-      this.isNewItemMayBeAdded = true;
-      this.targetItem.date = new Date();
-    },
+    // resetToAdd: function () {
+    //   this.targetItem.id = null;
+    //   this.isNewItemMayBeAdded = true;
+    //   this.targetItem.date = new Date();
+    // },
 
     startDragging: function () {
       this.isDragging = true;
@@ -491,10 +445,10 @@ export default {
 
     uploadFile: function (file) {
 
-      if (this.targetItem.id == null) {
-        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_003", { root: true });
-        return;
-      }
+      // if (this.targetItem.id == null) {
+      //   this.$store.dispatch('notify/showNotifyByCode', "E_FILE_003", { root: true });
+      //   return;
+      // }
 
       if (file.size > this.maxFileSize) {
         this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
@@ -505,10 +459,10 @@ export default {
       let progressCallback = this.updateProgress.bind(this);
 
       let badUploadFunction = function () {
-        this.$store.commit('log_file/deleteSuccess', uin, { root: true });
+        this.$store.commit('checker_file/deleteSuccess', uin, { root: true });
       };
 
-      this.$store.dispatch('log_file/upload', {
+      this.$store.dispatch('checker_file/upload', {
         log_file: file,
         log_id: this.targetItem.id,
         uin: uin,
@@ -550,7 +504,7 @@ export default {
 
     updateProgress: function (uin, uploadedBytes, totalBytes) {
 
-      this.$store.commit('log_file/updateProgress', {
+      this.$store.commit('checker_file/updateProgress', {
         uin: uin,
         size: totalBytes,
         uploadedSize: uploadedBytes
@@ -558,38 +512,37 @@ export default {
 
     },
 
-    switchNewMessageSearchCheckBox: function () {
-      this.search.is_new = (this.search.is_new === null) ? true : null;
-    },
+    // switchNewMessageSearchCheckBox: function () {
+    //   this.search.is_new = (this.search.is_new === null) ? true : null;
+    // },
 
     cleanSearch: function () {
-      this.search.to = "";
-      this.search.from = "";
-      this.search.what = "";
-      this.search.title = "";
+      this.search.status = "";
+      this.search.who = "";
+      this.search.filename = "";
       this.search.date = null;
     },
 
-    showNewMessages: function () {
-      if (this.isNewMessagesToBeShown == true) {
-        this.search.is_new = true;
-        this.cleanSearch();
-        this.getItems();
-        this.$store.commit('log/setIsNewMessagesToBeShown', false, { root: true });
-      }
-    },
+    // showNewMessages: function () {
+    //   if (this.isNewMessagesToBeShown == true) {
+    //     this.search.is_new = true;
+    //     this.cleanSearch();
+    //     this.getItems();
+    //     this.$store.commit('log/setIsNewMessagesToBeShown', false, { root: true });
+    //   }
+    // },
 
-    wordToBeAddedOnChange: function () {
-      this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
-    }
+    // wordToBeAddedOnChange: function () {
+    //   this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
+    // }
 
   },
 
-  watch: {
-    isNewMessagesToBeShown: function () {
-      this.showNewMessages();
-    }
-  }
+  // watch: {
+  //   isNewMessagesToBeShown: function () {
+  //     this.showNewMessages();
+  //   }
+  // }
 };
 </script>
 

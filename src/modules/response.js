@@ -96,14 +96,6 @@ export default {
                     context.dispatch("log_file_upload", payload);
                     break;
 
-                // case "log_file_download":
-                //     context.dispatch("log_file_download", payload);
-                //     break;
-
-                // case "log_file_download_all":
-                //     context.dispatch("log_file_download_all", payload);
-                //     break;
-
                 case "log_file_delete":
                     context.dispatch("log_file_delete", payload);
                     break;
@@ -130,6 +122,17 @@ export default {
 
                 case "created_titles_chart_get":
                     context.dispatch("created_titles_chart_get", payload);
+                    break;
+
+                case "checker_get":
+                    context.dispatch("checker_get", payload);
+                    break;
+                case "checker_delete":
+                    context.dispatch("checker_delete", payload);
+                    break;
+
+                case "checker_file_upload":
+                    context.dispatch("checker_file_upload", payload);
                     break;
 
 
@@ -398,6 +401,34 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('chart_created_titles/updateCreatedTitles', payload.items, { root: true });
+            }
+
+        },
+
+        checker_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('checker/updateItems', payload.items, { root: true });
+            }
+
+        },
+
+        checker_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_002", { root: true })
+                context.dispatch('checker/getItems', context.rootGetters['checker/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        checker_file_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
+                context.commit('checker_file/uploadSuccess', payload, { root: true });
+
             }
 
         },

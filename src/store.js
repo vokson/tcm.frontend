@@ -17,6 +17,8 @@ import log_file from "./modules/log_file";
 import last_logs from "./modules/last_logs";
 import chart_created_logs from "./modules/chart_created_logs";
 import chart_created_titles from "./modules/chart_created_titles";
+import checker from "./modules/checker";
+import checker_file from "./modules/checker_file";
 
 Vue.use(Vuex)
 
@@ -85,5 +87,7 @@ export default new Vuex.Store({
     last_logs,
     chart_created_logs,
     chart_created_titles,
+    checker,
+    checker_file
   }
 });

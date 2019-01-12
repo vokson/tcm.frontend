@@ -421,6 +421,18 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_CHECK_001":
+            return {
+                text: "Запись сохранена",
+                type: "success"
+            }
+
+        case "E_CHECK_002":
+            return {
+                text: "Запись удалена",
+                type: "success"
+            }
+
 
         default:
             return {
@@ -843,6 +855,19 @@ let getEngText = function (code) {
                 text: "Files have been cleaned successfully",
                 type: "success"
             }
+
+        case "E_CHECK_001":
+            return {
+                text: "Record has been saved",
+                type: "success"
+            }
+
+        case "E_CHECK_002":
+            return {
+                text: "Record has been deleted",
+                type: "success"
+            }
+
 
 
         default:
