@@ -6,9 +6,9 @@ export default {
     },
 
     getters: {
-        // give: function (state) {
-        //     return state.items;
-        // }
+        give: function (state) {
+            return state.items;
+        }
     },
 
     mutations: {
@@ -58,6 +58,10 @@ export default {
                 }
             }
 
+        },
+
+        clean: function (state) {
+            state.items = [];
         },
 
 

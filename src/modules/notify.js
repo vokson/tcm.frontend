@@ -292,6 +292,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 609:
+            return {
+                title: "Ошибка Файловой Системы - 609",
+                text: "Неправильное имя файла",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -726,6 +733,14 @@ let getEngText = function (code) {
                 text: "Zip archive can't be created",
                 type: "error"
             }
+
+        case 609:
+            return {
+                title: "File System Error - 609",
+                text: "Incorrect filename",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":

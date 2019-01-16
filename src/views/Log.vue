@@ -537,9 +537,9 @@ export default {
       return this.$store.getters['log_file/give'];
     },
 
-    uploadingFiles: function () {
-      return this.$store.getters['log_file/giveUploadingItems'];
-    },
+    // uploadingFiles: function () {
+    //   return this.$store.getters['log_file/giveUploadingItems'];
+    // },
 
     userName: function () {
       return this.$store.state.user.name;

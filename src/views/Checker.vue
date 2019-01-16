@@ -12,7 +12,10 @@
       <div class="col-8">
 
         <div class="row">
-          <div class="col">
+          <div
+            class="col"
+            id="col-drop-area"
+          >
             <div id="drop-area">
               Drop Here / Бросай Сюда (max 20 MB)
             </div>
@@ -61,18 +64,7 @@
           <div class="col-2">
             {{formatBytes(item.size)}}
           </div>
-          <div
-            class="col-2"
-            v-if="item.id != null"
-          >
-            <button
-              type="button"
-              class="btn btn-danger btn-sm"
-              v-on:click="deleteFile(item.id)"
-            >
-              Удалить
-            </button>
-          </div>
+
         </div>
 
       </div>
@@ -210,6 +202,7 @@ export default {
       // this.getUsers();
       // this.targetItem.from = this.$store.state.user.id;
       // this.targetItem.to = 0;
+      this.$store.commit('checker_file/clean', {}, { root: true });
 
       // Очищаем установленные по умолчанию обработчики событий
       let dropArea = document.getElementById('col-drop-area');
@@ -237,7 +230,6 @@ export default {
 
     })
 
-    this.showNewMessages();
 
   },
 
@@ -259,13 +251,10 @@ export default {
       return (this.items == null) ? 0 : this.items.length;
     },
 
-    // attachedFiles: function () {
-    //   return this.$store.getters['log_file/give'];
-    // },
-
-    uploadingFiles: function () {
-      return this.$store.getters['checker_file/giveUploadingItems'];
+    attachedFiles: function () {
+      return this.$store.getters['checker_file/give'];
     },
+
 
     // userName: function () {
     //   return this.$store.state.user.name;
@@ -464,7 +453,7 @@ export default {
 
       this.$store.dispatch('checker_file/upload', {
         log_file: file,
-        log_id: this.targetItem.id,
+        // log_id: this.targetItem.id,
         uin: uin,
 
         progressCallback: function (e) {
