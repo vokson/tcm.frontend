@@ -299,6 +299,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 701:
+            return {
+                title: "Ошибка Проверяйки - 701",
+                text: "Номер записи неверен",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -738,6 +745,13 @@ let getEngText = function (code) {
             return {
                 title: "File System Error - 609",
                 text: "Incorrect filename",
+                type: "error"
+            }
+
+        case 701:
+            return {
+                title: "Cheker Error - 701",
+                text: "ID is wrong",
                 type: "error"
             }
 

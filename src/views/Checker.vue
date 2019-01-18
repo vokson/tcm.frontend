@@ -107,8 +107,9 @@
             <th class="text-center">ID</th>
             <th class="td-date text-center">Date</th>
             <th class="td-file text-center">Filename</th>
-            <th class="text-center">Who</th>
+            <th class="td-owner text-center">Who</th>
             <th class="text-center">Status</th>
+            <th class="text-center">Mistake</th>
           </tr>
         </thead>
         <tbody>
@@ -136,7 +137,7 @@
               /></td>
             <td class="text-center"><input
                 type="text"
-                v-model="search.who"
+                v-model="search.owner"
                 placeholder="Кто ?"
                 class="full-width"
               /></td>
@@ -146,19 +147,28 @@
                 placeholder="Статус"
                 class="full-width"
               /></td>
+            <td class="text-center"><input
+                type="text"
+                v-model="search.mistake_count"
+                placeholder="Ошибки"
+                class="full-width"
+              /></td>
 
           </tr>
 
           <tr
             v-for="item in items"
             :key="item.id"
-            v-on:click="editItem(item.id)"
           >
-            <td class="text-center"> </td>
+            <td
+              class="text-center"
+              v-on:click="deleteItem(item.id)"
+            > УДАЛИТЬ</td>
             <td class="text-center">{{formatDate(item.date)}}</td>
-            <td class="text-center">{{item.filename}}</td>
-            <td class="text-center">{{item.who}}</td>
+            <td>{{item.filename}}</td>
+            <td class="text-center">{{item.owner}}</td>
             <td class="text-center">{{item.status}}</td>
+            <td class="text-center">{{item.mistake_count}}</td>
           </tr>
 
         </tbody>
@@ -185,9 +195,10 @@ export default {
       maxFileSize: 20 * 1024 * 1024,
 
       search: {
-        who: "",
+        owner: "",
         status: "",
         filename: "",
+        mistake_count: "",
         date: null,
         is_only_last: false
       }
@@ -198,10 +209,6 @@ export default {
   mounted: function () {
 
     this.$nextTick(function () {
-      // this.getTitles();
-      // this.getUsers();
-      // this.targetItem.from = this.$store.state.user.id;
-      // this.targetItem.to = 0;
       this.$store.commit('checker_file/clean', {}, { root: true });
 
       // Очищаем установленные по умолчанию обработчики событий
@@ -255,19 +262,6 @@ export default {
       return this.$store.getters['checker_file/give'];
     },
 
-
-    // userName: function () {
-    //   return this.$store.state.user.name;
-    // },
-
-    // userSurname: function () {
-    //   return this.$store.state.user.surname;
-    // },
-
-    // isNewMessagesToBeShown: function () {
-    //   return this.$store.getters['log/giveIsNewMessagesToBeShown'];
-    // },
-
   },
 
   methods: {
@@ -277,41 +271,18 @@ export default {
       return ("0" + date.getDate()).slice(-2) + '.' + ("0" + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear()
     },
 
-    // getTitles: function () {
-    //   this.$store.dispatch('title/get', {});
-    // },
-
-    // getUsers: function () {
-    //   this.$store.dispatch('users/get', {});
-    // },
-
     getItems: function () {
       let queryObject = {
         status: this.search.status,
-        who: this.search.who,
+        owner: this.search.owner,
         filename: this.search.filename,
+        mistake_count: this.search.mistake_count,
         is_only_last: this.search.is_only_last,
         date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
       };
 
-      // if (this.search.is_new !== null) {
-      //   queryObject["is_new"] = this.search.is_new
-      // }
-
       this.$store.dispatch('checker/getItems', queryObject);
     },
-
-    // getFiles: function () {
-    //   this.$store.dispatch('log_file/get', {
-    //     log_id: this.targetItem.id
-    //   });
-    // },
-
-    // deleteFile: function (file_id) {
-    //   this.$store.dispatch('log_file/delete', {
-    //     id: file_id
-    //   });
-    // },
 
     downloadFile: function (file_id) {
       this.$store.dispatch('checker_file/download', {
@@ -319,110 +290,11 @@ export default {
       });
     },
 
-    // downloadAllFiles: function () {
-    //   this.$store.dispatch('log_file/downloadAll', {
-    //     id: this.targetItem.id
-    //   });
-    // },
-
-    // getTargetItemTitleId: function () {
-    //   //    Ищем id от title
-    //   let localTitle = this.titles.filter(obj => {
-    //     return obj.name === this.targetItem.title
-    //   });
-
-    //   return (localTitle.length > 0) ? localTitle[0].id : 0;
-    // },
-
-    // addItem: function () {
-
-    //   let titleId = this.getTargetItemTitleId();
-
-    //   if (titleId == 0) {
-    //     this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
-    //     return;
-    //   }
-
-    //   this.$store.dispatch('log/setItem', {
-    //     to: this.targetItem.to,
-    //     from: this.targetItem.from,
-    //     title: titleId,
-    //     what: this.targetItem.what,
-    //     is_new: this.targetItem.is_new,
-    //     date: Math.round(this.targetItem.date.getTime() / 1000)
-    //   });
-    // },
-
-    // modifyIsNewMessageCheckbox: function (id) {
-    //   this.$store.dispatch('log/switchNewMessage', { id: id });
-    // },
-
-
-    // modifyItem: function () {
-
-    //   let titleId = this.getTargetItemTitleId();
-
-    //   if (titleId == 0) {
-    //     this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
-    //     return;
-    //   }
-
-    //   this.$store.dispatch('log/setItem', {
-    //     id: this.targetItem.id,
-    //     to: this.targetItem.to,
-    //     from: this.targetItem.from,
-    //     title: titleId,
-    //     what: this.targetItem.what,
-    //     date: Math.round(this.targetItem.date.getTime() / 1000)
-    //   });
-    // },
-
-    deleteItem: function () {
+    deleteItem: function (id) {
       this.$store.dispatch('checker/deleteItem', {
-        id: this.targetItem.id,
+        id: id,
       });
     },
-
-    // editItem: function (id) {
-
-    //   let itemToBeModified = this.items.filter(obj => {
-    //     return obj.id === id
-    //   })[0];
-
-    //   let localTo = this.users.filter(obj => {
-    //     return (obj.surname + ' ' + obj.name) === itemToBeModified.to
-    //   })[0].id;
-
-    //   let localFrom = this.users.filter(obj => {
-    //     return (obj.surname + ' ' + obj.name) === itemToBeModified.from
-    //   })[0].id;
-
-    //   this.targetItem.id = itemToBeModified.id;
-    //   this.targetItem.title = itemToBeModified.title;
-    //   this.targetItem.to = localTo;
-    //   this.targetItem.from = localFrom;
-    //   this.targetItem.what = itemToBeModified.what;
-
-    //   let date = new Date();
-    //   date.setTime(itemToBeModified.date * 1000);
-    //   this.targetItem.date = date;
-
-    //   this.isNewItemMayBeAdded = false;
-
-    //   this.getFiles();
-    // },
-
-    // switchUsers: function () {
-    //   let temp = this.targetItem.to;
-    //   this.targetItem.to = this.targetItem.from;
-    //   this.targetItem.from = temp;
-    // },
-
-    // resetToAdd: function () {
-    //   this.targetItem.id = null;
-    //   this.isNewItemMayBeAdded = true;
-    //   this.targetItem.date = new Date();
-    // },
 
     startDragging: function () {
       this.isDragging = true;
@@ -433,11 +305,6 @@ export default {
     },
 
     uploadFile: function (file) {
-
-      // if (this.targetItem.id == null) {
-      //   this.$store.dispatch('notify/showNotifyByCode', "E_FILE_003", { root: true });
-      //   return;
-      // }
 
       if (file.size > this.maxFileSize) {
         this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
@@ -453,7 +320,6 @@ export default {
 
       this.$store.dispatch('checker_file/upload', {
         log_file: file,
-        // log_id: this.targetItem.id,
         uin: uin,
 
         progressCallback: function (e) {
@@ -501,10 +367,6 @@ export default {
 
     },
 
-    // switchNewMessageSearchCheckBox: function () {
-    //   this.search.is_new = (this.search.is_new === null) ? true : null;
-    // },
-
     cleanSearch: function () {
       this.search.status = "";
       this.search.who = "";
@@ -512,26 +374,8 @@ export default {
       this.search.date = null;
     },
 
-    // showNewMessages: function () {
-    //   if (this.isNewMessagesToBeShown == true) {
-    //     this.search.is_new = true;
-    //     this.cleanSearch();
-    //     this.getItems();
-    //     this.$store.commit('log/setIsNewMessagesToBeShown', false, { root: true });
-    //   }
-    // },
-
-    // wordToBeAddedOnChange: function () {
-    //   this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
-    // }
-
   },
 
-  // watch: {
-  //   isNewMessagesToBeShown: function () {
-  //     this.showNewMessages();
-  //   }
-  // }
 };
 </script>
 
@@ -542,6 +386,10 @@ export default {
 
 .td-file {
   width: 520px;
+}
+
+.td-owner {
+  width: 250px;
 }
 
 .text-center {
@@ -556,11 +404,9 @@ export default {
   border: 2px dashed #ccc;
   border-radius: 20px;
   height: 200px;
-  /* font-family: sans-serif; */
   margin-top: 40px;
   padding-top: 80px;
   text-align: center;
-  /* vertical-align: middle; */
   font: 21pt bold arial;
   color: gray;
 }
