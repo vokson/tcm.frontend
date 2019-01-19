@@ -214,7 +214,7 @@
             ></editor>
             <div
               v-else
-              id="drop-area"
+              id="log-drop-area"
             >
               Drop Here / Бросай Сюда (max 20 MB)
             </div>
@@ -835,7 +835,7 @@ export default {
   text-align: center;
 }
 
-#drop-area {
+#log-drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
   height: 200px;

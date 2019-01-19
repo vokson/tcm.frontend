@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 v-if="language === 'RUS'">Проверялка</h3>
+        <h3 v-if="language === 'RUS'">Проверяшка</h3>
         <h3 v-else-if="language === 'ENG'">Checker</h3>
       </div>
     </div>
@@ -16,17 +16,47 @@
             class="col"
             id="col-drop-area"
           >
-            <div id="drop-area">
-              Drop Here / Бросай Сюда (max 20 MB)
+            <div id="check-drop-area">
+              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 20 Мб)' : 'Drop file here (each not heavier 20MB)' }}
             </div>
           </div>
+        </div>
+      </div>
+      <div class="col-4">
+
+        <div class="row">
+          <button
+            type="button"
+            class="btn btn-block btn-success"
+            v-on:click="getItems"
+          >
+            {{ (language == 'RUS') ? 'Найти' : 'Search' }}
+            <span class="badge badge-light">{{countOfItems}}</span>
+          </button>
+
+        </div>
+
+        <div class="row">
+          <div class="col-7">
+            {{ (language == 'RUS') ? 'Только последние записи' : 'Only last rows' }}
+          </div>
+          <div class="col-1">
+            <input
+              type="checkbox"
+              v-model="search.is_only_last"
+            >
+          </div>
+          <div class="col-4"></div>
+        </div>
+        <div class="row checker-description">
+          {{ (language == 'RUS') ? 'Имена загружаемых файлов автоматически проверяются на соответсвие процедуре нумерации НИПИГАЗ. Для согласования/отклонения документа добавьте к имени файла [X], где Х - кол-во ошибок.' : 'Filenames are automatically checked for correspondace with NIPIGAZ numeration procedure. If you want approve/reject, add [X] to name of file, where Х is count of mistakes.' }}
         </div>
       </div>
 
     </div>
 
     <div class="row">
-      <div class="col-4"></div>
+      <div class="col-1"></div>
       <div class="col-8">
 
         <div
@@ -71,33 +101,6 @@
     </div>
 
     <br />
-    <div class="row">
-      <div class="col-4">
-        <div class="row">
-          <div class="col-11">
-            {{ (language == 'RUS') ? 'Только последние записи' : 'Only last rows' }}
-          </div>
-          <div class="col-1">
-            <input
-              type="checkbox"
-              v-model="search.is_only_last"
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="col-8">
-        <button
-          type="button"
-          class="btn btn-block btn-success"
-          v-on:click="getItems"
-        >
-          {{ (language == 'RUS') ? 'Найти' : 'Search' }}
-          <span class="badge badge-light">{{countOfItems}}</span>
-        </button>
-      </div>
-
-    </div>
 
     <div class="row">
 
@@ -107,7 +110,7 @@
             <th class="text-center">ID</th>
             <th class="td-date text-center">Date</th>
             <th class="td-file text-center">Filename</th>
-            <th class="td-owner text-center">Who</th>
+            <th class="td-owner text-center">Surname</th>
             <th class="text-center">Status</th>
             <th class="text-center">Mistake</th>
           </tr>
@@ -115,12 +118,15 @@
         <tbody>
 
           <tr v-on:keyup.enter.prevent="getItems">
-            <td> <img
-                src="./img/clean.png"
-                width="35"
-                height="35"
-                v-on:click="cleanSearch"
-              > </td>
+            <td>
+              <figure> <img
+                  src="./img/clean.png"
+                  width="35"
+                  height="35"
+                  v-on:click="cleanSearch"
+                  class="hover06"
+                > </figure>
+            </td>
             <td class="td-date">
               <datepicker
                 v-model="search.date"
@@ -138,15 +144,26 @@
             <td class="text-center"><input
                 type="text"
                 v-model="search.owner"
-                placeholder="Кто ?"
+                placeholder="Фамилия"
                 class="full-width"
               /></td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.status"
-                placeholder="Статус"
-                class="full-width"
-              /></td>
+            <td class="text-center">
+              <div>
+                <input
+                  type="checkbox"
+                  v-model="search.status_yes"
+                >+</div>
+              <div>
+                <input
+                  type="checkbox"
+                  v-model="search.status_question"
+                >?</div>
+              <div>
+                <input
+                  type="checkbox"
+                  v-model="search.status_no"
+                >-</div>
+            </td>
             <td class="text-center"><input
                 type="text"
                 v-model="search.mistake_count"
@@ -160,14 +177,47 @@
             v-for="item in items"
             :key="item.id"
           >
-            <td
-              class="text-center"
-              v-on:click="deleteItem(item.id)"
-            > УДАЛИТЬ</td>
+            <td class="text-center"> <img
+                src="./img/delete.png"
+                width="40"
+                height="40"
+                v-on:click="deleteItem(item.id)"
+                class="hover06"
+                title="Удалить / Delete"
+              ></td>
             <td class="text-center">{{formatDate(item.date)}}</td>
-            <td>{{item.filename}}</td>
+            <td>
+              <div v-if="item.file_id != null">
+                <a
+                  href="#"
+                  v-on:click="downloadFile(item.file_id)"
+                >{{item.filename}}</a>
+              </div>
+              <div v-else>
+                {{item.filename}}
+              </div>
+            </td>
             <td class="text-center">{{item.owner}}</td>
-            <td class="text-center">{{item.status}}</td>
+            <td class="text-center">
+              <img
+                src="./img/approved.png"
+                width="40"
+                height="40"
+                v-if="item.status == 1"
+              >
+              <img
+                src="./img/question.png"
+                width="40"
+                height="40"
+                v-if="item.status == 0"
+              >
+              <img
+                src="./img/rejected.png"
+                width="40"
+                height="40"
+                v-if="item.status == -1"
+              >
+            </td>
             <td class="text-center">{{item.mistake_count}}</td>
           </tr>
 
@@ -196,7 +246,9 @@ export default {
 
       search: {
         owner: "",
-        status: "",
+        status_yes: true,
+        status_no: true,
+        status_question: true,
         filename: "",
         mistake_count: "",
         date: null,
@@ -273,7 +325,9 @@ export default {
 
     getItems: function () {
       let queryObject = {
-        status: this.search.status,
+        status_yes: this.search.status_yes,
+        status_no: this.search.status_no,
+        status_question: this.search.status_question,
         owner: this.search.owner,
         filename: this.search.filename,
         mistake_count: this.search.mistake_count,
@@ -400,14 +454,32 @@ export default {
   width: 100%;
 }
 
-#drop-area {
+.checker-description {
+  font-size: 10pt;
+  color: blue;
+  text-align: justify;
+}
+
+#check-drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
   height: 200px;
-  margin-top: 40px;
   padding-top: 80px;
   text-align: center;
   font: 21pt bold arial;
   color: gray;
+}
+
+.hover06:hover {
+  -webkit-transform: rotate(15deg) scale(1);
+  transform: rotate(15deg) scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.hover06 {
+  -webkit-transform: rotate(0) scale(1);
+  transform: rotate(0) scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 </style>
