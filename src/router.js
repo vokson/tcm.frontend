@@ -12,6 +12,7 @@ import LastLog from './views/LastLog.vue'
 import Statistic from './views/Statistic.vue'
 import LogsChart from './views/LogsChart.vue'
 import TitlesChart from './views/TitlesChart.vue'
+import LogFileStorageChart from './views/LogFileStorageChart.vue'
 import Checker from './views/Checker.vue'
 
 
@@ -102,6 +103,12 @@ export default new Router({
             path: '/stat/chart/title',
             name: 'chart_created_titles',
             component: TitlesChart
+        },
+
+        {
+            path: '/stat/chart/log/storage',
+            name: 'chart_log_file_storage',
+            component: LogFileStorageChart
         },
 
 

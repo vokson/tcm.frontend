@@ -3,7 +3,7 @@
 
     <b-nav
       vertical
-      class="w-50"
+      class="w-70"
     >
 
       <b-nav-item :to="{ name: 'chart_created_logs' }">
@@ -12,6 +12,10 @@
 
       <b-nav-item :to="{ name: 'chart_created_titles' }">
         <h4>{{ (language == 'RUS') ? 'График зарегистрированных титулов' : 'Chart of registered titles' }}</h4>
+      </b-nav-item>
+
+      <b-nav-item :to="{ name: 'chart_log_file_storage' }">
+        <h4>{{ (language == 'RUS') ? 'График объема занятого места для файлов, прикрепленных к записям' : 'Chart of storage volume for files attached to log records' }}</h4>
       </b-nav-item>
 
     </b-nav>
