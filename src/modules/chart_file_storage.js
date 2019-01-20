@@ -4,7 +4,8 @@ export default {
     state: {
         items: null,
         itemsCumulative: null,
-        itemsCount: 0
+        itemsCount: 0,
+        unit: 1048576 // Bytes to Mb
     },
 
     getters: {
@@ -25,8 +26,13 @@ export default {
         updateItems: function (state, data) {
             state.items = data;
 
+            // Переводим значения в требуемые единицы
+            state.items.values = state.items.values.map(function (num) {
+                return num / state.unit;
+            });
+
             const reducer = (accumulator, currentValue) => accumulator + currentValue;
-            state.itemsCount = data.values.reduce(reducer);
+            state.itemsCount = Math.round(data.values.reduce(reducer));
 
             // Создаем кумулятивный массив
             state.itemsCumulative = {};
@@ -45,7 +51,7 @@ export default {
         getItems: (context, payload) => {
 
             let parameters = {
-                queryName: "created_titles_chart_get",
+                queryName: "storage_chart_get",
                 data: payload,
             };
 

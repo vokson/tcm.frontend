@@ -43,7 +43,7 @@ let urls = {
 
     created_logs_chart_get: "charts/logs/created/get",
     created_titles_chart_get: "charts/titles/created/get",
-    log_storage_chart_get: "charts/storage/log/get",
+    storage_chart_get: "charts/storage/get",
 
     checker_get: "/checker/get",
     checker_delete: "/checker/delete",

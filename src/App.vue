@@ -9,7 +9,9 @@
       <b-nav-item :to="{ name: 'title' }">Title</b-nav-item>
       <b-nav-item :to="{ name: 'news' }">News</b-nav-item>
       <b-nav-item :to="{ name: 'stat' }">Statistic</b-nav-item>
-      <b-nav-item :to="{ name: 'checker' }">Проверяшка (тестовая эксплуатация)</b-nav-item>
+      <b-nav-item :to="{ name: 'checker' }">
+        <div class="red-text"> Проверяшка (тестовая эксплуатация)</div>
+      </b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
       <b-nav-item
         :to="{ name: 'log' }"
@@ -65,3 +67,9 @@ export default {
 
 };
 </script>
+
+<style>
+.red-text {
+  color: orange !important;
+}
+</style>

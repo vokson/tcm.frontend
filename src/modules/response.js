@@ -124,8 +124,8 @@ export default {
                     context.dispatch("created_titles_chart_get", payload);
                     break;
 
-                case "log_storage_chart_get":
-                    context.dispatch("log_storage_chart_get", payload);
+                case "storage_chart_get":
+                    context.dispatch("storage_chart_get", payload);
                     break;
 
                 case "checker_get":
@@ -409,10 +409,10 @@ export default {
 
         },
 
-        log_storage_chart_get: (context, payload) => {
+        storage_chart_get: (context, payload) => {
 
             if (payload.success == 1) {
-                context.commit('chart_log_file_storage/updateItems', payload.items, { root: true });
+                context.commit('chart_file_storage/updateItems', payload.items, { root: true });
             }
 
         },

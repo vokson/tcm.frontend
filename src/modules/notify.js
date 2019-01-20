@@ -306,6 +306,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 801:
+            return {
+                title: "Ошибка Графика - 801",
+                text: "Имя Хранилища неверено",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -750,8 +757,15 @@ let getEngText = function (code) {
 
         case 701:
             return {
-                title: "Cheker Error - 701",
+                title: "Checker Error - 701",
                 text: "ID is wrong",
+                type: "error"
+            }
+
+        case 801:
+            return {
+                title: "Chart Error - 801",
+                text: "Storage Name is wrong",
                 type: "error"
             }
 
