@@ -110,6 +110,7 @@
             <th class="text-center">ID</th>
             <th class="td-date text-center">Date</th>
             <th class="td-file text-center">Filename</th>
+            <th class="td-extension text-center">Extension</th>
             <th class="td-owner text-center">Surname</th>
             <th class="text-center">Status</th>
             <th class="text-center">Mistake</th>
@@ -139,6 +140,12 @@
                 type="text"
                 v-model="search.filename"
                 placeholder="Имя файла"
+                class="full-width"
+              /></td>
+            <td class="text-center"><input
+                type="text"
+                v-model="search.extension"
+                placeholder="Расширение"
                 class="full-width"
               /></td>
             <td class="text-center"><input
@@ -197,6 +204,7 @@
                 {{item.filename}}
               </div>
             </td>
+            <td class="text-center">{{item.extension}}</td>
             <td class="text-center">{{item.owner}}</td>
             <td class="text-center">
               <img
@@ -250,6 +258,7 @@ export default {
         status_no: true,
         status_question: true,
         filename: "",
+        extension: "",
         mistake_count: "",
         date: null,
         is_only_last: false
@@ -330,6 +339,7 @@ export default {
         status_question: this.search.status_question,
         owner: this.search.owner,
         filename: this.search.filename,
+        extension: this.search.extension,
         mistake_count: this.search.mistake_count,
         is_only_last: this.search.is_only_last,
         date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
@@ -425,6 +435,7 @@ export default {
       this.search.status = "";
       this.search.who = "";
       this.search.filename = "";
+      this.search.extension = "";
       this.search.date = null;
     },
 
