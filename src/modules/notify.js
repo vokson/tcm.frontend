@@ -442,6 +442,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_FILE_006":
+            return {
+                text: "Список файлов пуст",
+                type: "error"
+            }
+
         case "E_CHECK_001":
             return {
                 text: "Запись сохранена",
@@ -897,6 +903,12 @@ let getEngText = function (code) {
             return {
                 text: "Files have been cleaned successfully",
                 type: "success"
+            }
+
+        case "E_FILE_006":
+            return {
+                text: "List of files is empty",
+                type: "error"
             }
 
         case "E_CHECK_001":

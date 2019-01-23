@@ -48,9 +48,22 @@
           </div>
           <div class="col-4"></div>
         </div>
+
         <div class="row checker-description">
           {{ (language == 'RUS') ? 'Имена загружаемых файлов автоматически проверяются на соответсвие процедуре нумерации НИПИГАЗ. Для согласования/отклонения документа добавьте к имени файла [X], где Х - кол-во ошибок.' : 'Filenames are automatically checked for correspondace with NIPIGAZ numeration procedure. If you want approve/reject, add [X] to name of file, where Х is count of mistakes.' }}
         </div>
+
+        <div class="row">
+          <button
+            type="button"
+            class="btn btn-block btn-warning"
+            v-on:click="downloadAllFiles"
+          >
+            {{ (language == 'RUS') ? 'Скачать все файлы' : 'Download all files' }}
+          </button>
+
+        </div>
+
       </div>
 
     </div>
@@ -351,6 +364,21 @@ export default {
     downloadFile: function (file_id) {
       this.$store.dispatch('checker_file/download', {
         id: file_id
+      });
+    },
+
+    downloadAllFiles: function () {
+      if (this.items === null) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_006", { root: true });
+        return;
+      }
+
+      this.$store.dispatch('checker_file/downloadAll', {
+        ids: this.items.map(function (item) {
+          return item.file_id;
+        }).filter(function (id) {
+          return id !== null;
+        })
       });
     },
 
