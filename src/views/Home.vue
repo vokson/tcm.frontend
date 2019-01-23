@@ -172,6 +172,42 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.21.0</p>
+        </div>
+        <div class="col-4">
+          <p>В проверяшку добавлена возможность скачивать все файлы zip архивом</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>1.20.1</p>
+        </div>
+        <div class="col-4">
+          <p>В проверяшку добавлено расширение</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>1.20.0</p>
+        </div>
+        <div class="col-4">
+          <p>В статистику добавлен график объема хранилища</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>1.19.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлена система для хранения результатов проверки чертежей "Проверяшка"</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.18.1</p>
         </div>
         <div class="col-4">
@@ -430,7 +466,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.18.1'
+      version: '1.21.0'
     };
   },
 

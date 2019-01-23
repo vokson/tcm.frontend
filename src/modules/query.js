@@ -43,6 +43,14 @@ let urls = {
 
     created_logs_chart_get: "charts/logs/created/get",
     created_titles_chart_get: "charts/titles/created/get",
+    storage_chart_get: "charts/storage/get",
+
+    checker_get: "/checker/get",
+    checker_delete: "/checker/delete",
+
+    checker_file_upload: "/checker/file/upload",
+    checker_file_download: "/checker/file/download",
+    checker_file_download_all: "/checker/file/download/all",
 };
 
 export default {
@@ -101,7 +109,12 @@ export default {
             })
                 .then(responseFunction)
                 .catch(function (error) {
-                    console.log(error);
+                    // var reader = new FileReader();
+                    // reader.readAsText(error.response.data);
+                    // console.log(reader.result);
+                    // console.log(error.response.data);
+                    // context.dispatch('response/use', error.response.data, { root: true });
+                    context.dispatch('notify/showNotifyByCode', 601, { root: true })
                 });
         },
 

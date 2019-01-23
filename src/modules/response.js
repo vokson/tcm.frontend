@@ -9,132 +9,140 @@ export default {
 
             if (payload.success == 0) {
                 context.dispatch('notify/showNotifyByCode', payload.error, { root: true })
-            }
+            } else {
 
-            switch (payload.queryName) {
-                case "auth_login":
-                case "auth_login_by_token":
-                    context.dispatch("auth_login", payload);
-                    break;
-                case "auth_change_password":
-                    context.dispatch("auth_change_password", payload);
-                    break;
+                switch (payload.queryName) {
+                    case "auth_login":
+                    case "auth_login_by_token":
+                        context.dispatch("auth_login", payload);
+                        break;
+                    case "auth_change_password":
+                        context.dispatch("auth_change_password", payload);
+                        break;
 
-                case "auth_check_token":
-                case "role_check_guest":
-                case "role_check_engineer":
-                case "role_check_pm":
-                case "role_check_admin":
-                    break;
+                    case "auth_check_token":
+                    case "role_check_guest":
+                    case "role_check_engineer":
+                    case "role_check_pm":
+                    case "role_check_admin":
+                        break;
 
-                case "service_database_update_attachment_status":
-                    context.dispatch("service_database_update_attachment_status", payload);
-                    break;
+                    case "service_database_update_attachment_status":
+                        context.dispatch("service_database_update_attachment_status", payload);
+                        break;
 
-                case "setting_get":
-                    context.dispatch("setting_get", payload);
-                    break;
-                case "setting_set":
-                    context.dispatch("setting_set", payload);
-                    break;
+                    case "setting_get":
+                        context.dispatch("setting_get", payload);
+                        break;
+                    case "setting_set":
+                        context.dispatch("setting_set", payload);
+                        break;
 
-                case "log_get":
-                    context.dispatch("log_get", payload);
-                    break;
-                case "log_set":
-                    context.dispatch("log_set", payload);
-                    break;
-                case "log_delete":
-                    context.dispatch("log_delete", payload);
-                    break;
+                    case "log_get":
+                        context.dispatch("log_get", payload);
+                        break;
+                    case "log_set":
+                        context.dispatch("log_set", payload);
+                        break;
+                    case "log_delete":
+                        context.dispatch("log_delete", payload);
+                        break;
 
-                case "title_get":
-                    context.dispatch("title_get", payload);
-                    break;
-                case "title_set":
-                    context.dispatch("title_set", payload);
-                    break;
-                case "title_delete":
-                    context.dispatch("title_delete", payload);
-                    break;
+                    case "title_get":
+                        context.dispatch("title_get", payload);
+                        break;
+                    case "title_set":
+                        context.dispatch("title_set", payload);
+                        break;
+                    case "title_delete":
+                        context.dispatch("title_delete", payload);
+                        break;
 
-                case "title_history_get":
-                    context.dispatch("title_history_get", payload);
-                    break;
+                    case "title_history_get":
+                        context.dispatch("title_history_get", payload);
+                        break;
 
-                case "user_get":
-                    context.dispatch("user_get", payload);
-                    break;
-                case "user_set":
-                    context.dispatch("user_set", payload);
-                    break;
-                case "user_set_default_password":
-                    context.dispatch("user_set_default_password", payload);
-                    break;
-                case "user_delete":
-                    context.dispatch("user_delete", payload);
-                    break;
+                    case "user_get":
+                        context.dispatch("user_get", payload);
+                        break;
+                    case "user_set":
+                        context.dispatch("user_set", payload);
+                        break;
+                    case "user_set_default_password":
+                        context.dispatch("user_set_default_password", payload);
+                        break;
+                    case "user_delete":
+                        context.dispatch("user_delete", payload);
+                        break;
 
-                case "status_get":
-                    context.dispatch("status_get", payload);
-                    break;
-                case "status_set":
-                    context.dispatch("status_set", payload);
-                    break;
-                case "status_add":
-                    context.dispatch("status_add", payload);
-                    break;
-                case "status_delete":
-                    context.dispatch("status_delete", payload);
-                    break;
+                    case "status_get":
+                        context.dispatch("status_get", payload);
+                        break;
+                    case "status_set":
+                        context.dispatch("status_set", payload);
+                        break;
+                    case "status_add":
+                        context.dispatch("status_add", payload);
+                        break;
+                    case "status_delete":
+                        context.dispatch("status_delete", payload);
+                        break;
 
-                case "log_file_get":
-                    context.dispatch("log_file_get", payload);
-                    break;
+                    case "log_file_get":
+                        context.dispatch("log_file_get", payload);
+                        break;
 
-                case "log_file_upload":
-                    context.dispatch("log_file_upload", payload);
-                    break;
+                    case "log_file_upload":
+                        context.dispatch("log_file_upload", payload);
+                        break;
 
-                // case "log_file_download":
-                //     context.dispatch("log_file_download", payload);
-                //     break;
+                    case "log_file_delete":
+                        context.dispatch("log_file_delete", payload);
+                        break;
 
-                // case "log_file_download_all":
-                //     context.dispatch("log_file_download_all", payload);
-                //     break;
+                    case "log_files_delete_files_without_articles":
+                        context.dispatch("log_files_delete_files_without_articles", payload);
+                        break;
 
-                case "log_file_delete":
-                    context.dispatch("log_file_delete", payload);
-                    break;
+                    case "log_new_message_switch":
+                        context.dispatch("log_new_message_switch", payload);
+                        break;
 
-                case "log_files_delete_files_without_articles":
-                    context.dispatch("log_files_delete_files_without_articles", payload);
-                    break;
+                    case "log_new_message_count":
+                        context.dispatch("log_new_message_count", payload);
+                        break;
 
-                case "log_new_message_switch":
-                    context.dispatch("log_new_message_switch", payload);
-                    break;
+                    case "log_get_last_articles":
+                        context.dispatch("log_get_last_articles", payload);
+                        break;
 
-                case "log_new_message_count":
-                    context.dispatch("log_new_message_count", payload);
-                    break;
+                    case "created_logs_chart_get":
+                        context.dispatch("created_logs_chart_get", payload);
+                        break;
 
-                case "log_get_last_articles":
-                    context.dispatch("log_get_last_articles", payload);
-                    break;
+                    case "created_titles_chart_get":
+                        context.dispatch("created_titles_chart_get", payload);
+                        break;
 
-                case "created_logs_chart_get":
-                    context.dispatch("created_logs_chart_get", payload);
-                    break;
+                    case "storage_chart_get":
+                        context.dispatch("storage_chart_get", payload);
+                        break;
 
-                case "created_titles_chart_get":
-                    context.dispatch("created_titles_chart_get", payload);
-                    break;
+                    case "checker_get":
+                        context.dispatch("checker_get", payload);
+                        break;
+                    case "checker_delete":
+                        context.dispatch("checker_delete", payload);
+                        break;
+
+                    case "checker_file_upload":
+                        context.dispatch("checker_file_upload", payload);
+                        break;
 
 
-                default:
-                    context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
+                    default:
+                        context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
+                }
             }
         },
 
@@ -398,6 +406,42 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('chart_created_titles/updateCreatedTitles', payload.items, { root: true });
+            }
+
+        },
+
+        storage_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_file_storage/updateItems', payload.items, { root: true });
+            }
+
+        },
+
+        checker_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('checker/updateItems', payload.items, { root: true });
+            }
+
+        },
+
+        checker_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_002", { root: true })
+                context.dispatch('checker/getItems', context.rootGetters['checker/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        checker_file_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
+                context.commit('checker_file/uploadSuccess', payload, { root: true });
+
             }
 
         },

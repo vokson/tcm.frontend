@@ -292,6 +292,27 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 609:
+            return {
+                title: "Ошибка Файловой Системы - 609",
+                text: "Неправильное имя файла",
+                type: "error"
+            }
+
+        case 701:
+            return {
+                title: "Ошибка Проверяйки - 701",
+                text: "Номер записи неверен",
+                type: "error"
+            }
+
+        case 801:
+            return {
+                title: "Ошибка Графика - 801",
+                text: "Имя Хранилища неверено",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -418,6 +439,24 @@ let getRusText = function (code) {
         case "E_FILE_005":
             return {
                 text: "Файлы были успешно очищены",
+                type: "success"
+            }
+
+        case "E_FILE_006":
+            return {
+                text: "Список файлов пуст",
+                type: "error"
+            }
+
+        case "E_CHECK_001":
+            return {
+                text: "Запись сохранена",
+                type: "success"
+            }
+
+        case "E_CHECK_002":
+            return {
+                text: "Запись удалена",
                 type: "success"
             }
 
@@ -715,6 +754,28 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 609:
+            return {
+                title: "File System Error - 609",
+                text: "Incorrect filename",
+                type: "error"
+            }
+
+        case 701:
+            return {
+                title: "Checker Error - 701",
+                text: "ID is wrong",
+                type: "error"
+            }
+
+        case 801:
+            return {
+                title: "Chart Error - 801",
+                text: "Storage Name is wrong",
+                type: "error"
+            }
+
+
 
         case "E_AUTH_001":
             return {
@@ -843,6 +904,25 @@ let getEngText = function (code) {
                 text: "Files have been cleaned successfully",
                 type: "success"
             }
+
+        case "E_FILE_006":
+            return {
+                text: "List of files is empty",
+                type: "error"
+            }
+
+        case "E_CHECK_001":
+            return {
+                text: "Record has been saved",
+                type: "success"
+            }
+
+        case "E_CHECK_002":
+            return {
+                text: "Record has been deleted",
+                type: "success"
+            }
+
 
 
         default:
