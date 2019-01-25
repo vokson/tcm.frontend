@@ -50,6 +50,8 @@ window.$app = new Vue({
     render: h => h(App)
 }).$mount('#app');
 
+Vue.config.devtools = true;
+
 window.$axios = axios.create({
     baseURL: "http://api.agpp/api",
     // baseURL: "http://tcm.api/api",
