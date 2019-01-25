@@ -25,7 +25,8 @@ Vue.component("datepicker", Datepicker);
 Vue.component("editor", VueEditor);
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.config.devtools = true;
 
 router.beforeEach((to, from, next) => {
 
@@ -50,7 +51,7 @@ window.$app = new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-Vue.config.devtools = true;
+
 
 window.$axios = axios.create({
     baseURL: "http://api.agpp/api",
