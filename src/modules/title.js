@@ -3,7 +3,9 @@ export default {
 
     state: {
         items: null,
-        previousSearch: {}
+        previousSearch: {},
+        isRecordForTitleToBeShown: false,
+        nameOfTitleToBeShown: ''
     },
 
     getters: {
@@ -13,6 +15,14 @@ export default {
 
         givePreviousSearch: function (state) {
             return state.previousSearch;
+        },
+
+        giveIsRecordForTitleToBeShown: function (state) {
+            return state.isRecordForTitleToBeShown;
+        },
+
+        giveNameOfTitleToBeShown: function (state) {
+            return state.nameOfTitleToBeShown;
         }
     },
 
@@ -20,6 +30,14 @@ export default {
         update: function (state, data) {
             state.items = data;
         },
+
+        setIsRecordForTitleToBeShown: function (state, status) {
+            state.isRecordForTitleToBeShown = status;
+        },
+
+        setNameOfTitleToBeShown: function (state, value) {
+            state.nameOfTitleToBeShown = value;
+        }
     },
 
     actions: {

@@ -409,7 +409,10 @@
 
             </td>
             <td class="text-center">{{formatDate(item.date)}}</td>
-            <td class="text-center">{{item.title}}</td>
+            <td class="text-center"><a
+                href="#"
+                v-on:click="onTitleClick(item.title)"
+              >{{item.title}}</a></td>
             <td class="text-center">{{item.from}}</td>
             <td v-html="item.what"></td>
             <td class="text-center">{{item.to}}</td>
@@ -504,6 +507,7 @@ export default {
     })
 
     this.showNewMessages();
+    this.showRecordForTitle();
 
   },
 
@@ -551,6 +555,14 @@ export default {
 
     isNewMessagesToBeShown: function () {
       return this.$store.getters['log/giveIsNewMessagesToBeShown'];
+    },
+
+    isRecordForTitleToBeShown: function () {
+      return this.$store.getters['log/giveIsRecordForTitleToBeShown'];
+    },
+
+    nameOfTitleToBeShown: function () {
+      return this.$store.getters['log/giveNameOfTitleToBeShown'];
     },
 
   },
@@ -802,6 +814,7 @@ export default {
     showNewMessages: function () {
       if (this.isNewMessagesToBeShown == true) {
         this.search.is_new = true;
+        this.search.is_only_last = false;
         this.cleanSearch();
         this.getItems();
         this.$store.commit('log/setIsNewMessagesToBeShown', false, { root: true });
@@ -810,6 +823,24 @@ export default {
 
     wordToBeAddedOnChange: function () {
       this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
+    },
+
+    showRecordForTitle: function () {
+      if (this.isRecordForTitleToBeShown == true) {
+        this.search.is_new = null;
+        this.search.is_only_last = false;
+        this.cleanSearch();
+        this.search.title = this.nameOfTitleToBeShown;
+        this.getItems();
+        this.$store.commit('log/setIsRecordForTitleToBeShown', false, { root: true });
+      }
+
+    },
+
+    onTitleClick: function (title) {
+      this.$store.commit('title/setNameOfTitleToBeShown', title, { root: true });
+      this.$store.commit('title/setIsRecordForTitleToBeShown', true, { root: true });
+      this.$router.push('title');
     }
 
   },
@@ -817,6 +848,10 @@ export default {
   watch: {
     isNewMessagesToBeShown: function () {
       this.showNewMessages();
+    },
+
+    isRecordForTitleToBeShown: function () {
+      this.showRecordForTitle();
     }
   }
 };
