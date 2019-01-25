@@ -814,6 +814,7 @@ export default {
     showNewMessages: function () {
       if (this.isNewMessagesToBeShown == true) {
         this.search.is_new = true;
+        this.search.is_only_last = false;
         this.cleanSearch();
         this.getItems();
         this.$store.commit('log/setIsNewMessagesToBeShown', false, { root: true });
@@ -826,7 +827,8 @@ export default {
 
     showRecordForTitle: function () {
       if (this.isRecordForTitleToBeShown == true) {
-        this.search.is_new = false;
+        this.search.is_new = null;
+        this.search.is_only_last = false;
         this.cleanSearch();
         this.search.title = this.nameOfTitleToBeShown;
         this.getItems();
