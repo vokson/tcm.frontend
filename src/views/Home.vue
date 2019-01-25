@@ -172,6 +172,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.22.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены переходы из Title в Log и обратно по нажатию на титул</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.21.1</p>
         </div>
         <div class="col-4">
@@ -475,7 +484,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.21.1'
+      version: '1.22.0'
     };
   },
 

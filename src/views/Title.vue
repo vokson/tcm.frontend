@@ -214,7 +214,12 @@
             v-on:keyup.enter.prevent="getItems"
             class="text-center"
           >
-            <td></td>
+            <td><img
+                src="./img/clean.png"
+                width="35"
+                height="35"
+                v-on:click="cleanSearch"
+              > </td>
             <td><input
                 type="text"
                 v-model="search.name"
@@ -249,7 +254,10 @@
             v-on:click="editItem(item.id)"
           >
             <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
+            <td><a
+                href="#"
+                v-on:click="onTitleClick(item.name)"
+              >{{item.name}}</a></td>
             <td>{{item.status}}</td>
             <td>{{item.predecessor}}</td>
             <td>{{item.description}}</td>
@@ -307,7 +315,9 @@ export default {
     this.$nextTick(function () {
       this.getStatuses();
       this.targetItem.status = 0;
-    })
+    });
+
+    this.showRecordForTitle();
 
   },
 
@@ -330,7 +340,15 @@ export default {
 
     countOfItems: function () {
       return (this.items == null) ? 0 : this.items.length;
-    }
+    },
+
+    isRecordForTitleToBeShown: function () {
+      return this.$store.getters['title/giveIsRecordForTitleToBeShown'];
+    },
+
+    nameOfTitleToBeShown: function () {
+      return this.$store.getters['title/giveNameOfTitleToBeShown'];
+    },
 
   },
 
@@ -405,8 +423,39 @@ export default {
       this.isNewItemMayBeAdded = false;
 
       this.$store.commit('title_history/clear', {}, { root: true });
+    },
+
+    showRecordForTitle: function () {
+      if (this.isRecordForTitleToBeShown == true) {
+        this.cleanSearch();
+        this.search.name = this.nameOfTitleToBeShown;
+        this.getItems();
+        this.$store.commit('title/setIsRecordForTitleToBeShown', false, { root: true });
+      }
+
+    },
+
+    onTitleClick: function (title) {
+      this.$store.commit('log/setNameOfTitleToBeShown', title, { root: true });
+      this.$store.commit('log/setIsRecordForTitleToBeShown', true, { root: true });
+      this.$router.push('log');
+    },
+
+    cleanSearch: function () {
+      this.search.name = "";
+      this.search.status = "";
+      this.search.predecessor = "";
+      this.search.description = "";
+      this.search.volume = "";
+    },
+  },
+
+  watch: {
+    isRecordForTitleToBeShown: function () {
+      this.showRecordForTitle();
     }
   }
+
 };
 </script>
 

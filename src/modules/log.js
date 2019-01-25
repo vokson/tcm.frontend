@@ -5,7 +5,9 @@ export default {
         items: null,
         previousSearch: {},
         countOfNewMessages: 0,
-        isNewMessagesToBeShown: false
+        isNewMessagesToBeShown: false,
+        isRecordForTitleToBeShown: false,
+        nameOfTitleToBeShown: ''
     },
 
     getters: {
@@ -24,6 +26,14 @@ export default {
         giveIsNewMessagesToBeShown: function (state) {
             return state.isNewMessagesToBeShown;
         },
+
+        giveIsRecordForTitleToBeShown: function (state) {
+            return state.isRecordForTitleToBeShown;
+        },
+
+        giveNameOfTitleToBeShown: function (state) {
+            return state.nameOfTitleToBeShown;
+        }
     },
 
     mutations: {
@@ -42,6 +52,14 @@ export default {
 
         setIsNewMessagesToBeShown: function (state, status) {
             state.isNewMessagesToBeShown = status;
+        },
+
+        setIsRecordForTitleToBeShown: function (state, status) {
+            state.isRecordForTitleToBeShown = status;
+        },
+
+        setNameOfTitleToBeShown: function (state, value) {
+            state.nameOfTitleToBeShown = value;
         }
     },
 
