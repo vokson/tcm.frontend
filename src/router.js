@@ -14,6 +14,7 @@ import LogsChart from './views/LogsChart.vue'
 import TitlesChart from './views/TitlesChart.vue'
 import FileStorageChart from './views/FileStorageChart.vue'
 import Checker from './views/Checker.vue'
+import Sender from './views/Sender.vue'
 
 
 Vue.use(Router)
@@ -109,6 +110,12 @@ export default new Router({
             path: '/stat/chart/storage',
             name: 'chart_file_storage',
             component: FileStorageChart
+        },
+
+        {
+            path: '/sender',
+            name: 'sender',
+            component: Sender
         },
 
 

@@ -51,6 +51,12 @@ let urls = {
     checker_file_upload: "/checker/file/upload",
     checker_file_download: "/checker/file/download",
     checker_file_download_all: "/checker/file/download/all",
+
+    sender_folder_add: "/sender/folder/add",
+    sender_folder_get: "/sender/folder/get",
+    sender_folder_delete: "/sender/folder/delete",
+
+    sender_file_upload: "/sender/file/upload",
 };
 
 export default {

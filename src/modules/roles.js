@@ -12,7 +12,8 @@ let engineer = [
     '/stat/chart/log',
     '/stat/chart/title',
     '/checker',
-    '/stat/chart/storage'
+    '/stat/chart/storage',
+    '/sender',
 ];
 
 let group_leader = [];

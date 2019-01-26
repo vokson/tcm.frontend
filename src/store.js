@@ -20,6 +20,8 @@ import chart_created_titles from "./modules/chart_created_titles";
 import chart_file_storage from "./modules/chart_file_storage";
 import checker from "./modules/checker";
 import checker_file from "./modules/checker_file";
+import sender from "./modules/sender";
+import sender_file from "./modules/sender_file";
 
 Vue.use(Vuex)
 
@@ -90,6 +92,8 @@ export default new Vuex.Store({
     chart_created_titles,
     chart_file_storage,
     checker,
-    checker_file
+    checker_file,
+    sender,
+    sender_file,
   }
 });

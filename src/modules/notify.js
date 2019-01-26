@@ -301,7 +301,7 @@ let getRusText = function (code) {
 
         case 701:
             return {
-                title: "Ошибка Проверяйки - 701",
+                title: "Ошибка Проверяшки - 701",
                 text: "Номер записи неверен",
                 type: "error"
             }
@@ -310,6 +310,13 @@ let getRusText = function (code) {
             return {
                 title: "Ошибка Графика - 801",
                 text: "Имя Хранилища неверено",
+                type: "error"
+            }
+
+        case 901:
+            return {
+                title: "Ошибка Отправки - 901",
+                text: "Номер папки неверен",
                 type: "error"
             }
 
@@ -772,6 +779,13 @@ let getEngText = function (code) {
             return {
                 title: "Chart Error - 801",
                 text: "Storage Name is wrong",
+                type: "error"
+            }
+
+        case 901:
+            return {
+                title: "Sender Error - 901",
+                text: "ID is wrong",
                 type: "error"
             }
 
