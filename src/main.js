@@ -26,7 +26,7 @@ Vue.component("editor", VueEditor);
 
 
 Vue.config.productionTip = false;
-Vue.config.devtools = true;
+// Vue.config.devtools = true;
 
 router.beforeEach((to, from, next) => {
 

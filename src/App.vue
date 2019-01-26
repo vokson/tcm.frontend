@@ -3,21 +3,18 @@
     <notifications group="notify-group" />
 
     <b-nav tabs>
-      <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
-      <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
-      <b-nav-item :to="{ name: 'log' }">Log</b-nav-item>
-      <b-nav-item :to="{ name: 'title' }">Title</b-nav-item>
-      <b-nav-item :to="{ name: 'news' }">News</b-nav-item>
-      <b-nav-item :to="{ name: 'stat' }">Statistic</b-nav-item>
-      <b-nav-item :to="{ name: 'checker' }">
-        <div class="red-text"> Проверяшка (тестовая эксплуатация)</div>
-      </b-nav-item>
+      <b-nav-item :to="{ name: 'home' }">{{ (language == 'RUS') ? 'Начало' : 'Home' }}</b-nav-item>
+      <b-nav-item :to="{ name: 'login' }">{{ (language == 'RUS') ? 'Вход' : 'Login' }}</b-nav-item>
+      <b-nav-item :to="{ name: 'log' }">{{ (language == 'RUS') ? 'Лог' : 'Log' }}</b-nav-item>
+      <b-nav-item :to="{ name: 'title' }">{{ (language == 'RUS') ? 'Титулы' : 'Title' }}</b-nav-item>
+      <b-nav-item :to="{ name: 'news' }">{{ (language == 'RUS') ? 'Новости' : 'News' }}</b-nav-item>
+      <b-nav-item :to="{ name: 'stat' }">{{ (language == 'RUS') ? 'Статистика' : 'Statistic' }}</b-nav-item>
+      <b-nav-item :to="{ name: 'checker' }">{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }} </b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
       <b-nav-item
         :to="{ name: 'log' }"
         v-on:click="onNewMessagesClick"
       >
-        New Messages
         <span class="badge badge-danger">{{count}}</span>
       </b-nav-item>
     </b-nav>
@@ -42,6 +39,11 @@ export default {
   },
 
   computed: {
+
+    language: function () {
+      return this.$store.state.language;
+    },
+
     count: function () {
       return this.$store.getters['log/giveCountOfNewMessages'];
     }
