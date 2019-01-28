@@ -155,6 +155,14 @@ export default {
                         context.dispatch("sender_file_upload", payload);
                         break;
 
+                    case "sender_file_get":
+                        context.dispatch("sender_file_get", payload);
+                        break;
+
+                    case "sender_file_delete":
+                        context.dispatch("sender_file_delete", payload);
+                        break;
+
 
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -466,7 +474,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
-                context.dispatch('sender/get', {}, { root: true });
+                context.dispatch('sender/getFolder', {}, { root: true });
             }
 
         },
@@ -474,7 +482,7 @@ export default {
         sender_folder_get: (context, payload) => {
 
             if (payload.success == 1) {
-                context.commit('sender/update', payload.items, { root: true });
+                context.commit('sender/updateFolder', payload.items, { root: true });
             }
 
         },
@@ -483,7 +491,7 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_002", { root: true })
-                context.dispatch('sender/get', {}, { root: true });
+                context.dispatch('sender/getFolder', {}, { root: true });
             }
 
         },
@@ -494,7 +502,24 @@ export default {
 
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
                 context.commit('sender_file/uploadSuccess', payload, { root: true });
+                context.dispatch('sender/getFile', context.rootGetters['sender/givePreviousFileSearch'], { root: true });
+            }
 
+        },
+
+        sender_file_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('sender/updateFile', payload.items, { root: true });
+            }
+
+        },
+
+        sender_file_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_FILE_002", { root: true })
+                context.dispatch('sender/getFile', context.rootGetters['sender/givePreviousFileSearch'], { root: true });
             }
 
         },

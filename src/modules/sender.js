@@ -2,20 +2,25 @@ export default {
     namespaced: true,
 
     state: {
-        items: null,
-        // previousSearch: {},
+        folders: null,
+        files: null,
+        previousFileSearch: {},
         // isRecordForTitleToBeShown: false,
         // nameOfTitleToBeShown: ''
     },
 
     getters: {
-        give: function (state) {
-            return state.items;
+        giveFolder: function (state) {
+            return state.folders;
         },
 
-        // givePreviousSearch: function (state) {
-        //     return state.previousSearch;
-        // },
+        giveFile: function (state) {
+            return state.files;
+        },
+
+        givePreviousFileSearch: function (state) {
+            return state.previousFileSearch;
+        },
 
         // giveIsRecordForTitleToBeShown: function (state) {
         //     return state.isRecordForTitleToBeShown;
@@ -27,8 +32,12 @@ export default {
     },
 
     mutations: {
-        update: function (state, data) {
-            state.items = data;
+        updateFolder: function (state, data) {
+            state.folders = data;
+        },
+
+        updateFile: function (state, data) {
+            state.files = data;
         },
 
         // setIsRecordForTitleToBeShown: function (state, status) {
@@ -42,7 +51,7 @@ export default {
 
     actions: {
 
-        delete: (context, payload) => {
+        deleteFolder: (context, payload) => {
 
             let parameters = {
                 queryName: "sender_folder_delete",
@@ -54,7 +63,7 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
-        get: (context, payload) => {
+        getFolder: (context, payload) => {
 
             let parameters = {
                 queryName: "sender_folder_get",
@@ -64,7 +73,7 @@ export default {
             context.dispatch('query/send', parameters, { root: true });
         },
 
-        add: (context, payload) => {
+        addFolder: (context, payload) => {
 
             let parameters = {
                 queryName: "sender_folder_add",
@@ -73,6 +82,31 @@ export default {
 
             context.dispatch('query/send', parameters, { root: true })
         },
+
+        getFile: (context, payload) => {
+
+            let parameters = {
+                queryName: "sender_file_get",
+                data: payload,
+            };
+
+            context.state.previousFileSearch = payload;
+
+            context.dispatch('query/send', parameters, { root: true });
+        },
+
+        deleteFile: (context, payload) => {
+
+            let parameters = {
+                queryName: "sender_file_delete",
+                data: {
+                    id: payload.id
+                },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
 
     }
 

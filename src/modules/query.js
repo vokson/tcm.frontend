@@ -57,6 +57,8 @@ let urls = {
     sender_folder_delete: "/sender/folder/delete",
 
     sender_file_upload: "/sender/file/upload",
+    sender_file_get: "/sender/file/get",
+    sender_file_delete: "/sender/file/delete",
 };
 
 export default {

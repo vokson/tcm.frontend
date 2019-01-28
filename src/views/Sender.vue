@@ -130,7 +130,7 @@
 
     <br />
 
-    <!-- <div class="row">
+    <div class="row">
 
       <table class="table table-striped">
         <thead>
@@ -146,7 +146,7 @@
         </thead>
         <tbody>
 
-          <tr v-on:keyup.enter.prevent="getItems">
+          <!-- <tr v-on:keyup.enter.prevent="getItems">
             <td>
               <figure> <img
                   src="./img/clean.png"
@@ -206,17 +206,17 @@
                 class="full-width"
               /></td>
 
-          </tr>
+          </tr> -->
 
           <tr
-            v-for="item in items"
+            v-for="item in files"
             :key="item.id"
           >
             <td class="text-center"> <img
                 src="./img/delete.png"
                 width="40"
                 height="40"
-                v-on:click="deleteItem(item.id)"
+                v-on:click="deleteFile(item.id)"
                 class="hover06"
                 title="Удалить / Delete"
               ></td>
@@ -259,7 +259,7 @@
 
         </tbody>
       </table>
-    </div> -->
+    </div>
 
   </div>
 </template>
@@ -342,12 +342,16 @@ export default {
     },
 
     folders: function () {
-      return this.$store.getters['sender/give'];
+      return this.$store.getters['sender/giveFolder'];
     },
 
-    // countOfItems: function () {
-    //   return (this.items == null) ? 0 : this.items.length;
-    // },
+    files: function () {
+      return this.$store.getters['sender/giveFile'];
+    },
+
+    countOfItems: function () {
+      return (this.items == null) ? 0 : this.items.length;
+    },
 
     attachedFiles: function () {
       return this.$store.getters['sender_file/give'];
@@ -367,8 +371,35 @@ export default {
         date.getFullYear()
     },
 
+    addFolder: function () {
+      this.$store.dispatch('sender/addFolder', { name: this.nameOfFolder });
+    },
+
+    setActiveFolderId: function (id) {
+      this.activeFolderId = id;
+    },
+
     getFolder: function () {
-      this.$store.dispatch('sender/get', {});
+      this.$store.dispatch('sender/getFolder', {});
+    },
+
+    deleteFolder: function (id) {
+      this.$store.dispatch('sender/deleteFolder', {
+        id: id,
+      });
+
+      if (id == this.activeFolderId) { this.activeFolderId = null; }
+
+    },
+
+    getFile: function () {
+      this.$store.dispatch('sender/getFile', { folder_id: this.activeFolderId });
+    },
+
+    deleteFile: function (id) {
+      this.$store.dispatch('sender/deleteFile', {
+        id: id,
+      });
     },
 
     // downloadFile: function (file_id) {
@@ -392,14 +423,7 @@ export default {
     //   });
     // },
 
-    deleteFolder: function (id) {
-      this.$store.dispatch('sender/delete', {
-        id: id,
-      });
 
-      if (id == this.activeFolderId) { this.activeFolderId = null; }
-
-    },
 
     startDragging: function () {
       this.isDragging = true;
@@ -478,23 +502,26 @@ export default {
 
     },
 
-    cleanSearch: function () {
-      this.search.status = "";
-      this.search.who = "";
-      this.search.filename = "";
-      this.search.extension = "";
-      this.search.date = null;
-    },
+    // cleanSearch: function () {
+    //   this.search.status = "";
+    //   this.search.who = "";
+    //   this.search.filename = "";
+    //   this.search.extension = "";
+    //   this.search.date = null;
+    // },
 
-    addFolder: function () {
-      this.$store.dispatch('sender/add', { name: this.nameOfFolder });
-    },
 
-    setActiveFolderId: function (id) {
-      this.activeFolderId = id;
-    }
 
   },
+
+  watch: {
+    activeFolderId: function () {
+      if (this.activeFolderId !== null) {
+        this.getFile();
+      }
+    }
+  }
+
 
 };
 </script>
