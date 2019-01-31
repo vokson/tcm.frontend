@@ -301,6 +301,7 @@ export default {
 
     this.$nextTick(function () {
       this.$store.commit('sender_file/clean', {}, { root: true });
+      this.$store.commit('sender/clean', {}, { root: true });
 
       // Очищаем установленные по умолчанию обработчики событий
       let dropArea = document.getElementById('col-drop-area');
@@ -372,6 +373,11 @@ export default {
     },
 
     addFolder: function () {
+      if (this.nameOfFolder == '') {
+        this.$store.dispatch('notify/showNotifyByCode', "E_SENDER_001", { root: true });
+        return;
+      }
+
       this.$store.dispatch('sender/addFolder', { name: this.nameOfFolder });
     },
 
@@ -388,7 +394,10 @@ export default {
         id: id,
       });
 
-      if (id == this.activeFolderId) { this.activeFolderId = null; }
+      if (id == this.activeFolderId) {
+        this.activeFolderId = null;
+        this.$store.commit('sender/clean', {}, { root: true });
+      }
 
     },
 

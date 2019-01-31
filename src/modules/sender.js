@@ -40,6 +40,11 @@ export default {
             state.files = data;
         },
 
+        clean: function (state) {
+            state.files = [];
+            state.folders = [];
+        },
+
         // setIsRecordForTitleToBeShown: function (state, status) {
         //     state.isRecordForTitleToBeShown = status;
         // },

@@ -467,6 +467,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_SENDER_001":
+            return {
+                text: "Имя папки не должно быть пустым",
+                type: "error"
+            }
+
 
         default:
             return {
@@ -935,6 +941,12 @@ let getEngText = function (code) {
             return {
                 text: "Record has been deleted",
                 type: "success"
+            }
+
+        case "E_SENDER_001":
+            return {
+                text: "Folder name must not be empty",
+                type: "error"
             }
 
 
