@@ -55,10 +55,13 @@ let urls = {
     sender_folder_add: "/sender/folder/add",
     sender_folder_get: "/sender/folder/get",
     sender_folder_delete: "/sender/folder/delete",
+    sender_folder_count: "/sender/folder/count",
 
     sender_file_upload: "/sender/file/upload",
     sender_file_get: "/sender/file/get",
     sender_file_delete: "/sender/file/delete",
+    sender_file_download: "/sender/file/download",
+    sender_file_download_all: "/sender/file/download/all",
 };
 
 export default {

@@ -21,7 +21,51 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+
+          <div
+            class="row"
+            v-for="item in attachedFiles"
+            :key="item.uin"
+          >
+            <div class="col-1">
+              <span
+                v-if="item.uploadedSize >= item.size"
+                class="badge badge-success"
+              >OK</span>
+              <span
+                v-else
+                class="badge badge-warning"
+              >{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
+            </div>
+
+            <div
+              class="col-9"
+              v-if="item.id != null"
+            >
+              <a
+                href="#"
+                v-on:click="downloadFile(item.id)"
+              >{{item.original_name}}</a>
+            </div>
+            <div
+              class="col-9"
+              v-else
+            >
+              {{item.original_name}}
+            </div>
+
+            <div class="col-2">
+              {{formatBytes(item.size)}}
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+
       <div class="col-6">
 
         <div class="row">
@@ -29,6 +73,7 @@
             type="text"
             v-model="nameOfFolder"
             placeholder="Имя папки"
+            class="input-folder-name"
           >
           <button
             type="button"
@@ -38,12 +83,21 @@
             {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
           </button>
 
+          <img
+            src="./img/refresh.png"
+            width="40"
+            height="40"
+            v-on:click="getFolder"
+            title="Refresh / Обновить"
+            class="input-folder-name"
+          >
+
           <button
             type="button"
-            class="btn btn-success"
-            v-on:click="getFolder"
+            class="btn btn-warning"
+            v-on:click="downloadAllFiles"
           >
-            Search
+            {{ (language == 'RUS') ? 'Скачать все файлы' : 'Download all files' }}
           </button>
 
         </div>
@@ -68,64 +122,8 @@
           </div>
         </div>
 
-        <!-- <div class="row">
-          <button
-            type="button"
-            class="btn btn-block btn-warning"
-            v-on:click="downloadAllFiles"
-          >
-            {{ (language == 'RUS') ? 'Скачать все файлы' : 'Download all files' }}
-          </button>
-
-        </div> -->
-
       </div>
 
-    </div>
-
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-8">
-
-        <div
-          class="row"
-          v-for="item in attachedFiles"
-          :key="item.uin"
-        >
-          <div class="col-1">
-            <span
-              v-if="item.uploadedSize >= item.size"
-              class="badge badge-success"
-            >OK</span>
-            <span
-              v-else
-              class="badge badge-warning"
-            >{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
-          </div>
-
-          <div
-            class="col-7"
-            v-if="item.id != null"
-          >
-            <a
-              href="#"
-              v-on:click="downloadFile(item.id)"
-            >{{item.original_name}}</a>
-          </div>
-          <div
-            class="col-7"
-            v-else
-          >
-            {{item.original_name}}
-          </div>
-
-          <div class="col-2">
-            {{formatBytes(item.size)}}
-          </div>
-
-        </div>
-
-      </div>
     </div>
 
     <br />
@@ -136,77 +134,15 @@
         <thead>
           <tr>
             <th class="text-center">ID</th>
-            <th class="td-date text-center">Date</th>
-            <th class="td-file text-center">Filename</th>
-            <th class="td-extension text-center">Extension</th>
-            <th class="td-owner text-center">Surname</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Mistake</th>
+            <th class="td-date text-center">{{ (language == 'RUS') ? 'Загружено' : 'Uploaded' }}</th>
+            <th class="td-file text-center">{{ (language == 'RUS') ? 'Имя файла' : 'Filename' }}</th>
+            <th class="td-extension text-center">{{ (language == 'RUS') ? 'Расширение' : 'Extension' }}</th>
+            <th class="td-owner text-center">{{ (language == 'RUS') ? 'Проверено' : 'Checked by' }}</th>
+            <th class="text-center">{{ (language == 'RUS') ? 'Статус' : 'Status' }}</th>
+            <th class="text-center">{{ (language == 'RUS') ? 'Ошибки' : 'Mistake' }}</th>
           </tr>
         </thead>
         <tbody>
-
-          <!-- <tr v-on:keyup.enter.prevent="getItems">
-            <td>
-              <figure> <img
-                  src="./img/clean.png"
-                  width="35"
-                  height="35"
-                  v-on:click="cleanSearch"
-                  class="hover06"
-                > </figure>
-            </td>
-            <td class="td-date">
-              <datepicker
-                v-model="search.date"
-                :format="date_format"
-                :bootstrap-styling="true"
-                :language="languageForDatePicker"
-              ></datepicker>
-            </td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.filename"
-                placeholder="Имя файла"
-                class="full-width"
-              /></td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.extension"
-                placeholder="Расширение"
-                class="full-width"
-              /></td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.owner"
-                placeholder="Фамилия"
-                class="full-width"
-              /></td>
-            <td class="text-center">
-              <div>
-                <input
-                  type="checkbox"
-                  v-model="search.status_yes"
-                >+</div>
-              <div>
-                <input
-                  type="checkbox"
-                  v-model="search.status_question"
-                >?</div>
-              <div>
-                <input
-                  type="checkbox"
-                  v-model="search.status_no"
-                >-</div>
-            </td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.mistake_count"
-                placeholder="Ошибки"
-                class="full-width"
-              /></td>
-
-          </tr> -->
 
           <tr
             v-for="item in files"
@@ -222,10 +158,10 @@
               ></td>
             <td class="text-center">{{formatDate(item.date)}}</td>
             <td>
-              <div v-if="item.file_id != null">
+              <div v-if="item.id != null">
                 <a
                   href="#"
-                  v-on:click="downloadFile(item.file_id)"
+                  v-on:click="downloadFile(item.id)"
                 >{{item.filename}}</a>
               </div>
               <div v-else>
@@ -280,20 +216,7 @@ export default {
       isDragging: false,
       maxFileSize: 20 * 1024 * 1024,
       nameOfFolder: '',
-      activeFolderId: null,
-
-      // search: {
-      //   owner: "",
-      //   status_yes: true,
-      //   status_no: true,
-      //   status_question: true,
-      //   filename: "",
-      //   extension: "",
-      //   mistake_count: "",
-      //   date: null,
-      //   is_only_last: false
-      // }
-
+      activeFolderId: null
     };
   },
 
@@ -302,6 +225,7 @@ export default {
     this.$nextTick(function () {
       this.$store.commit('sender_file/clean', {}, { root: true });
       this.$store.commit('sender/clean', {}, { root: true });
+      this.getFolder();
 
       // Очищаем установленные по умолчанию обработчики событий
       let dropArea = document.getElementById('col-drop-area');
@@ -411,26 +335,26 @@ export default {
       });
     },
 
-    // downloadFile: function (file_id) {
-    //   this.$store.dispatch('checker_file/download', {
-    //     id: file_id
-    //   });
-    // },
+    downloadFile: function (file_id) {
+      this.$store.dispatch('sender_file/download', {
+        id: file_id
+      });
+    },
 
-    // downloadAllFiles: function () {
-    //   if (this.items === null) {
-    //     this.$store.dispatch('notify/showNotifyByCode', "E_FILE_006", { root: true });
-    //     return;
-    //   }
+    downloadAllFiles: function () {
+      if (this.files === null) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_006", { root: true });
+        return;
+      }
 
-    //   this.$store.dispatch('checker_file/downloadAll', {
-    //     ids: this.items.map(function (item) {
-    //       return item.file_id;
-    //     }).filter(function (id) {
-    //       return id !== null;
-    //     })
-    //   });
-    // },
+      this.$store.dispatch('sender_file/downloadAll', {
+        ids: this.files.map(function (item) {
+          return item.id;
+        }).filter(function (id) {
+          return id !== null;
+        })
+      });
+    },
 
 
 
@@ -511,16 +435,6 @@ export default {
 
     },
 
-    // cleanSearch: function () {
-    //   this.search.status = "";
-    //   this.search.who = "";
-    //   this.search.filename = "";
-    //   this.search.extension = "";
-    //   this.search.date = null;
-    // },
-
-
-
   },
 
   watch: {
@@ -587,5 +501,9 @@ export default {
 
 .active-folder {
   color: red;
+}
+
+.input-folder-name {
+  margin-right: 15px;
 }
 </style>

@@ -5,6 +5,7 @@ export default {
         folders: null,
         files: null,
         previousFileSearch: {},
+        countOfFolders: 0
         // isRecordForTitleToBeShown: false,
         // nameOfTitleToBeShown: ''
     },
@@ -12,6 +13,10 @@ export default {
     getters: {
         giveFolder: function (state) {
             return state.folders;
+        },
+
+        giveCountOfFolders: function (state) {
+            return state.countOfFolders;
         },
 
         giveFile: function (state) {
@@ -22,13 +27,7 @@ export default {
             return state.previousFileSearch;
         },
 
-        // giveIsRecordForTitleToBeShown: function (state) {
-        //     return state.isRecordForTitleToBeShown;
-        // },
 
-        // giveNameOfTitleToBeShown: function (state) {
-        //     return state.nameOfTitleToBeShown;
-        // }
     },
 
     mutations: {
@@ -40,18 +39,14 @@ export default {
             state.files = data;
         },
 
+        updateCountOfFolders: function (state, count) {
+            state.countOfFolders = count;
+        },
+
         clean: function (state) {
             state.files = [];
             state.folders = [];
         },
-
-        // setIsRecordForTitleToBeShown: function (state, status) {
-        //     state.isRecordForTitleToBeShown = status;
-        // },
-
-        // setNameOfTitleToBeShown: function (state, value) {
-        //     state.nameOfTitleToBeShown = value;
-        // }
     },
 
     actions: {
@@ -107,6 +102,16 @@ export default {
                 data: {
                     id: payload.id
                 },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
+        getCountOfFolders: (context, payload) => {
+
+            let parameters = {
+                queryName: "sender_folder_count",
+                data: payload,
             };
 
             context.dispatch('query/send', parameters, { root: true })

@@ -69,29 +69,29 @@ export default {
 
     actions: {
 
-        // download: (context, payload) => {
+        download: (context, payload) => {
 
-        //     let parameters = {
-        //         queryName: "checker_file_download",
-        //         data: {
-        //             id: payload.id
-        //         },
-        //     };
+            let parameters = {
+                queryName: "sender_file_download",
+                data: {
+                    id: payload.id
+                },
+            };
 
-        //     context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
-        // },
+            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+        },
 
-        // downloadAll: (context, payload) => {
+        downloadAll: (context, payload) => {
 
-        //     let parameters = {
-        //         queryName: "checker_file_download_all",
-        //         data: {
-        //             ids: payload.ids
-        //         }
-        //     };
+            let parameters = {
+                queryName: "sender_file_download_all",
+                data: {
+                    ids: payload.ids
+                }
+            };
 
-        //     context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
-        // },
+            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+        },
 
 
         upload: (context, payload) => {

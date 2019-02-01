@@ -151,6 +151,10 @@ export default {
                         context.dispatch("sender_folder_delete", payload);
                         break;
 
+                    case "sender_folder_count":
+                        context.dispatch("sender_folder_count", payload);
+                        break;
+
                     case "sender_file_upload":
                         context.dispatch("sender_file_upload", payload);
                         break;
@@ -492,6 +496,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_002", { root: true })
                 context.dispatch('sender/getFolder', {}, { root: true });
+            }
+
+        },
+
+        sender_folder_count: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('sender/updateCountOfFolders', payload.count, { root: true });
             }
 
         },
