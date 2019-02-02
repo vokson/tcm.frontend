@@ -172,6 +172,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.23.1</p>
+        </div>
+        <div class="col-4">
+          <p>Изменен порядок сортировки в Отправке. Добавлена проверка имени загружаемого файла. Изменен максимальный объем загружамого файла.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.23.0</p>
         </div>
         <div class="col-4">
@@ -511,7 +520,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.23.0'
+      version: '1.23.1'
     };
   },
 
