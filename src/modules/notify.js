@@ -313,6 +313,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 802:
+            return {
+                title: "Ошибка Графика - 802",
+                text: "Пустое регулярное выражение",
+                type: "error"
+            }
+
         case 901:
             return {
                 title: "Ошибка Отправки - 901",
@@ -785,6 +792,13 @@ let getEngText = function (code) {
             return {
                 title: "Chart Error - 801",
                 text: "Storage Name is wrong",
+                type: "error"
+            }
+
+        case 802:
+            return {
+                title: "Chart Error - 802",
+                text: "Empty Regular Expression",
                 type: "error"
             }
 

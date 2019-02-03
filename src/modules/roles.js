@@ -11,6 +11,7 @@ let engineer = [
     '/stat',
     '/stat/chart/log',
     '/stat/chart/title',
+    '/stat/chart/title/status',
     '/checker',
     '/stat/chart/storage',
     '/sender',

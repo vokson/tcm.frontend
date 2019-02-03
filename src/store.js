@@ -18,6 +18,7 @@ import last_logs from "./modules/last_logs";
 import chart_created_logs from "./modules/chart_created_logs";
 import chart_created_titles from "./modules/chart_created_titles";
 import chart_file_storage from "./modules/chart_file_storage";
+import chart_title_status from "./modules/chart_title_status";
 import checker from "./modules/checker";
 import checker_file from "./modules/checker_file";
 import sender from "./modules/sender";
@@ -90,6 +91,7 @@ export default new Vuex.Store({
     last_logs,
     chart_created_logs,
     chart_created_titles,
+    chart_title_status,
     chart_file_storage,
     checker,
     checker_file,
