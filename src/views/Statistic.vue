@@ -18,6 +18,10 @@
         <h4>{{ (language == 'RUS') ? 'График, показывающий кол-во титулов, имеющих данный статус' : 'Chart showing count of titles, which have current status' }}</h4>
       </b-nav-item>
 
+      <b-nav-item :to="{ name: 'chart_tq' }">
+        <h4>{{ (language == 'RUS') ? 'TQ статистика' : 'TQ statistic' }}</h4>
+      </b-nav-item>
+
       <br />
 
       <b-nav-item :to="{ name: 'chart_file_storage' }">

@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col ">
-        <h3 v-if="language === 'RUS'">График, показывающий кол-во титулов, имеющих данный статус</h3>
-        <h3 v-else-if="language === 'ENG'">Chart showing count of titles having current status</h3>
+        <h3 v-if="language === 'RUS'">Статистика по TQ</h3>
+        <h3 v-else-if="language === 'ENG'">TQ statistic</h3>
       </div>
     </div>
 
@@ -46,7 +46,7 @@
             placeholder="/.*NVK.*/"
           />
         </div>
-
+        <!-- 
         <div class="row">
           {{ (language == 'RUS') ? 'Регулярное выражение статуса титула:' : 'Regular expression for status of title:' }}
           <br />
@@ -55,13 +55,17 @@
             v-model="statusRegExp"
             placeholder="/BACKLOG/"
           />
-        </div>
+        </div> -->
 
       </div>
 
       <div class="col-9">
 
-        <div class="row">
+        <label> {{ (language == 'RUS') ? 'Отклонено' : 'Rejected' }}: {{items.count.rejected}}</label><br />
+        <label> {{ (language == 'RUS') ? 'Согласовано без изменения чертежей' : 'Approved without modification of drawings' }}: {{items.count.approvedWithoutChanges}}</label><br />
+        <label> {{ (language == 'RUS') ? 'Согласовано c изменениями чертежей' : 'Approved with modification of drawings' }}: {{items.count.approvedWithСhanges}}</label><br />
+
+        <!-- <div class="row">
           <div class="chart">
             <line-chart
               :chart-data="itemsForChart"
@@ -78,7 +82,7 @@
           >
             {{ (language == 'RUS') ? 'Построить график' : 'Draw diagram' }}
           </button>
-        </div>
+        </div> -->
 
       </div>
 
@@ -89,7 +93,7 @@
 
 <script>
 
-import LineChart from './LineChart.js'
+// import LineChart from './LineChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
@@ -101,50 +105,50 @@ export default {
       en: en,
       ru: ru,
 
-      interval: "86400",
+      // interval: "86400",
       startDate: new Date(),
       endDate: new Date(),
       titleRegExp: "/^TQ.*/",
       descriptionRegExp: "/.*NVK.*/",
-      statusRegExp: "/BACKLOG/",
+      // statusRegExp: "/BACKLOG/",
 
 
-      optionsForChart: {
-        elements: {
-          line: {
-            tension: 0, // disables bezier curves
-          }
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
+      // optionsForChart: {
+      //   elements: {
+      //     line: {
+      //       tension: 0, // disables bezier curves
+      //     }
+      //   },
+      //   responsive: true,
+      //   maintainAspectRatio: false,
+      //   scales: {
 
-          xAxes: [{
-            gridLines: {
-              display: true,
-              color: "white"
-            },
-            type: 'time',
-            time: {
-              unit: 'day'
-            }
-          }],
+      //     xAxes: [{
+      //       gridLines: {
+      //         display: true,
+      //         color: "white"
+      //       },
+      //       type: 'time',
+      //       time: {
+      //         unit: 'day'
+      //       }
+      //     }],
 
-          yAxes: [{
-            gridLines: {
-              display: true,
-              color: "white"
-            },
+      //     yAxes: [{
+      //       gridLines: {
+      //         display: true,
+      //         color: "white"
+      //       },
 
-          }]
-        }
-      }
+      //     }]
+      //   }
+      // }
     }
   },
 
-  components: {
-    LineChart
-  },
+  // components: {
+  //   LineChart
+  // },
 
   computed: {
     language: function () {
@@ -156,49 +160,56 @@ export default {
       if (this.language == "ENG") { return this.en }
     },
 
-    itemsForChart: function () {
-      if (this.rawItemsForChart === null) {
+    // itemsForChart: function () {
+    //   if (this.rawItemsForChart === null) {
 
-        return null;
+    //     return null;
 
-      } else {
+    //   } else {
 
-        return {
+    //     return {
 
-          color: "red",
+    //       color: "red",
 
-          labels: this.rawItemsForChart.labels.map(function (value) {
-            return new Date(value * 1000);
-          }),
+    //       labels: this.rawItemsForChart.labels.map(function (value) {
+    //         return new Date(value * 1000);
+    //       }),
 
-          datasets: [
-            {
-              backgroundColor: "rgba(252,147,65,0.5)",
-              borderColor: "rgba(0,0,120,0.5)",
-              pointBackgroundColor: "rgba(255,0,0,0.7)",
-              label: 'Count of titles / Кол-во титулов',
-              data: this.rawItemsForChart.values
-            }
-          ]
+    //       datasets: [
+    //         {
+    //           backgroundColor: "rgba(252,147,65,0.5)",
+    //           borderColor: "rgba(0,0,120,0.5)",
+    //           pointBackgroundColor: "rgba(255,0,0,0.7)",
+    //           label: 'Count of titles / Кол-во титулов',
+    //           data: this.rawItemsForChart.values
+    //         }
+    //       ]
+    //     }
+
+    //   }
+    // },
+
+    items: function () {
+      return {
+        count: {
+          rejected: 10,
+          approvedWithoutChanges: 20,
+          approvedWithChanges: 30
         }
-
       }
-    },
-
-    rawItemsForChart: function () {
-      return this.$store.getters['chart_title_status/give'];
+      // return this.$store.getters['chart_title_status/give'];
     },
 
   },
 
   methods: {
 
-    getItemsForChart: function () {
+    get: function () {
       let queryObject = {
         title_regular_expression: this.titleRegExp,
         description_regular_expression: this.descriptionRegExp,
-        status_regular_expression: this.statusRegExp,
-        interval: this.interval,
+        // status_regular_expression: this.statusRegExp,
+        // interval: this.interval,
         date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
         date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
