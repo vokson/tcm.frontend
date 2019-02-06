@@ -124,8 +124,14 @@ export default {
                         context.dispatch("created_titles_chart_get", payload);
                         break;
 
+
+
                     case "titles_status_chart_get":
                         context.dispatch("titles_status_chart_get", payload);
+                        break;
+
+                    case "tq_status_chart_get":
+                        context.dispatch("tq_status_chart_get", payload);
                         break;
 
                     case "storage_chart_get":
@@ -449,6 +455,16 @@ export default {
             }
 
         },
+
+        tq_status_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_tq_status/update', payload.items, { root: true });
+            }
+
+        },
+
+
 
         storage_chart_get: (context, payload) => {
 

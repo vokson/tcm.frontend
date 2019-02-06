@@ -320,6 +320,20 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 803:
+            return {
+                title: "Ошибка Графика - 803",
+                text: "Объем титула не является целым числом",
+                type: "error"
+            }
+
+        case 804:
+            return {
+                title: "Ошибка Графика - 804",
+                text: "Некорректный Предшественник титула",
+                type: "error"
+            }
+
         case 901:
             return {
                 title: "Ошибка Отправки - 901",
@@ -799,6 +813,20 @@ let getEngText = function (code) {
             return {
                 title: "Chart Error - 802",
                 text: "Empty Regular Expression",
+                type: "error"
+            }
+
+        case 803:
+            return {
+                title: "Chart Error - 803",
+                text: "Volume of title is not integer type",
+                type: "error"
+            }
+
+        case 804:
+            return {
+                title: "Chart Error - 804",
+                text: "Incorrect predecessor of title",
                 type: "error"
             }
 

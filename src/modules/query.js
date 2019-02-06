@@ -44,6 +44,7 @@ let urls = {
     created_logs_chart_get: "charts/logs/created/get",
     created_titles_chart_get: "charts/titles/created/get",
     titles_status_chart_get: "charts/titles/status/get",
+    tq_status_chart_get: "charts/tq/status/get",
     storage_chart_get: "charts/storage/get",
 
     checker_get: "/checker/get",
