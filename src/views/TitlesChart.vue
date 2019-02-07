@@ -118,7 +118,7 @@
       <div class="col-9">
 
         <div class="row">
-          <div class="chart">
+          <div class="line-chart">
             <line-log-article
               :chart-data="itemsForLogChart"
               :options="optionsForLogChart"
@@ -295,7 +295,7 @@ export default {
 </script>
 
 <style>
-.chart {
+.line-chart {
   background: silver;
   border-radius: 15px;
   box-shadow: 0px 2px 15px rgba(25, 25, 25, 0.27);

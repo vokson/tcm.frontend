@@ -60,7 +60,7 @@
       </div>
 
       <div
-        class="col-9"
+        class="col-7"
         v-if="items !== null"
       >
 
@@ -82,13 +82,38 @@
 
       </div>
 
+      <div
+        class="col-2"
+        v-if="items !== null"
+      >
+
+        <div class="row">
+          <div class='doughnut-chart'>
+            <doughnut-chart
+              :chart-data="itemsForChart_1"
+              :options="optionsForChart"
+            ></doughnut-chart>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class='doughnut-chart'>
+            <doughnut-chart
+              :chart-data="itemsForChart_2"
+              :options="optionsForChart"
+            ></doughnut-chart>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 </template>
 
 <script>
-
+import DoughnutChart from './DoughnutChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
@@ -105,7 +130,12 @@ export default {
       titleRegExp: "/^TQ.*/",
       descriptionRegExp: "/.*NVK.*/",
 
+      optionsForChart: {},
     }
+  },
+
+  components: {
+    DoughnutChart
   },
 
   computed: {
@@ -120,20 +150,46 @@ export default {
 
     items: function () {
       return this.$store.getters['chart_tq_status/give'];
-      // return {
-      //   count: {
-      //     rejected: 10,
-      //     approvedWithoutChanges: 20,
-      //     approvedWithChanges: 30
-      //   },
-      //   changes: {
-      //     code_1: 10,
-      //     code_2: 20,
-      //     code_3: 30,
-      //     code_4: 40
-      //   }
-      // }
     },
+
+    itemsForChart_1: function () {
+      return {
+        datasets: [{
+          data: [this.items.count.rejected, this.items.count.approvedWithoutChanges, this.items.count.approvedWithChanges],
+          backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)']
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [
+          'Отклонено',
+          'Согласовано без изменений',
+          'Согласовано с изменениями'
+        ]
+      }
+    },
+
+    itemsForChart_2: function () {
+      return {
+        datasets: [{
+          data: [
+            this.items.changes.code_1,
+            this.items.changes.code_2,
+            this.items.changes.code_3,
+            this.items.changes.code_4
+          ],
+          backgroundColor: [
+            'purple',
+            'green',
+            'yellow',
+            'orange'
+          ]
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: ['(1)', '(2)', '(3)', '(4)']
+      }
+    }
+
 
   },
 
@@ -158,6 +214,11 @@ export default {
 </script>
 
 <style>
+.doughnut-chart {
+  width: 300px;
+  height: 300px;
+}
+
 .settings {
   margin-right: 20px;
 }
