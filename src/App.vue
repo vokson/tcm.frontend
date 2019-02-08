@@ -10,11 +10,7 @@
       <b-nav-item :to="{ name: 'news' }">{{ (language == 'RUS') ? 'Новости' : 'News' }}</b-nav-item>
       <b-nav-item :to="{ name: 'stat' }">{{ (language == 'RUS') ? 'Статистика' : 'Statistic' }}</b-nav-item>
       <b-nav-item :to="{ name: 'checker' }">{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }} </b-nav-item>
-      <b-nav-item :to="{ name: 'sender' }">
-        <div class="red-text">
-          {{ (language == 'RUS') ? 'Отправка (тестирование)' : 'Sender (test mode)' }}
-        </div>
-      </b-nav-item>
+      <b-nav-item :to="{ name: 'sender' }">{{ (language == 'RUS') ? 'Отправка' : 'Sender' }} </b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
       <b-nav-item
         :to="{ name: 'log' }"
