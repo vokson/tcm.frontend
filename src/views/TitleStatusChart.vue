@@ -2,61 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col ">
-        <h3 v-if="language === 'RUS'">График объема места, занятого файлами</h3>
-        <h3 v-else-if="language === 'ENG'">Chart of storage volume occupied by files</h3>
+        <h3 v-if="language === 'RUS'">График, показывающий кол-во титулов, имеющих данный статус</h3>
+        <h3 v-else-if="language === 'ENG'">Chart showing count of titles having current status</h3>
       </div>
     </div>
 
     <div class="row">
       <div class="col-2 settings">
-
-        <div class="row">
-          <label
-            for="cumulativeCheckBox"
-            class="form-check-label"
-          >{{ (language == 'RUS') ? 'Кумулятивный график?' : 'Is cumulative chart?' }}</label>
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="cumulativeCheckBox"
-            v-model="isCumulativeChart"
-          >
-
-        </div>
-
-        <div class="row">
-          <b-form-radio-group
-            id="chart_storage_name"
-            v-model="storage_name"
-            name="radioSubComponent1"
-          >
-            <b-form-radio
-              value="CHECKER_STORAGE"
-              checked
-            >{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }}</b-form-radio>
-            <br />
-            <b-form-radio value="LOG_STORAGE">{{ (language == 'RUS') ? 'Записи ЛОГ' : 'Log records' }}</b-form-radio>
-
-          </b-form-radio-group>
-        </div>
-
-        <div class="row">
-          <b-form-radio-group
-            id="chart_intervals"
-            v-model="interval"
-            name="radioSubComponent2"
-          >
-            <b-form-radio
-              value="86400"
-              checked
-            >{{ (language == 'RUS') ? 'День' : 'Day' }}</b-form-radio>
-            <br />
-            <b-form-radio value="604800">{{ (language == 'RUS') ? 'Неделя' : 'Week' }}</b-form-radio>
-            <br />
-            <b-form-radio value="2635200">{{ (language == 'RUS') ? 'Месяц' : 'Month' }}</b-form-radio>
-
-          </b-form-radio-group>
-        </div>
 
         <div class="row">
           <datepicker
@@ -73,16 +25,48 @@
             :language="languageForDatePicker"
           ></datepicker>
         </div>
+
+        <div class="row">
+          {{ (language == 'RUS') ? 'Регулярное выражение наименования титула:' : 'Regular expression for name of title:' }}
+          <br />
+          <input
+            type="text"
+            v-model="titleRegExp"
+            placeholder="/^TQ.*/"
+          />
+          <a href="https://regex101.com/"> ? </a>
+        </div>
+
+        <div class="row">
+          {{ (language == 'RUS') ? 'Регулярное выражение описания титула:' : 'Regular expression for description of title:' }}
+          <br />
+          <input
+            type="text"
+            v-model="descriptionRegExp"
+            placeholder="/.*NVK.*/"
+          />
+        </div>
+
+        <div class="row">
+          {{ (language == 'RUS') ? 'Регулярное выражение статуса титула:' : 'Regular expression for status of title:' }}
+          <br />
+          <input
+            type="text"
+            v-model="statusRegExp"
+            placeholder="/BACKLOG/"
+          />
+        </div>
+
       </div>
 
       <div class="col-9">
 
         <div class="row">
           <div class="line-chart">
-            <line-log-article
+            <line-chart
               :chart-data="itemsForChart"
               :options="optionsForChart"
-            ></line-log-article>
+            ></line-chart>
           </div>
         </div>
 
@@ -105,11 +89,11 @@
 
 <script>
 
-import LineLogArticle from './LineChart.js'
+import LineChart from './LineChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
-  name: "FileStorageChart",
+  name: "TqStatisticChart",
 
   data () {
     return {
@@ -117,14 +101,20 @@ export default {
       en: en,
       ru: ru,
 
-      storage_name: "CHECKER_STORAGE",
       interval: "86400",
       startDate: new Date(),
       endDate: new Date(),
+      titleRegExp: "/^TQ.*/",
+      descriptionRegExp: "/.*NVK.*/",
+      statusRegExp: "/BACKLOG/",
 
-      isCumulativeChart: false,
 
       optionsForChart: {
+        elements: {
+          line: {
+            tension: 0, // disables bezier curves
+          }
+        },
         responsive: true,
         maintainAspectRatio: false,
         scales: {
@@ -153,7 +143,7 @@ export default {
   },
 
   components: {
-    LineLogArticle
+    LineChart
   },
 
   computed: {
@@ -186,7 +176,7 @@ export default {
               backgroundColor: "rgba(252,147,65,0.5)",
               borderColor: "rgba(0,0,120,0.5)",
               pointBackgroundColor: "rgba(255,0,0,0.7)",
-              label: 'Volume of storage space / Объем занимаемого места на диске - ' + this.countOfItemsForChart + ' Mb',
+              label: 'Count of titles / Кол-во титулов',
               data: this.rawItemsForChart.values
             }
           ]
@@ -196,11 +186,7 @@ export default {
     },
 
     rawItemsForChart: function () {
-      return (this.isCumulativeChart === false) ? (this.$store.getters['chart_file_storage/giveItems']) : (this.$store.getters['chart_file_storage/giveItemsCumulative']);
-    },
-
-    countOfItemsForChart: function () {
-      return this.$store.getters['chart_file_storage/giveItemsCount'];
+      return this.$store.getters['chart_title_status/give'];
     },
 
   },
@@ -209,13 +195,15 @@ export default {
 
     getItemsForChart: function () {
       let queryObject = {
-        storage: this.storage_name,
+        title_regular_expression: this.titleRegExp,
+        description_regular_expression: this.descriptionRegExp,
+        status_regular_expression: this.statusRegExp,
         interval: this.interval,
         date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
         date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
 
-      this.$store.dispatch('chart_file_storage/getItems', queryObject);
+      this.$store.dispatch('chart_title_status/get', queryObject);
     },
 
 

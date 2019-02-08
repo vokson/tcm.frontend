@@ -124,6 +124,16 @@ export default {
                         context.dispatch("created_titles_chart_get", payload);
                         break;
 
+
+
+                    case "titles_status_chart_get":
+                        context.dispatch("titles_status_chart_get", payload);
+                        break;
+
+                    case "tq_status_chart_get":
+                        context.dispatch("tq_status_chart_get", payload);
+                        break;
+
                     case "storage_chart_get":
                         context.dispatch("storage_chart_get", payload);
                         break;
@@ -137,6 +147,34 @@ export default {
 
                     case "checker_file_upload":
                         context.dispatch("checker_file_upload", payload);
+                        break;
+
+                    case "sender_folder_add":
+                        context.dispatch("sender_folder_add", payload);
+                        break;
+
+                    case "sender_folder_get":
+                        context.dispatch("sender_folder_get", payload);
+                        break;
+
+                    case "sender_folder_delete":
+                        context.dispatch("sender_folder_delete", payload);
+                        break;
+
+                    case "sender_folder_count":
+                        context.dispatch("sender_folder_count", payload);
+                        break;
+
+                    case "sender_file_upload":
+                        context.dispatch("sender_file_upload", payload);
+                        break;
+
+                    case "sender_file_get":
+                        context.dispatch("sender_file_get", payload);
+                        break;
+
+                    case "sender_file_delete":
+                        context.dispatch("sender_file_delete", payload);
                         break;
 
 
@@ -410,6 +448,24 @@ export default {
 
         },
 
+        titles_status_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_title_status/update', payload.items, { root: true });
+            }
+
+        },
+
+        tq_status_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_tq_status/update', payload.items, { root: true });
+            }
+
+        },
+
+
+
         storage_chart_get: (context, payload) => {
 
             if (payload.success == 1) {
@@ -442,6 +498,68 @@ export default {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
                 context.commit('checker_file/uploadSuccess', payload, { root: true });
 
+            }
+
+        },
+
+        sender_folder_add: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
+                context.dispatch('sender/getFolder', {}, { root: true });
+            }
+
+        },
+
+        sender_folder_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('sender/updateFolder', payload.items, { root: true });
+            }
+
+        },
+
+        sender_folder_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_002", { root: true })
+                context.dispatch('sender/getFolder', {}, { root: true });
+            }
+
+        },
+
+        sender_folder_count: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('sender/updateCountOfFolders', payload.count, { root: true });
+            }
+
+        },
+
+        sender_file_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
+                context.commit('sender_file/uploadSuccess', payload, { root: true });
+                context.dispatch('sender/getFile', context.rootGetters['sender/givePreviousFileSearch'], { root: true });
+            }
+
+        },
+
+        sender_file_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('sender/updateFile', payload.items, { root: true });
+            }
+
+        },
+
+        sender_file_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_FILE_002", { root: true })
+                context.dispatch('sender/getFile', context.rootGetters['sender/givePreviousFileSearch'], { root: true });
             }
 
         },

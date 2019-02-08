@@ -12,8 +12,11 @@ import LastLog from './views/LastLog.vue'
 import Statistic from './views/Statistic.vue'
 import LogsChart from './views/LogsChart.vue'
 import TitlesChart from './views/TitlesChart.vue'
+import TitleStatusChart from './views/TitleStatusChart.vue'
 import FileStorageChart from './views/FileStorageChart.vue'
+import TqStatisticChart from './views/TqStatisticChart.vue'
 import Checker from './views/Checker.vue'
+import Sender from './views/Sender.vue'
 
 
 Vue.use(Router)
@@ -106,9 +109,28 @@ export default new Router({
         },
 
         {
+            path: '/stat/chart/title/status',
+            name: 'chart_title_status',
+            component: TitleStatusChart
+        },
+
+        {
+            path: '/stat/chart/tq',
+            name: 'chart_tq',
+            component: TqStatisticChart
+        },
+
+
+        {
             path: '/stat/chart/storage',
             name: 'chart_file_storage',
             component: FileStorageChart
+        },
+
+        {
+            path: '/sender',
+            name: 'sender',
+            component: Sender
         },
 
 

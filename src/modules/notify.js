@@ -301,7 +301,7 @@ let getRusText = function (code) {
 
         case 701:
             return {
-                title: "Ошибка Проверяйки - 701",
+                title: "Ошибка Проверяшки - 701",
                 text: "Номер записи неверен",
                 type: "error"
             }
@@ -310,6 +310,34 @@ let getRusText = function (code) {
             return {
                 title: "Ошибка Графика - 801",
                 text: "Имя Хранилища неверено",
+                type: "error"
+            }
+
+        case 802:
+            return {
+                title: "Ошибка Графика - 802",
+                text: "Пустое регулярное выражение",
+                type: "error"
+            }
+
+        case 803:
+            return {
+                title: "Ошибка Графика - 803",
+                text: "Объем титула не является целым числом",
+                type: "error"
+            }
+
+        case 804:
+            return {
+                title: "Ошибка Графика - 804",
+                text: "Некорректный Предшественник титула",
+                type: "error"
+            }
+
+        case 901:
+            return {
+                title: "Ошибка Отправки - 901",
+                text: "Номер папки неверен",
                 type: "error"
             }
 
@@ -458,6 +486,12 @@ let getRusText = function (code) {
             return {
                 text: "Запись удалена",
                 type: "success"
+            }
+
+        case "E_SENDER_001":
+            return {
+                text: "Имя папки не должно быть пустым",
+                type: "error"
             }
 
 
@@ -775,6 +809,34 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 802:
+            return {
+                title: "Chart Error - 802",
+                text: "Empty Regular Expression",
+                type: "error"
+            }
+
+        case 803:
+            return {
+                title: "Chart Error - 803",
+                text: "Volume of title is not integer type",
+                type: "error"
+            }
+
+        case 804:
+            return {
+                title: "Chart Error - 804",
+                text: "Incorrect predecessor of title",
+                type: "error"
+            }
+
+        case 901:
+            return {
+                title: "Sender Error - 901",
+                text: "ID is wrong",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -921,6 +983,12 @@ let getEngText = function (code) {
             return {
                 text: "Record has been deleted",
                 type: "success"
+            }
+
+        case "E_SENDER_001":
+            return {
+                text: "Folder name must not be empty",
+                type: "error"
             }
 
 
