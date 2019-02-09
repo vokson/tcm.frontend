@@ -63,22 +63,47 @@
         class="col-7"
         v-if="items !== null"
       >
+        <div class="row">
+          {{ (language == 'RUS') ? 'Отклонено' : 'Rejected' }}: {{items.count.rejected}}
+        </div>
+        <div class="row">{{ (language == 'RUS') ? 'Согласовано без изменения чертежей' : 'Approved without modification of drawings' }}: {{items.count.approvedWithoutChanges}}</div>
+        <div class="row">{{ (language == 'RUS') ? 'Согласовано c изменениями чертежей' : 'Approved with modification of drawings' }}: {{items.count.approvedWithChanges}}</div>
+        <div class="row"><br /></div>
+        <div class="row">
+          <h5> {{ (language == 'RUS') ? 'Причины изменений (кол-во измененных документов):' : 'Reason of modification (count of changed docs):' }}</h5>
+        </div>
+        <div class="row">1) {{ (language == 'RUS') ? 'Введение усовершенствований' : 'Incorporation of improvements' }}: {{items.changes.code_1}}</div>
+        <div class="row">2) {{ (language == 'RUS') ? 'Изменение стандартов и норм' : 'Change of norms and standarts' }}: {{items.changes.code_2}}</div>
+        <div class="row">3) {{ (language == 'RUS') ? 'Дополнительные требования заказчика' : 'Additional requirements of client' }}: {{items.changes.code_3}}</div>
+        <div class="row">4) {{ (language == 'RUS') ? 'Устранение ошибок' : 'Correction of mistakes' }}: {{items.changes.code_4}}</div>
+        <div class="row"><br /></div>
 
-        <label>{{ (language == 'RUS') ? 'Отклонено' : 'Rejected' }}: {{items.count.rejected}}</label>
-        <br />
-        <label>{{ (language == 'RUS') ? 'Согласовано без изменения чертежей' : 'Approved without modification of drawings' }}: {{items.count.approvedWithoutChanges}}</label>
-        <br />
-        <label>{{ (language == 'RUS') ? 'Согласовано c изменениями чертежей' : 'Approved with modification of drawings' }}: {{items.count.approvedWithChanges}}</label>
-        <br />
-        <br />
-        <h5> {{ (language == 'RUS') ? 'Причины изменений (кол-во измененных документов):' : 'Reason of modification (count of changed docs):' }}</h5>
-        <label>1) {{ (language == 'RUS') ? 'Введение усовершенствований' : 'Incorporation of improvements' }}: {{items.changes.code_1}}</label>
-        <br />
-        <label>2) {{ (language == 'RUS') ? 'Изменение стандартов и норм' : 'Change of norms and standarts' }}: {{items.changes.code_2}}</label>
-        <br />
-        <label>3) {{ (language == 'RUS') ? 'Дополнительные требования заказчика' : 'Additional requirements of client' }}: {{items.changes.code_3}}</label>
-        <br />
-        <label>4) {{ (language == 'RUS') ? 'Устранение ошибок' : 'Correction of mistakes' }}: {{items.changes.code_4}}</label>
+        <div class="row">
+          <div class="tq-statistic-line-chart">
+            <line-chart
+              :chart-data="itemsForChart_3"
+              :options="optionsForLineChart"
+            ></line-chart>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="tq-statistic-line-chart">
+            <line-chart
+              :chart-data="itemsForChart_4"
+              :options="optionsForLineChart"
+            ></line-chart>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="tq-statistic-line-chart">
+            <line-chart
+              :chart-data="itemsForChart_5"
+              :options="optionsForLineChart"
+            ></line-chart>
+          </div>
+        </div>
 
       </div>
 
@@ -91,7 +116,7 @@
           <div class='doughnut-chart'>
             <doughnut-chart
               :chart-data="itemsForChart_1"
-              :options="optionsForChart"
+              :options="optionsForDoughnutChart"
             ></doughnut-chart>
           </div>
         </div>
@@ -100,7 +125,7 @@
           <div class='doughnut-chart'>
             <doughnut-chart
               :chart-data="itemsForChart_2"
-              :options="optionsForChart"
+              :options="optionsForDoughnutChart"
             ></doughnut-chart>
           </div>
         </div>
@@ -114,6 +139,7 @@
 
 <script>
 import DoughnutChart from './DoughnutChart.js'
+import LineChart from './LineChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
@@ -130,12 +156,40 @@ export default {
       titleRegExp: "/^TQ.*/",
       descriptionRegExp: "/.*NVK.*/",
 
-      optionsForChart: {},
+      optionsForDoughnutChart: {},
+
+      optionsForLineChart: {
+        elements: {
+          line: {
+            tension: 0, // disables bezier curves
+          }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+
+          xAxes: [{
+            gridLines: {
+              display: true,
+              color: "gray"
+            },
+          }],
+
+          yAxes: [{
+            gridLines: {
+              display: true,
+              color: "gray"
+            },
+
+          }]
+        }
+      }
     }
   },
 
   components: {
-    DoughnutChart
+    DoughnutChart,
+    LineChart
   },
 
   computed: {
@@ -188,7 +242,55 @@ export default {
         // These labels appear in the legend and in the tooltips when hovering different arcs
         labels: ['(1)', '(2)', '(3)', '(4)']
       }
-    }
+    },
+
+    itemsForChart_3: function () {
+      return {
+        labels: this.items.days.labels,
+
+        datasets: [{
+          borderColor: "rgba(255,0,0,0.8)",
+          pointBackgroundColor: "rgba(255,0,0,0.7)",
+          backgroundColor: "rgba(255,255,0,0.2)",
+          label: 'Rejected / Отклонено',
+          data: this.items.days.rejected,
+        },]
+      }
+
+
+    },
+
+    itemsForChart_4: function () {
+      return {
+        labels: this.items.days.labels,
+
+        datasets: [{
+          borderColor: "rgba(0,255,0,0.8)",
+          pointBackgroundColor: "rgba(255,0,0,0.7)",
+          backgroundColor: "rgba(255,255,0,0.2)",
+          label: 'Approved without chnages / Согласовано без изменений',
+          data: this.items.days.approvedWithoutChanges,
+        },]
+      }
+
+
+    },
+
+    itemsForChart_5: function () {
+      return {
+        labels: this.items.days.labels,
+
+        datasets: [{
+          borderColor: "rgba(0,0,255,0.8)",
+          pointBackgroundColor: "rgba(255,0,0,0.7)",
+          backgroundColor: "rgba(255,255,0,0.2)",
+          label: 'Approved with changes / Согласовано с изменениями',
+          data: this.items.days.approvedWithChanges,
+        },]
+      }
+
+
+    },
 
 
   },
@@ -214,6 +316,14 @@ export default {
 </script>
 
 <style>
+.tq-statistic-line-chart {
+  border-radius: 15px;
+  box-shadow: 0px 2px 15px rgba(25, 25, 25, 0.27);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
 .doughnut-chart {
   width: 300px;
   height: 300px;
