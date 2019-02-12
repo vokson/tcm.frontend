@@ -3,89 +3,103 @@
 
     <div class="container">
       <div class="row">
-        <div class="col">
-          <h3 v-if="language === 'RUS'">Проектный офис АГПЗ
-            <span class="actual_version_color">(v.{{version}})</span>
-          </h3>
-          <h3 v-else-if="language === 'ENG'">AGPP Design Office
-            <span class="actual_version_color">(v.{{version}})</span>
-          </h3>
-        </div>
-      </div>
-      <div class="row">
+        <div class='col-8'>
+          <div class='row'>
+            <div class="col">
+              <h3 v-if="language === 'RUS'">Проектный офис АГПЗ
+                <span class="actual_version_color">(v.{{version}})</span>
+              </h3>
+              <h3 v-else-if="language === 'ENG'">AGPP Design Office
+                <span class="actual_version_color">(v.{{version}})</span>
+              </h3>
+            </div>
+          </div>
+          <div class="row">
 
-        <div class="col-5">
-          <p v-if="language === 'RUS'">Choose language:</p>
-          <p v-else-if="language === 'ENG'">Выберите язык:</p>
-        </div>
+            <div class="col-5">
+              <p v-if="language === 'RUS'">Choose language:</p>
+              <p v-else-if="language === 'ENG'">Выберите язык:</p>
+            </div>
 
-        <div class="col-5">
-          <b-form-radio-group
-            id="language-radio"
-            v-model="choose_language"
-            name="radioSubComponent"
+            <div class="col-5">
+              <b-form-radio-group
+                id="language-radio"
+                v-model="choose_language"
+                name="radioSubComponent"
+              >
+                <b-form-radio value="RUS">RU</b-form-radio>
+                <b-form-radio value="ENG">EN</b-form-radio>
+              </b-form-radio-group>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-5">
+              <p> E-mail:</p>
+            </div>
+            <div class="col-5">
+              <p>{{email}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-5">
+              <p v-if="language === 'RUS'">Имя:</p>
+              <p v-else-if="language === 'ENG'">Name:</p>
+            </div>
+            <div class="col-5">
+              <p>{{name}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-5">
+              <p v-if="language === 'RUS'">Фамилия:</p>
+              <p v-else-if="language === 'ENG'">Surname:</p>
+            </div>
+            <div class="col-5">
+              <p>{{surname}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-5">
+              <p v-if="language === 'RUS'">Права доступа:</p>
+              <p v-else-if="language === 'ENG'">Permissions:</p>
+            </div>
+            <div class="col-5">
+              <p>{{role}}</p>
+            </div>
+          </div>
+          <div
+            v-if="isDefaultPassword === true"
+            class="row"
           >
-            <b-form-radio value="RUS">RU</b-form-radio>
-            <b-form-radio value="ENG">EN</b-form-radio>
-          </b-form-radio-group>
+            <div class="col-5">
+              <span
+                v-if="language === 'RUS'"
+                class="badge badge-danger"
+              >У вас стандартный пароль. Смените его.</span>
+              <span
+                v-else-if="language === 'ENG'"
+                class="badge badge-danger"
+              >You have default password. Change it.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class='col-4'>
+          <div class='row'>
+            <img
+              src="./img/vacation.jpg"
+              width='100%'
+              height='100%'
+            >
+          </div>
         </div>
 
       </div>
-
-      <div class="row">
-        <div class="col-5">
-          <p> E-mail:</p>
-        </div>
-        <div class="col-5">
-          <p>{{email}}</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-5">
-          <p v-if="language === 'RUS'">Имя:</p>
-          <p v-else-if="language === 'ENG'">Name:</p>
-        </div>
-        <div class="col-5">
-          <p>{{name}}</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-5">
-          <p v-if="language === 'RUS'">Фамилия:</p>
-          <p v-else-if="language === 'ENG'">Surname:</p>
-        </div>
-        <div class="col-5">
-          <p>{{surname}}</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-5">
-          <p v-if="language === 'RUS'">Права доступа:</p>
-          <p v-else-if="language === 'ENG'">Permissions:</p>
-        </div>
-        <div class="col-5">
-          <p>{{role}}</p>
-        </div>
-      </div>
-      <div
-        v-if="isDefaultPassword === true"
-        class="row"
-      >
-        <div class="col-5">
-          <span
-            v-if="language === 'RUS'"
-            class="badge badge-danger"
-          >У вас стандартный пароль. Смените его.</span>
-          <span
-            v-else-if="language === 'ENG'"
-            class="badge badge-danger"
-          >You have default password. Change it.</span>
-        </div>
-      </div>
-
     </div>
 
     <div class="container">
