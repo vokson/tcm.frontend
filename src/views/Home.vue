@@ -89,7 +89,7 @@
           </div>
         </div>
 
-        <div class='col-4'>
+        <!-- <div class='col-4'>
           <div class='row'>
             <img
               src="./img/vacation.jpg"
@@ -97,7 +97,7 @@
               height='100%'
             >
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
