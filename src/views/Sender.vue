@@ -107,13 +107,30 @@
           v-for="item in folders"
           :key="item.id"
         >
-          <div class="col-10">
+          <div class="col-8">
             <a
               href="#"
               v-bind:class="[item.id == activeFolderId ? 'active-folder' : '']"
               v-on:click="setActiveFolderId(item.id)"
             >{{item.id}}) {{item.owner}} {{ (language == 'RUS') ? 'добавил(а)' : 'added' }} {{item.name}}</a>
           </div>
+
+          <div class="col-2">
+            <a
+              href="#"
+              v-on:click="switchReadyForFolder(item.id)"
+            >
+              <div
+                v-if="item.is_ready == 0"
+                class="red-text"
+              >??</div>
+              <div
+                v-if="item.is_ready == 1"
+                class="green-text"
+              >OK</div>
+            </a>
+          </div>
+
           <div class="col-2">
             <a
               href="#"
@@ -325,6 +342,12 @@ export default {
 
     },
 
+    switchReadyForFolder: function (id) {
+      this.$store.dispatch('sender/switchFolder', {
+        id: id,
+      });
+    },
+
     getFile: function () {
       this.$store.dispatch('sender/getFile', { folder_id: this.activeFolderId });
     },
@@ -499,8 +522,13 @@ export default {
   transition: 0.3s ease-in-out;
 }
 
-.active-folder {
+.active-folder,
+.red-text {
   color: red;
+}
+
+.green-text {
+  color: green;
 }
 
 .input-folder-name {
