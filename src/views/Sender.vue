@@ -9,7 +9,7 @@
 
     <div class="row">
 
-      <div class="col-6">
+      <div class="col-5">
 
         <div class="row">
           <div
@@ -66,7 +66,7 @@
 
       </div>
 
-      <div class="col-6">
+      <div class="col-7">
 
         <div class="row">
           <input
