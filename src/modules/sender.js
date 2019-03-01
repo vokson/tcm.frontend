@@ -63,6 +63,18 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
+        switchFolder: (context, payload) => {
+
+            let parameters = {
+                queryName: "sender_folder_switch_ready",
+                data: {
+                    id: payload.id
+                },
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
+        },
+
         getFolder: (context, payload) => {
 
             let parameters = {

@@ -58,6 +58,7 @@ let urls = {
     sender_folder_get: "/sender/folder/get",
     sender_folder_delete: "/sender/folder/delete",
     sender_folder_count: "/sender/folder/count",
+    sender_folder_switch_ready: "/sender/folder/switch/ready",
 
     sender_file_upload: "/sender/file/upload",
     sender_file_get: "/sender/file/get",
