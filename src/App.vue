@@ -11,6 +11,7 @@
       <b-nav-item :to="{ name: 'stat' }">{{ (language == 'RUS') ? 'Статистика' : 'Statistic' }}</b-nav-item>
       <b-nav-item :to="{ name: 'checker' }">{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }} </b-nav-item>
       <b-nav-item :to="{ name: 'sender' }">{{ (language == 'RUS') ? 'Отправка' : 'Sender' }} </b-nav-item>
+      <b-nav-item :to="{ name: 'pdf_merge' }">{{ (language == 'RUS') ? 'Пакуй' : 'Merge PDF' }} </b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
       <b-nav-item
         :to="{ name: 'log' }"

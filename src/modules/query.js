@@ -65,6 +65,8 @@ let urls = {
     sender_file_delete: "/sender/file/delete",
     sender_file_download: "/sender/file/download",
     sender_file_download_all: "/sender/file/download/all",
+
+    merge_pdf_download: "/merge/pdf/download",
 };
 
 export default {
