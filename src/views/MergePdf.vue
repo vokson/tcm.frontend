@@ -25,10 +25,7 @@
       >
 
         <div class="row">
-          <div
-            class="col"
-            id="'col-drop-area-' + item.id"
-          >
+          <div class="col col-drop-area">
             <div class="pdf-drop-area">
               {{item.id}}
             </div>
@@ -306,7 +303,7 @@ export default {
       // date_format: "dd.MM.yyyy",
       // en: en,
       // ru: ru,
-      // isDragging: false,
+      isDragging: false,
       // maxFileSize: 20 * 1024 * 1024,
 
       // search: {
@@ -325,39 +322,47 @@ export default {
     };
   },
 
-  // mounted: function () {
+  mounted: function () {
 
-  //   this.$nextTick(function () {
-  //     this.$store.commit('checker_file/clean', {}, { root: true });
+    this.$nextTick(function () {
+      // this.$store.commit('checker_file/clean', {}, { root: true });
 
-  //     // Очищаем установленные по умолчанию обработчики событий
-  //     let dropArea = document.getElementById('col-drop-area');
+      // Очищаем установленные по умолчанию обработчики событий
+      let dropAreas = document.getElementsByClassName('col-drop-area');
 
-  //     function preventDefaults (e) {
-  //       e.preventDefault()
-  //       e.stopPropagation()
-  //     }
+      function preventDefaults (e) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
 
-  //     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-  //       dropArea.addEventListener(eventName, preventDefaults, false)
-  //     });
+      for (let area of dropAreas) {
 
-  //     ['dragenter', 'dragover'].forEach(eventName => {
-  //       dropArea.addEventListener(eventName, this.startDragging, false)
-  //     });
+        console.log(area);
 
-  //     ['dragleave', 'drop'].forEach(eventName => {
-  //       dropArea.addEventListener(eventName, this.stopDragging, false)
-  //     });
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+          area.addEventListener(eventName, preventDefaults, false)
+        });
 
-  //     ['drop'].forEach(eventName => {
-  //       dropArea.addEventListener(eventName, this.handleDrop, false)
-  //     });
+        ['dragenter', 'dragover'].forEach(eventName => {
+          area.addEventListener(eventName, this.startDragging, false)
+        });
 
-  //   })
+        ['dragleave', 'drop'].forEach(eventName => {
+          area.addEventListener(eventName, this.stopDragging, false)
+        });
+
+        ['drop'].forEach(eventName => {
+          area.addEventListener(eventName, this.handleDrop, false)
+        });
+
+      }
 
 
-  // },
+
+    })
+
+
+  },
 
   computed: {
     language: function () {
@@ -437,13 +442,13 @@ export default {
     //   });
     // },
 
-    //   startDragging: function () {
-    //     this.isDragging = true;
-    //   },
+    startDragging: function () {
+      this.isDragging = true;
+    },
 
-    //   stopDragging: function () {
-    //     this.isDragging = false;
-    //   },
+    stopDragging: function () {
+      this.isDragging = false;
+    },
 
     //   uploadFile: function (file) {
 
@@ -473,12 +478,12 @@ export default {
 
     //   },
 
-    //   handleDrop: function (e) {
-    //     let dt = e.dataTransfer;
-    //     let files = dt.files;
-    //     files = [...files];
-    //     files.forEach(this.uploadFile);
-    //   },
+    handleDrop: function (e) {
+      let dt = e.dataTransfer;
+      let files = dt.files;
+      files = [...files];
+      files.forEach(this.uploadFile);
+    },
 
     //   formatBytes: function (bytes, decimals) {
     //     if (bytes == 0) return '0 Bytes';
