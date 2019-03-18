@@ -13,11 +13,34 @@
         class="btn btn-block btn-success"
         v-on:click="downloadMergedFile"
       >
-        {{ (language == 'RUS') ? 'Найти' : 'Search' }}
+        {{ (language == 'RUS') ? 'Объединить' : 'Merge' }}
       </button>
     </div>
 
-    <!-- <div class="row">
+    <div class="row">
+      <div
+        class="col-3"
+        v-for="item in dropWindows"
+        :key="item.id"
+      >
+
+        <div class="row">
+          <div
+            class="col"
+            id="'col-drop-area-' + item.id"
+          >
+            <div class="pdf-drop-area">
+              {{item.id}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- <div class="row">
 
       <div class="col-8">
 
@@ -262,7 +285,7 @@
       </table>
     </div> -->
 
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -274,6 +297,11 @@ export default {
 
   data: function () {
     return {
+
+      dropWindows: [
+        { id: 1 },
+        { id: 2 }
+      ],
 
       // date_format: "dd.MM.yyyy",
       // en: en,
@@ -535,8 +563,8 @@ export default {
   text-align: justify;
 }
 
-#check-drop-area {
-  border: 2px dashed #ccc;
+.pdf-drop-area {
+  border: 2px dashed #46e385;
   border-radius: 20px;
   height: 200px;
   padding-top: 80px;
