@@ -66,6 +66,7 @@ let urls = {
     sender_file_download: "/sender/file/download",
     sender_file_download_all: "/sender/file/download/all",
 
+    merge_pdf_upload: "/merge/pdf/upload",
     merge_pdf_download: "/merge/pdf/download",
 };
 

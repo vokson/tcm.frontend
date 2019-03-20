@@ -35,6 +35,51 @@
 
     </div>
 
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-8">
+
+        <div
+          class="row"
+          v-for="item in attachedFiles"
+          :key="item.uin"
+        >
+          <div class="col-1">
+            <span
+              v-if="item.uploadedSize >= item.size"
+              class="badge badge-success"
+            >OK</span>
+            <span
+              v-else
+              class="badge badge-warning"
+            >{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
+          </div>
+
+          <div
+            class="col-7"
+            v-if="item.id != null"
+          >
+            <a
+              href="#"
+              v-on:click="downloadFile(item.id)"
+            >{{item.original_name}}</a>
+          </div>
+          <div
+            class="col-7"
+            v-else
+          >
+            {{item.original_name}}
+          </div>
+
+          <div class="col-2">
+            {{formatBytes(item.size)}}
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
   <!-- <div class="row">
@@ -304,7 +349,7 @@ export default {
       // en: en,
       // ru: ru,
       isDragging: false,
-      // maxFileSize: 20 * 1024 * 1024,
+      maxFileSize: 20 * 1024 * 1024,
 
       // search: {
       //   owner: "",
@@ -382,9 +427,9 @@ export default {
     //   return (this.items == null) ? 0 : this.items.length;
     // },
 
-    // attachedFiles: function () {
-    //   return this.$store.getters['checker_file/give'];
-    // },
+    attachedFiles: function () {
+      return this.$store.getters['pdf_merge/give'];
+    },
 
   },
 
@@ -450,33 +495,33 @@ export default {
       this.isDragging = false;
     },
 
-    //   uploadFile: function (file) {
+    uploadFile: function (file) {
 
-    //     if (file.size > this.maxFileSize) {
-    //       this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
-    //       return;
-    //     }
+      if (file.size > this.maxFileSize) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
+        return;
+      }
 
-    //     let uin = this.guid();
-    //     let progressCallback = this.updateProgress.bind(this);
+      let uin = this.guid();
+      let progressCallback = this.updateProgress.bind(this);
 
-    //     let badUploadFunction = function () {
-    //       this.$store.commit('checker_file/deleteSuccess', uin, { root: true });
-    //     };
+      let badUploadFunction = function () {
+        this.$store.commit('pdf_merge/deleteSuccess', uin, { root: true });
+      };
 
-    //     this.$store.dispatch('checker_file/upload', {
-    //       log_file: file,
-    //       uin: uin,
+      this.$store.dispatch('pdf_merge/upload', {
+        pdf_file: file,
+        uin: uin,
 
-    //       progressCallback: function (e) {
-    //         progressCallback(uin, e.loaded, e.total)
-    //       },
+        progressCallback: function (e) {
+          progressCallback(uin, e.loaded, e.total)
+        },
 
-    //       badFileUploadCallback: badUploadFunction.bind(this)
+        badFileUploadCallback: badUploadFunction.bind(this)
 
-    //     });
+      });
 
-    //   },
+    },
 
     handleDrop: function (e) {
       let dt = e.dataTransfer;
@@ -485,33 +530,33 @@ export default {
       files.forEach(this.uploadFile);
     },
 
-    //   formatBytes: function (bytes, decimals) {
-    //     if (bytes == 0) return '0 Bytes';
-    //     var k = 1024,
-    //       dm = decimals || 2,
-    //       sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-    //       i = Math.floor(Math.log(bytes) / Math.log(k));
-    //     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-    //   },
+    formatBytes: function (bytes, decimals) {
+      if (bytes == 0) return '0 Bytes';
+      var k = 1024,
+        dm = decimals || 2,
+        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    },
 
-    //   guid: function () {
-    //     function s4 () {
-    //       return Math.floor((1 + Math.random()) * 0x10000)
-    //         .toString(16)
-    //         .substring(1);
-    //     }
-    //     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    //   },
+    guid: function () {
+      function s4 () {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    },
 
-    //   updateProgress: function (uin, uploadedBytes, totalBytes) {
+    updateProgress: function (uin, uploadedBytes, totalBytes) {
 
-    //     this.$store.commit('checker_file/updateProgress', {
-    //       uin: uin,
-    //       size: totalBytes,
-    //       uploadedSize: uploadedBytes
-    //     });
+      this.$store.commit('pdf_merge/updateProgress', {
+        uin: uin,
+        size: totalBytes,
+        uploadedSize: uploadedBytes
+      });
 
-    //   },
+    },
 
     //   cleanSearch: function () {
     //     this.search.status = "";

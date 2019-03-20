@@ -181,6 +181,10 @@ export default {
                         context.dispatch("sender_file_delete", payload);
                         break;
 
+                    case "merge_pdf_upload":
+                        context.dispatch("merge_pdf_upload", payload);
+                        break;
+
 
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -576,6 +580,18 @@ export default {
             }
 
         },
+
+        merge_pdf_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
+                context.commit('pdf_merge/uploadSuccess', payload, { root: true });
+                // context.dispatch('sender/getFile', context.rootGetters['sender/givePreviousFileSearch'], { root: true });
+            }
+
+        },
+
 
     }
 
