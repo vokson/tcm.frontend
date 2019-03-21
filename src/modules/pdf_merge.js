@@ -2,117 +2,54 @@ export default {
     namespaced: true,
 
     state: {
-        items: []
+        items: null,
     },
 
     getters: {
-        give: function (state) {
+        giveItems: function (state) {
             return state.items;
-        }
+        },
+
     },
 
     mutations: {
-
-        update: function (state, data) {
-
-            data.map(function (e) {
-                e.uploadedSize = e.size;
-            });
-
+        updateItems: function (state, data) {
             state.items = data;
-
         },
-
-        add: function (state, newItem) {
-            state.items.push(newItem);
-        },
-
-        deleteSuccess: function (state, uin) {
-            state.items.map(function (elem, i) {
-                if (elem.uin == uin) {
-                    state.items.splice(i, 1);
-                }
-            });
-        },
-
-        uploadSuccess: function (state, data) {
-
-            for (let i = 0; i < state.items.length; i++) {
-
-                if (state.items[i].uin == data.uin) {
-                    state.items[i].id = data.id;
-                    break;
-                }
-            }
-
-        },
-
-
-        updateProgress: function (state, data) {
-
-            for (let i = 0; i < state.items.length; i++) {
-
-                if (state.items[i].uin == data.uin) {
-                    state.items[i].size = data.size;
-                    state.items[i].uploadedSize = data.uploadedSize;
-                    break;
-                }
-            }
-
-        },
-
-        clean: function (state) {
-            state.items = [];
-        },
-
 
     },
 
     actions: {
 
-        download: (context, payload) => {
+        getItems: (context, payload) => {
 
             let parameters = {
-                queryName: "merge_pdf_download",
-                data: {}
-                // data: {
-                // id: payload.id
-                // },
+                queryName: "merge_pdf_get",
+                data: {},
             };
 
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            context.dispatch('query/send', parameters, { root: true });
         },
 
-        // downloadAll: (context, payload) => {
+        cleanItems: (context, payload) => {
+
+            let parameters = {
+                queryName: "merge_pdf_clean",
+                data: {},
+            };
+
+            context.dispatch('query/send', parameters, { root: true });
+        },
+
+        // deleteItem: (context, payload) => {
 
         //     let parameters = {
-        //         queryName: "sender_file_download_all",
-        //         data: {
-        //             ids: payload.ids
-        //         }
+        //         queryName: "checker_delete",
+        //         data: payload,
         //     };
 
-        //     context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+        //     context.dispatch('query/send', parameters, { root: true })
         // },
-
-
-        upload: (context, payload) => {
-
-            context.commit('add', {
-                id: null,
-                uin: payload.uin,
-                original_name: payload.pdf_file.name,
-                size: payload.pdf_file.size,
-                uploadedSize: 0
-            });
-
-            let parameters = {
-                queryName: "merge_pdf_upload",
-                data: payload,
-            };
-
-            context.dispatch('query/sendInOrderToUploadFile', parameters, { root: true })
-        },
 
     }
 

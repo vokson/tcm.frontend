@@ -8,28 +8,35 @@
     </div>
 
     <div class="row">
-      <button
-        type="button"
-        class="btn btn-block btn-success"
-        v-on:click="downloadMergedFile"
-      >
-        {{ (language == 'RUS') ? 'Объединить' : 'Merge' }}
-      </button>
+
+      <div class="col-9">
+        <button
+          type="button"
+          class="btn btn-block btn-success"
+          v-on:click="downloadMergedFile"
+        >
+          {{ (language == 'RUS') ? 'Объединить' : 'Merge' }}
+          <span class="badge badge-light">{{countOfItems}}</span>
+        </button>
+      </div>
+
+      <div class="col-3">
+        <button
+          type="button"
+          class="btn btn-block btn-primary"
+          v-on:click="cleanItems"
+        >
+          {{ (language == 'RUS') ? 'Очистить' : 'Clean' }}
+        </button>
+      </div>
+
     </div>
 
     <div class="row">
-      <div
-        class="col-3"
-        v-for="item in dropWindows"
-        :key="item.id"
-      >
 
-        <div class="row">
-          <div class="col col-drop-area">
-            <div class="pdf-drop-area">
-              {{item.id}}
-            </div>
-          </div>
+      <div class="col col-drop-area">
+        <div class="pdf-drop-area">
+          {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 20 Мб)' : 'Drop file here (each not heavier 20MB)' }}
         </div>
       </div>
 
@@ -79,259 +86,38 @@
 
       </div>
     </div>
-
-  </div>
-
-  <!-- <div class="row">
-
-      <div class="col-8">
-
-        <div class="row">
-          <div
-            class="col"
-            id="col-drop-area"
-          >
-            <div id="check-drop-area">
-              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 20 Мб)' : 'Drop file here (each not heavier 20MB)' }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-4">
-
-        <div class="row">
-          <button
-            type="button"
-            class="btn btn-block btn-success"
-            v-on:click="getItems"
-          >
-            {{ (language == 'RUS') ? 'Найти' : 'Search' }}
-            <span class="badge badge-light">{{countOfItems}}</span>
-          </button>
-
-        </div>
-
-        <div class="row">
-          <div class="col-7">
-            {{ (language == 'RUS') ? 'Только последние записи' : 'Only last rows' }}
-          </div>
-          <div class="col-1">
-            <input
-              type="checkbox"
-              v-model="search.is_only_last"
-            >
-          </div>
-          <div class="col-4"></div>
-        </div>
-
-        <div class="row checker-description">
-          {{ (language == 'RUS') ? 'Имена загружаемых файлов автоматически проверяются на соответсвие процедуре нумерации НИПИГАЗ. Для согласования/отклонения документа добавьте к имени файла [X], где Х - кол-во ошибок.' : 'Filenames are automatically checked for correspondace with NIPIGAZ numeration procedure. If you want approve/reject, add [X] to name of file, where Х is count of mistakes.' }}
-        </div>
-
-        <div class="row">
-          <button
-            type="button"
-            class="btn btn-block btn-warning"
-            v-on:click="downloadAllFiles"
-          >
-            {{ (language == 'RUS') ? 'Скачать все файлы' : 'Download all files' }}
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-8">
-
-        <div
-          class="row"
-          v-for="item in attachedFiles"
-          :key="item.uin"
-        >
-          <div class="col-1">
-            <span
-              v-if="item.uploadedSize >= item.size"
-              class="badge badge-success"
-            >OK</span>
-            <span
-              v-else
-              class="badge badge-warning"
-            >{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
-          </div>
-
-          <div
-            class="col-7"
-            v-if="item.id != null"
-          >
-            <a
-              href="#"
-              v-on:click="downloadFile(item.id)"
-            >{{item.original_name}}</a>
-          </div>
-          <div
-            class="col-7"
-            v-else
-          >
-            {{item.original_name}}
-          </div>
-
-          <div class="col-2">
-            {{formatBytes(item.size)}}
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <br />
 
     <div class="row">
 
       <table class="table table-striped">
+
         <thead>
-          <tr>
-            <th class="text-center">ID</th>
-            <th class="td-date text-center">Date</th>
-            <th class="td-file text-center">Filename</th>
-            <th class="td-extension text-center">Extension</th>
-            <th class="td-owner text-center">Surname</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Mistake</th>
-          </tr>
+          <th class="text-center">{{ (language == 'RUS') ? 'Загружено' : 'Uploaded' }}</th>
+          <th class="text-center">{{ (language == 'RUS') ? 'Группа' : 'Group' }}</th>
+          <th>{{ (language == 'RUS') ? 'Имя файла' : 'Filename' }}</th>
         </thead>
+
         <tbody>
-
-          <tr v-on:keyup.enter.prevent="getItems">
-            <td>
-              <figure> <img
-                  src="./img/clean.png"
-                  width="35"
-                  height="35"
-                  v-on:click="cleanSearch"
-                  class="hover06"
-                > </figure>
-            </td>
-            <td class="td-date">
-              <datepicker
-                v-model="search.date1"
-                :format="date_format"
-                :bootstrap-styling="true"
-                :language="languageForDatePicker"
-              ></datepicker>
-              <datepicker
-                v-model="search.date2"
-                :format="date_format"
-                :bootstrap-styling="true"
-                :language="languageForDatePicker"
-              ></datepicker>
-            </td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.filename"
-                placeholder="Имя файла"
-                class="full-width"
-              /></td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.extension"
-                placeholder="Расширение"
-                class="full-width"
-              /></td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.owner"
-                placeholder="Фамилия"
-                class="full-width"
-              /></td>
-            <td class="text-center">
-              <div>
-                <input
-                  type="checkbox"
-                  v-model="search.status_yes"
-                >+</div>
-              <div>
-                <input
-                  type="checkbox"
-                  v-model="search.status_question"
-                >?</div>
-              <div>
-                <input
-                  type="checkbox"
-                  v-model="search.status_no"
-                >-</div>
-            </td>
-            <td class="text-center"><input
-                type="text"
-                v-model="search.mistake_count"
-                placeholder="Ошибки"
-                class="full-width"
-              /></td>
-
-          </tr>
 
           <tr
             v-for="item in items"
             :key="item.id"
           >
-            <td class="text-center"> <img
-                src="./img/delete.png"
-                width="40"
-                height="40"
-                v-on:click="deleteItem(item.id)"
-                class="hover06"
-                title="Удалить / Delete"
-              ></td>
             <td class="text-center">{{formatDate(item.date)}}</td>
-            <td>
-              <div v-if="item.file_id != null">
-                <a
-                  href="#"
-                  v-on:click="downloadFile(item.file_id)"
-                >{{item.filename}}</a>
-              </div>
-              <div v-else>
-                {{item.filename}}
-              </div>
-            </td>
-            <td class="text-center">{{item.extension}}</td>
-            <td class="text-center">{{item.owner}}</td>
-            <td class="text-center">
-              <img
-                src="./img/approved.png"
-                width="40"
-                height="40"
-                v-if="item.status == 1"
-              >
-              <img
-                src="./img/question.png"
-                width="40"
-                height="40"
-                v-if="item.status == 0"
-              >
-              <img
-                src="./img/rejected.png"
-                width="40"
-                height="40"
-                v-if="item.status == -1"
-              >
-            </td>
-            <td class="text-center">{{item.mistake_count}}</td>
+            <td class="text-center"> {{item.group}} </td>
+
+            <td> {{item.filename}} </td>
           </tr>
 
         </tbody>
       </table>
-    </div> -->
+    </div>
 
-  <!-- </div> -->
+  </div>
+
 </template>
 
 <script>
-// import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
   name: "MergePdf",
@@ -340,29 +126,9 @@ export default {
   data: function () {
     return {
 
-      dropWindows: [
-        { id: 1 },
-        { id: 2 }
-      ],
-
-      // date_format: "dd.MM.yyyy",
-      // en: en,
-      // ru: ru,
       isDragging: false,
       maxFileSize: 20 * 1024 * 1024,
-
-      // search: {
-      //   owner: "",
-      //   status_yes: true,
-      //   status_no: true,
-      //   status_question: true,
-      //   filename: "",
-      //   extension: "",
-      //   mistake_count: "",
-      //   date1: null,
-      //   date2: null,
-      //   is_only_last: false
-      // }
+      dropUin: null
 
     };
   },
@@ -370,7 +136,8 @@ export default {
   mounted: function () {
 
     this.$nextTick(function () {
-      // this.$store.commit('checker_file/clean', {}, { root: true });
+
+      this.getItems();
 
       // Очищаем установленные по умолчанию обработчики событий
       let dropAreas = document.getElementsByClassName('col-drop-area');
@@ -381,8 +148,6 @@ export default {
       }
 
       for (let area of dropAreas) {
-
-        console.log(area);
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
           area.addEventListener(eventName, preventDefaults, false)
@@ -402,10 +167,7 @@ export default {
 
       }
 
-
-
     })
-
 
   },
 
@@ -414,56 +176,43 @@ export default {
       return this.$store.state.language;
     },
 
-    // languageForDatePicker: function () {
-    //   if (this.language == "RUS") { return this.ru }
-    //   if (this.language == "ENG") { return this.en }
-    // },
 
-    // items: function () {
-    //   return this.$store.getters['checker/giveItems'];
-    // },
+    items: function () {
+      return this.$store.getters['pdf_merge/giveItems'];
+    },
 
-    // countOfItems: function () {
-    //   return (this.items == null) ? 0 : this.items.length;
-    // },
+    countOfItems: function () {
+      return (this.items == null) ? 0 : this.items.length;
+    },
 
     attachedFiles: function () {
-      return this.$store.getters['pdf_merge/give'];
+      return this.$store.getters['pdf_merge_file/give'];
     },
 
   },
 
   methods: {
-    // formatDate: function (timestamp) {
-    //   let date = new Date();
-    //   date.setTime(timestamp * 1000); // переводим в миллисекунды
-    //   return ("0" + date.getHours()).slice(-2) + ':' +
-    //     ("0" + date.getMinutes()).slice(-2) + ':' +
-    //     ("0" + date.getSeconds()).slice(-2) + ' ' +
-    //     ("0" + date.getDate()).slice(-2) + '.' +
-    //     ("0" + (date.getMonth() + 1)).slice(-2) + '.' +
-    //     date.getFullYear()
-    // },
+    formatDate: function (timestamp) {
+      let date = new Date();
+      date.setTime(timestamp * 1000); // переводим в миллисекунды
+      return ("0" + date.getHours()).slice(-2) + ':' +
+        ("0" + date.getMinutes()).slice(-2) + ':' +
+        ("0" + date.getSeconds()).slice(-2) + ' ' +
+        ("0" + date.getDate()).slice(-2) + '.' +
+        ("0" + (date.getMonth() + 1)).slice(-2) + '.' +
+        date.getFullYear()
+    },
 
-    // getItems: function () {
-    //   let queryObject = {
-    //     status_yes: this.search.status_yes,
-    //     status_no: this.search.status_no,
-    //     status_question: this.search.status_question,
-    //     owner: this.search.owner,
-    //     filename: this.search.filename,
-    //     extension: this.search.extension,
-    //     mistake_count: this.search.mistake_count,
-    //     is_only_last: this.search.is_only_last,
-    //     date1: (this.search.date1 == null) ? "" : Math.round(this.search.date1.getTime() / 1000),
-    //     date2: (this.search.date2 == null) ? "" : Math.round(this.search.date2.getTime() / 1000)
-    //   };
+    getItems: function () {
+      this.$store.dispatch('pdf_merge/getItems', {});
+    },
 
-    //   this.$store.dispatch('checker/getItems', queryObject);
-    // },
+    cleanItems: function () {
+      this.$store.dispatch('pdf_merge/cleanItems', {});
+    },
 
     downloadMergedFile: function () {
-      this.$store.dispatch('pdf_merge/download', {});
+      this.$store.dispatch('pdf_merge_file/download', {});
     },
 
     // downloadAllFiles: function () {
@@ -506,12 +255,14 @@ export default {
       let progressCallback = this.updateProgress.bind(this);
 
       let badUploadFunction = function () {
-        this.$store.commit('pdf_merge/deleteSuccess', uin, { root: true });
+        this.$store.commit('pdf_merge_file/deleteSuccess', uin, { root: true });
       };
 
-      this.$store.dispatch('pdf_merge/upload', {
+      this.$store.dispatch('pdf_merge_file/upload', {
         pdf_file: file,
         uin: uin,
+        drop_uin: this.dropUin,
+
 
         progressCallback: function (e) {
           progressCallback(uin, e.loaded, e.total)
@@ -524,6 +275,7 @@ export default {
     },
 
     handleDrop: function (e) {
+      this.dropUin = this.guid();
       let dt = e.dataTransfer;
       let files = dt.files;
       files = [...files];
@@ -550,7 +302,7 @@ export default {
 
     updateProgress: function (uin, uploadedBytes, totalBytes) {
 
-      this.$store.commit('pdf_merge/updateProgress', {
+      this.$store.commit('pdf_merge_file/updateProgress', {
         uin: uin,
         size: totalBytes,
         uploadedSize: uploadedBytes
@@ -558,81 +310,23 @@ export default {
 
     },
 
-    //   cleanSearch: function () {
-    //     this.search.status = "";
-    //     this.search.who = "";
-    //     this.search.filename = "";
-    //     this.search.extension = "";
-    //     this.search.date1 = null;
-    //     this.search.date2 = null;
-    //   },
-
   },
-
-  // watch: {
-  //   'search.date1': function () {
-  //     if (this.search.date2 == null && this.search.date1 != null) {
-  //       this.search.date2 = this.search.date1;
-  //     }
-  //   },
-
-  //   'search.date2': function () {
-  //     if (this.search.date1 == null && this.search.date2 != null) {
-  //       this.search.date1 = this.search.date2;
-  //     }
-  //   }
-  // }
 
 };
 </script>
 
 <style>
-.td-date {
-  width: 130px;
-}
-
-.td-file {
-  width: 520px;
-}
-
-.td-owner {
-  width: 250px;
-}
-
 .text-center {
   text-align: center;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.checker-description {
-  font-size: 10pt;
-  color: blue;
-  text-align: justify;
 }
 
 .pdf-drop-area {
   border: 2px dashed #46e385;
   border-radius: 20px;
-  height: 200px;
-  padding-top: 80px;
+  height: 100px;
+  padding-top: 30px;
   text-align: center;
   font: 21pt bold arial;
   color: gray;
-}
-
-.hover06:hover {
-  -webkit-transform: rotate(15deg) scale(1);
-  transform: rotate(15deg) scale(1);
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-}
-.hover06 {
-  -webkit-transform: rotate(0) scale(1);
-  transform: rotate(0) scale(1);
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
 }
 </style>

@@ -181,8 +181,16 @@ export default {
                         context.dispatch("sender_file_delete", payload);
                         break;
 
-                    case "merge_pdf_upload":
-                        context.dispatch("merge_pdf_upload", payload);
+                    case "merge_pdf_file_upload":
+                        context.dispatch("merge_pdf_file_upload", payload);
+                        break;
+
+                    case "merge_pdf_get":
+                        context.dispatch("merge_pdf_get", payload);
+                        break;
+
+                    case "merge_pdf_clean":
+                        context.dispatch("merge_pdf_clean", payload);
                         break;
 
 
@@ -581,13 +589,29 @@ export default {
 
         },
 
-        merge_pdf_upload: (context, payload) => {
+        merge_pdf_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('pdf_merge/updateItems', payload.items, { root: true });
+            }
+
+        },
+
+        merge_pdf_clean: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('pdf_merge/getItems', {}, { root: true });
+            }
+
+        },
+
+        merge_pdf_file_upload: (context, payload) => {
 
             if (payload.success == 1) {
 
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
-                context.commit('pdf_merge/uploadSuccess', payload, { root: true });
-                // context.dispatch('sender/getFile', context.rootGetters['sender/givePreviousFileSearch'], { root: true });
+                context.commit('pdf_merge_file/uploadSuccess', payload, { root: true });
+                context.dispatch('pdf_merge/getItems', {}, { root: true });
             }
 
         },

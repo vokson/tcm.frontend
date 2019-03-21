@@ -25,6 +25,7 @@ import checker_file from "./modules/checker_file";
 import sender from "./modules/sender";
 import sender_file from "./modules/sender_file";
 import pdf_merge from "./modules/pdf_merge";
+import pdf_merge_file from "./modules/pdf_merge_file";
 
 Vue.use(Vuex)
 
@@ -100,6 +101,7 @@ export default new Vuex.Store({
     checker_file,
     sender,
     sender_file,
-    pdf_merge
+    pdf_merge,
+    pdf_merge_file
   }
 });
