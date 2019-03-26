@@ -299,6 +299,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 610:
+            return {
+                title: "Ошибка Файловой Системы - 610",
+                text: "Не удалось создать PDF",
+                type: "error"
+            }
+
         case 701:
             return {
                 title: "Ошибка Проверяшки - 701",
@@ -792,6 +799,13 @@ let getEngText = function (code) {
             return {
                 title: "File System Error - 609",
                 text: "Incorrect filename",
+                type: "error"
+            }
+
+        case 610:
+            return {
+                title: "File System Error - 610",
+                text: "PDF can't be created",
                 type: "error"
             }
 

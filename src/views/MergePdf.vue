@@ -137,6 +137,8 @@ export default {
 
     this.$nextTick(function () {
 
+      this.cleanAttachedFiles();
+
       this.getItems();
 
       // Очищаем установленные по умолчанию обработчики событий
@@ -209,6 +211,10 @@ export default {
 
     cleanItems: function () {
       this.$store.dispatch('pdf_merge/cleanItems', {});
+    },
+
+    cleanAttachedFiles: function () {
+      this.$store.commit('pdf_merge_file/clean', {});
     },
 
     downloadMergedFile: function () {
