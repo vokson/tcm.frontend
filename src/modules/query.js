@@ -117,6 +117,11 @@ export default {
 
                 let filename = decodeURIComponent(response.headers['content-filename']);
                 window.$download(response.data, filename);
+
+                // Вызов дополнительной функции после завершения запроса
+                if (payload.afterDownloadAction != null) {
+                    context.dispatch(payload.afterDownloadAction, {}, { root: true });
+                }
             };
 
             window.$axios({
@@ -129,11 +134,6 @@ export default {
             })
                 .then(responseFunction)
                 .catch(function (error) {
-                    // var reader = new FileReader();
-                    // reader.readAsText(error.response.data);
-                    // console.log(reader.result);
-                    // console.log(error.response.data);
-                    // context.dispatch('response/use', error.response.data, { root: true });
                     context.dispatch('notify/showNotifyByCode', 601, { root: true })
                 });
         },

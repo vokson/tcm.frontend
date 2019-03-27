@@ -9,42 +9,55 @@
 
     <div class="row">
 
-      <div class="col-9">
-        <button
-          type="button"
-          class="btn btn-block btn-success"
-          v-on:click="downloadMergedFile"
-        >
-          {{ (language == 'RUS') ? 'Объединить' : 'Merge' }}
-          <span class="badge badge-light">{{countOfItems}}</span>
-        </button>
-      </div>
-
-      <div class="col-3">
-        <button
-          type="button"
-          class="btn btn-block btn-primary"
-          v-on:click="cleanItems"
-        >
-          {{ (language == 'RUS') ? 'Очистить' : 'Clean' }}
-        </button>
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="col col-drop-area">
+      <div class="col-8 col-drop-area">
         <div class="pdf-drop-area">
           {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 20 Мб)' : 'Drop file here (each not heavier 20MB)' }}
         </div>
+      </div>
+
+      <div class="col-4">
+
+        <div class="row">
+
+          <button
+            type="button"
+            class="btn btn-block btn-warning"
+            v-if="isMergingInProgress"
+            disabled
+          >
+            {{ (language == 'RUS') ? 'Выполняется объединение ...' : 'Merging in progress ...' }}
+            <span class="badge badge-light">{{countOfItems}}</span>
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-block btn-success"
+            v-on:click="downloadMergedFile"
+            v-else
+          >
+            {{ (language == 'RUS') ? 'Объединить' : 'Merge' }}
+            <span class="badge badge-light">{{countOfItems}}</span>
+          </button>
+
+        </div>
+
+        <div class="row">
+          <button
+            type="button"
+            class="btn btn-block btn-primary"
+            v-on:click="cleanItems"
+          >
+            {{ (language == 'RUS') ? 'Очистить' : 'Clean' }}
+          </button>
+        </div>
+
       </div>
 
     </div>
 
     <div class="row">
       <div class="col-1"></div>
-      <div class="col-8">
+      <div class="col-11">
 
         <div
           class="row"
@@ -62,19 +75,7 @@
             >{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
           </div>
 
-          <div
-            class="col-7"
-            v-if="item.id != null"
-          >
-            <a
-              href="#"
-              v-on:click="downloadFile(item.id)"
-            >{{item.original_name}}</a>
-          </div>
-          <div
-            class="col-7"
-            v-else
-          >
+          <div class="col-9">
             {{item.original_name}}
           </div>
 
@@ -178,6 +179,9 @@ export default {
       return this.$store.state.language;
     },
 
+    isMergingInProgress: function () {
+      return this.$store.getters['pdf_merge_file/giveIsMergingInProgress'];
+    },
 
     items: function () {
       return this.$store.getters['pdf_merge/giveItems'];

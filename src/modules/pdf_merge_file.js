@@ -2,12 +2,17 @@ export default {
     namespaced: true,
 
     state: {
-        items: []
+        items: [],
+        isMergingInProgress: false
     },
 
     getters: {
         give: function (state) {
             return state.items;
+        },
+
+        giveIsMergingInProgress: function (state) {
+            return state.isMergingInProgress;
         }
     },
 
@@ -65,22 +70,29 @@ export default {
             state.items = [];
         },
 
+        setIsMergingInProgress: function (state, data) {
+            state.isMergingInProgress = data;
+        }
+
 
     },
 
     actions: {
 
-        download: (context, payload) => {
+        afterDownloadAction: (context) => {
+            context.commit('pdf_merge_file/setIsMergingInProgress', false, { root: true });
+        },
+
+        download: (context) => {
 
             let parameters = {
                 queryName: "merge_pdf_file_download",
-                data: {}
-                // data: {
-                // id: payload.id
-                // },
+                data: {},
+                afterDownloadAction: 'pdf_merge_file/afterDownloadAction'
             };
 
             context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            context.commit('pdf_merge_file/setIsMergingInProgress', true, { root: true });
         },
 
         // downloadAll: (context, payload) => {
