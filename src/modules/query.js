@@ -68,6 +68,7 @@ let urls = {
 
     merge_pdf_get: "/merge/pdf/get",
     merge_pdf_clean: "/merge/pdf/clean",
+    merge_pdf_set_main_name: "/merge/pdf/set/main/name",
 
     merge_pdf_file_upload: "/merge/pdf/file/upload",
     merge_pdf_file_download: "/merge/pdf/file/download",

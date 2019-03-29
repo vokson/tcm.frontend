@@ -7,6 +7,12 @@
       </div>
     </div>
 
+    <div class="row pdf-merge-description">
+      <div class="col-8">
+      {{ (language == 'RUS') ? 'Пользоваться нужно следующим образом. Перетаскиваете файлы и бросаете их в контейнер. Файлы, брошенные за один раз, образуют группу. Объединение происходит, начиная с 1-ой группы и далее по порядку. Внутри группы файлы сортируются в алфавитном порядке. Имя будущего файла можно выбрать из имен загруженных файлов.' : 'Merging tool to be used in following way. Drag files and drop them into container. Files dropped together is group. Merging will be done starting from 1st group, then 2nd, 3rd etc. Inside group files will be sorted in alphabetical order. Name of merged file can be choosen from names of uploaded files.' }}
+      </div>
+    </div>
+
     <div class="row">
 
       <div class="col-8 col-drop-area">
@@ -93,6 +99,7 @@
       <table class="table table-striped">
 
         <thead>
+          <th class="text-center">{{ (language == 'RUS') ? 'Имя от файла' : 'Name from file' }}</th>
           <th class="text-center">{{ (language == 'RUS') ? 'Загружено' : 'Uploaded' }}</th>
           <th class="text-center">{{ (language == 'RUS') ? 'Группа' : 'Group' }}</th>
           <th>{{ (language == 'RUS') ? 'Имя файла' : 'Filename' }}</th>
@@ -103,7 +110,16 @@
           <tr
             v-for="item in items"
             :key="item.id"
+            v-on:click="setMainName(item.id)"
           >
+            <td class="text-center"> <img
+                src="./img/approved.png"
+                width="20"
+                height="20"
+                title="Имя для объединенного файла / Name for merged file"
+                v-if="item.is_name === '1'"
+              ></td>
+
             <td class="text-center">{{formatDate(item.date)}}</td>
             <td class="text-center"> {{item.group}} </td>
 
@@ -240,11 +256,11 @@ export default {
     //   });
     // },
 
-    // deleteItem: function (id) {
-    //   this.$store.dispatch('checker/deleteItem', {
-    //     id: id,
-    //   });
-    // },
+    setMainName: function (id) {
+      this.$store.dispatch('pdf_merge/setMainName', {
+        id: id,
+      });
+    },
 
     startDragging: function () {
       this.isDragging = true;
@@ -338,5 +354,11 @@ export default {
   text-align: center;
   font: 21pt bold arial;
   color: gray;
+}
+
+.pdf-merge-description {
+  font-size: 12pt;
+  color: green;
+  text-align: justify;
 }
 </style>

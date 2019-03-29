@@ -193,6 +193,11 @@ export default {
                         context.dispatch("merge_pdf_clean", payload);
                         break;
 
+                    case "merge_pdf_set_main_name":
+                        context.dispatch("merge_pdf_set_main_name", payload);
+                        break;
+
+
 
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -598,6 +603,14 @@ export default {
         },
 
         merge_pdf_clean: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('pdf_merge/getItems', {}, { root: true });
+            }
+
+        },
+
+        merge_pdf_set_main_name: (context, payload) => {
 
             if (payload.success == 1) {
                 context.dispatch('pdf_merge/getItems', {}, { root: true });

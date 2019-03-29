@@ -41,15 +41,17 @@ export default {
             context.dispatch('query/send', parameters, { root: true });
         },
 
-        // deleteItem: (context, payload) => {
+        setMainName: (context, payload) => {
 
-        //     let parameters = {
-        //         queryName: "checker_delete",
-        //         data: payload,
-        //     };
+            let parameters = {
+                queryName: "merge_pdf_set_main_name",
+                data: {
+                    id: payload.id
+                },
+            };
 
-        //     context.dispatch('query/send', parameters, { root: true })
-        // },
+            context.dispatch('query/send', parameters, { root: true })
+        },
 
     }
 
