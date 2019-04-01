@@ -17,7 +17,7 @@
 
       <div class="col-8 col-drop-area">
         <div class="pdf-drop-area">
-          {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 20 Мб)' : 'Drop file here (each not heavier 20MB)' }}
+          {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 100 Мб)' : 'Drop file here (each not heavier 100MB)' }}
         </div>
       </div>
 
@@ -144,7 +144,7 @@ export default {
     return {
 
       isDragging: false,
-      maxFileSize: 20 * 1024 * 1024,
+      maxFileSize: 100 * 1024 * 1024,
       dropUin: null
 
     };

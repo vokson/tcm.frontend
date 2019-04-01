@@ -176,6 +176,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.29.1</p>
+        </div>
+        <div class="col-4">
+          <p>Увеличен объем файла в Пакуй до 100 Мб</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.29.0</p>
         </div>
         <div class="col-4">
@@ -587,7 +596,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.29.0'
+      version: '1.29.1'
     };
   },
 
