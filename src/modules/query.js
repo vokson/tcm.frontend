@@ -65,6 +65,13 @@ let urls = {
     sender_file_delete: "/sender/file/delete",
     sender_file_download: "/sender/file/download",
     sender_file_download_all: "/sender/file/download/all",
+
+    merge_pdf_get: "/merge/pdf/get",
+    merge_pdf_clean: "/merge/pdf/clean",
+    merge_pdf_set_main_name: "/merge/pdf/set/main/name",
+
+    merge_pdf_file_upload: "/merge/pdf/file/upload",
+    merge_pdf_file_download: "/merge/pdf/file/download",
 };
 
 export default {
@@ -111,6 +118,11 @@ export default {
 
                 let filename = decodeURIComponent(response.headers['content-filename']);
                 window.$download(response.data, filename);
+
+                // Вызов дополнительной функции после завершения запроса
+                if (payload.afterDownloadAction != null) {
+                    context.dispatch(payload.afterDownloadAction, {}, { root: true });
+                }
             };
 
             window.$axios({
@@ -123,11 +135,6 @@ export default {
             })
                 .then(responseFunction)
                 .catch(function (error) {
-                    // var reader = new FileReader();
-                    // reader.readAsText(error.response.data);
-                    // console.log(reader.result);
-                    // console.log(error.response.data);
-                    // context.dispatch('response/use', error.response.data, { root: true });
                     context.dispatch('notify/showNotifyByCode', 601, { root: true })
                 });
         },

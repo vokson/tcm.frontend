@@ -89,16 +89,6 @@
           </div>
         </div>
 
-        <!-- <div class='col-4'>
-          <div class='row'>
-            <img
-              src="./img/vacation.jpg"
-              width='100%'
-              height='100%'
-            >
-          </div>
-        </div> -->
-
       </div>
     </div>
 
@@ -185,6 +175,42 @@
       </div>
 
       <div class="row actual_version_color">
+        <div class="col-1">
+          <p>1.29.1</p>
+        </div>
+        <div class="col-4">
+          <p>Увеличен объем файла в Пакуй до 100 Мб</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>1.29.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлена возможность выбора имени файла в Пакуй</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>1.28.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлен интерфейс для объединения файлов PDF</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>1.27.1</p>
+        </div>
+        <div class="col-4">
+          <p>Даты для выбора промежутка времени добавлены в Проверяшку (специально для Кашенковой).</p>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-1">
           <p>1.27.0</p>
         </div>
@@ -570,7 +596,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.27.0'
+      version: '1.29.1'
     };
   },
 

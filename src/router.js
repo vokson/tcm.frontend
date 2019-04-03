@@ -17,6 +17,7 @@ import FileStorageChart from './views/FileStorageChart.vue'
 import TqStatisticChart from './views/TqStatisticChart.vue'
 import Checker from './views/Checker.vue'
 import Sender from './views/Sender.vue'
+import MergePdf from './views/MergePdf.vue'
 
 
 Vue.use(Router)
@@ -131,6 +132,12 @@ export default new Router({
             path: '/sender',
             name: 'sender',
             component: Sender
+        },
+
+        {
+            path: '/pdf_merge',
+            name: 'pdf_merge',
+            component: MergePdf
         },
 
 

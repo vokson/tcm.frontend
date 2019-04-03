@@ -143,7 +143,13 @@
             </td>
             <td class="td-date">
               <datepicker
-                v-model="search.date"
+                v-model="search.date1"
+                :format="date_format"
+                :bootstrap-styling="true"
+                :language="languageForDatePicker"
+              ></datepicker>
+              <datepicker
+                v-model="search.date2"
                 :format="date_format"
                 :bootstrap-styling="true"
                 :language="languageForDatePicker"
@@ -273,7 +279,8 @@ export default {
         filename: "",
         extension: "",
         mistake_count: "",
-        date: null,
+        date1: null,
+        date2: null,
         is_only_last: false
       }
 
@@ -360,7 +367,8 @@ export default {
         extension: this.search.extension,
         mistake_count: this.search.mistake_count,
         is_only_last: this.search.is_only_last,
-        date: (this.search.date == null) ? "" : Math.round(this.search.date.getTime() / 1000)
+        date1: (this.search.date1 == null) ? "" : Math.round(this.search.date1.getTime() / 1000),
+        date2: (this.search.date2 == null) ? "" : Math.round(this.search.date2.getTime() / 1000)
       };
 
       this.$store.dispatch('checker/getItems', queryObject);
@@ -469,10 +477,25 @@ export default {
       this.search.who = "";
       this.search.filename = "";
       this.search.extension = "";
-      this.search.date = null;
+      this.search.date1 = null;
+      this.search.date2 = null;
     },
 
   },
+
+  watch: {
+    'search.date1': function () {
+      if (this.search.date2 == null && this.search.date1 != null) {
+        this.search.date2 = this.search.date1;
+      }
+    },
+
+    'search.date2': function () {
+      if (this.search.date1 == null && this.search.date2 != null) {
+        this.search.date1 = this.search.date2;
+      }
+    }
+  }
 
 };
 </script>

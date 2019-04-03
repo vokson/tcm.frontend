@@ -181,6 +181,23 @@ export default {
                         context.dispatch("sender_file_delete", payload);
                         break;
 
+                    case "merge_pdf_file_upload":
+                        context.dispatch("merge_pdf_file_upload", payload);
+                        break;
+
+                    case "merge_pdf_get":
+                        context.dispatch("merge_pdf_get", payload);
+                        break;
+
+                    case "merge_pdf_clean":
+                        context.dispatch("merge_pdf_clean", payload);
+                        break;
+
+                    case "merge_pdf_set_main_name":
+                        context.dispatch("merge_pdf_set_main_name", payload);
+                        break;
+
+
 
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -576,6 +593,42 @@ export default {
             }
 
         },
+
+        merge_pdf_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('pdf_merge/updateItems', payload.items, { root: true });
+            }
+
+        },
+
+        merge_pdf_clean: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('pdf_merge/getItems', {}, { root: true });
+            }
+
+        },
+
+        merge_pdf_set_main_name: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('pdf_merge/getItems', {}, { root: true });
+            }
+
+        },
+
+        merge_pdf_file_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
+                context.commit('pdf_merge_file/uploadSuccess', payload, { root: true });
+                context.dispatch('pdf_merge/getItems', {}, { root: true });
+            }
+
+        },
+
 
     }
 

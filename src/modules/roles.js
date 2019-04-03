@@ -1,7 +1,8 @@
 let guest = [
     '/home',
     '/login',
-    '/'
+    '/',
+    '/pdf_merge'
 ];
 
 let engineer = [
