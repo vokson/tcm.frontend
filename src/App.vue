@@ -13,7 +13,7 @@
       <b-nav-item :to="{ name: 'sender' }">{{ (language == 'RUS') ? 'Отправка' : 'Sender' }} </b-nav-item>
       <b-nav-item :to="{ name: 'pdf_merge' }">
         <!-- <div class='red-text'> -->
-          {{ (language == 'RUS') ? 'Пакуй (тестовая эксплуатация)' : 'Merge PDF (testing)' }}
+        {{ (language == 'RUS') ? 'Пакуй' : 'Merge PDF' }}
         <!-- </div> -->
       </b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
