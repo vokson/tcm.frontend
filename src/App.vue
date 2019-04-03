@@ -12,9 +12,9 @@
       <b-nav-item :to="{ name: 'checker' }">{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }} </b-nav-item>
       <b-nav-item :to="{ name: 'sender' }">{{ (language == 'RUS') ? 'Отправка' : 'Sender' }} </b-nav-item>
       <b-nav-item :to="{ name: 'pdf_merge' }">
-        <div class='red-text'>
+        <!-- <div class='red-text'> -->
           {{ (language == 'RUS') ? 'Пакуй (тестовая эксплуатация)' : 'Merge PDF (testing)' }}
-        </div>
+        <!-- </div> -->
       </b-nav-item>
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
       <b-nav-item
