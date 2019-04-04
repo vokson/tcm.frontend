@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col ">
-        <h3 v-if="language === 'RUS'">Статистика по TQ</h3>
-        <h3 v-else-if="language === 'ENG'">TQ statistic</h3>
+        <h3 v-if="language === 'RUS'">Статистика по проверенным чертежам</h3>
+        <h3 v-else-if="language === 'ENG'">Statistic of checked drawings</h3>
       </div>
     </div>
 
@@ -27,24 +27,36 @@
         </div>
 
         <div class="row">
-          {{ (language == 'RUS') ? 'Регулярное выражение наименования титула:' : 'Regular expression for name of title:' }}
+          {{ (language == 'RUS') ? 'Регулярное выражение имени файла:' : 'Regular expression for name of file:' }}
           <br />
           <input
             type="text"
-            v-model="titleRegExp"
-            placeholder="/^TQ.*/"
+            v-model="fileRegExp"
+            placeholder="/.*/"
           />
           <a href="https://regex101.com/"> ? </a>
         </div>
 
         <div class="row">
-          {{ (language == 'RUS') ? 'Регулярное выражение описания титула:' : 'Regular expression for description of title:' }}
-          <br />
-          <input
-            type="text"
-            v-model="descriptionRegExp"
-            placeholder="/.*NVK.*/"
-          />
+          <!-- <div class="col-3">
+            <label v-if="language === 'RUS'">Кто ?</label>
+            <label v-else-if="language === 'ENG'">Who ?</label>
+          </div>
+          <div class="col-9"> -->
+          {{ (language == 'RUS') ? 'Кто ?' : 'Who ?' }}
+          <select
+            class="form-control"
+            v-bind:value="userId"
+          >
+            <option
+              v-for="item in users"
+              :key="item.id"
+              v-bind:value="item.id"
+            >
+              {{item.surname}} {{item.name}}
+            </option>
+          </select>
+          <!-- </div> -->
         </div>
 
         <div class="row">
@@ -143,7 +155,7 @@ import LineChart from './LineChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
 export default {
-  name: "TqStatisticChart",
+  name: "CheckedDrawingsChart",
 
   data () {
     return {
@@ -153,8 +165,8 @@ export default {
 
       startDate: new Date(),
       endDate: new Date(),
-      titleRegExp: "/^TQ.*/",
-      descriptionRegExp: "/.*NVK.*/",
+      fileRegExp: "/.*/",
+      userId: null,
 
       optionsForDoughnutChart: {},
 
@@ -192,6 +204,15 @@ export default {
     LineChart
   },
 
+  mounted: function () {
+
+    this.$nextTick(function () {
+      this.getUsers();
+      this.userId = this.$store.state.user.id;
+    });
+
+  },
+
   computed: {
     language: function () {
       return this.$store.state.language;
@@ -204,6 +225,10 @@ export default {
 
     items: function () {
       return this.$store.getters['chart_tq_status/give'];
+    },
+
+    users: function () {
+      return this.$store.getters['users/give'];
     },
 
     itemsForChart_1: function () {
@@ -296,6 +321,10 @@ export default {
   },
 
   methods: {
+
+    getUsers: function () {
+      this.$store.dispatch('users/get', {});
+    },
 
     get: function () {
       let queryObject = {

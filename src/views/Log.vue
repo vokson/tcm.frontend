@@ -822,6 +822,7 @@ export default {
     },
 
     wordToBeAddedOnChange: function () {
+      console.log('HERE');
       this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
     },
 
