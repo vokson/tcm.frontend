@@ -75,7 +75,7 @@
         class="col-7"
         v-if="items !== null"
       >
-        <div class="row">
+        <!-- <div class="row">
           {{ (language == 'RUS') ? 'Отклонено' : 'Rejected' }}: {{items.count.rejected}}
         </div>
         <div class="row">{{ (language == 'RUS') ? 'Согласовано без изменения чертежей' : 'Approved without modification of drawings' }}: {{items.count.approvedWithoutChanges}}</div>
@@ -88,38 +88,38 @@
         <div class="row">2) {{ (language == 'RUS') ? 'Изменение стандартов и норм' : 'Change of norms and standarts' }}: {{items.changes.code_2}}</div>
         <div class="row">3) {{ (language == 'RUS') ? 'Дополнительные требования заказчика' : 'Additional requirements of client' }}: {{items.changes.code_3}}</div>
         <div class="row">4) {{ (language == 'RUS') ? 'Устранение ошибок' : 'Correction of mistakes' }}: {{items.changes.code_4}}</div>
-        <div class="row"><br /></div>
+        <div class="row"><br /></div> -->
 
         <div class="row">
-          <div class="tq-statistic-line-chart">
+          <div class="checked-drawings-line-chart">
             <line-chart
-              :chart-data="itemsForChart_3"
+              :chart-data="itemsForChart_1"
               :options="optionsForLineChart"
             ></line-chart>
           </div>
         </div>
 
         <div class="row">
-          <div class="tq-statistic-line-chart">
+          <div class="checked-drawings-line-chart">
             <line-chart
-              :chart-data="itemsForChart_4"
+              :chart-data="itemsForChart_2"
               :options="optionsForLineChart"
             ></line-chart>
           </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="tq-statistic-line-chart">
             <line-chart
               :chart-data="itemsForChart_5"
               :options="optionsForLineChart"
             ></line-chart>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
-      <div
+      <!-- <div
         class="col-2"
         v-if="items !== null"
       >
@@ -142,7 +142,7 @@
           </div>
         </div>
 
-      </div>
+      </div> -->
 
     </div>
 
@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import DoughnutChart from './DoughnutChart.js'
+// import DoughnutChart from './DoughnutChart.js'
 import LineChart from './LineChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
@@ -168,7 +168,7 @@ export default {
       fileRegExp: "/.*/",
       userId: null,
 
-      optionsForDoughnutChart: {},
+      // optionsForDoughnutChart: {},
 
       optionsForLineChart: {
         elements: {
@@ -200,7 +200,7 @@ export default {
   },
 
   components: {
-    DoughnutChart,
+    // DoughnutChart,
     LineChart
   },
 
@@ -224,7 +224,7 @@ export default {
     },
 
     items: function () {
-      return this.$store.getters['chart_tq_status/give'];
+      return this.$store.getters['chart_checked_drawings/give'];
     },
 
     users: function () {
@@ -234,15 +234,14 @@ export default {
     itemsForChart_1: function () {
       return {
         datasets: [{
-          data: [this.items.count.rejected, this.items.count.approvedWithoutChanges, this.items.count.approvedWithChanges],
-          backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)']
+          data: [this.items.in.drawings, this.items.in.mistakes],
+          backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255, 0, 0.5)']
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
         labels: [
-          'Отклонено',
-          'Согласовано без изменений',
-          'Согласовано с изменениями'
+          'Проверено чужих чертежей',
+          'Найдено чужих ошибок'
         ]
       }
     },
@@ -250,72 +249,87 @@ export default {
     itemsForChart_2: function () {
       return {
         datasets: [{
-          data: [
-            this.items.changes.code_1,
-            this.items.changes.code_2,
-            this.items.changes.code_3,
-            this.items.changes.code_4
-          ],
-          backgroundColor: [
-            'purple',
-            'green',
-            'yellow',
-            'orange'
-          ]
+          data: [this.items.out.drawings, this.items.out.mistakes],
+          backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255, 0, 0.5)']
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: ['(1)', '(2)', '(3)', '(4)']
+        labels: [
+          'Отправлено чертежей на проверку',
+          'В них найдено ошибок'
+        ]
       }
     },
 
-    itemsForChart_3: function () {
-      return {
-        labels: this.items.days.labels,
+    // itemsForChart_2: function () {
+    //   return {
+    //     datasets: [{
+    //       data: [
+    //         this.items.changes.code_1,
+    //         this.items.changes.code_2,
+    //         this.items.changes.code_3,
+    //         this.items.changes.code_4
+    //       ],
+    //       backgroundColor: [
+    //         'purple',
+    //         'green',
+    //         'yellow',
+    //         'orange'
+    //       ]
+    //     }],
 
-        datasets: [{
-          borderColor: "rgba(255,0,0,0.8)",
-          pointBackgroundColor: "rgba(255,0,0,0.7)",
-          backgroundColor: "rgba(255,255,0,0.2)",
-          label: 'Rejected / Отклонено',
-          data: this.items.days.rejected,
-        },]
-      }
+    //     // These labels appear in the legend and in the tooltips when hovering different arcs
+    //     labels: ['(1)', '(2)', '(3)', '(4)']
+    //   }
+    // },
 
+    // itemsForChart_3: function () {
+    //   return {
+    //     labels: this.items.days.labels,
 
-    },
-
-    itemsForChart_4: function () {
-      return {
-        labels: this.items.days.labels,
-
-        datasets: [{
-          borderColor: "rgba(0,255,0,0.8)",
-          pointBackgroundColor: "rgba(255,0,0,0.7)",
-          backgroundColor: "rgba(255,255,0,0.2)",
-          label: 'Approved without changes / Согласовано без изменений',
-          data: this.items.days.approvedWithoutChanges,
-        },]
-      }
-
-
-    },
-
-    itemsForChart_5: function () {
-      return {
-        labels: this.items.days.labels,
-
-        datasets: [{
-          borderColor: "rgba(0,0,255,0.8)",
-          pointBackgroundColor: "rgba(255,0,0,0.7)",
-          backgroundColor: "rgba(255,255,0,0.2)",
-          label: 'Approved with changes / Согласовано с изменениями',
-          data: this.items.days.approvedWithChanges,
-        },]
-      }
+    //     datasets: [{
+    //       borderColor: "rgba(255,0,0,0.8)",
+    //       pointBackgroundColor: "rgba(255,0,0,0.7)",
+    //       backgroundColor: "rgba(255,255,0,0.2)",
+    //       label: 'Rejected / Отклонено',
+    //       data: this.items.days.rejected,
+    //     },]
+    //   }
 
 
-    },
+    // },
+
+    // itemsForChart_4: function () {
+    //   return {
+    //     labels: this.items.days.labels,
+
+    //     datasets: [{
+    //       borderColor: "rgba(0,255,0,0.8)",
+    //       pointBackgroundColor: "rgba(255,0,0,0.7)",
+    //       backgroundColor: "rgba(255,255,0,0.2)",
+    //       label: 'Approved without changes / Согласовано без изменений',
+    //       data: this.items.days.approvedWithoutChanges,
+    //     },]
+    //   }
+
+
+    // },
+
+    // itemsForChart_5: function () {
+    //   return {
+    //     labels: this.items.days.labels,
+
+    //     datasets: [{
+    //       borderColor: "rgba(0,0,255,0.8)",
+    //       pointBackgroundColor: "rgba(255,0,0,0.7)",
+    //       backgroundColor: "rgba(255,255,0,0.2)",
+    //       label: 'Approved with changes / Согласовано с изменениями',
+    //       data: this.items.days.approvedWithChanges,
+    //     },]
+    //   }
+
+
+    // },
 
 
   },
@@ -328,13 +342,13 @@ export default {
 
     get: function () {
       let queryObject = {
-        title_regular_expression: this.titleRegExp,
-        description_regular_expression: this.descriptionRegExp,
+        file_regular_expression: this.fileRegExp,
+        user_id: this.userId,
         date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
         date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
 
-      this.$store.dispatch('chart_tq_status/get', queryObject);
+      this.$store.dispatch('chart_checked_drawings/get', queryObject);
     },
 
 
@@ -345,7 +359,7 @@ export default {
 </script>
 
 <style>
-.tq-statistic-line-chart {
+.checked-drawings-line-chart {
   border-radius: 15px;
   box-shadow: 0px 2px 15px rgba(25, 25, 25, 0.27);
   margin-left: auto;
@@ -353,10 +367,10 @@ export default {
   width: 100%;
 }
 
-.doughnut-chart {
+/* .doughnut-chart {
   width: 300px;
   height: 300px;
-}
+} */
 
 .settings {
   margin-right: 20px;

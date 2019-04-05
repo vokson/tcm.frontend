@@ -138,6 +138,10 @@ export default {
                         context.dispatch("storage_chart_get", payload);
                         break;
 
+                    case "checked_drawings_chart_get":
+                        context.dispatch("checked_drawings_chart_get", payload);
+                        break;
+
                     case "checker_get":
                         context.dispatch("checker_get", payload);
                         break;
@@ -491,6 +495,14 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('chart_file_storage/updateItems', payload.items, { root: true });
+            }
+
+        },
+
+        checked_drawings_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_checked_drawings/update', payload.items, { root: true });
             }
 
         },
