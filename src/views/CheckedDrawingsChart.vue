@@ -107,50 +107,13 @@
             ></line-chart>
           </div>
         </div>
-
-        <!-- <div class="row">
-          <div class="tq-statistic-line-chart">
-            <line-chart
-              :chart-data="itemsForChart_5"
-              :options="optionsForLineChart"
-            ></line-chart>
-          </div>
-        </div> -->
-
       </div>
-
-      <!-- <div
-        class="col-2"
-        v-if="items !== null"
-      >
-
-        <div class="row">
-          <div class='doughnut-chart'>
-            <doughnut-chart
-              :chart-data="itemsForChart_1"
-              :options="optionsForDoughnutChart"
-            ></doughnut-chart>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class='doughnut-chart'>
-            <doughnut-chart
-              :chart-data="itemsForChart_2"
-              :options="optionsForDoughnutChart"
-            ></doughnut-chart>
-          </div>
-        </div>
-
-      </div> -->
-
     </div>
 
   </div>
 </template>
 
 <script>
-// import DoughnutChart from './DoughnutChart.js'
 import LineChart from './LineChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
@@ -168,14 +131,8 @@ export default {
       fileRegExp: "/.*/",
       userId: null,
 
-      // optionsForDoughnutChart: {},
 
       optionsForLineChart: {
-        elements: {
-          line: {
-            tension: 0, // disables bezier curves
-          }
-        },
         responsive: true,
         maintainAspectRatio: false,
         scales: {
@@ -183,24 +140,55 @@ export default {
           xAxes: [{
             gridLines: {
               display: true,
-              color: "gray"
+              color: "white"
             },
+            type: 'time',
+            time: {
+              unit: 'day'
+            }
           }],
 
           yAxes: [{
             gridLines: {
               display: true,
-              color: "gray"
+              color: "white"
             },
 
           }]
         }
       }
+
+      // optionsForLineChart: {
+      //   elements: {
+      //     line: {
+      //       tension: 0, // disables bezier curves
+      //     }
+      //   },
+      //   responsive: true,
+      //   maintainAspectRatio: false,
+      //   scales: {
+
+      //     xAxes: [{
+      //       gridLines: {
+      //         display: true,
+      //         color: "gray"
+      //       },
+      //     }],
+
+      //     yAxes: [{
+      //       gridLines: {
+      //         display: true,
+      //         color: "gray"
+      //       },
+
+      //     }]
+      //   }
+      // }
+
     }
   },
 
   components: {
-    // DoughnutChart,
     LineChart
   },
 
@@ -233,104 +221,65 @@ export default {
 
     itemsForChart_1: function () {
       return {
-        datasets: [{
-          data: [this.items.in.drawings, this.items.in.mistakes],
-          backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255, 0, 0.5)']
-        }],
 
-        // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: [
-          'Проверено чужих чертежей',
-          'Найдено чужих ошибок'
-        ]
+        color: "red",
+
+        datasets: [
+          {
+            data: this.items.in.drawings.values,
+            label: 'Проверено чужих чертежей',
+            backgroundColor: 'rgba(255, 0, 0, 0.5)',
+            borderColor: "rgba(0,0,120,0.5)",
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
+          },
+
+          {
+            data: this.items.in.mistakes.values,
+            label: 'Найдено чужих ошибок',
+            backgroundColor: 'rgba(0, 255, 0, 0.5)',
+            borderColor: "rgba(0,0,120,0.5)",
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
+          }
+
+        ],
+
+        labels: this.items.in.drawings.labels.map(function (value) {
+          return new Date(value * 1000);
+        }),
+
       }
     },
 
     itemsForChart_2: function () {
       return {
-        datasets: [{
-          data: [this.items.out.drawings, this.items.out.mistakes],
-          backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0,255, 0, 0.5)']
-        }],
 
-        // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: [
-          'Отправлено чертежей на проверку',
-          'В них найдено ошибок'
-        ]
+        color: "red",
+
+        datasets: [
+          {
+            data: this.items.out.drawings.values,
+            label: 'Отправлено чертежей на проверку',
+            backgroundColor: 'rgba(255, 0, 0, 0.5)',
+            borderColor: "rgba(0,0,120,0.5)",
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
+          },
+
+          {
+            data: this.items.out.mistakes.values,
+            label: 'В них найдено ошибок',
+            backgroundColor: 'rgba(0, 255, 0, 0.5)',
+            borderColor: "rgba(0,0,120,0.5)",
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
+          }
+
+        ],
+
+        labels: this.items.out.drawings.labels.map(function (value) {
+          return new Date(value * 1000);
+        }),
+
       }
     },
-
-    // itemsForChart_2: function () {
-    //   return {
-    //     datasets: [{
-    //       data: [
-    //         this.items.changes.code_1,
-    //         this.items.changes.code_2,
-    //         this.items.changes.code_3,
-    //         this.items.changes.code_4
-    //       ],
-    //       backgroundColor: [
-    //         'purple',
-    //         'green',
-    //         'yellow',
-    //         'orange'
-    //       ]
-    //     }],
-
-    //     // These labels appear in the legend and in the tooltips when hovering different arcs
-    //     labels: ['(1)', '(2)', '(3)', '(4)']
-    //   }
-    // },
-
-    // itemsForChart_3: function () {
-    //   return {
-    //     labels: this.items.days.labels,
-
-    //     datasets: [{
-    //       borderColor: "rgba(255,0,0,0.8)",
-    //       pointBackgroundColor: "rgba(255,0,0,0.7)",
-    //       backgroundColor: "rgba(255,255,0,0.2)",
-    //       label: 'Rejected / Отклонено',
-    //       data: this.items.days.rejected,
-    //     },]
-    //   }
-
-
-    // },
-
-    // itemsForChart_4: function () {
-    //   return {
-    //     labels: this.items.days.labels,
-
-    //     datasets: [{
-    //       borderColor: "rgba(0,255,0,0.8)",
-    //       pointBackgroundColor: "rgba(255,0,0,0.7)",
-    //       backgroundColor: "rgba(255,255,0,0.2)",
-    //       label: 'Approved without changes / Согласовано без изменений',
-    //       data: this.items.days.approvedWithoutChanges,
-    //     },]
-    //   }
-
-
-    // },
-
-    // itemsForChart_5: function () {
-    //   return {
-    //     labels: this.items.days.labels,
-
-    //     datasets: [{
-    //       borderColor: "rgba(0,0,255,0.8)",
-    //       pointBackgroundColor: "rgba(255,0,0,0.7)",
-    //       backgroundColor: "rgba(255,255,0,0.2)",
-    //       label: 'Approved with changes / Согласовано с изменениями',
-    //       data: this.items.days.approvedWithChanges,
-    //     },]
-    //   }
-
-
-    // },
-
 
   },
 
@@ -344,6 +293,7 @@ export default {
       let queryObject = {
         file_regular_expression: this.fileRegExp,
         user_id: this.userId,
+        interval: 60 * 60 * 24,
         date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
         date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
@@ -360,6 +310,7 @@ export default {
 
 <style>
 .checked-drawings-line-chart {
+  background: silver;
   border-radius: 15px;
   box-shadow: 0px 2px 15px rgba(25, 25, 25, 0.27);
   margin-left: auto;
