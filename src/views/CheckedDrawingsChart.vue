@@ -11,6 +11,24 @@
       <div class="col-2 settings">
 
         <div class="row">
+          <b-form-radio-group
+            id="chart_intervals"
+            v-model="interval"
+            name="radioSubComponent"
+          >
+            <b-form-radio
+              value="86400"
+              checked
+            >{{ (language == 'RUS') ? 'День' : 'Day' }}</b-form-radio>
+            <br />
+            <b-form-radio value="604800">{{ (language == 'RUS') ? 'Неделя' : 'Week' }}</b-form-radio>
+            <br />
+            <b-form-radio value="2635200">{{ (language == 'RUS') ? 'Месяц' : 'Month' }}</b-form-radio>
+
+          </b-form-radio-group>
+        </div>
+
+        <div class="row">
           <datepicker
             v-model="startDate"
             :format="date_format"
@@ -38,15 +56,11 @@
         </div>
 
         <div class="row">
-          <!-- <div class="col-3">
-            <label v-if="language === 'RUS'">Кто ?</label>
-            <label v-else-if="language === 'ENG'">Who ?</label>
-          </div>
-          <div class="col-9"> -->
           {{ (language == 'RUS') ? 'Кто ?' : 'Who ?' }}
           <select
             class="form-control"
             v-bind:value="userId"
+            v-on:change="userId = $event.target.value"
           >
             <option
               v-for="item in users"
@@ -72,41 +86,61 @@
       </div>
 
       <div
-        class="col-7"
+        class="col-9"
         v-if="items !== null"
       >
-        <!-- <div class="row">
-          {{ (language == 'RUS') ? 'Отклонено' : 'Rejected' }}: {{items.count.rejected}}
-        </div>
-        <div class="row">{{ (language == 'RUS') ? 'Согласовано без изменения чертежей' : 'Approved without modification of drawings' }}: {{items.count.approvedWithoutChanges}}</div>
-        <div class="row">{{ (language == 'RUS') ? 'Согласовано c изменениями чертежей' : 'Approved with modification of drawings' }}: {{items.count.approvedWithChanges}}</div>
-        <div class="row"><br /></div>
         <div class="row">
-          <h5> {{ (language == 'RUS') ? 'Причины изменений (кол-во измененных документов):' : 'Reason of modification (count of changed docs):' }}</h5>
+
+          <div class="col-8">
+            <div class="row">
+              <div class="checked-drawings-line-chart">
+                <line-chart
+                  :chart-data="itemsForChart_1"
+                  :options="optionsForLineChart"
+                ></line-chart>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="row">
+              <div class='doughnut-chart'>
+                <doughnut-chart
+                  :chart-data="itemsForChart_3"
+                  :options="optionsForDoughnutChart"
+                ></doughnut-chart>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="row">1) {{ (language == 'RUS') ? 'Введение усовершенствований' : 'Incorporation of improvements' }}: {{items.changes.code_1}}</div>
-        <div class="row">2) {{ (language == 'RUS') ? 'Изменение стандартов и норм' : 'Change of norms and standarts' }}: {{items.changes.code_2}}</div>
-        <div class="row">3) {{ (language == 'RUS') ? 'Дополнительные требования заказчика' : 'Additional requirements of client' }}: {{items.changes.code_3}}</div>
-        <div class="row">4) {{ (language == 'RUS') ? 'Устранение ошибок' : 'Correction of mistakes' }}: {{items.changes.code_4}}</div>
-        <div class="row"><br /></div> -->
 
         <div class="row">
-          <div class="checked-drawings-line-chart">
-            <line-chart
-              :chart-data="itemsForChart_1"
-              :options="optionsForLineChart"
-            ></line-chart>
+
+          <div class="col-8">
+            <div class="row">
+              <div class="checked-drawings-line-chart">
+                <line-chart
+                  :chart-data="itemsForChart_2"
+                  :options="optionsForLineChart"
+                ></line-chart>
+              </div>
+            </div>
           </div>
+
+          <div class="col-4">
+            <div class="row">
+              <div class='doughnut-chart'>
+                <doughnut-chart
+                  :chart-data="itemsForChart_4"
+                  :options="optionsForDoughnutChart"
+                ></doughnut-chart>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="row">
-          <div class="checked-drawings-line-chart">
-            <line-chart
-              :chart-data="itemsForChart_2"
-              :options="optionsForLineChart"
-            ></line-chart>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -114,6 +148,7 @@
 </template>
 
 <script>
+import DoughnutChart from './DoughnutChart.js'
 import LineChart from './LineChart.js'
 import { en, ru } from 'vuejs-datepicker/dist/locale'
 
@@ -130,7 +165,9 @@ export default {
       endDate: new Date(),
       fileRegExp: "/.*/",
       userId: null,
+      interval: "86400",
 
+      optionsForDoughnutChart: {},
 
       optionsForLineChart: {
         responsive: true,
@@ -158,37 +195,12 @@ export default {
         }
       }
 
-      // optionsForLineChart: {
-      //   elements: {
-      //     line: {
-      //       tension: 0, // disables bezier curves
-      //     }
-      //   },
-      //   responsive: true,
-      //   maintainAspectRatio: false,
-      //   scales: {
-
-      //     xAxes: [{
-      //       gridLines: {
-      //         display: true,
-      //         color: "gray"
-      //       },
-      //     }],
-
-      //     yAxes: [{
-      //       gridLines: {
-      //         display: true,
-      //         color: "gray"
-      //       },
-
-      //     }]
-      //   }
-      // }
 
     }
   },
 
   components: {
+    DoughnutChart,
     LineChart
   },
 
@@ -228,16 +240,16 @@ export default {
           {
             data: this.items.in.drawings.values,
             label: 'Проверено чужих чертежей',
-            backgroundColor: 'rgba(255, 0, 0, 0.5)',
-            borderColor: "rgba(0,0,120,0.5)",
+            borderColor: "rgba(0, 0, 255, 0.5)",
+            fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
           },
 
           {
             data: this.items.in.mistakes.values,
             label: 'Найдено чужих ошибок',
-            backgroundColor: 'rgba(0, 255, 0, 0.5)',
-            borderColor: "rgba(0,0,120,0.5)",
+            borderColor: "rgba(255, 0, 0, 0.5)",
+            fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
           }
 
@@ -259,16 +271,16 @@ export default {
           {
             data: this.items.out.drawings.values,
             label: 'Отправлено чертежей на проверку',
-            backgroundColor: 'rgba(255, 0, 0, 0.5)',
-            borderColor: "rgba(0,0,120,0.5)",
+            borderColor: "rgba(0, 0, 255, 0.5)",
+            fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
           },
 
           {
             data: this.items.out.mistakes.values,
             label: 'В них найдено ошибок',
-            backgroundColor: 'rgba(0, 255, 0, 0.5)',
-            borderColor: "rgba(0,0,120,0.5)",
+            borderColor: "rgba(255, 0, 0, 0.5)",
+            fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
           }
 
@@ -278,6 +290,48 @@ export default {
           return new Date(value * 1000);
         }),
 
+      }
+    },
+
+    itemsForChart_3: function () {
+      return {
+        datasets: [{
+
+          data: this.items.in.distribution.values,
+
+          backgroundColor: this.items.in.distribution.labels.map(function () {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          }),
+
+        }],
+
+        labels: this.items.in.distribution.labels
+      }
+    },
+
+    itemsForChart_4: function () {
+      return {
+        datasets: [{
+
+          data: this.items.out.distribution.values,
+
+          backgroundColor: this.items.out.distribution.labels.map(function () {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          }),
+
+        }],
+
+        labels: this.items.out.distribution.labels
       }
     },
 
@@ -293,13 +347,17 @@ export default {
       let queryObject = {
         file_regular_expression: this.fileRegExp,
         user_id: this.userId,
-        interval: 60 * 60 * 24,
+        interval: this.interval,
         date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
         date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
 
       this.$store.dispatch('chart_checked_drawings/get', queryObject);
     },
+
+    // getRandomColor: () => {
+    // 
+    // }
 
 
   }
@@ -318,10 +376,10 @@ export default {
   width: 100%;
 }
 
-/* .doughnut-chart {
+.doughnut-chart {
   width: 300px;
   height: 300px;
-} */
+}
 
 .settings {
   margin-right: 20px;
