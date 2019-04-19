@@ -90,55 +90,39 @@
         v-if="items !== null"
       >
         <div class="row">
-
-          <div class="col-8">
-            <div class="row">
-              <div class="checked-drawings-line-chart">
-                <line-chart
-                  :chart-data="itemsForChart_1"
-                  :options="optionsForLineChart"
-                ></line-chart>
-              </div>
-            </div>
+          <div class="checked-drawings-line-chart">
+            <line-chart
+              :chart-data="itemsForChart_1"
+              :options="optionsForLineChart"
+            ></line-chart>
           </div>
-
-          <div class="col-4">
-            <div class="row">
-              <div class='doughnut-chart'>
-                <doughnut-chart
-                  :chart-data="itemsForChart_3"
-                  :options="optionsForDoughnutChart"
-                ></doughnut-chart>
-              </div>
-            </div>
-          </div>
-
         </div>
 
         <div class="row">
-
-          <div class="col-8">
-            <div class="row">
-              <div class="checked-drawings-line-chart">
-                <line-chart
-                  :chart-data="itemsForChart_2"
-                  :options="optionsForLineChart"
-                ></line-chart>
-              </div>
-            </div>
+          <div>
+            <doughnut-chart
+              :chart-data="itemsForChart_3"
+              :options="optionsForDoughnutChart"
+            ></doughnut-chart>
           </div>
+        </div>
 
-          <div class="col-4">
-            <div class="row">
-              <div class='doughnut-chart'>
-                <doughnut-chart
-                  :chart-data="itemsForChart_4"
-                  :options="optionsForDoughnutChart"
-                ></doughnut-chart>
-              </div>
-            </div>
+        <div class="row">
+          <div class="checked-drawings-line-chart">
+            <line-chart
+              :chart-data="itemsForChart_2"
+              :options="optionsForLineChart"
+            ></line-chart>
           </div>
+        </div>
 
+        <div class="row">
+          <div>
+            <doughnut-chart
+              :chart-data="itemsForChart_4"
+              :options="optionsForDoughnutChart"
+            ></doughnut-chart>
+          </div>
         </div>
 
       </div>
@@ -300,17 +284,15 @@ export default {
           data: this.items.in.distribution.values,
 
           backgroundColor: this.items.in.distribution.labels.map(function () {
-            var letters = '0123456789ABCDEF'.split('');
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-              color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-          }),
+            return this.getRandomColor();
+          }, this),
 
         }],
 
-        labels: this.items.in.distribution.labels
+        labels: this.items.in.distribution.labels.map(function (id) {
+          return this.getSurnameAndNameOfUserById(id);
+        }, this),
+
       }
     },
 
@@ -321,17 +303,14 @@ export default {
           data: this.items.out.distribution.values,
 
           backgroundColor: this.items.out.distribution.labels.map(function () {
-            var letters = '0123456789ABCDEF'.split('');
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-              color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-          }),
+            return this.getRandomColor();
+          }, this),
 
         }],
 
-        labels: this.items.out.distribution.labels
+        labels: this.items.out.distribution.labels.map(function (id) {
+          return this.getSurnameAndNameOfUserById(id);
+        }, this),
       }
     },
 
@@ -355,9 +334,23 @@ export default {
       this.$store.dispatch('chart_checked_drawings/get', queryObject);
     },
 
-    // getRandomColor: () => {
-    // 
-    // }
+    getRandomColor: function () {
+      var letters = '0123456789ABCDEF'.split('');
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    },
+
+    getSurnameAndNameOfUserById: function (id) {
+
+      let filteredUsers = this.users.filter(function (obj) {
+        return obj.id == id;
+      }, this);
+
+      return (filteredUsers.length > 0) ? (filteredUsers[0].surname + ' ' + filteredUsers[0].name) : id;
+    }
 
 
   }
@@ -374,11 +367,6 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-}
-
-.doughnut-chart {
-  width: 300px;
-  height: 300px;
 }
 
 .settings {
