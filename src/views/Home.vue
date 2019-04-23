@@ -176,6 +176,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.30.1</p>
+        </div>
+        <div class="col-4">
+          <p>В Отправку добавлен показ общего числа файлов в папке</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.30.0</p>
         </div>
         <div class="col-4">
@@ -605,7 +614,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.30.0'
+      version: '1.30.1'
     };
   },
 
