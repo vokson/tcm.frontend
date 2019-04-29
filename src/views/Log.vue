@@ -583,6 +583,11 @@ export default {
     },
 
     getItems: function () {
+      if (this.isSearchClean() === true) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_LOG_003", { root: true })
+        return;
+      }
+
       let queryObject = {
         to: this.search.to,
         from: this.search.from,
@@ -809,6 +814,17 @@ export default {
       this.search.what = "";
       this.search.title = "";
       this.search.date = null;
+    },
+
+    isSearchClean: function () {
+      return (
+        this.search.to == "" &&
+        this.search.from == "" &&
+        this.search.what == "" &&
+        this.search.title == "" &&
+        this.search.date == null &&
+        (this.search.is_new == false || this.search.is_new == null)
+      );
     },
 
     showNewMessages: function () {

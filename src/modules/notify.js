@@ -417,6 +417,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_LOG_003":
+            return {
+                text: "Уточните запрос для поиска",
+                type: "warning"
+            }
+
         case "E_TITLE_001":
             return {
                 text: "Титул сохранен",
@@ -918,6 +924,12 @@ let getEngText = function (code) {
             return {
                 text: "Log has been deleted",
                 type: "success"
+            }
+
+        case "E_LOG_003":
+            return {
+                text: "Please, input something as search query",
+                type: "warning"
             }
 
         case "E_TITLE_001":
