@@ -67,6 +67,18 @@ export default {
 
         getItems: (context, payload) => {
 
+            if (
+                (payload.to == "" || !payload.hasOwnProperty("to")) &&
+                (payload.from == "" || !payload.hasOwnProperty("from")) &&
+                (payload.what == "" || !payload.hasOwnProperty("what")) &&
+                (payload.title == "" || !payload.hasOwnProperty("title")) &&
+                (payload.date == "" || !payload.hasOwnProperty("date")) &&
+                (payload.is_new == false || payload.is_new == null || !payload.hasOwnProperty("is_new"))
+            ) {
+                context.dispatch('notify/showNotifyByCode', "E_LOG_003", { root: true });
+                return;
+            }
+
             let parameters = {
                 queryName: "log_get",
                 data: payload,

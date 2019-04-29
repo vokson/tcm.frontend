@@ -583,10 +583,6 @@ export default {
     },
 
     getItems: function () {
-      if (this.isSearchClean() === true) {
-        this.$store.dispatch('notify/showNotifyByCode', "E_LOG_003", { root: true })
-        return;
-      }
 
       let queryObject = {
         to: this.search.to,
@@ -816,17 +812,6 @@ export default {
       this.search.date = null;
     },
 
-    isSearchClean: function () {
-      return (
-        this.search.to == "" &&
-        this.search.from == "" &&
-        this.search.what == "" &&
-        this.search.title == "" &&
-        this.search.date == null &&
-        (this.search.is_new == false || this.search.is_new == null)
-      );
-    },
-
     showNewMessages: function () {
       if (this.isNewMessagesToBeShown == true) {
         this.search.is_new = true;
@@ -838,7 +823,7 @@ export default {
     },
 
     wordToBeAddedOnChange: function () {
-      console.log('HERE');
+      // console.log('HERE');
       this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
     },
 
