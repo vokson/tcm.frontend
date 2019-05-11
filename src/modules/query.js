@@ -51,6 +51,8 @@ let urls = {
     checker_get: "/checker/get",
     checker_delete: "/checker/delete",
 
+    checker_rating_get: "/checker/rating/get",
+
     checker_file_upload: "/checker/file/upload",
     checker_file_download: "/checker/file/download",
     checker_file_download_all: "/checker/file/download/all",

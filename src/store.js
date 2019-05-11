@@ -23,6 +23,7 @@ import chart_tq_status from "./modules/chart_tq_status";
 import chart_checked_drawings from "./modules/chart_checked_drawings";
 import checker from "./modules/checker";
 import checker_file from "./modules/checker_file";
+import checker_rating from "./modules/checker_rating";
 import sender from "./modules/sender";
 import sender_file from "./modules/sender_file";
 import pdf_merge from "./modules/pdf_merge";
@@ -101,6 +102,7 @@ export default new Vuex.Store({
     chart_checked_drawings,
     checker,
     checker_file,
+    checker_rating,
     sender,
     sender_file,
     pdf_merge,

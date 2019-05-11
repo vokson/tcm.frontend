@@ -83,6 +83,16 @@
           </button>
         </div>
 
+        <div class="row">
+          <button
+            type="button"
+            class="btn btn-block btn-success"
+            v-on:click="testRating"
+          >
+            {{ (language == 'RUS') ? 'Рейтинг' : 'Rating' }}
+          </button>
+        </div>
+
       </div>
 
       <div
@@ -350,7 +360,15 @@ export default {
       }, this);
 
       return (filteredUsers.length > 0) ? (filteredUsers[0].surname + ' ' + filteredUsers[0].name) : id;
-    }
+    },
+
+    testRating: function () {
+      let queryObject = {
+        user_id: this.userId,
+      };
+
+      this.$store.dispatch('checker_rating/get', queryObject);
+    },
 
 
   }
