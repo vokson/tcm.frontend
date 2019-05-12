@@ -149,6 +149,10 @@ export default {
                         context.dispatch("checker_delete", payload);
                         break;
 
+                    case "checker_rating_get":
+                        context.dispatch("checker_rating_get", payload);
+                        break;
+
                     case "checker_file_upload":
                         context.dispatch("checker_file_upload", payload);
                         break;
@@ -520,6 +524,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_002", { root: true })
                 context.dispatch('checker/getItems', context.rootGetters['checker/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        checker_rating_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('checker_rating/update', payload.items, { root: true });
             }
 
         },

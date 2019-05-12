@@ -86,11 +86,17 @@
         <div class="row">
           <button
             type="button"
-            class="btn btn-block btn-success"
+            class="btn btn-block btn-warning"
             v-on:click="testRating"
           >
             {{ (language == 'RUS') ? 'Рейтинг' : 'Rating' }}
           </button>
+        </div>
+
+        <div class="row">
+          <div class="col rating-text">
+            {{positiveRating}} / {{negativeRating}}
+          </div>
         </div>
 
       </div>
@@ -324,6 +330,14 @@ export default {
       }
     },
 
+    positiveRating: function () {
+      return (this.$store.getters['checker_rating/givePositiveRating'] * 10).toFixed(2);
+    },
+
+    negativeRating: function () {
+      return ((1 - this.$store.getters['checker_rating/giveNegativeRating']) * 10).toFixed(2);
+    },
+
   },
 
   methods: {
@@ -365,6 +379,8 @@ export default {
     testRating: function () {
       let queryObject = {
         user_id: this.userId,
+        date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
+        date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
       };
 
       this.$store.dispatch('checker_rating/get', queryObject);
@@ -393,5 +409,9 @@ export default {
 
 .date-container {
   margin-top: 3px;
+}
+
+.rating-text {
+  text-align: center;
 }
 </style>

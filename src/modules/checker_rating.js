@@ -1,22 +1,26 @@
 export default {
     namespaced: true,
 
-    // state: {
-    //     items: null
-    // },
+    state: {
+        items: null
+    },
 
-    // getters: {
-    //     give: function (state) {
-    //         return state.items;
-    //     },
+    getters: {
+        givePositiveRating: function (state) {
+            return (state.items === null) ? 0.0 : state.items.positiveRating;
+        },
 
-    // },
+        giveNegativeRating: function (state) {
+            return (state.items === null) ? 1.0 : state.items.negativeRating;
+        },
 
-    // mutations: {
-    //     update: function (state, data) {
-    //         state.items = data;
-    //     }
-    // },
+    },
+
+    mutations: {
+        update: function (state, data) {
+            state.items = data;
+        }
+    },
 
     actions: {
 
