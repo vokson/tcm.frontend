@@ -21,9 +21,9 @@ import chart_file_storage from "./modules/chart_file_storage";
 import chart_title_status from "./modules/chart_title_status";
 import chart_tq_status from "./modules/chart_tq_status";
 import chart_checked_drawings from "./modules/chart_checked_drawings";
+import chart_checker_rating from "./modules/chart_checker_rating";
 import checker from "./modules/checker";
 import checker_file from "./modules/checker_file";
-import checker_rating from "./modules/checker_rating";
 import sender from "./modules/sender";
 import sender_file from "./modules/sender_file";
 import pdf_merge from "./modules/pdf_merge";
@@ -100,9 +100,9 @@ export default new Vuex.Store({
     chart_tq_status,
     chart_file_storage,
     chart_checked_drawings,
+    chart_checker_rating,
     checker,
     checker_file,
-    checker_rating,
     sender,
     sender_file,
     pdf_merge,

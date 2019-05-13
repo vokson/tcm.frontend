@@ -6,12 +6,16 @@ export default {
     },
 
     getters: {
-        givePositiveRating: function (state) {
-            return (state.items === null) ? 0.0 : state.items.positiveRating;
-        },
+        // givePositiveRating: function (state) {
+        //     return (state.items === null) ? 0.0 : state.items.positiveRating;
+        // },
 
-        giveNegativeRating: function (state) {
-            return (state.items === null) ? 1.0 : state.items.negativeRating;
+        // giveNegativeRating: function (state) {
+        //     return (state.items === null) ? 1.0 : state.items.negativeRating;
+        // },
+
+        give: function (state) {
+            return state.items;
         },
 
     },
