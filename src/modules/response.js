@@ -531,7 +531,7 @@ export default {
         checker_rating_get: (context, payload) => {
 
             if (payload.success == 1) {
-                context.commit('checker_rating/update', payload.items, { root: true });
+                context.commit('chart_checker_rating/update', payload.items, { root: true });
             }
 
         },

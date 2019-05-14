@@ -48,8 +48,8 @@
             <thead>
               <tr>
                 <th class="td-owner text-center">{{ (language == 'RUS') ? 'Пользователь' : 'User' }}</th>
-                <th class="text-center">{{ (language == 'RUS') ? 'Рейтинг' : 'Rating' }}+</th>
-                <th class="text-center">{{ (language == 'RUS') ? 'Рейтинг' : 'Rating' }}-</th>
+                <th class="text-center">{{ (language == 'RUS') ? 'Рейтинг' : 'Rating' }} (+)</th>
+                <th class="text-center">{{ (language == 'RUS') ? 'Рейтинг' : 'Rating' }} (-)</th>
               </tr>
             </thead>
             <tbody>
@@ -58,8 +58,8 @@
                 :key="item.id"
               >
                 <td class="text-center">{{item.owner}}</td>
-                <td class="text-center">{{item.positiveRating}}</td>
-                <td class="text-center">{{item.negativeRating}}</td>
+                <td class="text-center">{{adoptPositiveRating(item.positiveRating)}}</td>
+                <td class="text-center">{{adoptNegativeRating(item.negativeRating)}}</td>
               </tr>
             </tbody>
           </table>
@@ -102,111 +102,23 @@ export default {
     },
 
     items: function () {
-      return this.$store.getters['chart_checked_drawings/give'];
+      return this.$store.getters['chart_checker_rating/give'];
     },
 
-    // users: function () {
-    //   return this.$store.getters['users/give'];
-    // },
 
-    // itemsForChart_1: function () {
-    //   return {
 
-    //     color: "red",
+  },
 
-    //     datasets: [
-    //       {
-    //         data: this.items.in.drawings.values,
-    //         label: 'Проверено чужих чертежей',
-    //         borderColor: "rgba(0, 0, 255, 0.5)",
-    //         fill: false,
-    //         pointBackgroundColor: "rgba(255,0,0,0.7)",
-    //       },
+  methods: {
 
-    //       {
-    //         data: this.items.in.mistakes.values,
-    //         label: 'Найдено чужих ошибок',
-    //         borderColor: "rgba(255, 0, 0, 0.5)",
-    //         fill: false,
-    //         pointBackgroundColor: "rgba(255,0,0,0.7)",
-    //       }
+    get: function () {
+      let queryObject = {
+        date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
+        date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
+      };
 
-    //     ],
-
-    //     labels: this.items.in.drawings.labels.map(function (value) {
-    //       return new Date(value * 1000);
-    //     }),
-
-    //   }
-    // },
-
-    // itemsForChart_2: function () {
-    //   return {
-
-    //     color: "red",
-
-    //     datasets: [
-    //       {
-    //         data: this.items.out.drawings.values,
-    //         label: 'Отправлено чертежей на проверку',
-    //         borderColor: "rgba(0, 0, 255, 0.5)",
-    //         fill: false,
-    //         pointBackgroundColor: "rgba(255,0,0,0.7)",
-    //       },
-
-    //       {
-    //         data: this.items.out.mistakes.values,
-    //         label: 'В них найдено ошибок',
-    //         borderColor: "rgba(255, 0, 0, 0.5)",
-    //         fill: false,
-    //         pointBackgroundColor: "rgba(255,0,0,0.7)",
-    //       }
-
-    //     ],
-
-    //     labels: this.items.out.drawings.labels.map(function (value) {
-    //       return new Date(value * 1000);
-    //     }),
-
-    //   }
-    // },
-
-    // itemsForChart_3: function () {
-    //   return {
-    //     datasets: [{
-
-    //       data: this.items.in.distribution.values,
-
-    //       backgroundColor: this.items.in.distribution.labels.map(function () {
-    //         return this.getRandomColor();
-    //       }, this),
-
-    //     }],
-
-    //     labels: this.items.in.distribution.labels.map(function (id) {
-    //       return this.getSurnameAndNameOfUserById(id);
-    //     }, this),
-
-    //   }
-    // },
-
-    // itemsForChart_4: function () {
-    //   return {
-    //     datasets: [{
-
-    //       data: this.items.out.distribution.values,
-
-    //       backgroundColor: this.items.out.distribution.labels.map(function () {
-    //         return this.getRandomColor();
-    //       }, this),
-
-    //     }],
-
-    //     labels: this.items.out.distribution.labels.map(function (id) {
-    //       return this.getSurnameAndNameOfUserById(id);
-    //     }, this),
-    //   }
-    // },
+      this.$store.dispatch('chart_checker_rating/get', queryObject);
+    },
 
     adoptPositiveRating: function (r) {
       return (r * 10).toFixed(2);
@@ -215,55 +127,6 @@ export default {
     adoptNegativeRating: function (r) {
       return ((1 - r) * 10).toFixed(2);
     },
-
-  },
-
-  methods: {
-
-    // getUsers: function () {
-    //   this.$store.dispatch('users/get', {});
-    // },
-
-    get: function () {
-      let queryObject = {
-        file_regular_expression: this.fileRegExp,
-        user_id: this.userId,
-        interval: this.interval,
-        date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
-        date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
-      };
-
-      this.$store.dispatch('chart_checked_drawings/get', queryObject);
-    },
-
-    getRandomColor: function () {
-      var letters = '0123456789ABCDEF'.split('');
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    },
-
-    getSurnameAndNameOfUserById: function (id) {
-
-      let filteredUsers = this.users.filter(function (obj) {
-        return obj.id == id;
-      }, this);
-
-      return (filteredUsers.length > 0) ? (filteredUsers[0].surname + ' ' + filteredUsers[0].name) : id;
-    },
-
-    testRating: function () {
-      let queryObject = {
-        user_id: this.userId,
-        date1: (this.startDate == null) ? "" : Math.round(this.startDate.getTime() / 1000),
-        date2: (this.endDate == null) ? "" : Math.round(this.endDate.getTime() / 1000)
-      };
-
-      this.$store.dispatch('checker_rating/get', queryObject);
-    },
-
 
   }
 
