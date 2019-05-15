@@ -21,7 +21,7 @@ let getRusText = function (code) {
         case 102:
             return {
                 title: "Ошибка авторизации - 102",
-                text: "Истек срок действия токена",
+                text: "Истек срок авторизации",
                 type: "error"
             }
 
@@ -531,7 +531,7 @@ let getEngText = function (code) {
         case 102:
             return {
                 title: "Authentication Error - 102",
-                text: "Token is expired",
+                text: "Authentication is expired",
                 type: "error"
             }
 

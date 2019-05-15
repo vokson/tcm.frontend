@@ -32,17 +32,37 @@
             class="btn btn-block btn-success"
             v-on:click="get"
           >
-            {{ (language == 'RUS') ? 'Получить данные' : 'Get data' }}
+            {{ (language == 'RUS') ? 'Получить данные (это не быстро)' : 'Get data (not fast)' }}
           </button>
         </div>
 
       </div>
 
-      <div
-        class="col-9"
-        v-if="items !== null"
-      >
+      <div class="col-9">
+
+        <div class="row rating-description">
+          Рейтинг разделен на позитивный и негативный. Позитивный рейтинг R(+) отражает % чертежей, получивший
+          одобрение с первого раза, по 10-ти балльной шкале. Негативный рейтинг сильно сложнее. Он рассчитывается
+          следующим образом. Исходя из статистики по всем пользователям за все время, находим кол-во ошибок, более которого
+          пользователи не совершают с вероятностью {{ (settingRatingMistakeProbability*100).toFixed() }}%.
+          На данный момент данное кол-во ошибок Emax = {{ settingRatingMistakeCount }}. Далее для
+          каждого пользователя находим все значения Ei количества ошибок, которые он получил за выбранный перииод
+          от других пользователей. Находим рейтинг по каждому значению Rui = min(Ei/Emax; 1.0). Rui представляют
+          собой числа от 0.0 до 1.0. Далее находим суммарный рейтинг R по формуле при Rq = {{ settingRatingInitialValue}}
+        </div>
+
         <div class="row">
+          <a href="https://yandex.ru/support/partnermarket/calculate.html">https://yandex.ru/support/partnermarket/calculate.html</a>
+        </div>
+
+        <div class="row">
+          Окончательно рейтинг по 10-ти балльной шкале R(-) = (1-R)*10
+        </div>
+
+        <div
+          class="row"
+          v-if="items !== null"
+        >
 
           <table class="table table-striped">
             <thead>
@@ -89,7 +109,12 @@ export default {
     }
   },
 
-  mounted: function () { },
+  mounted: function () {
+    this.$nextTick(function () {
+      this.getSettings();
+    })
+
+  },
 
   computed: {
     language: function () {
@@ -105,7 +130,30 @@ export default {
       return this.$store.getters['chart_checker_rating/give'];
     },
 
+    settings: function () {
+      let elems = this.$store.getters['setting/give']
 
+      if (elems === null) return null;
+
+      let obj = {};
+      elems.map((e) => {
+        obj[e.name] = e.value;
+      });
+
+      return obj;
+    },
+
+    settingRatingMistakeCount: function () {
+      return (this.settings == null) ? null : Number(this.settings['RATING_MISTAKE_COUNT']);
+    },
+
+    settingRatingMistakeProbability: function () {
+      return (this.settings == null) ? null : Number(this.settings['RATING_MISTAKE_PROBABILITY']);
+    },
+
+    settingRatingInitialValue: function () {
+      return (this.settings == null) ? null : Number(this.settings['RATING_INITIAL_VALUE']);
+    }
 
   },
 
@@ -118,6 +166,10 @@ export default {
       };
 
       this.$store.dispatch('chart_checker_rating/get', queryObject);
+    },
+
+    getSettings: function () {
+      this.$store.dispatch('setting/get');
     },
 
     adoptPositiveRating: function (r) {
@@ -154,5 +206,9 @@ export default {
 
 .rating-text {
   text-align: center;
+}
+
+.rating-description {
+  text-align: justify;
 }
 </style>
