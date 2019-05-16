@@ -15,6 +15,8 @@ import TitlesChart from './views/TitlesChart.vue'
 import TitleStatusChart from './views/TitleStatusChart.vue'
 import FileStorageChart from './views/FileStorageChart.vue'
 import TqStatisticChart from './views/TqStatisticChart.vue'
+import CheckedDrawingsChart from './views/CheckedDrawingsChart.vue'
+import CheckerRatingChart from './views/CheckerRatingChart.vue'
 import Checker from './views/Checker.vue'
 import Sender from './views/Sender.vue'
 import MergePdf from './views/MergePdf.vue'
@@ -121,6 +123,17 @@ export default new Router({
             component: TqStatisticChart
         },
 
+        {
+            path: '/stat/chart/checked/drawings',
+            name: 'chart_checked_drawings',
+            component: CheckedDrawingsChart
+        },
+
+        {
+            path: '/stat/chart/checker/rating',
+            name: 'chart_checker_rating',
+            component: CheckerRatingChart
+        },
 
         {
             path: '/stat/chart/storage',

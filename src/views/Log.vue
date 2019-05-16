@@ -583,6 +583,7 @@ export default {
     },
 
     getItems: function () {
+
       let queryObject = {
         to: this.search.to,
         from: this.search.from,
@@ -822,6 +823,7 @@ export default {
     },
 
     wordToBeAddedOnChange: function () {
+      // console.log('HERE');
       this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
     },
 

@@ -22,6 +22,14 @@
         <h4>{{ (language == 'RUS') ? 'TQ статистика' : 'TQ statistic' }}</h4>
       </b-nav-item>
 
+      <b-nav-item :to="{ name: 'chart_checked_drawings' }">
+        <h4>{{ (language == 'RUS') ? 'Статистика по проверенным чертежам' : 'Statistic of checked drawings' }}</h4>
+      </b-nav-item>
+
+      <b-nav-item :to="{ name: 'chart_checker_rating' }">
+        <h4>{{ (language == 'RUS') ? 'Рейтинги из Проверяшки' : 'Ratings from Checker' }}</h4>
+      </b-nav-item>
+
       <br />
 
       <b-nav-item :to="{ name: 'chart_file_storage' }">

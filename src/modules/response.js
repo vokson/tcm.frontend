@@ -138,11 +138,19 @@ export default {
                         context.dispatch("storage_chart_get", payload);
                         break;
 
+                    case "checked_drawings_chart_get":
+                        context.dispatch("checked_drawings_chart_get", payload);
+                        break;
+
                     case "checker_get":
                         context.dispatch("checker_get", payload);
                         break;
                     case "checker_delete":
                         context.dispatch("checker_delete", payload);
+                        break;
+
+                    case "checker_rating_get":
+                        context.dispatch("checker_rating_get", payload);
                         break;
 
                     case "checker_file_upload":
@@ -495,6 +503,14 @@ export default {
 
         },
 
+        checked_drawings_chart_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_checked_drawings/update', payload.items, { root: true });
+            }
+
+        },
+
         checker_get: (context, payload) => {
 
             if (payload.success == 1) {
@@ -508,6 +524,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_002", { root: true })
                 context.dispatch('checker/getItems', context.rootGetters['checker/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        checker_rating_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('chart_checker_rating/update', payload.items, { root: true });
             }
 
         },

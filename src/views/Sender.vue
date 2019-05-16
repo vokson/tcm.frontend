@@ -98,6 +98,7 @@
             v-on:click="downloadAllFiles"
           >
             {{ (language == 'RUS') ? 'Скачать все файлы' : 'Download all files' }}
+            <span class="badge badge-light">{{countOfFiles}}</span>
           </button>
 
         </div>
@@ -291,8 +292,8 @@ export default {
       return this.$store.getters['sender/giveFile'];
     },
 
-    countOfItems: function () {
-      return (this.items == null) ? 0 : this.items.length;
+    countOfFiles: function () {
+      return (this.files == null) ? 0 : this.files.length;
     },
 
     attachedFiles: function () {

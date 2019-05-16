@@ -20,6 +20,8 @@ import chart_created_titles from "./modules/chart_created_titles";
 import chart_file_storage from "./modules/chart_file_storage";
 import chart_title_status from "./modules/chart_title_status";
 import chart_tq_status from "./modules/chart_tq_status";
+import chart_checked_drawings from "./modules/chart_checked_drawings";
+import chart_checker_rating from "./modules/chart_checker_rating";
 import checker from "./modules/checker";
 import checker_file from "./modules/checker_file";
 import sender from "./modules/sender";
@@ -97,6 +99,8 @@ export default new Vuex.Store({
     chart_title_status,
     chart_tq_status,
     chart_file_storage,
+    chart_checked_drawings,
+    chart_checker_rating,
     checker,
     checker_file,
     sender,

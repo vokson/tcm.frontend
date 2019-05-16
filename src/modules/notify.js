@@ -21,7 +21,7 @@ let getRusText = function (code) {
         case 102:
             return {
                 title: "Ошибка авторизации - 102",
-                text: "Истек срок действия токена",
+                text: "Истек срок авторизации",
                 type: "error"
             }
 
@@ -417,6 +417,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_LOG_003":
+            return {
+                text: "Уточните запрос для поиска",
+                type: "warning"
+            }
+
         case "E_TITLE_001":
             return {
                 text: "Титул сохранен",
@@ -525,7 +531,7 @@ let getEngText = function (code) {
         case 102:
             return {
                 title: "Authentication Error - 102",
-                text: "Token is expired",
+                text: "Authentication is expired",
                 type: "error"
             }
 
@@ -918,6 +924,12 @@ let getEngText = function (code) {
             return {
                 text: "Log has been deleted",
                 type: "success"
+            }
+
+        case "E_LOG_003":
+            return {
+                text: "Please, input something as search query",
+                type: "warning"
             }
 
         case "E_TITLE_001":

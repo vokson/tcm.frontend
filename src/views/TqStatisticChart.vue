@@ -268,7 +268,7 @@ export default {
           borderColor: "rgba(0,255,0,0.8)",
           pointBackgroundColor: "rgba(255,0,0,0.7)",
           backgroundColor: "rgba(255,255,0,0.2)",
-          label: 'Approved without chnages / Согласовано без изменений',
+          label: 'Approved without changes / Согласовано без изменений',
           data: this.items.days.approvedWithoutChanges,
         },]
       }

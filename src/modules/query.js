@@ -46,9 +46,12 @@ let urls = {
     titles_status_chart_get: "charts/titles/status/get",
     tq_status_chart_get: "charts/tq/status/get",
     storage_chart_get: "charts/storage/get",
+    checked_drawings_chart_get: "charts/checked/drawings/get",
 
     checker_get: "/checker/get",
     checker_delete: "/checker/delete",
+
+    checker_rating_get: "/checker/rating/get",
 
     checker_file_upload: "/checker/file/upload",
     checker_file_download: "/checker/file/download",
