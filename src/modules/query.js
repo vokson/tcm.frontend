@@ -138,6 +138,7 @@ export default {
             })
                 .then(responseFunction)
                 .catch(function (error) {
+                    console.log(error);
                     context.dispatch('notify/showNotifyByCode', 601, { root: true })
                 });
         },
