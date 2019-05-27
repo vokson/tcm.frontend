@@ -205,6 +205,10 @@ export default {
                         context.dispatch("merge_pdf_set_main_name", payload);
                         break;
 
+                    case "user_settings_get":
+                        context.dispatch("user_settings_get", payload);
+                        break;
+
 
 
                     default:
@@ -649,6 +653,14 @@ export default {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true });
                 context.commit('pdf_merge_file/uploadSuccess', payload, { root: true });
                 context.dispatch('pdf_merge/getItems', {}, { root: true });
+            }
+
+        },
+
+        user_settings_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('user_settings/update', payload.items, { root: true });
             }
 
         },

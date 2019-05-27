@@ -94,6 +94,38 @@
 
     <div class="container">
       <div class="row">
+        <h5 v-if="language === 'RUS'">Ваши настройки</h5>
+        <h5 v-else-if="language === 'ENG'">Your settings</h5>
+      </div>
+
+      <div class="row">
+        <div class="col-8">
+          <p v-if="language === 'RUS'">Отправлять уведомления из Отправки:</p>
+          <p v-else-if="language === 'ENG'">Send notifications from Sender:</p>
+        </div>
+
+        <div class="col-2">
+          <a
+            href="#"
+            v-on:click="switchUserSetting('SEND_NOTIFICATION_FROM_SENDER')"
+          >
+            <div
+              v-if="getUserSetting('SEND_NOTIFICATION_FROM_SENDER') === true"
+              class="green-text"
+            >YES</div>
+            <div
+              v-else
+              class="red-text"
+            >NO</div>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="container">
+      <div class="row">
         <h5 v-if="language === 'RUS'">Сменить пароль (не менее 4-х символов, без пробелов)</h5>
         <h5 v-else-if="language === 'ENG'">Change password (not less than 4 symbols, without spaces)</h5>
       </div>
@@ -673,6 +705,8 @@ export default {
       return this.$store.state.user.role;
     },
 
+
+
   },
 
   watch: {
@@ -687,6 +721,14 @@ export default {
       this.$store.dispatch('auth/changePassword', {
         new_password: window.$sha256(this.new_password_1)
       });
+    },
+
+    getUserSetting: function (nameOfSetting) {
+      return this.$store.getters['user_settings/give'](nameOfSetting);
+    },
+
+    switchUserSetting: function (nameOfSetting) {
+
     },
   }
 
