@@ -6,8 +6,15 @@ export default {
     },
 
     getters: {
-        give: function (state, nameOfSetting) {
-            return (state.items[nameOfSetting] === null) ? null : state.items.[nameOfSetting];
+        // give: function (state, nameOfSetting) {
+        //     if (state.items === null) {
+        //         return null;
+        //     }
+
+        //     return (state.items[nameOfSetting] === null) ? null : state.items[nameOfSetting];
+        // }
+        give: function (state) {
+            return state.items;
         }
     },
 
@@ -19,7 +26,7 @@ export default {
 
     actions: {
 
-        get: (context, payload) => {
+        get: (context) => {
 
             let parameters = {
                 queryName: "user_settings_get",
@@ -29,13 +36,25 @@ export default {
             context.dispatch('query/send', parameters, { root: true })
         },
 
-        switch: (context, payload) => {
+        // switch: (context, payload) => {
+
+        //     let parameters = {
+        //         queryName: "user_settings_switch",
+        //         data: {
+        //             name: payload.name,
+        //             value: payload.value
+        //         },
+        //     };
+
+        //     context.dispatch('query/send', parameters, { root: true })
+        // },
+
+        set: (context) => {
 
             let parameters = {
-                queryName: "user_settings_switch",
+                queryName: "user_settings_set",
                 data: {
-                    name: payload.name,
-                    value: payload.value
+                    items: context.state.items
                 },
             };
 

@@ -209,6 +209,10 @@ export default {
                         context.dispatch("user_settings_get", payload);
                         break;
 
+                    case "user_settings_set":
+                        context.dispatch("user_settings_set", payload);
+                        break;
+
 
 
                     default:
@@ -661,6 +665,14 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('user_settings/update', payload.items, { root: true });
+            }
+
+        },
+
+        user_settings_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
             }
 
         },

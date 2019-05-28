@@ -99,25 +99,44 @@
       </div>
 
       <div class="row">
-        <div class="col-8">
-          <p v-if="language === 'RUS'">Отправлять уведомления из Отправки:</p>
-          <p v-else-if="language === 'ENG'">Send notifications from Sender:</p>
+
+        <div
+          v-for="item in settings"
+          :key="item.name"
+          class="row align-items-center"
+        >
+
+          <div class="col-9">
+            <p>{{ item.name}}</p>
+          </div>
+          <div class="col-3">
+            <input
+              type="text"
+              class="form-control"
+              v-model="item.value"
+            >
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            v-on:click="getUserSettings"
+          >Refresh</button>
         </div>
 
         <div class="col-2">
-          <a
-            href="#"
-            v-on:click="switchUserSetting('SEND_NOTIFICATION_FROM_SENDER')"
-          >
-            <div
-              v-if="getUserSetting('SEND_NOTIFICATION_FROM_SENDER') === true"
-              class="green-text"
-            >YES</div>
-            <div
-              v-else
-              class="red-text"
-            >NO</div>
-          </a>
+          <button
+            type="button"
+            class="btn btn-danger"
+            v-on:click="setUserSettings"
+          >Save</button>
         </div>
 
       </div>
@@ -670,6 +689,10 @@ export default {
 
   mounted: function () {
     this.choose_language = this.$store.state.language;
+
+    this.$nextTick(function () {
+      this.getUserSettings();
+    })
   },
 
   computed: {
@@ -705,7 +728,9 @@ export default {
       return this.$store.state.user.role;
     },
 
-
+    settings: function () {
+      return this.$store.getters['user_settings/give'];
+    }
 
   },
 
@@ -723,13 +748,14 @@ export default {
       });
     },
 
-    getUserSetting: function (nameOfSetting) {
-      return this.$store.getters['user_settings/give'](nameOfSetting);
+    getUserSettings: function () {
+      this.$store.dispatch('user_settings/get');
     },
 
-    switchUserSetting: function (nameOfSetting) {
-
+    setUserSettings: function () {
+      this.$store.dispatch('user_settings/set');
     },
+
   }
 
 };

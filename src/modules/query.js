@@ -77,6 +77,7 @@ let urls = {
     merge_pdf_file_download: "/merge/pdf/file/download",
 
     user_settings_get: "/settings/user/get",
+    user_settings_set: "/settings/user/set",
 };
 
 export default {
