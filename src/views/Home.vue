@@ -98,25 +98,29 @@
         <h5 v-else-if="language === 'ENG'">Your settings</h5>
       </div>
 
-      <div class="row">
+      <div
+        v-for="item in settings"
+        :key="item.name"
+        class="row"
+      >
 
-        <div
-          v-for="item in settings"
-          :key="item.name"
-          class="row align-items-center"
-        >
-
-          <div class="col-9">
-            <p>{{ item.name}}</p>
-          </div>
-          <div class="col-3">
-            <input
-              type="text"
-              class="form-control"
-              v-model="item.value"
-            >
-          </div>
-
+        <div class="col-6">
+          <p v-if="language === 'RUS'">{{ item.description_RUS}}</p>
+          <p v-if="language === 'ENG'">{{ item.description_ENG}}</p>
+        </div>
+        <div class="col-3">
+          <input
+            v-if="item.is_switchable == 0"
+            type="text"
+            class="form-control"
+            v-model="item.value"
+          >
+          <input
+            v-if="item.is_switchable == 1"
+            type="checkbox"
+            class="form-check-input user_setting_checkbox"
+            v-model="item.value"
+          >
         </div>
 
       </div>
@@ -128,15 +132,21 @@
             type="button"
             class="btn btn-primary"
             v-on:click="getUserSettings"
-          >Refresh</button>
+          >
+            <div v-if="language === 'RUS'">Обновить</div>
+            <div v-if="language === 'ENG'">Refresh</div>
+          </button>
         </div>
 
-        <div class="col-2">
+        <div class="col-1">
           <button
             type="button"
             class="btn btn-danger"
             v-on:click="setUserSettings"
-          >Save</button>
+          >
+            <div v-if="language === 'RUS'">Сохранить</div>
+            <div v-if="language === 'ENG'">Save</div>
+          </button>
         </div>
 
       </div>
@@ -226,6 +236,15 @@
       </div>
 
       <div class="row actual_version_color">
+        <div class="col-1">
+          <p>1.32.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены пользовательские настройки в Начало, возможность отправки уведомлений и Отправки на электронную почту</p>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-1">
           <p>1.31.0</p>
         </div>
@@ -683,7 +702,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.31.0'
+      version: '1.32.0'
     };
   },
 
@@ -768,5 +787,9 @@ export default {
 
 .actual_version_color {
   color: red;
+}
+
+.user_setting_checkbox {
+  vertical-align: middle;
 }
 </style>

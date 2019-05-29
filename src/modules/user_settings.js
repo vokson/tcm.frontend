@@ -6,13 +6,7 @@ export default {
     },
 
     getters: {
-        // give: function (state, nameOfSetting) {
-        //     if (state.items === null) {
-        //         return null;
-        //     }
 
-        //     return (state.items[nameOfSetting] === null) ? null : state.items[nameOfSetting];
-        // }
         give: function (state) {
             return state.items;
         }
@@ -20,7 +14,14 @@ export default {
 
     mutations: {
         update: function (state, data) {
-            state.items = data;
+            // Замена 0, 1 на true, false
+            // иначе Checkbox в Home не работает
+            state.items = data.map(function (item) {
+                if (item.is_switchable == 1) {
+                    item.value = (item.value == 1) ? true : false;
+                }
+                return item;
+            });
         },
     },
 
@@ -35,19 +36,6 @@ export default {
 
             context.dispatch('query/send', parameters, { root: true })
         },
-
-        // switch: (context, payload) => {
-
-        //     let parameters = {
-        //         queryName: "user_settings_switch",
-        //         data: {
-        //             name: payload.name,
-        //             value: payload.value
-        //         },
-        //     };
-
-        //     context.dispatch('query/send', parameters, { root: true })
-        // },
 
         set: (context) => {
 
