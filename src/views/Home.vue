@@ -94,6 +94,67 @@
 
     <div class="container">
       <div class="row">
+        <h5 v-if="language === 'RUS'">Ваши настройки</h5>
+        <h5 v-else-if="language === 'ENG'">Your settings</h5>
+      </div>
+
+      <div
+        v-for="item in settings"
+        :key="item.name"
+        class="row"
+      >
+
+        <div class="col-6">
+          <p v-if="language === 'RUS'">{{ item.description_RUS}}</p>
+          <p v-if="language === 'ENG'">{{ item.description_ENG}}</p>
+        </div>
+        <div class="col-3">
+          <input
+            v-if="item.is_switchable == 0"
+            type="text"
+            class="form-control"
+            v-model="item.value"
+          >
+          <input
+            v-if="item.is_switchable == 1"
+            type="checkbox"
+            class="form-check-input user_setting_checkbox"
+            v-model="item.value"
+          >
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            v-on:click="getUserSettings"
+          >
+            <div v-if="language === 'RUS'">Обновить</div>
+            <div v-if="language === 'ENG'">Refresh</div>
+          </button>
+        </div>
+
+        <div class="col-1">
+          <button
+            type="button"
+            class="btn btn-danger"
+            v-on:click="setUserSettings"
+          >
+            <div v-if="language === 'RUS'">Сохранить</div>
+            <div v-if="language === 'ENG'">Save</div>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="container">
+      <div class="row">
         <h5 v-if="language === 'RUS'">Сменить пароль (не менее 4-х символов, без пробелов)</h5>
         <h5 v-else-if="language === 'ENG'">Change password (not less than 4 symbols, without spaces)</h5>
       </div>
@@ -175,6 +236,15 @@
       </div>
 
       <div class="row actual_version_color">
+        <div class="col-1">
+          <p>1.32.0</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены пользовательские настройки в Начало, возможность отправки уведомлений и Отправки на электронную почту</p>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-1">
           <p>1.31.0</p>
         </div>
@@ -632,12 +702,16 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.31.0'
+      version: '1.32.0'
     };
   },
 
   mounted: function () {
     this.choose_language = this.$store.state.language;
+
+    this.$nextTick(function () {
+      this.getUserSettings();
+    })
   },
 
   computed: {
@@ -673,6 +747,10 @@ export default {
       return this.$store.state.user.role;
     },
 
+    settings: function () {
+      return this.$store.getters['user_settings/give'];
+    }
+
   },
 
   watch: {
@@ -688,6 +766,15 @@ export default {
         new_password: window.$sha256(this.new_password_1)
       });
     },
+
+    getUserSettings: function () {
+      this.$store.dispatch('user_settings/get');
+    },
+
+    setUserSettings: function () {
+      this.$store.dispatch('user_settings/set');
+    },
+
   }
 
 };
@@ -700,5 +787,9 @@ export default {
 
 .actual_version_color {
   color: red;
+}
+
+.user_setting_checkbox {
+  vertical-align: middle;
 }
 </style>

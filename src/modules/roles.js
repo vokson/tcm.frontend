@@ -1,11 +1,10 @@
 let guest = [
-    '/home',
     '/login',
-    '/',
-    '/pdf_merge'
 ];
 
 let engineer = [
+    '/',
+    '/home',
     '/log',
     '/title',
     '/news',
@@ -19,6 +18,7 @@ let engineer = [
     '/checker',
     '/stat/chart/storage',
     '/sender',
+    '/pdf_merge'
 
 ];
 
