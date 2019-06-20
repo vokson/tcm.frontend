@@ -237,6 +237,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.32.2</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены шаблоны для архитектуры и КИП в статистику по записям ЛОГ и титулам</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.32.1</p>
         </div>
         <div class="col-4">
@@ -711,7 +720,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.32.1'
+      version: '1.32.2'
     };
   },
 
