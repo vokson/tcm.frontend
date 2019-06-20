@@ -90,6 +90,12 @@
         </div>
         <div class="row">
           <a
+            v-on:click='setRegExpToAR'
+            href="#"
+          > AR* </a>
+        </div>
+        <div class="row">
+          <a
             v-on:click='setRegExpToNVK'
             href="#"
           > NVK* </a>
@@ -106,6 +112,14 @@
             href="#"
           > ER*, ES* </a>
         </div>
+
+        <div class="row">
+          <a
+            v-on:click='setRegExpToPS'
+            href="#"
+          > PS*, AK* </a>
+        </div>
+
         <div class="row">
           <a
             v-on:click='setRegExpToTQ'
@@ -272,6 +286,10 @@ export default {
       this.regExp = '/.*[-]{1}KJ[\\d]*\\.RR$/';
     },
 
+    setRegExpToAR: function () {
+      this.regExp = '/.*[-]{1}AR[\\d]*$/';
+    },
+
     setRegExpToNVK: function () {
       this.regExp = '/.*[-]{1}NVK[\\d]*$/';
     },
@@ -283,6 +301,11 @@ export default {
     setRegExpToER: function () {
       this.regExp = '/.*[-]{1}(ER|ES){1}[\\d]*$/';
     },
+
+    setRegExpToPS: function () {
+      this.regExp = '/.*[-]{1}(PS|AK){1}[\\d]*$/';
+    },
+
 
     setRegExpToTQ: function () {
       this.regExp = '/^TQ.*/';
