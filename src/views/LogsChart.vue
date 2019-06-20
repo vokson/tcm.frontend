@@ -78,7 +78,7 @@
           <a
             v-on:click='setRegExpToAR'
             href="#"
-          > AR*.RR </a>
+          > AR* </a>
         </div>
         <div class="row">
           <a
