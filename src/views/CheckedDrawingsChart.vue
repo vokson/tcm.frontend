@@ -235,6 +235,14 @@ export default {
             borderColor: "rgba(255, 0, 0, 0.5)",
             fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
+          },
+
+          {
+            data: this.divideOneArrayTwoSecond(this.items.in.mistakes.values, this.items.in.drawings.values, 10),
+            label: 'Ошибки/Чертежи',
+            borderColor: "rgba(0, 255, 0, 0.5)",
+            fill: false,
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
           }
 
         ],
@@ -264,6 +272,14 @@ export default {
             data: this.items.out.mistakes.values,
             label: 'В них найдено ошибок',
             borderColor: "rgba(255, 0, 0, 0.5)",
+            fill: false,
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
+          },
+
+          {
+            data: this.divideOneArrayTwoSecond(this.items.out.mistakes.values, this.items.out.drawings.values, 10),
+            label: 'Ошибки/Чертежи',
+            borderColor: "rgba(0, 255, 0, 0.5)",
             fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
           }
@@ -312,9 +328,10 @@ export default {
           return this.getSurnameAndNameOfUserById(id);
         }, this),
       }
-    },
-
+    }
   },
+
+
 
   methods: {
 
@@ -352,7 +369,26 @@ export default {
       return (filteredUsers.length > 0) ? (filteredUsers[0].surname + ' ' + filteredUsers[0].name) : id;
     },
 
-  }
+    divideOneArrayTwoSecond: function (arr1, arr2, mult) {
+
+      // console.log(arr1);
+
+      let result = arr1.slice();
+
+      for (let i = 0; i < result.length; i++) {
+        if (arr2[i] === 0) {
+          result[i] = 0;
+        } else {
+          result[i] = result[i] / arr2[i] * mult;
+        }
+      }
+
+      return result;
+
+    }
+
+  },
+
 
 
 };
