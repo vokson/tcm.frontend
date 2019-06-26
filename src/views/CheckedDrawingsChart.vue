@@ -110,6 +110,15 @@
         <div class="row">
           <div class="checked-drawings-line-chart">
             <line-chart
+              :chart-data="itemsForChart_5"
+              :options="optionsForLineChart"
+            ></line-chart>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="checked-drawings-line-chart">
+            <line-chart
               :chart-data="itemsForChart_2"
               :options="optionsForLineChart"
             ></line-chart>
@@ -122,6 +131,15 @@
               :chart-data="itemsForChart_4"
               :options="optionsForDoughnutChart"
             ></doughnut-chart>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="checked-drawings-line-chart">
+            <line-chart
+              :chart-data="itemsForChart_6"
+              :options="optionsForLineChart"
+            ></line-chart>
           </div>
         </div>
 
@@ -235,14 +253,6 @@ export default {
             borderColor: "rgba(255, 0, 0, 0.5)",
             fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
-          },
-
-          {
-            data: this.divideOneArrayTwoSecond(this.items.in.mistakes.values, this.items.in.drawings.values, 10),
-            label: 'Ошибки/Чертежи',
-            borderColor: "rgba(0, 255, 0, 0.5)",
-            fill: false,
-            pointBackgroundColor: "rgba(255,0,0,0.7)",
           }
 
         ],
@@ -272,14 +282,6 @@ export default {
             data: this.items.out.mistakes.values,
             label: 'В них найдено ошибок',
             borderColor: "rgba(255, 0, 0, 0.5)",
-            fill: false,
-            pointBackgroundColor: "rgba(255,0,0,0.7)",
-          },
-
-          {
-            data: this.divideOneArrayTwoSecond(this.items.out.mistakes.values, this.items.out.drawings.values, 10),
-            label: 'Ошибки/Чертежи',
-            borderColor: "rgba(0, 255, 0, 0.5)",
             fill: false,
             pointBackgroundColor: "rgba(255,0,0,0.7)",
           }
@@ -328,7 +330,55 @@ export default {
           return this.getSurnameAndNameOfUserById(id);
         }, this),
       }
-    }
+    },
+
+    itemsForChart_5: function () {
+      return {
+
+        color: "red",
+
+        datasets: [
+          {
+            data: this.divideOneArrayTwoSecond(this.items.in.mistakes.values, this.items.in.drawings.values),
+            label: 'Ошибки/Чертежи',
+            borderColor: "rgba(0, 255, 0, 0.5)",
+            fill: false,
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
+          }
+
+        ],
+
+        labels: this.items.in.drawings.labels.map(function (value) {
+          return new Date(value * 1000);
+        }),
+
+      }
+    },
+
+    itemsForChart_6: function () {
+      return {
+
+        color: "red",
+
+        datasets: [
+          {
+            data: this.divideOneArrayTwoSecond(this.items.out.mistakes.values, this.items.out.drawings.values),
+            label: 'Ошибки/Чертежи',
+            borderColor: "rgba(0, 255, 0, 0.5)",
+            fill: false,
+            pointBackgroundColor: "rgba(255,0,0,0.7)",
+          }
+
+        ],
+
+        labels: this.items.in.drawings.labels.map(function (value) {
+          return new Date(value * 1000);
+        }),
+
+      }
+    },
+
+
   },
 
 
@@ -369,7 +419,7 @@ export default {
       return (filteredUsers.length > 0) ? (filteredUsers[0].surname + ' ' + filteredUsers[0].name) : id;
     },
 
-    divideOneArrayTwoSecond: function (arr1, arr2, mult) {
+    divideOneArrayTwoSecond: function (arr1, arr2) {
 
       // console.log(arr1);
 
@@ -379,7 +429,7 @@ export default {
         if (arr2[i] === 0) {
           result[i] = 0;
         } else {
-          result[i] = result[i] / arr2[i] * mult;
+          result[i] = result[i] / arr2[i];
         }
       }
 
