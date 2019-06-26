@@ -237,6 +237,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.33.0</p>
+        </div>
+        <div class="col-4">
+          <p>В статистику по проверенным чертежам добавлены графики Ошибки/Чертежи. Поиск в Проверяшке теперь выполняется по дате обновления чертежа.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.32.2</p>
         </div>
         <div class="col-4">
@@ -720,7 +729,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.32.2'
+      version: '1.33.0'
     };
   },
 
