@@ -244,7 +244,7 @@
         </div>
       </div>
 
-      <div class="row actual_version_color">
+      <div class="row">
         <div class="col-1">
           <p>1.33.0</p>
         </div>
