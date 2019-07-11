@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class='volgafert-background-color'>
     <notifications group="notify-group" />
 
     <b-nav tabs>
@@ -100,5 +100,8 @@ export default {
 <style>
 .red-text {
   color: orange !important;
+}
+.volgafert-background-color {
+  color: green;
 }
 </style>
