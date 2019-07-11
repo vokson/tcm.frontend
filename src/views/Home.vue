@@ -6,10 +6,10 @@
         <div class='col-8'>
           <div class='row'>
             <div class="col">
-              <h3 v-if="language === 'RUS'">Проектный офис АГПЗ
+              <h3 v-if="language === 'RUS'">Проектный офис Волгаферт
                 <span class="actual_version_color">(v.{{version}})</span>
               </h3>
-              <h3 v-else-if="language === 'ENG'">AGPP Design Office
+              <h3 v-else-if="language === 'ENG'">Volgafert Design Office
                 <span class="actual_version_color">(v.{{version}})</span>
               </h3>
             </div>

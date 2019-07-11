@@ -1,8 +1,11 @@
 <template>
-  <div id="app" class='volgafert-background-color'>
+  <div id="app">
     <notifications group="notify-group" />
 
-    <b-nav tabs>
+    <b-nav
+      tabs
+      class='bg-light'
+    >
       <b-nav-item :to="{ name: 'home' }">{{ (language == 'RUS') ? 'Начало' : 'Home' }}</b-nav-item>
       <b-nav-item :to="{ name: 'login' }">{{ (language == 'RUS') ? 'Вход' : 'Login' }}</b-nav-item>
       <b-nav-item :to="{ name: 'log' }">{{ (language == 'RUS') ? 'Лог' : 'Log' }}</b-nav-item>
@@ -100,8 +103,5 @@ export default {
 <style>
 .red-text {
   color: orange !important;
-}
-.volgafert-background-color {
-  color: green;
 }
 </style>
