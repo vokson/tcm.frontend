@@ -213,6 +213,10 @@ export default {
                         context.dispatch("user_settings_set", payload);
                         break;
 
+                    case "task_create":
+                        context.dispatch("task_create", payload);
+                        break;
+
 
 
                     default:
@@ -673,6 +677,15 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
+            }
+
+        },
+
+        task_create: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_LOG_004", { root: true })
+                context.dispatch('log/getItems', context.rootGetters['log/givePreviousSearch'], { root: true });
             }
 
         },

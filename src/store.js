@@ -29,6 +29,7 @@ import sender_file from "./modules/sender_file";
 import pdf_merge from "./modules/pdf_merge";
 import pdf_merge_file from "./modules/pdf_merge_file";
 import user_settings from "./modules/user_settings";
+import task from "./modules/task";
 
 Vue.use(Vuex)
 
@@ -108,6 +109,7 @@ export default new Vuex.Store({
     sender_file,
     pdf_merge,
     pdf_merge_file,
-    user_settings
+    user_settings,
+    task
   }
 });

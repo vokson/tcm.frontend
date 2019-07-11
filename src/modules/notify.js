@@ -306,6 +306,20 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 611:
+            return {
+                title: "Ошибка Файловой Системы - 611",
+                text: "Не удалось создать папку для задачи",
+                type: "error"
+            }
+
+        case 612:
+            return {
+                title: "Ошибка Файловой Системы - 612",
+                text: "Папка задачи уже существует",
+                type: "error"
+            }
+
         case 701:
             return {
                 title: "Ошибка Проверяшки - 701",
@@ -421,6 +435,12 @@ let getRusText = function (code) {
             return {
                 text: "Уточните запрос для поиска",
                 type: "warning"
+            }
+
+        case "E_LOG_004":
+            return {
+                text: "Задача успешно создана",
+                type: "success"
             }
 
         case "E_TITLE_001":
@@ -815,6 +835,20 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 611:
+            return {
+                title: "File System Error - 611",
+                text: "Task folder can not be created",
+                type: "error"
+            }
+
+        case 612:
+            return {
+                title: "File System Error - 612",
+                text: "Task folder is already exist",
+                type: "error"
+            }
+
         case 701:
             return {
                 title: "Checker Error - 701",
@@ -930,6 +964,12 @@ let getEngText = function (code) {
             return {
                 text: "Please, input something as search query",
                 type: "warning"
+            }
+
+        case "E_LOG_004":
+            return {
+                text: "Task has been created",
+                type: "success"
             }
 
         case "E_TITLE_001":

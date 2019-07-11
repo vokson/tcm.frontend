@@ -237,6 +237,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>2.0.0</p>
+        </div>
+        <div class="col-4">
+          <p>Первый релиз для проекта Волгаферт. Добавлена кнопка создания TASK в Лог.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.33.1</p>
         </div>
         <div class="col-4">
@@ -738,7 +747,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.33.1'
+      version: '2.0.0'
     };
   },
 

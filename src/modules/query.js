@@ -78,6 +78,8 @@ let urls = {
 
     user_settings_get: "/settings/user/get",
     user_settings_set: "/settings/user/set",
+
+    task_create: "/task/create",
 };
 
 export default {

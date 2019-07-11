@@ -114,6 +114,17 @@
               {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
             </button>
           </div>
+          <div class="col-3">
+          </div>
+          <div class="col-9">
+            <button
+              type="button"
+              class="btn btn-block btn-warning"
+              v-on:click="addTaskItem"
+            >
+              {{ (language == 'RUS') ? 'Добавить TASK' : 'Add TASK' }}
+            </button>
+          </div>
         </div>
 
         <div
@@ -649,6 +660,20 @@ export default {
         what: this.targetItem.what,
         is_new: this.targetItem.is_new,
         date: Math.round(this.targetItem.date.getTime() / 1000)
+      });
+    },
+
+    addTaskItem: function () {
+
+      let titleId = this.getTargetItemTitleId();
+
+      if (titleId == 0) {
+        this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
+        return;
+      }
+
+      this.$store.dispatch('task/create', {
+        title: titleId,
       });
     },
 
