@@ -227,7 +227,7 @@
               v-else
               id="log-drop-area"
             >
-              Drop Here / Бросай Сюда (max 20 MB)
+              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(maxFileSize) +')' : 'Drop file here (each not heavier ' + formatBytes(maxFileSize) +')' }}
             </div>
           </div>
         </div>

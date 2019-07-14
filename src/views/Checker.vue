@@ -17,7 +17,7 @@
             id="col-drop-area"
           >
             <div id="check-drop-area">
-              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 20 Мб)' : 'Drop file here (each not heavier 20MB)' }}
+              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(maxFileSize) +')' : 'Drop file here (each not heavier ' + formatBytes(maxFileSize) +')' }}
             </div>
           </div>
         </div>
