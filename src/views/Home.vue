@@ -237,7 +237,16 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
-          <p>2.0.0</p>
+          <p>2.0.1 - 14.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Максимальный размер загружаемых файлов увеличен до 100 Мб.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>2.0.0 - 12.07.2019</p>
         </div>
         <div class="col-4">
           <p>Первый релиз для проекта Волгаферт. Добавлена кнопка создания TASK в Лог.</p>
@@ -747,7 +756,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.0.0'
+      version: '2.0.1'
     };
   },
 

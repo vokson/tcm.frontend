@@ -451,7 +451,7 @@ export default {
       ru: ru,
       isNewItemMayBeAdded: true,
       isDragging: false,
-      maxFileSize: 20 * 1024 * 1024,
+      maxFileSize: 100 * 1024 * 1024,
       wordToBeAdded: "",
 
       customEditorToolbar: [
