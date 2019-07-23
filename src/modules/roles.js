@@ -18,11 +18,16 @@ let engineer = [
     '/checker',
     '/stat/chart/storage',
     '/sender',
-    '/pdf_merge'
+    '/pdf_merge',
+    '/docs',
 
 ];
 
 let group_leader = [];
+
+let document_controller = [
+    '/docs/edit'
+];
 
 let pm = [];
 
@@ -36,9 +41,10 @@ let admin = [
 let permissions = {
     guest: guest,
     engineer: guest.concat(engineer),
+    document_controller: guest.concat(engineer).concat(document_controller),
     group_leader: guest.concat(engineer).concat(group_leader),
-    pm: guest.concat(engineer).concat(group_leader).concat(pm),
-    admin: guest.concat(engineer).concat(group_leader).concat(pm).concat(admin)
+    pm: guest.concat(engineer).concat(group_leader).concat(document_controller).concat(pm),
+    admin: guest.concat(engineer).concat(group_leader).concat(document_controller).concat(pm).concat(admin)
 }
 
 

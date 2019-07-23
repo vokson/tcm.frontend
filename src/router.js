@@ -20,6 +20,8 @@ import CheckerRatingChart from './views/CheckerRatingChart.vue'
 import Checker from './views/Checker.vue'
 import Sender from './views/Sender.vue'
 import MergePdf from './views/MergePdf.vue'
+import Docs from './views/Docs.vue'
+import DocsEdit from './views/DocsEdit.vue'
 
 
 Vue.use(Router)
@@ -151,6 +153,18 @@ export default new Router({
             path: '/pdf_merge',
             name: 'pdf_merge',
             component: MergePdf
+        },
+
+        {
+            path: '/docs',
+            name: 'docs',
+            component: Docs
+        },
+
+        {
+            path: '/docs/edit',
+            name: 'docs_edit',
+            component: DocsEdit
         },
 
 

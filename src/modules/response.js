@@ -217,6 +217,11 @@ export default {
                         context.dispatch("task_create", payload);
                         break;
 
+                    case "docs_edit_get":
+                        context.dispatch("docs_edit_get", payload);
+                        break;
+
+
 
 
                     default:
@@ -686,6 +691,14 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_LOG_004", { root: true })
                 context.dispatch('log/getItems', context.rootGetters['log/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        docs_edit_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('docs_edit/update', payload.items, { root: true });
             }
 
         },
