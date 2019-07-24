@@ -362,6 +362,84 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 1001:
+            return {
+                title: "Ошибка Документов - 1001",
+                text: "Информация о документах не найдена",
+                type: "error"
+            }
+
+        case 1002:
+            return {
+                title: "Ошибка Документов - 1002",
+                text: "Код TCM не найден",
+                type: "error"
+            }
+
+        case 1003:
+            return {
+                title: "Ошибка Документов - 1003",
+                text: "Код клиента не найден",
+                type: "error"
+            }
+
+        case 1004:
+            return {
+                title: "Ошибка Документов - 1004",
+                text: "Ревизия не найдена",
+                type: "error"
+            }
+
+        case 1005:
+            return {
+                title: "Ошибка Документов - 1005",
+                text: "Класс не найден",
+                type: "error"
+            }
+
+        case 1006:
+            return {
+                title: "Ошибка Документов - 1006",
+                text: "Титул RU не найден",
+                type: "error"
+            }
+
+        case 1007:
+            return {
+                title: "Ошибка Документов - 1007",
+                text: "Титул EN не найден",
+                type: "error"
+            }
+
+        case 1008:
+            return {
+                title: "Ошибка Документов - 1008",
+                text: "ID не найден",
+                type: "error"
+            }
+
+        case 1009:
+            return {
+                title: "Ошибка Документов - 1009",
+                text: "Код TCM не должен быть пустым",
+                type: "error"
+            }
+
+        case 1010:
+            return {
+                title: "Ошибка Документов - 1010",
+                text: "Ревизия не должна быть пустой",
+                type: "error"
+            }
+
+        case 1011:
+            return {
+                title: "Ошибка Документов - 1011",
+                text: "Неправильный ID",
+                type: "error"
+            }
+
+
 
 
         case "E_AUTH_001":
@@ -525,6 +603,12 @@ let getRusText = function (code) {
             return {
                 text: "Имя папки не должно быть пустым",
                 type: "error"
+            }
+
+        case "E_DOCS_001":
+            return {
+                text: "Информация о документах сохранена",
+                type: "success"
             }
 
 
@@ -891,6 +975,83 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 1001:
+            return {
+                title: "Docs Error - 1001",
+                text: "Information about docs has not found",
+                type: "error"
+            }
+
+        case 1002:
+            return {
+                title: "Docs Error - 1002",
+                text: "Code TCM is not found",
+                type: "error"
+            }
+
+        case 1003:
+            return {
+                title: "Docs Error - 1003",
+                text: "Client code is not found",
+                type: "error"
+            }
+
+        case 1004:
+            return {
+                title: "Docs Error - 1004",
+                text: "Revision is not found",
+                type: "error"
+            }
+
+        case 1005:
+            return {
+                title: "Docs Error - 1005",
+                text: "Class is not found",
+                type: "error"
+            }
+
+        case 1006:
+            return {
+                title: "Docs Error - 1006",
+                text: "Title RU is not found",
+                type: "error"
+            }
+
+        case 1007:
+            return {
+                title: "Docs Error - 1007",
+                text: "Title EN is not found",
+                type: "error"
+            }
+
+        case 1008:
+            return {
+                title: "Docs Error - 1008",
+                text: "ID is not found",
+                type: "error"
+            }
+
+        case 1009:
+            return {
+                title: "Docs Error - 1009",
+                text: "Code TCM should not be empty",
+                type: "error"
+            }
+
+        case 1010:
+            return {
+                title: "Docs Error - 1010",
+                text: "Revision should not be empty",
+                type: "error"
+            }
+
+        case 1011:
+            return {
+                title: "Docs Error - 1011",
+                text: "Wrong ID",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -1055,6 +1216,12 @@ let getEngText = function (code) {
             return {
                 text: "Folder name must not be empty",
                 type: "error"
+            }
+
+        case "E_DOCS_001":
+            return {
+                text: "Information about documents has been saved",
+                type: "success"
             }
 
 

@@ -81,7 +81,8 @@ let urls = {
 
     task_create: "/task/create",
 
-    docs_edit_get: "/docs/edit/get"
+    docs_edit_get: "/docs/edit/get",
+    docs_edit_set: "/docs/edit/set"
 };
 
 export default {

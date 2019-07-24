@@ -221,6 +221,10 @@ export default {
                         context.dispatch("docs_edit_get", payload);
                         break;
 
+                    case "docs_edit_set":
+                        context.dispatch("docs_edit_set", payload);
+                        break;
+
 
 
 
@@ -699,6 +703,15 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('docs_edit/update', payload.items, { root: true });
+            }
+
+        },
+
+        docs_edit_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_DOCS_001", { root: true })
+                context.dispatch('docs_edit/get', context.rootGetters['docs_edit/givePreviousSearch'], { root: true });
             }
 
         },

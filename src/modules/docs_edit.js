@@ -11,9 +11,9 @@ export default {
             return state.items;
         },
 
-        // givePreviousSearch: function (state) {
-        //     return state.previousSearch;
-        // },
+        givePreviousSearch: function (state) {
+            return state.previousSearch;
+        },
 
     },
 
@@ -34,6 +34,16 @@ export default {
             };
 
             context.state.previousSearch = payload;
+            context.dispatch('query/send', parameters, { root: true });
+        },
+
+        set: (context, payload) => {
+
+            let parameters = {
+                queryName: "docs_edit_set",
+                data: payload
+            };
+
             context.dispatch('query/send', parameters, { root: true });
         },
 

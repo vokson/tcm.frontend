@@ -160,7 +160,15 @@
         v-on:click="getListOfDocsForTransmittal"
       >
         {{ (language == 'RUS') ? 'Найти' : 'Search' }}
-        <span class="badge badge-light">{{countOfFiles}}</span>
+        <span class="badge badge-light">{{countOfDocs}}</span>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-danger"
+        v-on:click="saveListOfDocsForTransmittal"
+      >
+        {{ (language == 'RUS') ? 'Сохранить' : 'Save' }}
       </button>
 
     </div>
@@ -185,7 +193,7 @@
             v-for="item in docs"
             :key="item.id"
           >
-            <td class="text-center"> <img
+            <td class="text-center td-id"> <img
                 src="./img/delete.png"
                 width="40"
                 height="40"
@@ -193,12 +201,49 @@
                 title="Удалить / Delete"
               ></td>
 
-            <td class="text-center">{{item.code_1}}</td>
-            <td class="text-center">{{item.code_2}}</td>
-            <td class="text-center">{{item.revision}}</td>
-            <td class="text-center">{{item.class}}</td>
-            <td class="text-center">{{item.title_en}}</td>
-            <td class="text-center">{{item.title_ru}}</td>
+            <td class="text-center td-code">
+              <input
+                type="text"
+                v-model="item.code_1"
+                class="full-width"
+              />
+            </td>
+
+            <td class="text-center td-code">
+              <input
+                type="text"
+                v-model="item.code_2"
+                class="full-width"
+              />
+            </td>
+            <td class="text-center td-revision">
+              <input
+                type="text"
+                v-model="item.revision"
+                class="full-width"
+              />
+            </td>
+            <td class="text-center td-class">
+              <input
+                type="text"
+                v-model="item.class"
+                class="full-width"
+              />
+            </td>
+            <td class="text-center">
+              <input
+                type="text"
+                v-model="item.title_en"
+                class="full-width"
+              />
+            </td>
+            <td class="text-center">
+              <input
+                type="text"
+                v-model="item.title_ru"
+                class="full-width"
+              />
+            </td>
 
           </tr>
 
@@ -288,9 +333,9 @@ export default {
       return this.$store.getters['docs_edit/give'];
     },
 
-    // countOfFiles: function () {
-    //   return (this.files == null) ? 0 : this.files.length;
-    // },
+    countOfDocs: function () {
+      return (this.docs == null) ? 0 : this.docs.length;
+    },
 
     // attachedFiles: function () {
     //   return this.$store.getters['sender_file/give'];
@@ -303,6 +348,13 @@ export default {
     getListOfDocsForTransmittal: function () {
       this.$store.dispatch('docs_edit/get', {
         transmittal: this.search.transmittal
+      });
+    },
+
+    saveListOfDocsForTransmittal: function () {
+      this.$store.dispatch('docs_edit/set', {
+        // transmittal: this.search.transmittal,
+        items: this.docs
       });
     },
 
@@ -465,11 +517,11 @@ export default {
   },
 
   watch: {
-    activeFolderId: function () {
-      if (this.activeFolderId !== null) {
-        this.getFile();
-      }
-    }
+    // activeFolderId: function () {
+    //   if (this.activeFolderId !== null) {
+    //     this.getFile();
+    //   }
+    // }
   }
 
 
@@ -477,16 +529,18 @@ export default {
 </script>
 
 <style>
-.td-date {
-  width: 130px;
+.td-code {
+  width: 200px;
 }
 
-.td-file {
-  width: 520px;
+.td-revision,
+.td-class,
+.td-id {
+  width: 40px;
 }
 
-.td-owner {
-  width: 250px;
+.td-title {
+  width: 200px;
 }
 
 .text-center {
