@@ -171,6 +171,14 @@
         {{ (language == 'RUS') ? 'Сохранить' : 'Save' }}
       </button>
 
+      <button
+        type="button"
+        class="btn btn-success"
+        v-on:click="addNewDoc"
+      >
+        {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
+      </button>
+
     </div>
 
     <div class="row">
@@ -355,6 +363,12 @@ export default {
       this.$store.dispatch('docs_edit/set', {
         // transmittal: this.search.transmittal,
         items: this.docs
+      });
+    },
+
+    addNewDoc: function () {
+      this.$store.dispatch('docs_edit/add', {
+        transmittal: this.search.transmittal
       });
     },
 

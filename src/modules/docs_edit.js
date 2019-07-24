@@ -47,6 +47,16 @@ export default {
             context.dispatch('query/send', parameters, { root: true });
         },
 
+        add: (context, payload) => {
+
+            let parameters = {
+                queryName: "docs_edit_add",
+                data: payload
+            };
+
+            context.dispatch('query/send', parameters, { root: true });
+        },
+
         // deleteItem: (context, payload) => {
 
         //     let parameters = {

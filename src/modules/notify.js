@@ -611,6 +611,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_DOCS_002":
+            return {
+                text: "Добавлен новый документ",
+                type: "success"
+            }
+
 
         default:
             return {
@@ -1221,6 +1227,12 @@ let getEngText = function (code) {
         case "E_DOCS_001":
             return {
                 text: "Information about documents has been saved",
+                type: "success"
+            }
+
+        case "E_DOCS_002":
+            return {
+                text: "New document has been added",
                 type: "success"
             }
 
