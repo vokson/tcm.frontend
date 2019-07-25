@@ -229,7 +229,13 @@ export default {
                         context.dispatch("docs_edit_add", payload);
                         break;
 
+                    case "docs_edit_delete":
+                        context.dispatch("docs_edit_add", payload);
+                        break;
 
+                    case "docs_edit_file_upload":
+                        context.dispatch("docs_edit_file_upload", payload);
+                        break;
 
 
                     default:
@@ -724,6 +730,26 @@ export default {
 
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_DOCS_002", { root: true })
+                context.dispatch('docs_edit/get', context.rootGetters['docs_edit/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        docs_edit_delete: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_DOCS_003", { root: true })
+                context.dispatch('docs_edit/get', context.rootGetters['docs_edit/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        docs_edit_file_upload: (context, payload) => {
+
+            if (payload.success == 1) {
+
+                context.dispatch('notify/showNotifyByCode', "E_DOCS_004", { root: true });
+                context.commit('docs_edit_file/uploadSuccess', payload, { root: true });
                 context.dispatch('docs_edit/get', context.rootGetters['docs_edit/givePreviousSearch'], { root: true });
             }
 

@@ -439,6 +439,28 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 1012:
+            return {
+                title: "Ошибка Документов - 1012",
+                text: "Документ не может быть создан",
+                type: "error"
+            }
+
+        case 1013:
+            return {
+                title: "Ошибка Документов - 1013",
+                text: "Документ не может быть удален",
+                type: "error"
+            }
+
+        case 1014:
+            return {
+                title: "Ошибка Документов - 1014",
+                text: "Неправильный формат файла со списком документов",
+                type: "error"
+            }
+
+
 
 
 
@@ -571,7 +593,7 @@ let getRusText = function (code) {
 
         case "E_FILE_004":
             return {
-                text: "Максимальный размер файла 20 MB",
+                text: "превышен максимальный размер файла",
                 type: "error"
             }
 
@@ -614,6 +636,18 @@ let getRusText = function (code) {
         case "E_DOCS_002":
             return {
                 text: "Добавлен новый документ",
+                type: "success"
+            }
+
+        case "E_DOCS_003":
+            return {
+                text: "Документ удален",
+                type: "success"
+            }
+
+        case "E_DOCS_004":
+            return {
+                text: "Файл успешно загружен",
                 type: "success"
             }
 
@@ -1058,6 +1092,27 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 1012:
+            return {
+                title: "Docs Error - 1012",
+                text: "Doc can not be added",
+                type: "error"
+            }
+
+        case 1013:
+            return {
+                title: "Docs Error - 1013",
+                text: "Doc can not be deleted",
+                type: "error"
+            }
+
+        case 1014:
+            return {
+                title: "Docs Error - 1014",
+                text: "Wrong format of file with list of docs",
+                type: "error"
+            }
+
 
 
         case "E_AUTH_001":
@@ -1190,7 +1245,7 @@ let getEngText = function (code) {
 
         case "E_FILE_004":
             return {
-                text: "Max size of file is 20 MB",
+                text: "Size of file is over limit",
                 type: "error"
             }
 
@@ -1233,6 +1288,18 @@ let getEngText = function (code) {
         case "E_DOCS_002":
             return {
                 text: "New document has been added",
+                type: "success"
+            }
+
+        case "E_DOCS_003":
+            return {
+                text: "Document has been deleted",
+                type: "success"
+            }
+
+        case "E_DOCS_004":
+            return {
+                text: "File has been uploaded",
                 type: "success"
             }
 

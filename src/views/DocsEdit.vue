@@ -7,7 +7,7 @@
       </div>
     </div>
 
-    <!-- <div class="row">
+    <div class="row">
 
       <div class="col-5">
 
@@ -17,7 +17,7 @@
             id="col-drop-area"
           >
             <div id="check-drop-area">
-              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(maxFileSize) +')' : 'Drop file here (each not heavier ' + formatBytes(maxFileSize) +')' }}
+              {{ (language == 'RUS') ? 'JSON (не более ' + formatBytes(maxFileSize) +')' : 'JSON ( not heavier ' + formatBytes(maxFileSize) +')' }}
             </div>
           </div>
         </div>
@@ -40,19 +40,7 @@
               >{{ Math.round(item.uploadedSize/item.size*100)}}% </span>
             </div>
 
-            <div
-              class="col-9"
-              v-if="item.id != null"
-            >
-              <a
-                href="#"
-                v-on:click="downloadFile(item.id)"
-              >{{item.original_name}}</a>
-            </div>
-            <div
-              class="col-9"
-              v-else
-            >
+            <div class="col-9">
               {{item.original_name}}
             </div>
 
@@ -66,7 +54,7 @@
 
       </div>
 
-      <div class="col-7">
+      <!-- <div class="col-7">
 
         <div class="row">
           <input
@@ -140,11 +128,11 @@
           </div>
         </div>
 
-      </div>
+      </div>-->
 
     </div>
 
-    <br /> -->
+    <br />
 
     <div class="row">
 
@@ -207,6 +195,7 @@
                 height="40"
                 class="hover06"
                 title="Удалить / Delete"
+                v-on:click="deleteDoc(item.id)"
               ></td>
 
             <td class="text-center td-code">
@@ -276,7 +265,7 @@ export default {
       en: en,
       ru: ru,
       // isDragging: false,
-      // maxFileSize: 100 * 1024 * 1024,
+      maxFileSize: 10 * 1024,
       // nameOfFolder: '',
       // activeFolderId: null
 
@@ -289,36 +278,33 @@ export default {
 
   mounted: function () {
 
-    // this.$nextTick(function () {
-    //   this.$store.commit('sender_file/clean', {}, { root: true });
-    //   this.$store.commit('sender/clean', {}, { root: true });
-    //   this.getFolder();
+    this.$nextTick(function () {
 
-    //   // Очищаем установленные по умолчанию обработчики событий
-    //   let dropArea = document.getElementById('col-drop-area');
+      // Очищаем установленные по умолчанию обработчики событий
+      let dropArea = document.getElementById('col-drop-area');
 
-    //   function preventDefaults (e) {
-    //     e.preventDefault()
-    //     e.stopPropagation()
-    //   }
+      function preventDefaults (e) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
 
-    //   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    //     dropArea.addEventListener(eventName, preventDefaults, false)
-    //   });
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)
+      });
 
-    //   ['dragenter', 'dragover'].forEach(eventName => {
-    //     dropArea.addEventListener(eventName, this.startDragging, false)
-    //   });
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.startDragging, false)
+      });
 
-    //   ['dragleave', 'drop'].forEach(eventName => {
-    //     dropArea.addEventListener(eventName, this.stopDragging, false)
-    //   });
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.stopDragging, false)
+      });
 
-    //   ['drop'].forEach(eventName => {
-    //     dropArea.addEventListener(eventName, this.handleDrop, false)
-    //   });
+      ['drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, this.handleDrop, false)
+      });
 
-    // })
+    })
 
 
   },
@@ -345,9 +331,9 @@ export default {
       return (this.docs == null) ? 0 : this.docs.length;
     },
 
-    // attachedFiles: function () {
-    //   return this.$store.getters['sender_file/give'];
-    // },
+    attachedFiles: function () {
+      return this.$store.getters['docs_edit_file/give'];
+    },
 
   },
 
@@ -369,6 +355,12 @@ export default {
     addNewDoc: function () {
       this.$store.dispatch('docs_edit/add', {
         transmittal: this.search.transmittal
+      });
+    },
+
+    deleteDoc: function (id) {
+      this.$store.dispatch('docs_edit/delete', {
+        doc_id: id
       });
     },
 
@@ -451,82 +443,77 @@ export default {
 
 
 
-    // startDragging: function () {
-    //   this.isDragging = true;
-    // },
+    startDragging: function () {
+      this.isDragging = true;
+    },
 
-    // stopDragging: function () {
-    //   this.isDragging = false;
-    // },
+    stopDragging: function () {
+      this.isDragging = false;
+    },
 
-    // uploadFile: function (file) {
+    uploadFile: function (file) {
 
-    //   if (this.activeFolderId == null) {
-    //     this.$store.dispatch('notify/showNotifyByCode', "E_FILE_003", { root: true });
-    //     return;
-    //   }
+      if (file.size > this.maxFileSize) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
+        return;
+      }
 
-    //   if (file.size > this.maxFileSize) {
-    //     this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
-    //     return;
-    //   }
+      let uin = this.guid();
+      let progressCallback = this.updateProgress.bind(this);
 
-    //   let uin = this.guid();
-    //   let progressCallback = this.updateProgress.bind(this);
+      let badUploadFunction = function () {
+        this.$store.commit('docs_edit_file/deleteSuccess', uin, { root: true });
+      };
 
-    //   let badUploadFunction = function () {
-    //     this.$store.commit('sender_file/deleteSuccess', uin, { root: true });
-    //   };
+      this.$store.dispatch('docs_edit_file/upload', {
+        log_file: file,
+        uin: uin,
+        transmittal: this.search.transmittal,
 
-    //   this.$store.dispatch('sender_file/upload', {
-    //     log_file: file,
-    //     uin: uin,
-    //     folder_id: this.activeFolderId,
+        progressCallback: function (e) {
+          progressCallback(uin, e.loaded, e.total)
+        },
 
-    //     progressCallback: function (e) {
-    //       progressCallback(uin, e.loaded, e.total)
-    //     },
+        badFileUploadCallback: badUploadFunction.bind(this)
 
-    //     badFileUploadCallback: badUploadFunction.bind(this)
+      });
 
-    //   });
+    },
 
-    // },
+    handleDrop: function (e) {
+      let dt = e.dataTransfer;
+      let files = dt.files;
+      files = [...files];
+      files.forEach(this.uploadFile);
+    },
 
-    // handleDrop: function (e) {
-    //   let dt = e.dataTransfer;
-    //   let files = dt.files;
-    //   files = [...files];
-    //   files.forEach(this.uploadFile);
-    // },
+    formatBytes: function (bytes, decimals) {
+      if (bytes == 0) return '0 Bytes';
+      var k = 1024,
+        dm = decimals || 2,
+        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    },
 
-    // formatBytes: function (bytes, decimals) {
-    //   if (bytes == 0) return '0 Bytes';
-    //   var k = 1024,
-    //     dm = decimals || 2,
-    //     sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-    //     i = Math.floor(Math.log(bytes) / Math.log(k));
-    //   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-    // },
+    guid: function () {
+      function s4 () {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    },
 
-    // guid: function () {
-    //   function s4 () {
-    //     return Math.floor((1 + Math.random()) * 0x10000)
-    //       .toString(16)
-    //       .substring(1);
-    //   }
-    //   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    // },
+    updateProgress: function (uin, uploadedBytes, totalBytes) {
 
-    // updateProgress: function (uin, uploadedBytes, totalBytes) {
+      this.$store.commit('docs_edit_file/updateProgress', {
+        uin: uin,
+        size: totalBytes,
+        uploadedSize: uploadedBytes
+      });
 
-    //   this.$store.commit('sender_file/updateProgress', {
-    //     uin: uin,
-    //     size: totalBytes,
-    //     uploadedSize: uploadedBytes
-    //   });
-
-    // },
+    },
 
   },
 
