@@ -176,7 +176,7 @@
           <tr>
             <th class="text-center">ID</th>
             <th class="td-code-1 text-center">{{ (language == 'RUS') ? 'Код TCM' : 'TCM Code' }}</th>
-            <th class="td-code-2 text-center">{{ (language == 'RUS') ? 'Код клиента' : 'Client Code' }}</th>
+            <th class="td-code-2 text-center">{{ (language == 'RUS') ? 'Код НИИК' : 'NIIK Code' }}</th>
             <th class="td-revision text-center">{{ (language == 'RUS') ? 'Рев' : 'Rev' }}</th>
             <th class="td-class text-center">{{ (language == 'RUS') ? 'Класс' : 'Class' }}</th>
             <th class="td-title-en text-center">{{ (language == 'RUS') ? 'Имя ENG' : 'Title ENG' }}</th>

@@ -151,6 +151,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 309:
+            return {
+                title: "Ошибка Журнала Событий - 309",
+                text: "Нельзя создать вторую запись для трансмиттала",
+                type: "error"
+            }
+
 
         case 401:
             return {
@@ -460,7 +467,12 @@ let getRusText = function (code) {
                 type: "error"
             }
 
-
+        case 1015:
+            return {
+                title: "Ошибка Документов - 1015",
+                text: "Отсутствует первая запись в ЛОГ для трансмиттала",
+                type: "error"
+            }
 
 
 
@@ -805,6 +817,13 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 309:
+            return {
+                title: "Log Error - 309",
+                text: "Second record for transmittal is restricted",
+                type: "error"
+            }
+
         case 401:
             return {
                 title: "Title Error - 401",
@@ -1110,6 +1129,13 @@ let getEngText = function (code) {
             return {
                 title: "Docs Error - 1014",
                 text: "Wrong format of file with list of docs",
+                type: "error"
+            }
+
+        case 1015:
+            return {
+                title: "Docs Error - 1015",
+                text: "First record for transmittal in LOG is missed",
                 type: "error"
             }
 
