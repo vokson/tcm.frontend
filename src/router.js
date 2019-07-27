@@ -22,6 +22,7 @@ import Sender from './views/Sender.vue'
 import MergePdf from './views/MergePdf.vue'
 import Docs from './views/Docs.vue'
 import DocsEdit from './views/DocsEdit.vue'
+import DocsSearch from './views/DocsSearch.vue'
 
 
 Vue.use(Router)
@@ -165,6 +166,12 @@ export default new Router({
             path: '/docs/edit',
             name: 'docs_edit',
             component: DocsEdit
+        },
+
+        {
+            path: '/docs/search',
+            name: 'docs_search',
+            component: DocsSearch
         },
 
 

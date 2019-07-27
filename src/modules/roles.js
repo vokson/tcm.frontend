@@ -20,6 +20,7 @@ let engineer = [
     '/sender',
     '/pdf_merge',
     '/docs',
+    '/docs/search'
 
 ];
 
