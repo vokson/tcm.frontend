@@ -110,6 +110,7 @@
             :key="item.id"
           >
             <td class="text-center">{{formatDate(item.date)}}</td>
+            <td class="text-center">{{item.transmittal}}</td>
             <td class="text-center">{{item.code_1}}</td>
             <td class="text-center">{{item.code_2}}</td>
             <td class="text-center">{{item.revision}}</td>
