@@ -663,6 +663,18 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_SERVER_001":
+            return {
+                text: "Сервер не отвечает",
+                type: "success"
+            }
+
+        case "E_SERVER_002":
+            return {
+                text: "Необработанная ошибка сервера",
+                type: "success"
+            }
+
 
         default:
             return {
@@ -1326,6 +1338,18 @@ let getEngText = function (code) {
         case "E_DOCS_004":
             return {
                 text: "File has been uploaded",
+                type: "success"
+            }
+
+        case "E_SERVER_001":
+            return {
+                text: "Server not found",
+                type: "success"
+            }
+
+        case "E_SERVER_002":
+            return {
+                text: "Server error",
                 type: "success"
             }
 

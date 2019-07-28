@@ -237,6 +237,10 @@ export default {
                         context.dispatch("docs_edit_file_upload", payload);
                         break;
 
+                    case "docs_search_get":
+                        context.dispatch("docs_search_get", payload);
+                        break;
+
 
                     default:
                         context.dispatch('notify/showNotifyByCode', "E_RESPONSE_001", { root: true })
@@ -751,6 +755,14 @@ export default {
                 context.dispatch('notify/showNotifyByCode', "E_DOCS_004", { root: true });
                 context.commit('docs_edit_file/uploadSuccess', payload, { root: true });
                 context.dispatch('docs_edit/get', context.rootGetters['docs_edit/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        docs_search_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('docs_search/update', payload.items, { root: true });
             }
 
         },

@@ -8,6 +8,19 @@
     </div>
 
     <div class="row">
+      <button
+        type="button"
+        class="btn btn-outline-success btn-block"
+        v-bind:class="{ disabled: isSearchInProgress }"
+        v-on:click="getDocs"
+      >
+        {{ (language == 'RUS') ? 'Найти' : 'Search' }}
+        {{ (isSearchInProgress) ? '(...)' : '' }}
+        <span class="badge badge-light">{{countOfDocs}}</span>
+      </button>
+    </div>
+
+    <div class="row">
 
       <table class="table table-striped">
         <thead>
@@ -161,6 +174,10 @@ export default {
 
     countOfDocs: function () {
       return (this.docs == null) ? 0 : this.docs.length;
+    },
+
+    isSearchInProgress: function () {
+      return this.$store.getters['docs_search/isProgress'];
     },
 
   },

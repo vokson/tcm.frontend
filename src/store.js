@@ -32,6 +32,7 @@ import user_settings from "./modules/user_settings";
 import task from "./modules/task";
 import docs_edit from "./modules/docs_edit";
 import docs_edit_file from "./modules/docs_edit_file";
+import docs_search from "./modules/docs_search";
 
 Vue.use(Vuex)
 
@@ -114,6 +115,7 @@ export default new Vuex.Store({
     user_settings,
     task,
     docs_edit,
-    docs_edit_file
+    docs_edit_file,
+    docs_search
   }
 });
