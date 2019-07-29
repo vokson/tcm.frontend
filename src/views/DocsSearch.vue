@@ -111,7 +111,19 @@
           >
             <td class="text-center">{{formatDate(item.date)}}</td>
             <td class="text-center">{{item.transmittal}}</td>
-            <td class="text-center">{{item.code_1}}</td>
+
+            <td>
+              <div v-if="item.file_id != null">
+                <a
+                  href="#"
+                  v-on:click="downloadFile(item.file_id)"
+                >{{item.code_1}}</a>
+              </div>
+              <div v-else>
+                {{item.code_1}}
+              </div>
+            </td>
+
             <td class="text-center">{{item.code_2}}</td>
             <td class="text-center">{{item.revision}}</td>
             <td class="text-center">{{item.class}}</td>
@@ -198,6 +210,10 @@ export default {
 
     getDocs: function () {
 
+      if (this.isSearchInProgress) {
+        this.$store.dispatch('notify/showNotifyByCode', "E_DOCS_005", { root: true });
+      }
+
       let queryObject = {
         transmittal: this.search.transmittal,
         code_1: this.search.code_1,
@@ -214,11 +230,11 @@ export default {
       this.$store.dispatch('docs_search/get', queryObject);
     },
 
-    // downloadFile: function (file_id) {
-    //   this.$store.dispatch('sender_file/download', {
-    //     id: file_id
-    //   });
-    // },
+    downloadFile: function (file_id) {
+      this.$store.dispatch('log_file/download', {
+        id: file_id
+      });
+    },
 
     // downloadAllFiles: function () {
     //   if (this.files === null) {

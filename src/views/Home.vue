@@ -237,6 +237,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>2.1.0 - 29.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены Документы.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>2.0.1 - 14.07.2019</p>
         </div>
         <div class="col-4">
@@ -756,7 +765,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.0.1'
+      version: '2.1.0'
     };
   },
 

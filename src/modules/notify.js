@@ -663,6 +663,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_DOCS_005":
+            return {
+                text: "Обрабатывается предыдущий запрос..",
+                type: "warning"
+            }
+
         case "E_SERVER_001":
             return {
                 text: "Сервер не отвечает",
@@ -674,6 +680,8 @@ let getRusText = function (code) {
                 text: "Необработанная ошибка сервера",
                 type: "success"
             }
+
+
 
 
         default:
@@ -1339,6 +1347,12 @@ let getEngText = function (code) {
             return {
                 text: "File has been uploaded",
                 type: "success"
+            }
+
+        case "E_DOCS_005":
+            return {
+                text: "Previous request is not finished",
+                type: "warning"
             }
 
         case "E_SERVER_001":
