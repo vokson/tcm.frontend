@@ -63,9 +63,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="row">
 
         <div
           class="row"
@@ -129,33 +126,73 @@
               ></td>
 
             <td class="text-center td-code">
+
               <input
+                v-if="isValid(tcmCodeRegExp, item.code_1)"
                 type="text"
                 v-model="item.code_1"
                 class="full-width"
               />
+
+              <input
+                v-else
+                type="text"
+                v-model="item.code_1"
+                class="full-width bg-danger"
+              />
+
             </td>
 
             <td class="text-center td-code">
+
               <input
+                v-if="isValid(niikCodeRegExp, item.code_2)"
                 type="text"
                 v-model="item.code_2"
                 class="full-width"
               />
+
+              <input
+                v-else
+                type="text"
+                v-model="item.code_2"
+                class="full-width bg-danger"
+              />
+
             </td>
             <td class="text-center td-revision">
+
               <input
+                v-if="isValid(revRegExp, item.revision)"
                 type="text"
                 v-model="item.revision"
                 class="full-width"
               />
+
+              <input
+                v-else
+                type="text"
+                v-model="item.revision"
+                class="full-width bg-danger"
+              />
+
             </td>
+
             <td class="text-center td-class">
               <input
+                v-if="isValid(classRegExp, item.class)"
                 type="text"
                 v-model="item.class"
                 class="full-width"
               />
+
+              <input
+                v-else
+                type="text"
+                v-model="item.class"
+                class="full-width bg-danger"
+              />
+
             </td>
             <td class="text-center">
               <input
@@ -195,6 +232,12 @@ export default {
       ru: ru,
       maxFileSize: 10 * 1024,
       isDragging: false,
+      tcmCodeRegExp: /^4022-[A-Z]{2}-[A-Z]{2}-(00000|66210|66220|66230|66321|66340|66341|66422|66450|66560|66570|66580|66690)(\d{4}|\d{2}-\d{3}|\d{1}-\d{3}(\s[A-Z]\d?)?)-IS\d{2}(_C_RH_(OP|CL))?$/,
+      niikCodeRegExp: /^1500-(00000|66210|66220|66230|66321|66340|66341|66422|66450|66560|66570|66580|66690)-(КМ|КЖ|АР)\d{0,2}-\d{4}$/,
+      revRegExp: /\d{2}/,
+      classRegExp: /^(A|C|I|RQ|FI|IFC)$/,
+
+
       search: {
         transmittal: ""
       }
@@ -352,6 +395,10 @@ export default {
 
     },
 
+    isValid: function (regexp, str) {
+      return regexp.test(str);
+    }
+
   },
 
 
@@ -402,5 +449,9 @@ export default {
   transform: rotate(0) scale(1);
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
 }
 </style>
