@@ -8,6 +8,23 @@
     </div>
 
     <div class="row">
+      <div class="col-1">
+        <input
+          id="last_revision_checkbox"
+          type="checkbox"
+          v-model="search.is_only_last"
+          title="Только последние ревизии / Only last revisions"
+        >
+      </div>
+      <div class="col-4">
+        <label for="last_revision_checkbox">
+          Только последние ревизии / Only last revisions
+        </label>
+      </div>
+
+    </div>
+
+    <div class="row">
       <button
         type="button"
         class="btn btn-outline-success btn-block"
