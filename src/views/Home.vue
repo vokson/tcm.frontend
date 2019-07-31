@@ -237,6 +237,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>2.3.0 - 31.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлено меню в Документы - Поиск. Изменен алгоритм загрузки JSON файла в Документы - Редактирование</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>2.2.0 - 30.07.2019</p>
         </div>
         <div class="col-4">
@@ -774,7 +783,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.2.0'
+      version: '2.3.0'
     };
   },
 

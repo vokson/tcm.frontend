@@ -8,33 +8,62 @@
     </div>
 
     <div class="row">
-      <div class="col-1">
-        <input
-          id="last_revision_checkbox"
-          type="checkbox"
-          v-model="search.is_only_last"
-          title="Только последние ревизии / Only last revisions"
+
+      <div class="col-2">
+        <b-dropdown
+          id="dropdown-form"
+          text="Настройки"
+          ref="dropdown"
+          variant="success"
+          class="col-4"
         >
-      </div>
-      <div class="col-4">
-        <label for="last_revision_checkbox">
-          Только последние ревизии / Only last revisions
-        </label>
+          <b-dropdown-form>
+
+            <b-form-checkbox
+              style="width: 240px;"
+              v-model="view.date"
+            >Дата / Date
+            </b-form-checkbox>
+
+            <b-form-checkbox v-model="view.transmittal">Трансмиттал / Transmittal
+            </b-form-checkbox>
+
+            <b-form-checkbox v-model="view.code_1">TCM code
+            </b-form-checkbox>
+
+            <b-form-checkbox v-model="view.code_2">NIIK code
+            </b-form-checkbox>
+
+            <b-form-checkbox v-model="view.revision">Ревизия / Rev
+            </b-form-checkbox>
+
+            <b-form-checkbox v-model="view.title_en">Титул EN / Title EN
+            </b-form-checkbox>
+
+            <b-form-checkbox v-model="view.title_ru">Титул RU / Title RU
+            </b-form-checkbox>
+
+            <b-dropdown-divider></b-dropdown-divider>
+
+            <b-form-checkbox v-model="search.is_only_last">Только последние ревизии / Only last revisions
+            </b-form-checkbox>
+
+          </b-dropdown-form>
+        </b-dropdown>
       </div>
 
-    </div>
-
-    <div class="row">
-      <button
-        type="button"
-        class="btn btn-outline-success btn-block"
-        v-bind:class="{ disabled: isSearchInProgress }"
-        v-on:click="getDocs"
-      >
-        {{ (language == 'RUS') ? 'Найти' : 'Search' }}
-        {{ (isSearchInProgress) ? '(...)' : '' }}
-        <span class="badge badge-light">{{countOfDocs}}</span>
-      </button>
+      <div class="col-10">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-block"
+          v-bind:class="{ disabled: isSearchInProgress }"
+          v-on:click="getDocs"
+        >
+          {{ (language == 'RUS') ? 'Найти' : 'Search' }}
+          {{ (isSearchInProgress) ? '(...)' : '' }}
+          <span class="badge badge-light">{{countOfDocs}}</span>
+        </button>
+      </div>
     </div>
 
     <div class="row">
@@ -42,21 +71,45 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th class="td-date text-center">Дата</th>
-            <th class="td-transmittal text-center">Трансмиттал</th>
-            <th class="td-code text-center">Код TCM</th>
-            <th class="td-code text-center">Код НИИК</th>
-            <th class="td-revision text-center">Рев</th>
-            <th class="td-class text-center">Класс</th>
-            <th class="td-title text-center">Имя ENG</th>
-            <th class="td-title text-center">Имя RUS</th>
+            <th
+              class="td-date text-center"
+              v-if="view.date"
+            >Дата</th>
+            <th
+              class="td-transmittal text-center"
+              v-if="view.transmittal"
+            >Трансмиттал</th>
+            <th
+              class="td-code text-center"
+              v-if="view.code_1"
+            >Код TCM</th>
+            <th
+              class="td-code text-center"
+              v-if="view.code_2"
+            >Код НИИК</th>
+            <th
+              class="td-revision text-center"
+              v-if="view.revision"
+            >Рев</th>
+            <th
+              class="td-class text-center"
+              v-if="view.class"
+            >Класс</th>
+            <th
+              class="td-title text-center"
+              v-if="view.title_en"
+            >Имя ENG</th>
+            <th
+              class="td-title text-center"
+              v-if="view.title_ru"
+            >Имя RUS</th>
           </tr>
         </thead>
         <tbody>
 
           <tr v-on:keyup.enter.prevent="getDocs">
 
-            <td>
+            <td v-if="view.date">
               <datepicker
                 v-model="search.date1"
                 :format="date_format"
@@ -71,49 +124,64 @@
               ></datepicker>
             </td>
 
-            <td class="text-center"><input
+            <td
+              class="text-center"
+              v-if="view.transmittal"
+            ><input
                 type="text"
                 v-model="search.transmittal"
                 placeholder="Transmittal"
                 class="full-width"
               /></td>
 
-            <td class="text-center"><input
+            <td
+              class="text-center"
+              v-if="view.code_1"
+            ><input
                 type="text"
                 v-model="search.code_1"
                 placeholder="TCM Code"
                 class="full-width"
               /></td>
 
-            <td class="text-center"><input
+            <td
+              class="text-center"
+              v-if="view.code_2"
+            ><input
                 type="text"
                 v-model="search.code_2"
                 placeholder="NIIK Code"
                 class="full-width"
               /></td>
 
-            <td class="text-center"><input
+            <td
+              class="text-center"
+              v-if="view.revision"
+            ><input
                 type="text"
                 v-model="search.revision"
                 placeholder="Rev"
                 class="full-width"
               /></td>
 
-            <td class="text-center"><input
+            <td
+              class="text-center"
+              v-if="view.class"
+            ><input
                 type="text"
                 v-model="search.class"
                 placeholder="Class"
                 class="full-width"
               /></td>
 
-            <td><input
+            <td v-if="view.title_en"><input
                 type="text"
                 v-model="search.title_en"
                 placeholder="Title ENG"
                 class="full-width"
               /></td>
 
-            <td><input
+            <td v-if="view.title_ru"><input
                 type="text"
                 v-model="search.title_ru"
                 placeholder="Title RUS"
@@ -126,10 +194,16 @@
             v-for="item in docs"
             :key="item.id"
           >
-            <td class="text-center">{{formatDate(item.date)}}</td>
-            <td class="text-center">{{item.transmittal}}</td>
+            <td
+              class="text-center"
+              v-if="view.date"
+            >{{formatDate(item.date)}}</td>
+            <td
+              class="text-center"
+              v-if="view.transmittal"
+            >{{item.transmittal}}</td>
 
-            <td>
+            <td v-if="view.code_1">
               <div v-if="item.file_id != null">
                 <a
                   href="#"
@@ -141,11 +215,20 @@
               </div>
             </td>
 
-            <td class="text-center">{{item.code_2}}</td>
-            <td class="text-center">{{item.revision}}</td>
-            <td class="text-center">{{item.class}}</td>
-            <td>{{item.title_en}}</td>
-            <td>{{item.title_ru}}</td>
+            <td
+              class="text-center"
+              v-if="view.code_2"
+            >{{item.code_2}}</td>
+            <td
+              class="text-center"
+              v-if="view.revision"
+            >{{item.revision}}</td>
+            <td
+              class="text-center"
+              v-if="view.class"
+            >{{item.class}}</td>
+            <td v-if="view.title_en">{{item.title_en}}</td>
+            <td v-if="view.title_ru">{{item.title_ru}}</td>
 
           </tr>
 
@@ -169,6 +252,17 @@ export default {
       date_format: "dd.MM.yyyy",
       en: en,
       ru: ru,
+
+      view: {
+        date: true,
+        transmittal: true,
+        code_1: true,
+        code_2: false,
+        class: false,
+        revision: true,
+        title_en: true,
+        title_ru: false,
+      },
 
       search: {
         transmittal: "",
