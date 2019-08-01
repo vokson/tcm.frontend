@@ -249,6 +249,8 @@ export default {
 
     this.$nextTick(function () {
 
+      this.$store.commit('docs_edit_file/clean', {}, { root: true });
+
       // Очищаем установленные по умолчанию обработчики событий
       let dropArea = document.getElementById('col-drop-area');
 

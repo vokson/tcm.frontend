@@ -28,10 +28,10 @@
             <b-form-checkbox v-model="view.transmittal">Трансмиттал / Transmittal
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.code_1">TCM code
+            <b-form-checkbox v-model="view.code_1">Код TCM code
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.code_2">NIIK code
+            <b-form-checkbox v-model="view.code_2">Код NIIK code
             </b-form-checkbox>
 
             <b-form-checkbox v-model="view.revision">Ревизия / Rev
@@ -45,7 +45,55 @@
 
             <b-dropdown-divider></b-dropdown-divider>
 
-            <b-form-checkbox v-model="search.is_only_last">Только последние ревизии / Only last revisions
+            <b-form-group label="Сортировать по / Sort by">
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="date"
+              >Дата / Date</b-form-radio>
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="transmittal"
+              >Трансмиттал / Transmittal</b-form-radio>
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="code_1"
+              >Код TCM code</b-form-radio>
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="code_2"
+              >Код NIIK code</b-form-radio>
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="revision"
+              >Ревизия / Rev</b-form-radio>
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="title_en"
+              >Титул EN / Title EN</b-form-radio>
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="title_ru"
+              >Титул RU / Title RU</b-form-radio>
+            </b-form-group>
+
+            <b-dropdown-divider></b-dropdown-divider>
+
+            <b-form-checkbox v-model="search.is_only_last">
+              Только последние ревизии / Only last revisions
             </b-form-checkbox>
 
           </b-dropdown-form>
@@ -252,6 +300,7 @@ export default {
       date_format: "dd.MM.yyyy",
       en: en,
       ru: ru,
+      sortBy: "transmittal",
 
       view: {
         date: true,
@@ -293,8 +342,31 @@ export default {
     },
 
     docs: function () {
-      return this.$store.getters['docs_search/give'];
+      let nonSortedDocs = this.$store.getters['docs_search/give'];
+
+      let compareFunction = function (a, b) {
+
+        if (a[this.sortBy] < b[this.sortBy]) {
+          return -1;
+        }
+        if (a[this.sortBy] > b[this.sortBy]) {
+          return 1;
+        }
+        return 0;
+
+      };
+
+      if (nonSortedDocs != null) {
+
+        return nonSortedDocs.sort(compareFunction.bind(this));
+
+      } else {
+        return null;
+      }
+
     },
+
+
 
     countOfDocs: function () {
       return (this.docs == null) ? 0 : this.docs.length;
@@ -311,10 +383,7 @@ export default {
     formatDate: function (timestamp) {
       let date = new Date();
       date.setTime(timestamp * 1000); // переводим в миллисекунды
-      return ("0" + date.getHours()).slice(-2) + ':' +
-        ("0" + date.getMinutes()).slice(-2) + ':' +
-        ("0" + date.getSeconds()).slice(-2) + ' ' +
-        ("0" + date.getDate()).slice(-2) + '.' +
+      return ("0" + date.getDate()).slice(-2) + '.' +
         ("0" + (date.getMonth() + 1)).slice(-2) + '.' +
         date.getFullYear()
     },
@@ -346,6 +415,8 @@ export default {
         id: file_id
       });
     },
+
+
 
     // downloadAllFiles: function () {
     //   if (this.files === null) {
