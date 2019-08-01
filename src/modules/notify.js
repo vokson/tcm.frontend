@@ -154,7 +154,7 @@ let getRusText = function (code) {
         case 309:
             return {
                 title: "Ошибка Журнала Событий - 309",
-                text: "Нельзя создать вторую запись для трансмиттала",
+                text: "Недостаточно прав для создания первой записи по трансмитталу",
                 type: "error"
             }
 
@@ -840,7 +840,7 @@ let getEngText = function (code) {
         case 309:
             return {
                 title: "Log Error - 309",
-                text: "Second record for transmittal is restricted",
+                text: "Permission denied for creation of 1st record for transmittal",
                 type: "error"
             }
 
