@@ -30,6 +30,9 @@ import pdf_merge from "./modules/pdf_merge";
 import pdf_merge_file from "./modules/pdf_merge_file";
 import user_settings from "./modules/user_settings";
 import task from "./modules/task";
+import docs_edit from "./modules/docs_edit";
+import docs_edit_file from "./modules/docs_edit_file";
+import docs_search from "./modules/docs_search";
 
 Vue.use(Vuex)
 
@@ -110,6 +113,9 @@ export default new Vuex.Store({
     pdf_merge,
     pdf_merge_file,
     user_settings,
-    task
+    task,
+    docs_edit,
+    docs_edit_file,
+    docs_search
   }
 });

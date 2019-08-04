@@ -237,6 +237,51 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>2.5.0 - 01.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Теперь можно создавать больше одной записи в Лог по трансмитталу. Первую запись может сделать document_controller, pm, admin</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>2.4.0 - 01.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Сортировка добавлена в Документы - Поиск. Изменен алгоритм загрузки JSON файла в Документы - Редактирование</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>2.3.0 - 31.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлено меню в Документы - Поиск. Изменен алгоритм загрузки JSON файла в Документы - Редактирование</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>2.2.0 - 30.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены проверка правильности вводимых данных в Документы - Редактирование. Добавлен поиск последних ревизий.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
+          <p>2.1.0 - 29.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены Документы.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>2.0.1 - 14.07.2019</p>
         </div>
         <div class="col-4">
@@ -756,7 +801,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.0.1'
+      version: '2.5.0'
     };
   },
 
