@@ -154,16 +154,36 @@ export default {
             let data = payload.data
             data.access_token = context.rootState.user.access_token;
 
+            console.log(payload);
+
             let responseFunction = function (response) {
 
-                let filename = decodeURIComponent(response.headers['content-filename']);
-                window.$download(response.data, filename);
+                // Скачивание
+                if (payload.isInline == false) {
 
-                // Вызов дополнительной функции после завершения запроса
-                if (payload.afterDownloadAction != null) {
-                    context.dispatch(payload.afterDownloadAction, {}, { root: true });
+                    let filename = decodeURIComponent(response.headers['content-filename']);
+                    window.$download(response.data, filename);
+
+                    // Вызов дополнительной функции после завершения запроса
+                    if (payload.afterDownloadAction != null) {
+                        context.dispatch(payload.afterDownloadAction, {}, { root: true });
+                    }
+
+                    // Открытие PDF на новой вкладке
+                } else {
+
+                    var newBlob = new Blob([response.data], { type: "application/pdf" })
+                    const url = window.URL.createObjectURL(newBlob);
+                    window.open(url);
+                    window.URL.revokeObjectURL(url);
                 }
-            };
+
+
+
+
+
+
+            }
 
             window.$axios({
                 url: urls[payload.queryName],

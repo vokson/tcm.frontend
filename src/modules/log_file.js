@@ -96,6 +96,7 @@ export default {
                 data: {
                     id: payload.id
                 },
+                isInline: payload.isInline
             };
 
             context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });

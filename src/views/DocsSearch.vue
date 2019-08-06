@@ -412,7 +412,8 @@ export default {
 
     downloadFile: function (file_id) {
       this.$store.dispatch('log_file/download', {
-        id: file_id
+        id: file_id,
+        isInline: false
       });
     },
 
