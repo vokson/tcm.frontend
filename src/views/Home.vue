@@ -235,8 +235,17 @@
         <h5 v-else-if="language === 'ENG'">History of versions</h5>
       </div>
 
+      <div class="row actual_version_color">
+        <div class="col-2">
+          <p>2.7.0 - 09.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Заработала Отправка. Изменено отображение файлов в поиске документов</p>
+        </div>
+      </div>
+
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.6.0 - 04.08.2019</p>
         </div>
         <div class="col-4">
@@ -245,7 +254,7 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.5.0 - 01.08.2019</p>
         </div>
         <div class="col-4">
@@ -254,7 +263,7 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.4.0 - 01.08.2019</p>
         </div>
         <div class="col-4">
@@ -263,7 +272,7 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.3.0 - 31.07.2019</p>
         </div>
         <div class="col-4">
@@ -272,7 +281,7 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.2.0 - 30.07.2019</p>
         </div>
         <div class="col-4">
@@ -281,7 +290,7 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.1.0 - 29.07.2019</p>
         </div>
         <div class="col-4">
@@ -290,7 +299,7 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.0.1 - 14.07.2019</p>
         </div>
         <div class="col-4">
@@ -299,7 +308,7 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
+        <div class="col-2">
           <p>2.0.0 - 12.07.2019</p>
         </div>
         <div class="col-4">
@@ -810,7 +819,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.6.0'
+      version: '2.7.0'
     };
   },
 

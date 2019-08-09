@@ -233,7 +233,7 @@ export default {
       maxFileSize: 1 * 1024 * 1024,
       isDragging: false,
       tcmCodeRegExp: /^4022-[A-Z]{2}-[A-Z]{2}-(00000|66210|66220|66230|66321|66340|66341|66422|66450|66560|66570|66580|66690)(\d{4}|\d{2}-\d{3}|\d{1}-\d{3}(\s[A-Z]\d?)?)(_C_RH_(OP|CL))?$/,
-      niikCodeRegExp: /^1500-(00000|66210|66220|66230|66321|66340|66341|66422|66450|66560|66570|66580|66690)-(КМ|КЖ|АР)\d{0,2}-\d{4}$/,
+      niikCodeRegExp: /^7500081106-(00000|66210|66220|66230|66321|66340|66341|66422|66450|66560|66570|66580|66690)-(КМ|КЖ|АР|ЭГ|НВК|НВК|ОВ)\d{0,2}(\.(РР|ТИ|ТЗ))?-\d{4}$/,
       revRegExp: /\d{2}/,
       classRegExp: /^(A|C|I|RQ|FI|IFC)$/,
 
@@ -335,10 +335,14 @@ export default {
 
     uploadFile: function (file) {
 
+      console.log(file);
+
       if (file.size > this.maxFileSize) {
         this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });
         return;
       }
+
+      this.search.transmittal = file.name.split('.').slice(0, -1).join('.');
 
       let uin = this.guid();
       let progressCallback = this.updateProgress.bind(this);
@@ -350,7 +354,7 @@ export default {
       this.$store.dispatch('docs_edit_file/upload', {
         log_file: file,
         uin: uin,
-        transmittal: this.search.transmittal,
+        // transmittal: this.search.transmittal,
 
         progressCallback: function (e) {
           progressCallback(uin, e.loaded, e.total)

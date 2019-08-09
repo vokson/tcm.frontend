@@ -154,12 +154,18 @@ export default {
             let data = payload.data
             data.access_token = context.rootState.user.access_token;
 
-            console.log(payload);
-
             let responseFunction = function (response) {
 
                 // Скачивание
-                if (payload.isInline == false) {
+                if (payload.isInline == true) {
+
+                    var newBlob = new Blob([response.data], { type: "application/pdf" })
+                    const url = window.URL.createObjectURL(newBlob);
+                    window.open(url);
+                    window.URL.revokeObjectURL(url);
+
+                } else {
+                    // Открытие PDF на новой вкладке
 
                     let filename = decodeURIComponent(response.headers['content-filename']);
                     window.$download(response.data, filename);
@@ -169,20 +175,7 @@ export default {
                         context.dispatch(payload.afterDownloadAction, {}, { root: true });
                     }
 
-                    // Открытие PDF на новой вкладке
-                } else {
-
-                    var newBlob = new Blob([response.data], { type: "application/pdf" })
-                    const url = window.URL.createObjectURL(newBlob);
-                    window.open(url);
-                    window.URL.revokeObjectURL(url);
                 }
-
-
-
-
-
-
             }
 
             window.$axios({
