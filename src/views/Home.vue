@@ -237,6 +237,15 @@
 
       <div class="row actual_version_color">
         <div class="col-2">
+          <p>2.7.3 - 05.11.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Размер файлов в Проверяшке увеличен до 50Мб</p>
+        </div>
+      </div>
+
+      <div class="row actual_version_color">
+        <div class="col-2">
           <p>2.7.2 - 09.09.2019</p>
         </div>
         <div class="col-4">
@@ -837,7 +846,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.7.2'
+      version: '2.7.3'
     };
   },
 
