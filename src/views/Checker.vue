@@ -269,7 +269,7 @@ export default {
       en: en,
       ru: ru,
       isDragging: false,
-      maxFileSize: 20 * 1024 * 1024,
+      maxFileSize: 50 * 1024 * 1024,
 
       search: {
         owner: "",
