@@ -13,14 +13,8 @@
       <b-nav-item :to="{ name: 'docs' }">{{ (language == 'RUS') ? 'Документы' : 'Docs' }}</b-nav-item>
       <b-nav-item :to="{ name: 'news' }">{{ (language == 'RUS') ? 'Новости' : 'News' }}</b-nav-item>
       <b-nav-item :to="{ name: 'stat' }">{{ (language == 'RUS') ? 'Статистика' : 'Statistic' }}</b-nav-item>
-      <b-nav-item
-        :to="{ name: 'checker' }"
-        disabled
-      >{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }} </b-nav-item>
-      <b-nav-item
-        :to="{ name: 'sender' }"
-        disabled
-      >{{ (language == 'RUS') ? 'Отправка' : 'Sender' }} </b-nav-item>
+      <b-nav-item :to="{ name: 'checker' }">{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }} </b-nav-item>
+      <b-nav-item :to="{ name: 'sender' }">{{ (language == 'RUS') ? 'Отправка' : 'Sender' }} </b-nav-item>
       <b-nav-item :to="{ name: 'pdf_merge' }">
 
         <!-- <div class='red-text'> -->

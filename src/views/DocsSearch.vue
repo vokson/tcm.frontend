@@ -252,10 +252,21 @@
             >{{item.transmittal}}</td>
 
             <td v-if="view.code_1">
-              <div v-if="item.file_id != null">
+              <div v-if="item.files.length > 0">
+                <b-dropdown
+                  class="m-2"
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    v-for="file in item.files"
+                    :key="file.id"
+                    href="#"
+                    v-on:click="downloadFile(file.id, false)"
+                  >{{file.name}}</b-dropdown-item>
+                </b-dropdown>
                 <a
                   href="#"
-                  v-on:click="downloadFile(item.file_id)"
+                  v-on:click="downloadFile(item.primaryPdfFileId, true)"
                 >{{item.code_1}}</a>
               </div>
               <div v-else>
@@ -410,9 +421,10 @@ export default {
       this.$store.dispatch('docs_search/get', queryObject);
     },
 
-    downloadFile: function (file_id) {
+    downloadFile: function (file_id, isInline) {
       this.$store.dispatch('log_file/download', {
-        id: file_id
+        id: file_id,
+        isInline: isInline
       });
     },
 

@@ -156,14 +156,27 @@ export default {
 
             let responseFunction = function (response) {
 
-                let filename = decodeURIComponent(response.headers['content-filename']);
-                window.$download(response.data, filename);
+                // Скачивание
+                if (payload.isInline == true) {
 
-                // Вызов дополнительной функции после завершения запроса
-                if (payload.afterDownloadAction != null) {
-                    context.dispatch(payload.afterDownloadAction, {}, { root: true });
+                    var newBlob = new Blob([response.data], { type: "application/pdf" })
+                    const url = window.URL.createObjectURL(newBlob);
+                    window.open(url);
+                    window.URL.revokeObjectURL(url);
+
+                } else {
+                    // Открытие PDF на новой вкладке
+
+                    let filename = decodeURIComponent(response.headers['content-filename']);
+                    window.$download(response.data, filename);
+
+                    // Вызов дополнительной функции после завершения запроса
+                    if (payload.afterDownloadAction != null) {
+                        context.dispatch(payload.afterDownloadAction, {}, { root: true });
+                    }
+
                 }
-            };
+            }
 
             window.$axios({
                 url: urls[payload.queryName],
