@@ -151,6 +151,13 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 309:
+            return {
+                title: "Ошибка Журнала Событий - 309",
+                text: "Недостаточно прав для создания первой записи по трансмитталу",
+                type: "error"
+            }
+
 
         case 401:
             return {
@@ -306,6 +313,20 @@ let getRusText = function (code) {
                 type: "error"
             }
 
+        case 611:
+            return {
+                title: "Ошибка Файловой Системы - 611",
+                text: "Не удалось создать папку для задачи",
+                type: "error"
+            }
+
+        case 612:
+            return {
+                title: "Ошибка Файловой Системы - 612",
+                text: "Папка задачи уже существует",
+                type: "error"
+            }
+
         case 701:
             return {
                 title: "Ошибка Проверяшки - 701",
@@ -345,6 +366,111 @@ let getRusText = function (code) {
             return {
                 title: "Ошибка Отправки - 901",
                 text: "Номер папки неверен",
+                type: "error"
+            }
+
+        case 1001:
+            return {
+                title: "Ошибка Документов - 1001",
+                text: "Информация о документах не найдена",
+                type: "error"
+            }
+
+        case 1002:
+            return {
+                title: "Ошибка Документов - 1002",
+                text: "Код TCM не найден",
+                type: "error"
+            }
+
+        case 1003:
+            return {
+                title: "Ошибка Документов - 1003",
+                text: "Код клиента не найден",
+                type: "error"
+            }
+
+        case 1004:
+            return {
+                title: "Ошибка Документов - 1004",
+                text: "Ревизия не найдена",
+                type: "error"
+            }
+
+        case 1005:
+            return {
+                title: "Ошибка Документов - 1005",
+                text: "Класс не найден",
+                type: "error"
+            }
+
+        case 1006:
+            return {
+                title: "Ошибка Документов - 1006",
+                text: "Титул RU не найден",
+                type: "error"
+            }
+
+        case 1007:
+            return {
+                title: "Ошибка Документов - 1007",
+                text: "Титул EN не найден",
+                type: "error"
+            }
+
+        case 1008:
+            return {
+                title: "Ошибка Документов - 1008",
+                text: "ID не найден",
+                type: "error"
+            }
+
+        case 1009:
+            return {
+                title: "Ошибка Документов - 1009",
+                text: "Код TCM не должен быть пустым",
+                type: "error"
+            }
+
+        case 1010:
+            return {
+                title: "Ошибка Документов - 1010",
+                text: "Ревизия не должна быть пустой",
+                type: "error"
+            }
+
+        case 1011:
+            return {
+                title: "Ошибка Документов - 1011",
+                text: "Неправильный ID",
+                type: "error"
+            }
+
+        case 1012:
+            return {
+                title: "Ошибка Документов - 1012",
+                text: "Документ не может быть создан",
+                type: "error"
+            }
+
+        case 1013:
+            return {
+                title: "Ошибка Документов - 1013",
+                text: "Документ не может быть удален",
+                type: "error"
+            }
+
+        case 1014:
+            return {
+                title: "Ошибка Документов - 1014",
+                text: "Неправильный формат файла со списком документов",
+                type: "error"
+            }
+
+        case 1015:
+            return {
+                title: "Ошибка Документов - 1015",
+                text: "Отсутствует первая запись в ЛОГ для трансмиттала",
                 type: "error"
             }
 
@@ -423,6 +549,12 @@ let getRusText = function (code) {
                 type: "warning"
             }
 
+        case "E_LOG_004":
+            return {
+                text: "Задача успешно создана",
+                type: "success"
+            }
+
         case "E_TITLE_001":
             return {
                 text: "Титул сохранен",
@@ -473,7 +605,7 @@ let getRusText = function (code) {
 
         case "E_FILE_004":
             return {
-                text: "Максимальный размер файла 20 MB",
+                text: "превышен максимальный размер файла",
                 type: "error"
             }
 
@@ -506,6 +638,50 @@ let getRusText = function (code) {
                 text: "Имя папки не должно быть пустым",
                 type: "error"
             }
+
+        case "E_DOCS_001":
+            return {
+                text: "Информация о документах сохранена",
+                type: "success"
+            }
+
+        case "E_DOCS_002":
+            return {
+                text: "Добавлен новый документ",
+                type: "success"
+            }
+
+        case "E_DOCS_003":
+            return {
+                text: "Документ удален",
+                type: "success"
+            }
+
+        case "E_DOCS_004":
+            return {
+                text: "Файл успешно загружен",
+                type: "success"
+            }
+
+        case "E_DOCS_005":
+            return {
+                text: "Обрабатывается предыдущий запрос..",
+                type: "warning"
+            }
+
+        case "E_SERVER_001":
+            return {
+                text: "Сервер не отвечает",
+                type: "success"
+            }
+
+        case "E_SERVER_002":
+            return {
+                text: "Необработанная ошибка сервера",
+                type: "success"
+            }
+
+
 
 
         default:
@@ -658,6 +834,13 @@ let getEngText = function (code) {
             return {
                 title: "Log Error - 308",
                 text: "Article can not be deleted, because of attached files",
+                type: "error"
+            }
+
+        case 309:
+            return {
+                title: "Log Error - 309",
+                text: "Permission denied for creation of 1st record for transmittal",
                 type: "error"
             }
 
@@ -815,6 +998,20 @@ let getEngText = function (code) {
                 type: "error"
             }
 
+        case 611:
+            return {
+                title: "File System Error - 611",
+                text: "Task folder can not be created",
+                type: "error"
+            }
+
+        case 612:
+            return {
+                title: "File System Error - 612",
+                text: "Task folder is already exist",
+                type: "error"
+            }
+
         case 701:
             return {
                 title: "Checker Error - 701",
@@ -854,6 +1051,111 @@ let getEngText = function (code) {
             return {
                 title: "Sender Error - 901",
                 text: "ID is wrong",
+                type: "error"
+            }
+
+        case 1001:
+            return {
+                title: "Docs Error - 1001",
+                text: "Information about docs has not found",
+                type: "error"
+            }
+
+        case 1002:
+            return {
+                title: "Docs Error - 1002",
+                text: "Code TCM is not found",
+                type: "error"
+            }
+
+        case 1003:
+            return {
+                title: "Docs Error - 1003",
+                text: "Client code is not found",
+                type: "error"
+            }
+
+        case 1004:
+            return {
+                title: "Docs Error - 1004",
+                text: "Revision is not found",
+                type: "error"
+            }
+
+        case 1005:
+            return {
+                title: "Docs Error - 1005",
+                text: "Class is not found",
+                type: "error"
+            }
+
+        case 1006:
+            return {
+                title: "Docs Error - 1006",
+                text: "Title RU is not found",
+                type: "error"
+            }
+
+        case 1007:
+            return {
+                title: "Docs Error - 1007",
+                text: "Title EN is not found",
+                type: "error"
+            }
+
+        case 1008:
+            return {
+                title: "Docs Error - 1008",
+                text: "ID is not found",
+                type: "error"
+            }
+
+        case 1009:
+            return {
+                title: "Docs Error - 1009",
+                text: "Code TCM should not be empty",
+                type: "error"
+            }
+
+        case 1010:
+            return {
+                title: "Docs Error - 1010",
+                text: "Revision should not be empty",
+                type: "error"
+            }
+
+        case 1011:
+            return {
+                title: "Docs Error - 1011",
+                text: "Wrong ID",
+                type: "error"
+            }
+
+        case 1012:
+            return {
+                title: "Docs Error - 1012",
+                text: "Doc can not be added",
+                type: "error"
+            }
+
+        case 1013:
+            return {
+                title: "Docs Error - 1013",
+                text: "Doc can not be deleted",
+                type: "error"
+            }
+
+        case 1014:
+            return {
+                title: "Docs Error - 1014",
+                text: "Wrong format of file with list of docs",
+                type: "error"
+            }
+
+        case 1015:
+            return {
+                title: "Docs Error - 1015",
+                text: "First record for transmittal in LOG is missed",
                 type: "error"
             }
 
@@ -932,6 +1234,12 @@ let getEngText = function (code) {
                 type: "warning"
             }
 
+        case "E_LOG_004":
+            return {
+                text: "Task has been created",
+                type: "success"
+            }
+
         case "E_TITLE_001":
             return {
                 text: "Title has been saved",
@@ -983,7 +1291,7 @@ let getEngText = function (code) {
 
         case "E_FILE_004":
             return {
-                text: "Max size of file is 20 MB",
+                text: "Size of file is over limit",
                 type: "error"
             }
 
@@ -1015,6 +1323,48 @@ let getEngText = function (code) {
             return {
                 text: "Folder name must not be empty",
                 type: "error"
+            }
+
+        case "E_DOCS_001":
+            return {
+                text: "Information about documents has been saved",
+                type: "success"
+            }
+
+        case "E_DOCS_002":
+            return {
+                text: "New document has been added",
+                type: "success"
+            }
+
+        case "E_DOCS_003":
+            return {
+                text: "Document has been deleted",
+                type: "success"
+            }
+
+        case "E_DOCS_004":
+            return {
+                text: "File has been uploaded",
+                type: "success"
+            }
+
+        case "E_DOCS_005":
+            return {
+                text: "Previous request is not finished",
+                type: "warning"
+            }
+
+        case "E_SERVER_001":
+            return {
+                text: "Server not found",
+                type: "success"
+            }
+
+        case "E_SERVER_002":
+            return {
+                text: "Server error",
+                type: "success"
             }
 
 

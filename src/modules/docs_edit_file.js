@@ -60,59 +60,38 @@ export default {
 
         },
 
+        clean: function (state) {
+            state.items = [];
+        },
+
 
     },
 
     actions: {
 
-        delete: (context, payload) => {
+        // download: (context, payload) => {
 
-            let parameters = {
-                queryName: "log_file_delete",
-                data: {
-                    id: payload.id
-                },
-            };
+        //     let parameters = {
+        //         queryName: "sender_file_download",
+        //         data: {
+        //             id: payload.id
+        //         },
+        //     };
 
-            context.dispatch('query/send', parameters, { root: true })
-        },
+        //     context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+        // },
 
-        get: (context, payload) => {
+        // downloadAll: (context, payload) => {
 
-            let parameters = {
-                queryName: "log_file_get",
-                data: {
-                    log_id: payload.log_id
-                },
-            };
+        //     let parameters = {
+        //         queryName: "sender_file_download_all",
+        //         data: {
+        //             ids: payload.ids
+        //         }
+        //     };
 
-            context.dispatch('query/send', parameters, { root: true });
-        },
-
-        download: (context, payload) => {
-
-            let parameters = {
-                queryName: "log_file_download",
-                data: {
-                    id: payload.id
-                },
-                isInline: payload.isInline
-            };
-
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
-        },
-
-        downloadAll: (context, payload) => {
-
-            let parameters = {
-                queryName: "log_file_download_all",
-                data: {
-                    id: payload.id
-                }
-            };
-
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
-        },
+        //     context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+        // },
 
 
         upload: (context, payload) => {
@@ -126,7 +105,7 @@ export default {
             });
 
             let parameters = {
-                queryName: "log_file_upload",
+                queryName: "docs_edit_file_upload",
                 data: payload,
             };
 

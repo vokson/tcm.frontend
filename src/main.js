@@ -54,7 +54,7 @@ window.$app = new Vue({
 
 
 window.$axios = axios.create({
-    baseURL: "http://api.agpp/api",
+    baseURL: "http://api.vlg/api",
     // baseURL: "http://tcm.api/api",
     method: 'post',
 

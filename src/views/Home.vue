@@ -6,10 +6,10 @@
         <div class='col-8'>
           <div class='row'>
             <div class="col">
-              <h3 v-if="language === 'RUS'">Проектный офис АГПЗ
+              <h3 v-if="language === 'RUS'">Проектный офис Волгаферт
                 <span class="actual_version_color">(v.{{version}})</span>
               </h3>
-              <h3 v-else-if="language === 'ENG'">AGPP Design Office
+              <h3 v-else-if="language === 'ENG'">Volgafert Design Office
                 <span class="actual_version_color">(v.{{version}})</span>
               </h3>
             </div>
@@ -236,6 +236,123 @@
       </div>
 
       <div class="row actual_version_color">
+        <div class="col-2">
+          <p>2.7.4 - 14.11.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Включена статистика по Проверяшке</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.7.3 - 05.11.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Размер файлов в Проверяшке увеличен до 50Мб</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.7.2 - 09.09.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Размер файлов в Отправке увеличен до 300Мб</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.7.1 - 21.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Изменена проверка ревизий. Добавлены 0A, 0B, 0C, 1A, 1B...</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.7.0 - 09.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Заработала Отправка. Изменено отображение файлов в поиске документов</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.6.0 - 04.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Заработала Проверяшка</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.5.0 - 01.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Теперь можно создавать больше одной записи в Лог по трансмитталу. Первую запись может сделать document_controller, pm, admin</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.4.0 - 01.08.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Сортировка добавлена в Документы - Поиск. Изменен алгоритм загрузки JSON файла в Документы - Редактирование</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.3.0 - 31.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлено меню в Документы - Поиск. Изменен алгоритм загрузки JSON файла в Документы - Редактирование</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.2.0 - 30.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены проверка правильности вводимых данных в Документы - Редактирование. Добавлен поиск последних ревизий.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.1.0 - 29.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлены Документы.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.0.1 - 14.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Максимальный размер загружаемых файлов увеличен до 100 Мб.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <p>2.0.0 - 12.07.2019</p>
+        </div>
+        <div class="col-4">
+          <p>Первый релиз для проекта Волгаферт. Добавлена кнопка создания TASK в Лог.</p>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-1">
           <p>1.33.1</p>
         </div>
@@ -738,7 +855,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.33.1'
+      version: '2.7.4'
     };
   },
 

@@ -114,6 +114,17 @@
               {{ (language == 'RUS') ? 'Добавить' : 'Add' }}
             </button>
           </div>
+          <div class="col-3">
+          </div>
+          <div class="col-9">
+            <button
+              type="button"
+              class="btn btn-block btn-warning"
+              v-on:click="addTaskItem"
+            >
+              {{ (language == 'RUS') ? 'Добавить TASK' : 'Add TASK' }}
+            </button>
+          </div>
         </div>
 
         <div
@@ -216,7 +227,7 @@
               v-else
               id="log-drop-area"
             >
-              Drop Here / Бросай Сюда (max 20 MB)
+              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(maxFileSize) +')' : 'Drop file here (each not heavier ' + formatBytes(maxFileSize) +')' }}
             </div>
           </div>
         </div>
@@ -440,7 +451,7 @@ export default {
       ru: ru,
       isNewItemMayBeAdded: true,
       isDragging: false,
-      maxFileSize: 20 * 1024 * 1024,
+      maxFileSize: 500 * 1024 * 1024,
       wordToBeAdded: "",
 
       customEditorToolbar: [
@@ -649,6 +660,20 @@ export default {
         what: this.targetItem.what,
         is_new: this.targetItem.is_new,
         date: Math.round(this.targetItem.date.getTime() / 1000)
+      });
+    },
+
+    addTaskItem: function () {
+
+      let titleId = this.getTargetItemTitleId();
+
+      if (titleId == 0) {
+        this.$store.dispatch('notify/showNotifyByCode', 303, { root: true });
+        return;
+      }
+
+      this.$store.dispatch('task/create', {
+        title: titleId,
       });
     },
 

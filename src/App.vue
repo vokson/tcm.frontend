@@ -2,16 +2,21 @@
   <div id="app">
     <notifications group="notify-group" />
 
-    <b-nav tabs>
+    <b-nav
+      tabs
+      class='bg-light'
+    >
       <b-nav-item :to="{ name: 'home' }">{{ (language == 'RUS') ? 'Начало' : 'Home' }}</b-nav-item>
       <b-nav-item :to="{ name: 'login' }">{{ (language == 'RUS') ? 'Вход' : 'Login' }}</b-nav-item>
       <b-nav-item :to="{ name: 'log' }">{{ (language == 'RUS') ? 'Лог' : 'Log' }}</b-nav-item>
       <b-nav-item :to="{ name: 'title' }">{{ (language == 'RUS') ? 'Титулы' : 'Title' }}</b-nav-item>
+      <b-nav-item :to="{ name: 'docs' }">{{ (language == 'RUS') ? 'Документы' : 'Docs' }}</b-nav-item>
       <b-nav-item :to="{ name: 'news' }">{{ (language == 'RUS') ? 'Новости' : 'News' }}</b-nav-item>
       <b-nav-item :to="{ name: 'stat' }">{{ (language == 'RUS') ? 'Статистика' : 'Statistic' }}</b-nav-item>
       <b-nav-item :to="{ name: 'checker' }">{{ (language == 'RUS') ? 'Проверяшка' : 'Checker' }} </b-nav-item>
       <b-nav-item :to="{ name: 'sender' }">{{ (language == 'RUS') ? 'Отправка' : 'Sender' }} </b-nav-item>
       <b-nav-item :to="{ name: 'pdf_merge' }">
+
         <!-- <div class='red-text'> -->
         {{ (language == 'RUS') ? 'Пакуй' : 'Merge PDF' }}
         <!-- </div> -->
