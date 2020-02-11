@@ -747,7 +747,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '1.33.1'
+      version: '1.34.0'
     };
   },
 
