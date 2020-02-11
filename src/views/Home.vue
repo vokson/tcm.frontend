@@ -237,6 +237,15 @@
 
       <div class="row actual_version_color">
         <div class="col-1">
+          <p>1.34.0</p>
+        </div>
+        <div class="col-4">
+          <p>Объем файлов в Отправка увеличен до 300 Мб</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1">
           <p>1.33.1</p>
         </div>
         <div class="col-4">

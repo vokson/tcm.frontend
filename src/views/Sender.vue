@@ -232,7 +232,7 @@ export default {
       en: en,
       ru: ru,
       isDragging: false,
-      maxFileSize: 100 * 1024 * 1024,
+      maxFileSize: 300 * 1024 * 1024,
       nameOfFolder: '',
       activeFolderId: null
     };
