@@ -317,7 +317,7 @@ export default {
         date: true,
         transmittal: true,
         code_1: true,
-        code_2: false,
+        code_2: true,
         class: false,
         revision: true,
         title_en: true,
