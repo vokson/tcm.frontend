@@ -91,21 +91,9 @@ export default {
                 afterDownloadAction: 'pdf_merge_file/afterDownloadAction'
             };
 
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            context.dispatch('download/do', parameters, { root: true });
             context.commit('pdf_merge_file/setIsMergingInProgress', true, { root: true });
         },
-
-        // downloadAll: (context, payload) => {
-
-        //     let parameters = {
-        //         queryName: "sender_file_download_all",
-        //         data: {
-        //             ids: payload.ids
-        //         }
-        //     };
-
-        //     context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
-        // },
 
 
         upload: (context, payload) => {

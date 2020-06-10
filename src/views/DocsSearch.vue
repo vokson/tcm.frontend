@@ -428,23 +428,6 @@ export default {
       });
     },
 
-
-
-    // downloadAllFiles: function () {
-    //   if (this.files === null) {
-    //     this.$store.dispatch('notify/showNotifyByCode', "E_FILE_006", { root: true });
-    //     return;
-    //   }
-
-    //   this.$store.dispatch('sender_file/downloadAll', {
-    //     ids: this.files.map(function (item) {
-    //       return item.id;
-    //     }).filter(function (id) {
-    //       return id !== null;
-    //     })
-    //   });
-    // },
-
   },
 
 

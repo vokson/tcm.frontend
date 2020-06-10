@@ -416,7 +416,7 @@ export default {
         return;
       }
 
-      let uin = this.guid();
+      let uin = window.$guid();
       let progressCallback = this.updateProgress.bind(this);
 
       let badUploadFunction = function () {
@@ -444,23 +444,9 @@ export default {
       files.forEach(this.uploadFile);
     },
 
-    formatBytes: function (bytes, decimals) {
-      if (bytes == 0) return '0 Bytes';
-      var k = 1024,
-        dm = decimals || 2,
-        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-        i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-    },
 
-    guid: function () {
-      function s4 () {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    },
+
+
 
     updateProgress: function (uin, uploadedBytes, totalBytes) {
 
@@ -479,6 +465,10 @@ export default {
       this.search.extension = "";
       this.search.date1 = null;
       this.search.date2 = null;
+    },
+
+     formatBytes: function(bytes, decimals) {
+      return window.$formatBytes(bytes, decimals);
     },
 
   },

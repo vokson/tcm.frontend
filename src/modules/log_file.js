@@ -91,15 +91,35 @@ export default {
 
         download: (context, payload) => {
 
-            let parameters = {
-                queryName: "log_file_download",
-                data: {
-                    id: payload.id
-                },
-                isInline: payload.isInline
-            };
+            if (payload.isInline === undefined) {
+                payload.isInline = false;
+            }
 
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            if (payload.isInline == false) {
+
+                let parameters = {
+                    queryName: "log_file_download",
+                    data: {
+                        id: payload.id
+                    },
+                };
+
+                context.dispatch('download/do', parameters, { root: true });
+
+            } else {
+
+                let parameters = {
+                    queryName: "log_file_download",
+                    data: {
+                        id: payload.id
+                    },
+                    isInline: true
+                };
+
+                context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            }
+
+            
         },
 
         downloadAll: (context, payload) => {
@@ -111,7 +131,7 @@ export default {
                 }
             };
 
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            context.dispatch('download/do', parameters, { root: true });
         },
 
 

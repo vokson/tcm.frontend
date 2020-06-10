@@ -178,20 +178,69 @@ export default {
                 }
             }
 
-            window.$axios({
+            let params_before = {
                 url: urls[payload.queryName],
                 data: data,
+                method: 'post',
                 headers: {
                     'Accept': '*/* ',
                 },
                 responseType: 'blob'
-            })
+            };
+
+            let params_after = (payload.isInline == true) ? Object.assign({}, params_before) : Object.assign({}, params_before, {onDownloadProgress: payload.progressCallback})
+
+            window.$axios(params_after)
                 .then(responseFunction)
                 .catch(function (error) {
+                    payload.badFileDownloadCallback();
                     console.log(error);
-                    context.dispatch('notify/showNotifyByCode', 601, { root: true })
                 });
         },
+
+        // sendInOrderToGetFile: (context, payload) => {
+
+        //     let data = payload.data
+        //     data.access_token = context.rootState.user.access_token;
+
+        //     let responseFunction = function (response) {
+
+        //         // Скачивание
+        //         if (payload.isInline == true) {
+
+        //             var newBlob = new Blob([response.data], { type: "application/pdf" })
+        //             const url = window.URL.createObjectURL(newBlob);
+        //             window.open(url);
+        //             window.URL.revokeObjectURL(url);
+
+        //         } else {
+        //             // Открытие PDF на новой вкладке
+
+        //             let filename = decodeURIComponent(response.headers['content-filename']);
+        //             window.$download(response.data, filename);
+
+        //             // Вызов дополнительной функции после завершения запроса
+        //             if (payload.afterDownloadAction != null) {
+        //                 context.dispatch(payload.afterDownloadAction, {}, { root: true });
+        //             }
+
+        //         }
+        //     }
+
+        //     window.$axios({
+        //         url: urls[payload.queryName],
+        //         data: data,
+        //         headers: {
+        //             'Accept': '*/* ',
+        //         },
+        //         responseType: 'blob'
+        //     })
+        //         .then(responseFunction)
+        //         .catch(function (error) {
+        //             console.log(error);
+        //             context.dispatch('notify/showNotifyByCode', 601, { root: true })
+        //         });
+        // },
 
         sendInOrderToUploadFile: (context, payload) => {
 

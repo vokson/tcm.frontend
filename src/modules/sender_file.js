@@ -78,7 +78,7 @@ export default {
                 },
             };
 
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            context.dispatch('download/do', parameters, { root: true });
         },
 
         downloadAll: (context, payload) => {
@@ -90,7 +90,7 @@ export default {
                 }
             };
 
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
+            context.dispatch('download/do', parameters, { root: true });
         },
 
 

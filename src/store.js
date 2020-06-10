@@ -33,6 +33,7 @@ import task from "./modules/task";
 import docs_edit from "./modules/docs_edit";
 import docs_edit_file from "./modules/docs_edit_file";
 import docs_search from "./modules/docs_search";
+import download from "./modules/download";
 
 Vue.use(Vuex)
 
@@ -116,6 +117,7 @@ export default new Vuex.Store({
     task,
     docs_edit,
     docs_edit_file,
-    docs_search
+    docs_search,
+    download
   }
 });

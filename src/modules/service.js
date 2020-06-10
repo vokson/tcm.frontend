@@ -10,7 +10,7 @@ export default {
                 data: {},
             };
 
-            context.dispatch('query/sendInOrderToGetFile', parameters, { root: true })
+            context.dispatch('download/do', parameters, { root: true })
         },
 
         updateAttachmentStatus: (context) => {
