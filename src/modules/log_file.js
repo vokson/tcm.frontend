@@ -108,12 +108,17 @@ export default {
 
             } else {
 
+                let badDownloadFunction = function () {
+                    this.dispatch('notify/showNotifyByCode', 601, { root: true })
+                };
+
                 let parameters = {
                     queryName: "log_file_download",
                     data: {
                         id: payload.id
                     },
-                    isInline: true
+                    isInline: true,
+                    badFileDownloadCallback: badDownloadFunction.bind(context)
                 };
 
                 context.dispatch('query/sendInOrderToGetFile', parameters, { root: true });
