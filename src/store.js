@@ -34,6 +34,7 @@ import docs_edit from "./modules/docs_edit";
 import docs_edit_file from "./modules/docs_edit_file";
 import docs_search from "./modules/docs_search";
 import download from "./modules/download";
+import counts from "./modules/counts";
 
 Vue.use(Vuex)
 
@@ -118,6 +119,7 @@ export default new Vuex.Store({
     docs_edit,
     docs_edit_file,
     docs_search,
-    download
+    download,
+    counts
   }
 });

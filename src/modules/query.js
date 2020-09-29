@@ -22,7 +22,6 @@ let urls = {
     log_files_delete_files_without_articles: "/logs/clean/files/without/articles",
 
     log_new_message_switch: "/logs/new/message/switch",
-    log_new_message_count: "/logs/new/message/count",
 
     log_get_last_articles: "/logs/get/last/articles",
 
@@ -60,7 +59,6 @@ let urls = {
     sender_folder_add: "/sender/folder/add",
     sender_folder_get: "/sender/folder/get",
     sender_folder_delete: "/sender/folder/delete",
-    sender_folder_count: "/sender/folder/count",
     sender_folder_switch_ready: "/sender/folder/switch/ready",
 
     sender_file_upload: "/sender/file/upload",
@@ -88,6 +86,8 @@ let urls = {
     docs_edit_file_upload: "/docs/edit/file/upload",
 
     docs_search_get: "/docs/search/get",
+
+    counts_get: "/counts",
 };
 
 export default {

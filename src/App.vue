@@ -16,10 +16,13 @@
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
 
       <b-nav-item :to="{ name: 'log' }" v-on:click="onNewMessagesClick">
-        <span class="badge badge-danger">{{countOfLogNewMessages}}</span>
+        <span class="badge badge-danger">{{countOfNewMessages}}</span>
       </b-nav-item>
       <b-nav-item :to="{ name: 'sender' }">
         <span class="badge badge-success">{{countOfSenderFolders}}</span>
+      </b-nav-item>
+      <b-nav-item :to="{ name: 'checker' }">
+        <span class="badge badge-primary">{{countOfNonCheckedDocs}}</span>
       </b-nav-item>
 
       <div v-for="item in downloadingFiles" :key="item.uin">
@@ -50,12 +53,16 @@ export default {
       return this.$store.state.language;
     },
 
-    countOfLogNewMessages: function() {
-      return this.$store.getters["log/giveCountOfNewMessages"];
+    countOfNewMessages: function() {
+      return this.$store.getters["counts/giveNewMessages"];
     },
 
     countOfSenderFolders: function() {
-      return this.$store.getters["sender/giveCountOfFolders"];
+      return this.$store.getters["counts/giveSenderFolders"];
+    },
+
+    countOfNonCheckedDocs: function() {
+      return this.$store.getters["counts/giveNonCheckedDocs"];
     },
 
     downloadingFiles: function() {
@@ -64,15 +71,9 @@ export default {
   },
 
   methods: {
-    refreshCountOfNewMessages: function() {
+    refreshCounts: function() {
       if (this.$store.state.user.access_token != "") {
-        this.$store.dispatch("log/getCountOfNewMessages", {});
-      }
-    },
-
-    refreshCountOfFolders: function() {
-      if (this.$store.state.user.access_token != "") {
-        this.$store.dispatch("sender/getCountOfFolders", {});
+        this.$store.dispatch("counts/get", {});
       }
     },
 
@@ -82,8 +83,7 @@ export default {
   },
 
   timers: {
-    refreshCountOfNewMessages: { time: 10000, autostart: true, repeat: true },
-    refreshCountOfFolders: { time: 10000, autostart: true, repeat: true }
+    refreshCounts: { time: 10000, autostart: true, repeat: true }
   }
 };
 </script>

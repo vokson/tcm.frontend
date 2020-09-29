@@ -108,10 +108,6 @@ export default {
                         context.dispatch("log_new_message_switch", payload);
                         break;
 
-                    case "log_new_message_count":
-                        context.dispatch("log_new_message_count", payload);
-                        break;
-
                     case "log_get_last_articles":
                         context.dispatch("log_get_last_articles", payload);
                         break;
@@ -167,10 +163,6 @@ export default {
 
                     case "sender_folder_delete":
                         context.dispatch("sender_folder_delete", payload);
-                        break;
-
-                    case "sender_folder_count":
-                        context.dispatch("sender_folder_count", payload);
                         break;
 
                     case "sender_folder_switch_ready":
@@ -239,6 +231,10 @@ export default {
 
                     case "docs_search_get":
                         context.dispatch("docs_search_get", payload);
+                        break;
+
+                    case "counts_get":
+                        context.dispatch("counts_get", payload);
                         break;
 
 
@@ -480,14 +476,6 @@ export default {
 
         },
 
-        log_new_message_count: (context, payload) => {
-
-            if (payload.success == 1) {
-                context.commit('log/setCountOfNewMessages', payload.count, { root: true });
-            }
-
-        },
-
         log_get_last_articles: (context, payload) => {
 
             if (payload.success == 1) {
@@ -613,14 +601,6 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_CHECK_001", { root: true })
                 context.dispatch('sender/getFolder', {}, { root: true });
-            }
-
-        },
-
-        sender_folder_count: (context, payload) => {
-
-            if (payload.success == 1) {
-                context.commit('sender/updateCountOfFolders', payload.count, { root: true });
             }
 
         },
@@ -763,6 +743,14 @@ export default {
 
             if (payload.success == 1) {
                 context.commit('docs_search/update', payload.items, { root: true });
+            }
+
+        },
+
+        counts_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('counts/update', payload.items, { root: true });
             }
 
         },

@@ -4,19 +4,12 @@ export default {
     state: {
         folders: null,
         files: null,
-        previousFileSearch: {},
-        countOfFolders: 0
-        // isRecordForTitleToBeShown: false,
-        // nameOfTitleToBeShown: ''
+        previousFileSearch: {}
     },
 
     getters: {
         giveFolder: function (state) {
             return state.folders;
-        },
-
-        giveCountOfFolders: function (state) {
-            return state.countOfFolders;
         },
 
         giveFile: function (state) {
@@ -37,10 +30,6 @@ export default {
 
         updateFile: function (state, data) {
             state.files = data;
-        },
-
-        updateCountOfFolders: function (state, count) {
-            state.countOfFolders = count;
         },
 
         clean: function (state) {
@@ -118,17 +107,6 @@ export default {
 
             context.dispatch('query/send', parameters, { root: true })
         },
-
-        getCountOfFolders: (context, payload) => {
-
-            let parameters = {
-                queryName: "sender_folder_count",
-                data: payload,
-            };
-
-            context.dispatch('query/send', parameters, { root: true })
-        },
-
 
     }
 
