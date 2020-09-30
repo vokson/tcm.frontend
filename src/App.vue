@@ -16,13 +16,13 @@
       <b-nav-item :to="{ name: 'admin' }">Admin</b-nav-item>
 
       <b-nav-item :to="{ name: 'log' }" v-on:click="onNewMessagesClick">
-        <span class="badge badge-danger">{{countOfNewMessages}}</span>
+        <span class="badge badge-danger" title="Количество новый сообщений">{{countOfNewMessages}}</span>
       </b-nav-item>
       <b-nav-item :to="{ name: 'sender' }">
-        <span class="badge badge-success">{{countOfSenderFolders}}</span>
+        <span class="badge badge-success" title="Количество папок в Отправке">{{countOfSenderFolders}}</span>
       </b-nav-item>
       <b-nav-item :to="{ name: 'checker' }">
-        <span class="badge badge-primary">{{countOfNonCheckedDocs}}</span>
+        <span class="badge badge-primary" title="Количество непроверенных документов в Проверяшке">{{countOfNonCheckedDocs}}</span>
       </b-nav-item>
 
       <div v-for="item in downloadingFiles" :key="item.uin">
