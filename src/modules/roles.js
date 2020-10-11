@@ -37,6 +37,7 @@ let admin = [
     '/admin/status',
     '/admin/setting',
     '/admin/user',
+    '/admin/action'
 ];
 
 let permissions = {

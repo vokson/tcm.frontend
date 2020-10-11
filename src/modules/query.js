@@ -35,6 +35,9 @@ let urls = {
     user_set_default_password: "/users/set/default/password",
     user_delete: "/users/delete",
 
+    action_get: "/action/get",
+    action_set: "/action/set",
+
     status_get: "/statuses/get",
     status_set: "/statuses/set",
     status_add: "/statuses/add",

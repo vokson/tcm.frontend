@@ -37,6 +37,14 @@ export default {
                     case "setting_set":
                         context.dispatch("setting_set", payload);
                         break;
+                    
+                    case "action_get":
+                        context.dispatch("action_get", payload);
+                        break;
+
+                    case "action_set":
+                        context.dispatch("action_set", payload);
+                        break;
 
                     case "log_get":
                         context.dispatch("log_get", payload);
@@ -399,6 +407,23 @@ export default {
             if (payload.success == 1) {
                 context.dispatch('notify/showNotifyByCode', "E_USER_002", { root: true })
                 context.dispatch('users/get', context.rootGetters['users/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        action_get: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.commit('action/update', payload.items, { root: true });
+            }
+
+        },
+
+        action_set: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
+                context.dispatch('action/get', {}, { root: true });
             }
 
         },

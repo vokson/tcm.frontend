@@ -7,6 +7,10 @@
         <h4>Users</h4>
       </b-nav-item>
 
+      <b-nav-item :to="{ name: 'action' }">
+        <h4>Roles</h4>
+      </b-nav-item>
+
       <b-nav-item :to="{ name: 'setting' }">
         <h4>Settings</h4>
       </b-nav-item>

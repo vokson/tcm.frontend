@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from "./modules/auth";
+import action from "./modules/action";
 import query from "./modules/query";
 import response from "./modules/response";
 import notify from "./modules/notify";
@@ -88,6 +89,7 @@ export default new Vuex.Store({
 
   modules: {
     auth,
+    action,
     query,
     response,
     notify,

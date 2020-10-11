@@ -11,6 +11,13 @@ let getText = function (language, code) {
 let getRusText = function (code) {
 
     switch (code) {
+        case 100:
+            return {
+                title: "Ошибка - 100",
+                text: "Необработанное исключение",
+                type: "error"
+            }
+
         case 101:
             return {
                 title: "Ошибка авторизации - 101",
@@ -50,6 +57,34 @@ let getRusText = function (code) {
             return {
                 title: "Ошибка авторизации - 106",
                 text: "У вас нет доступа к этой области титулов",
+                type: "error"
+            }
+
+        case 110:
+            return {
+                title: "Ошибка валидации действия - 110",
+                text: "Неверные данные в поле role.",
+                type: "error"
+            }
+
+        case 111:
+            return {
+                title: "Ошибка валидации действия - 111",
+                text: "Неверные данные в поле name.",
+                type: "error"
+            }
+
+        case 112:
+            return {
+                title: "Ошибка валидации действия - 112",
+                text: "Неверные данные в поле state.",
+                type: "error"
+            }
+
+        case 113:
+            return {
+                title: "Ошибка валидации действия - 113",
+                text: "Неверные данные в поле items.",
                 type: "error"
             }
 
@@ -697,6 +732,13 @@ let getRusText = function (code) {
 let getEngText = function (code) {
 
     switch (code) {
+        case 100:
+            return {
+                title: "Error - 100",
+                text: "Unhandled Exception",
+                type: "error"
+            }
+
         case 101:
             return {
                 title: "Authentication Error - 101",
@@ -736,6 +778,34 @@ let getEngText = function (code) {
             return {
                 title: "Authentication Error - 106",
                 text: "Error of permission expression",
+                type: "error"
+            }
+
+        case 110:
+            return {
+                title: "Action Validation Error - 110",
+                text: "Invalid role",
+                type: "error"
+            }
+
+        case 111:
+            return {
+                title: "Action Validation Error - 111",
+                text: "Invalid name",
+                type: "error"
+            }
+
+        case 112:
+            return {
+                title: "Action Validation Error - 112",
+                text: "Invalid state",
+                type: "error"
+            }
+
+        case 113:
+            return {
+                title: "Action Validation Error - 113",
+                text: "Invalid items",
                 type: "error"
             }
 

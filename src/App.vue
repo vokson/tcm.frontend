@@ -82,9 +82,9 @@ export default {
     }
   },
 
-  timers: {
-    refreshCounts: { time: 10000, autostart: true, repeat: true }
-  }
+  // timers: {
+    // refreshCounts: { time: 10000, autostart: true, repeat: true }
+  // }
 };
 </script>
 

@@ -23,6 +23,7 @@ import MergePdf from './views/MergePdf.vue'
 import Docs from './views/Docs.vue'
 import DocsEdit from './views/DocsEdit.vue'
 import DocsSearch from './views/DocsSearch.vue'
+import Action from './views/Action.vue'
 
 
 Vue.use(Router)
@@ -70,6 +71,12 @@ export default new Router({
             name: 'user',
             component: User,
         },
+
+        {
+            path: '/admin/action',
+            name: 'action',
+            component: Action
+          },
 
         {
             path: '/log',
