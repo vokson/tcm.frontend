@@ -237,10 +237,19 @@
 
       <div class="row actual_version_color">
         <div class="col-2">
+          <p>2.11.0 - 12.10.2020</p>
+        </div>
+        <div class="col-4">
+          <p>Добавлен доступ по ролям в Admin</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
           <p>2.10.0 - 29.09.2020</p>
         </div>
         <div class="col-4">
-          <p>Добавлено кол-во не проверенных документов"</p>
+          <p>Добавлено кол-во не проверенных документов</p>
         </div>
       </div>
 
@@ -909,7 +918,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.10.0'
+      version: '2.11.0'
     };
   },
 
