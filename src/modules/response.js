@@ -308,7 +308,6 @@ export default {
         setting_set: (context, payload) => {
 
             if (payload.success == 1) {
-                //dfs1
                 context.dispatch('notify/showNotifyByCode', "E_SETTING_001", { root: true })
 
             }
