@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <b-nav vertical class="w-25">
+    <b-nav vertical class="w-50">
 
       <b-nav-item :to="{ name: 'user' }">
         <h4>Users</h4>
@@ -21,10 +21,6 @@
 
       <b-nav-item v-on:click="getDatabaseBackup">
         <h4>Database Backup</h4>
-      </b-nav-item>
-
-      <b-nav-item v-on:click="updateAttachmentStatus">
-        <h4>Update Statues of Logs With Attachments</h4>
       </b-nav-item>
 
       <b-nav-item v-on:click="deleteFilesWithoutArticles">
@@ -48,10 +44,6 @@ export default {
   methods: {
     getDatabaseBackup: function () {
       this.$store.dispatch("service/getDatabaseBackup");
-    },
-
-    updateAttachmentStatus: function () {
-      this.$store.dispatch("service/updateAttachmentStatus");
     },
 
     deleteFilesWithoutArticles: function () {

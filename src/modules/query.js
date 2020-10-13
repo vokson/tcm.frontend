@@ -5,7 +5,6 @@ let urls = {
     auth_change_password: "/auth/change_password",
 
     service_database_backup: "/service/database/backup",
-    service_database_update_attachment_status: "/service/database/update/attachments",
 
     setting_get: "/settings/get",
     setting_set: "/settings/set",
@@ -200,50 +199,6 @@ export default {
                     console.log(error);
                 });
         },
-
-        // sendInOrderToGetFile: (context, payload) => {
-
-        //     let data = payload.data
-        //     data.access_token = context.rootState.user.access_token;
-
-        //     let responseFunction = function (response) {
-
-        //         // Скачивание
-        //         if (payload.isInline == true) {
-
-        //             var newBlob = new Blob([response.data], { type: "application/pdf" })
-        //             const url = window.URL.createObjectURL(newBlob);
-        //             window.open(url);
-        //             window.URL.revokeObjectURL(url);
-
-        //         } else {
-        //             // Открытие PDF на новой вкладке
-
-        //             let filename = decodeURIComponent(response.headers['content-filename']);
-        //             window.$download(response.data, filename);
-
-        //             // Вызов дополнительной функции после завершения запроса
-        //             if (payload.afterDownloadAction != null) {
-        //                 context.dispatch(payload.afterDownloadAction, {}, { root: true });
-        //             }
-
-        //         }
-        //     }
-
-        //     window.$axios({
-        //         url: urls[payload.queryName],
-        //         data: data,
-        //         headers: {
-        //             'Accept': '*/* ',
-        //         },
-        //         responseType: 'blob'
-        //     })
-        //         .then(responseFunction)
-        //         .catch(function (error) {
-        //             console.log(error);
-        //             context.dispatch('notify/showNotifyByCode', 601, { root: true })
-        //         });
-        // },
 
         sendInOrderToUploadFile: (context, payload) => {
 

@@ -27,10 +27,6 @@ export default {
                     case "role_check_admin":
                         break;
 
-                    case "service_database_update_attachment_status":
-                        context.dispatch("service_database_update_attachment_status", payload);
-                        break;
-
                     case "setting_get":
                         context.dispatch("setting_get", payload);
                         break;

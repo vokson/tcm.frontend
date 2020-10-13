@@ -13,16 +13,6 @@ export default {
             context.dispatch('download/do', parameters, { root: true })
         },
 
-        updateAttachmentStatus: (context) => {
-
-            let parameters = {
-                queryName: "service_database_update_attachment_status",
-                data: {},
-            };
-
-            context.dispatch('query/send', parameters, { root: true })
-        },
-
         deleteFilesWithoutArticles: (context) => {
 
             let parameters = {
