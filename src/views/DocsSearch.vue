@@ -2,8 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 v-if="language === 'RUS'">Просмотр трансмитталов</h3>
-        <h3 v-else-if="language === 'ENG'">Search in transmitals</h3>
+        <h3>{{ (language == 'RUS') ? 'Просмотр трансмитталов' : 'Search in transmitals' }}</h3>
       </div>
     </div>
 
@@ -22,25 +21,28 @@
             <b-form-checkbox
               style="width: 240px;"
               v-model="view.date"
-            >Дата / Date
+            >{{ (language == 'RUS') ? 'Дата' : 'Date' }}
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.transmittal">Трансмиттал / Transmittal
+            <b-form-checkbox v-model="view.transmittal">{{ (language == 'RUS') ? 'Трансмиттал' : 'Transmittal' }}
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.code_1">Код TCM code
+            <b-form-checkbox v-model="view.code_1">{{ property_code_1 }}
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.code_2">Код NIIK code
+            <b-form-checkbox v-model="view.code_2">{{ property_code_2 }}
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.revision">Ревизия / Rev
+            <b-form-checkbox v-model="view.revision">{{ (language == 'RUS') ? 'Ревизия' : 'Revision' }}
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.title_en">Титул EN / Title EN
+            <b-form-checkbox v-model="view.class">{{ (language == 'RUS') ? 'Класс' : 'Class' }}
             </b-form-checkbox>
 
-            <b-form-checkbox v-model="view.title_ru">Титул RU / Title RU
+            <b-form-checkbox v-model="view.title_en">{{ (language == 'RUS') ? 'Имя ENG' : 'Title ENG' }}
+            </b-form-checkbox>
+
+            <b-form-checkbox v-model="view.title_ru">{{ (language == 'RUS') ? 'Имя RUS' : 'Title RUS' }}
             </b-form-checkbox>
 
             <b-dropdown-divider></b-dropdown-divider>
@@ -51,49 +53,56 @@
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="date"
-              >Дата / Date</b-form-radio>
+              >{{ (language == 'RUS') ? 'Дата' : 'Date' }}</b-form-radio>
 
               <b-form-radio
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="transmittal"
-              >Трансмиттал / Transmittal</b-form-radio>
+              >{{ (language == 'RUS') ? 'Трансмиттал' : 'Transmittal' }}</b-form-radio>
 
               <b-form-radio
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="code_1"
-              >Код TCM code</b-form-radio>
+              >{{ property_code_1 }}</b-form-radio>
 
               <b-form-radio
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="code_2"
-              >Код NIIK code</b-form-radio>
+              >{{ property_code_1 }}</b-form-radio>
+
 
               <b-form-radio
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="revision"
-              >Ревизия / Rev</b-form-radio>
+              >{{ (language == 'RUS') ? 'Ревизия' : 'Revision' }}</b-form-radio>
+
+              <b-form-radio
+                v-model="sortBy"
+                name="sort-by-radios"
+                value="class"
+              >{{ (language == 'RUS') ? 'Класс' : 'Class' }}</b-form-radio>
 
               <b-form-radio
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="title_en"
-              >Титул EN / Title EN</b-form-radio>
+              >{{ (language == 'RUS') ? 'Имя ENG' : 'Title ENG' }}</b-form-radio>
 
               <b-form-radio
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="title_ru"
-              >Титул RU / Title RU</b-form-radio>
+              >{{ (language == 'RUS') ? 'Имя RUS' : 'Title RUS' }}</b-form-radio>
             </b-form-group>
 
             <b-dropdown-divider></b-dropdown-divider>
 
             <b-form-checkbox v-model="search.is_only_last">
-              Только последние ревизии / Only last revisions
+              {{ (language == 'RUS') ? 'Только последние ревизии' : 'Only last revisions' }}
             </b-form-checkbox>
 
           </b-dropdown-form>
@@ -122,35 +131,35 @@
             <th
               class="td-date text-center"
               v-if="view.date"
-            >Дата</th>
+            >{{ (language == 'RUS') ? 'Дата' : 'Date' }}</th>
             <th
               class="td-transmittal text-center"
               v-if="view.transmittal"
-            >Трансмиттал</th>
+            >{{ (language == 'RUS') ? 'Трансмиттал' : 'Transmittal' }}</th>
             <th
               class="td-code text-center"
               v-if="view.code_1"
-            >Код TCM</th>
+            >{{ property_code_1 }}</th>
             <th
               class="td-code text-center"
               v-if="view.code_2"
-            >Код НИИК</th>
+            >{{ property_code_2 }}</th>
             <th
               class="td-revision text-center"
               v-if="view.revision"
-            >Рев</th>
+            >{{ (language == 'RUS') ? 'Рев' : 'Rev' }}</th>
             <th
               class="td-class text-center"
               v-if="view.class"
-            >Класс</th>
+            >{{ (language == 'RUS') ? 'Класс' : 'Class' }}</th>
             <th
               class="td-title text-center"
               v-if="view.title_en"
-            >Имя ENG</th>
+            >{{ (language == 'RUS') ? 'Имя ENG' : 'Title ENG' }}</th>
             <th
               class="td-title text-center"
               v-if="view.title_ru"
-            >Имя RUS</th>
+            >{{ (language == 'RUS') ? 'Имя RUS' : 'Title RUS' }}</th>
           </tr>
         </thead>
         <tbody>
@@ -178,7 +187,6 @@
             ><input
                 type="text"
                 v-model="search.transmittal"
-                placeholder="Transmittal"
                 class="full-width"
               /></td>
 
@@ -188,7 +196,6 @@
             ><input
                 type="text"
                 v-model="search.code_1"
-                placeholder="TCM Code"
                 class="full-width"
               /></td>
 
@@ -198,7 +205,6 @@
             ><input
                 type="text"
                 v-model="search.code_2"
-                placeholder="NIIK Code"
                 class="full-width"
               /></td>
 
@@ -208,7 +214,6 @@
             ><input
                 type="text"
                 v-model="search.revision"
-                placeholder="Rev"
                 class="full-width"
               /></td>
 
@@ -218,21 +223,18 @@
             ><input
                 type="text"
                 v-model="search.class"
-                placeholder="Class"
                 class="full-width"
               /></td>
 
             <td v-if="view.title_en"><input
                 type="text"
                 v-model="search.title_en"
-                placeholder="Title ENG"
                 class="full-width"
               /></td>
 
             <td v-if="view.title_ru"><input
                 type="text"
                 v-model="search.title_ru"
-                placeholder="Title RUS"
                 class="full-width"
               /></td>
 
@@ -343,49 +345,59 @@ export default {
   mounted: function () { },
 
   computed: {
-    language: function () {
-      return this.$store.state.language;
-    },
+      language: function () {
+        return this.$store.state.language;
+      },
 
-    languageForDatePicker: function () {
-      if (this.language == "RUS") { return this.ru }
-      if (this.language == "ENG") { return this.en }
-    },
+      languageForDatePicker: function () {
+        if (this.language == "RUS") { return this.ru }
+        if (this.language == "ENG") { return this.en }
+      },
 
-    docs: function () {
-      let nonSortedDocs = this.$store.getters['docs_search/give'];
+      docs: function () {
+        let nonSortedDocs = this.$store.getters['docs_search/give'];
 
-      let compareFunction = function (a, b) {
+        let compareFunction = function (a, b) {
 
-        if (a[this.sortBy] < b[this.sortBy]) {
-          return -1;
+          if (a[this.sortBy] < b[this.sortBy]) {
+            return -1;
+          }
+          if (a[this.sortBy] > b[this.sortBy]) {
+            return 1;
+          }
+          return 0;
+
+        };
+
+        if (nonSortedDocs != null) {
+
+          return nonSortedDocs.sort(compareFunction.bind(this));
+
+        } else {
+          return null;
         }
-        if (a[this.sortBy] > b[this.sortBy]) {
-          return 1;
-        }
-        return 0;
 
-      };
-
-      if (nonSortedDocs != null) {
-
-        return nonSortedDocs.sort(compareFunction.bind(this));
-
-      } else {
-        return null;
-      }
-
-    },
+      },
 
 
 
-    countOfDocs: function () {
-      return (this.docs == null) ? 0 : this.docs.length;
-    },
+      countOfDocs: function () {
+        return (this.docs == null) ? 0 : this.docs.length;
+      },
 
-    isSearchInProgress: function () {
-      return this.$store.getters['docs_search/isProgress'];
-    },
+      isSearchInProgress: function () {
+        return this.$store.getters['docs_search/isProgress'];
+      },
+
+      property_code_1: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_1_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_1_NAME_EN'); }
+      },
+
+      property_code_2: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_2_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_2_NAME_EN'); }
+      },
 
   },
 

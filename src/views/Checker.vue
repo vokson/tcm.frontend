@@ -50,7 +50,7 @@
         </div>
 
         <div class="row checker-description">
-          {{ (language == 'RUS') ? 'Имена загружаемых файлов автоматически проверяются на соответсвие процедуре нумерации НИПИГАЗ. Для согласования/отклонения документа добавьте к имени файла [X], где Х - кол-во ошибок.' : 'Filenames are automatically checked for correspondace with NIPIGAZ numeration procedure. If you want approve/reject, add [X] to name of file, where Х is count of mistakes.' }}
+          {{ (language == 'RUS') ? 'Имена загружаемых файлов автоматически проверяются на соответствие процедуре нумерации. Для согласования/отклонения документа добавьте к имени файла [X], где Х - кол-во ошибок.' : 'Filenames are automatically checked for correspondace with numeration procedure. If you want approve/reject, add [X] to name of file, where Х is count of mistakes.' }}
         </div>
 
         <div class="row">
