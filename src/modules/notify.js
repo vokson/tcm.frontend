@@ -590,6 +590,12 @@ let getRusText = function (code) {
                 type: "success"
             }
 
+        case "E_LOG_005":
+            return {
+                text: "Неверный JSON в вариантами добавочных слов",
+                type: "error"
+            }
+
         case "E_TITLE_001":
             return {
                 text: "Титул сохранен",
@@ -714,6 +720,12 @@ let getRusText = function (code) {
             return {
                 text: "Необработанная ошибка сервера",
                 type: "success"
+            }
+
+        case "E_CHART_001":
+            return {
+                text: "Неверный JSON с вариантами регулярных выражений",
+                type: "error"
             }
 
 
@@ -1310,6 +1322,12 @@ let getEngText = function (code) {
                 type: "success"
             }
 
+        case "E_LOG_005":
+            return {
+                text: "Wrong JSON with list of additional words",
+                type: "error"
+            }
+
         case "E_TITLE_001":
             return {
                 text: "Title has been saved",
@@ -1435,6 +1453,12 @@ let getEngText = function (code) {
             return {
                 text: "Server error",
                 type: "success"
+            }
+
+        case "E_CHART_001":
+            return {
+                text: "Wrong JSON with variants of regular expressions",
+                type: "error"
             }
 
 

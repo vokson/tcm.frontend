@@ -25,7 +25,6 @@
         </div>
 
         <div class="row">
-          <!-- <b-form-group label="Выберите промежуток времени"> -->
           <b-form-radio-group
             id="chart_intervals"
             v-model="interval"
@@ -41,7 +40,6 @@
             <b-form-radio value="2635200">{{ (language == 'RUS') ? 'Месяц' : 'Month' }}</b-form-radio>
 
           </b-form-radio-group>
-          <!-- </bs-form-group> -->
         </div>
 
         <div class="row">
@@ -70,61 +68,12 @@
           />
           <a href="https://regex101.com/"> ? </a>
         </div>
-        <div class="row">
-          <a
-            v-on:click='setRegExpToAll'
-            href="#"
-          > All / Все </a>
-        </div>
-        <div class="row">
-          <a
-            v-on:click='setRegExpToKJDRW'
-            href="#"
-          > KJ*.DRW </a>
-        </div>
-        <div class="row">
-          <a
-            v-on:click='setRegExpToKJRR'
-            href="#"
-          > KJ*.RR </a>
-        </div>
-        <div class="row">
-          <a
-            v-on:click='setRegExpToAR'
-            href="#"
-          > AR* </a>
-        </div>
-        <div class="row">
-          <a
-            v-on:click='setRegExpToNVK'
-            href="#"
-          > NVK* </a>
-        </div>
-        <div class="row">
-          <a
-            v-on:click='setRegExpToGP'
-            href="#"
-          > GP*, GT* </a>
-        </div>
-        <div class="row">
-          <a
-            v-on:click='setRegExpToER'
-            href="#"
-          > ER*, ES* </a>
-        </div>
 
-        <div class="row">
+        <div class="row" v-for="item in regex_variants" :key="item.key">
           <a
-            v-on:click='setRegExpToPS'
+            v-on:click='setRegExp(item.value)'
             href="#"
-          > PS*, AK* </a>
-        </div>
-
-        <div class="row">
-          <a
-            v-on:click='setRegExpToTQ'
-            href="#"
-          > TQ*</a>
+          > {{item.key}} </a>
         </div>
 
       </div>
@@ -225,7 +174,7 @@ export default {
     itemsForLogChart: function () {
       if (this.rawItemsForLogChart === null) {
 
-        return null;
+        return {};
 
       } else {
 
@@ -259,6 +208,18 @@ export default {
       return this.$store.getters['chart_created_titles/giveCreatedTitlesCount'];
     },
 
+    regex_variants: function () {
+        let str = this.$store.getters['setting/give_property']('FRONTEND_CHARTS_TITLES_PHP_REG_EXP_IN_JSON');
+        try {
+            return JSON.parse(str)
+
+        } catch (e) {
+            this.$store.dispatch('notify/showNotifyByCode', "E_CHART_001", { root: true })
+            return []
+        }
+    },
+
+
   },
 
   methods: {
@@ -274,41 +235,8 @@ export default {
       this.$store.dispatch('chart_created_titles/getCreatedTitles', queryObject);
     },
 
-    setRegExpToAll: function () {
-      this.regExp = "/.*/";
-    },
-
-    setRegExpToKJDRW: function () {
-      this.regExp = '/.*[-]{1}KJ[\\d]*\\.DRW$/';
-    },
-
-    setRegExpToKJRR: function () {
-      this.regExp = '/.*[-]{1}KJ[\\d]*\\.RR$/';
-    },
-
-    setRegExpToAR: function () {
-      this.regExp = '/.*[-]{1}AR[\\d]*$/';
-    },
-
-    setRegExpToNVK: function () {
-      this.regExp = '/.*[-]{1}NVK[\\d]*$/';
-    },
-
-    setRegExpToGP: function () {
-      this.regExp = '/.*[-]{1}(GP|GT){1}[\\d]*$/';
-    },
-
-    setRegExpToER: function () {
-      this.regExp = '/.*[-]{1}(ER|ES){1}[\\d]*$/';
-    },
-
-    setRegExpToPS: function () {
-      this.regExp = '/.*[-]{1}(PS|AK){1}[\\d]*$/';
-    },
-
-
-    setRegExpToTQ: function () {
-      this.regExp = '/^TQ.*/';
+    setRegExp: function (value) {
+      this.regExp = value;
     },
 
   }

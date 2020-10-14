@@ -306,19 +306,19 @@ export default {
     },
 
     property_code_1_reg_exp: function () {
-        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CODE_1_REG_EXP'));
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CODE_1_JS_REG_EXP'));
     },
 
     property_code_2_reg_exp: function () {
-        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CODE_2_REG_EXP'));
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CODE_2_JS_REG_EXP'));
     },
 
     property_rev_reg_exp: function () {
-        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_REV_REG_EXP'));
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_REV_JS_REG_EXP'));
     },
 
     property_class_reg_exp: function () {
-        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CLASS_REG_EXP'));
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CLASS_JS_REG_EXP'));
     },
 
   },
@@ -359,7 +359,7 @@ export default {
 
     uploadFile: function (file) {
 
-      console.log(file);
+      // console.log(file);
 
       if (file.size > this.maxFileSize) {
         this.$store.dispatch('notify/showNotifyByCode', "E_FILE_004", { root: true });

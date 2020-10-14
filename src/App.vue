@@ -77,13 +77,22 @@ export default {
       }
     },
 
+    getSettings: function() {
+      if (this.$store.state.user.access_token != "") {
+        if (this.$store.getters['setting/give'] === null) {
+          this.$store.dispatch("setting/get", {});
+        }
+      }
+    },
+
     onNewMessagesClick: function() {
       this.$store.commit("log/setIsNewMessagesToBeShown", true, { root: true });
     }
   },
 
   timers: {
-    refreshCounts: { time: 10000, autostart: true, repeat: true }
+    refreshCounts: { time: 10000, autostart: true, repeat: true },
+    getSettings: { time: 5000, autostart: true, repeat: true }
   }
 };
 </script>

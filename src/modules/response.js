@@ -226,7 +226,7 @@ export default {
                         break;
 
                     case "docs_edit_delete":
-                        context.dispatch("docs_edit_add", payload);
+                        context.dispatch("docs_edit_delete", payload);
                         break;
 
                     case "docs_edit_file_upload":

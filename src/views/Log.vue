@@ -540,8 +540,14 @@ export default {
     },
 
     property_words_to_be_added: function () {
-        let str = this.$store.getters['setting/give_property']('FRONTEND_RECORDS_ADD_WORDS_TO_TEXT');
-        return str.split('|');
+        let str = this.$store.getters['setting/give_property']('FRONTEND_RECORDS_ADD_WORDS_TO_TEXT_IN_JSON');
+        try {
+            return JSON.parse(str)
+
+        } catch (e) {
+            this.$store.dispatch('notify/showNotifyByCode', "E_LOG_005", { root: true })
+            return []
+        }
     },
 
   },

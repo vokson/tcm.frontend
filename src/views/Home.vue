@@ -6,10 +6,7 @@
         <div class='col-8'>
           <div class='row'>
             <div class="col">
-              <h3 v-if="language === 'RUS'">Проектный офис Волгаферт
-                <span class="actual_version_color">(v.{{version}})</span>
-              </h3>
-              <h3 v-else-if="language === 'ENG'">Volgafert Design Office
+              <h3>{{property_project_name}}
                 <span class="actual_version_color">(v.{{version}})</span>
               </h3>
             </div>
@@ -965,7 +962,12 @@ export default {
 
     settings: function () {
       return this.$store.getters['user_settings/give'];
-    }
+    },
+
+    property_project_name: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_PROJECT_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_PROJECT_NAME_EN'); }
+    },
 
   },
 

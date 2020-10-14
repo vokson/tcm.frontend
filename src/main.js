@@ -54,8 +54,8 @@ window.$app = new Vue({
 
 
 window.$axios = axios.create({
-    // baseURL: "http://api.vlg/api", // НИИК
-    baseURL: "http://tcm.api/api", // Vagrant
+    baseURL: "http://api.vlg/api", // НИИК
+    // baseURL: "http://tcm.api/api", // Vagrant
     method: 'post',
 
 });
