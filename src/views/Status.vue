@@ -4,8 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3 v-if="language === 'RUS'">Статусы выполнения работ по титулу</h3>
-          <h3 v-else-if="language === 'ENG'">Statuses of current title</h3>
+          <h3>{{ (language == 'RUS') ? 'Статусы выполнения работ по титулу' : 'Statuses of current title' }}</h3>
         </div>
       </div>
 

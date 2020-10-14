@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3>List of users</h3>
+        <h3>{{ (language == 'RUS') ? 'Пользователи' : 'List of users' }}</h3>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
 
         <div class="row">
           <div class="col">
-            <label>Item's ID: {{targetItem.id}}</label>
+            <label>ID: {{targetItem.id}}</label>
           </div>
         </div>
 
@@ -27,7 +27,7 @@
 
         <div class="row">
           <div class="col-5">
-            <label>Surname</label>
+            <label>{{ (language == 'RUS') ? 'Фамилия' : 'Surname' }}</label>
           </div>
           <div class="col-7">
             <input type="text" class="form-control" v-model="targetItem.surname">
@@ -36,7 +36,7 @@
 
         <div class="row">
           <div class="col-5">
-            <label>Name</label>
+            <label>{{ (language == 'RUS') ? 'Имя' : 'Name' }}</label>
           </div>
           <div class="col-7">
             <input type="text" class="form-control" v-model="targetItem.name">
@@ -45,7 +45,7 @@
 
         <div class="row">
           <div class="col-5">
-            <label>Role</label>
+            <label>{{ (language == 'RUS') ? 'Роль' : 'Role' }}</label>
           </div>
           <div class="col-7">
             <input type="text" class="form-control" v-model="targetItem.role">
@@ -54,7 +54,7 @@
 
         <div class="row">
           <div class="col-5">
-            <label>Is active</label>
+            <label>{{ (language == 'RUS') ? 'Активен (0/1)' : 'Is active (0/1)' }}</label>
           </div>
           <div class="col-7">
             <input type="text" class="form-control" v-model="targetItem.active">
@@ -63,7 +63,7 @@
 
         <div class="row">
           <div class="col-5">
-            <label>Permission Expression</label>
+            <label>{{ (language == 'RUS') ? 'Регулярное выражение' : 'Permission Regex' }}</label>
           </div>
           <div class="col-7">
             <input type="text" class="form-control" v-model="targetItem.permission_expression">
@@ -73,7 +73,7 @@
         <div v-if="isNewItemMayBeAdded == true" class="row">
           <div class="col-5" />
           <div class="col-7">
-            <button type="button" class="btn btn-block btn-primary" v-on:click="addItem">Add</button>
+            <button type="button" class="btn btn-block btn-primary" v-on:click="addItem">{{ (language == 'RUS') ? 'Добавить' : 'Add' }}</button>
           </div>
         </div>
 
@@ -82,15 +82,15 @@
           <div class="col-12">
             <div class="row">
               <div class="col">
-                <button type="button" class="btn btn-block btn-warning" v-on:click="modifyItem">Modify</button>
+                <button type="button" class="btn btn-block btn-warning" v-on:click="modifyItem">{{ (language == 'RUS') ? 'Изменить' : 'Modify' }}</button>
               </div>
               <div class="col">
-                <button type="button" class="btn btn-block btn-danger" v-on:click="deleteItem">Delete</button>
+                <button type="button" class="btn btn-block btn-danger" v-on:click="deleteItem">{{ (language == 'RUS') ? 'Удалить' : 'Delete' }}</button>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <button type="button" class="btn btn-block btn-danger" v-on:click="setDefaultPassword">Set Default Password</button>
+                <button type="button" class="btn btn-block btn-danger" v-on:click="setDefaultPassword">{{ (language == 'RUS') ? 'Сбросить пароль' : 'Set Default Password' }}</button>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@
     <div class="row">
       <div class="col">
         <button type="button" class="btn btn-block btn-success" v-on:click="getItems">
-          Search
+          {{ (language == 'RUS') ? 'Искать' : 'Search' }}
           <span class="badge badge-light">{{countOfItems}}</span>
         </button>
       </div>
@@ -117,10 +117,10 @@
           <tr class="text-center">
             <th>ID</th>
             <th>E-mail</th>
-            <th>Surname</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Active</th>
+            <th>{{ (language == 'RUS') ? 'Фамилия' : 'Surname' }}</th>
+            <th>{{ (language == 'RUS') ? 'Имя' : 'Name' }}</th>
+            <th>{{ (language == 'RUS') ? 'Роль' : 'Role' }}</th>
+            <th>{{ (language == 'RUS') ? 'Активен' : 'Active' }}</th>
           </tr>
         </thead>
         <tbody>
@@ -181,6 +181,10 @@ export default {
   },
 
   computed: {
+    language: function () {
+      return this.$store.state.language;
+    },
+
     items: function () {
       return this.$store.getters['users/give'];
     },

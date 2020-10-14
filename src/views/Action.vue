@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3>Действия и роли</h3>
+          <h3>{{ (language == 'RUS') ? 'Действия и роли' : 'Actions and roles' }}</h3>
         </div>
       </div>
 
@@ -43,11 +43,11 @@
 
       <div class="row">
         <div class="col-2">
-          <button type="button" class="btn btn-primary" v-on:click="get">Обновить</button>
+          <button type="button" class="btn btn-primary" v-on:click="get">{{ (language == 'RUS') ? 'Обновить' : 'Refresh' }}</button>
         </div>
 
         <div class="col-2">
-          <button type="button" class="btn btn-danger" v-on:click="set">Сохранить</button>
+          <button type="button" class="btn btn-danger" v-on:click="set">{{ (language == 'RUS') ? 'Сохранить' : 'Save' }}</button>
         </div>
       </div>
     </div>
@@ -69,6 +69,10 @@ export default {
   },
 
   computed: {
+    language: function () {
+      return this.$store.state.language;
+    },
+    
     pairs: function() {
       return this.$store.getters["action/give"];
     },

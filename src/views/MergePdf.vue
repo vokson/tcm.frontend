@@ -144,7 +144,6 @@ export default {
     return {
 
       isDragging: false,
-      maxFileSize: 100 * 1024 * 1024,
       dropUin: null
 
     };
