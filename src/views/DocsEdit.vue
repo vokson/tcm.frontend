@@ -2,8 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 v-if="language === 'RUS'">Редактирование трансмитталов</h3>
-        <h3 v-else-if="language === 'ENG'">Edit transmitals</h3>
+        <h3>{{ (language == 'RUS') ? 'Редактирование трансмитталов' : 'Edit transmitals' }}</h3>
       </div>
     </div>
 
@@ -13,7 +12,7 @@
         <td class="text-center full-width"><input
             type="text"
             v-model="search.transmittal"
-            placeholder="Титул"
+            placeholder="Титул / Title"
           />
         </td>
       </div>
@@ -59,7 +58,7 @@
             id="col-drop-area"
           >
             <div id="doc-drop-area">
-              {{ (language == 'RUS') ? 'JSON (не более ' + formatBytes(maxFileSize) +')' : 'JSON ( not heavier ' + formatBytes(maxFileSize) +')' }}
+              {{ (language == 'RUS') ? 'JSON (не более ' + formatBytes(property_max_file_size) +')' : 'JSON ( not heavier ' + formatBytes(property_max_file_size) +')' }}
             </div>
           </div>
         </div>
@@ -102,8 +101,8 @@
         <thead>
           <tr>
             <th class="text-center">ID</th>
-            <th class="td-code-1 text-center">{{ (language == 'RUS') ? 'Код TCM' : 'TCM Code' }}</th>
-            <th class="td-code-2 text-center">{{ (language == 'RUS') ? 'Код НИИК' : 'NIIK Code' }}</th>
+            <th class="td-code-1 text-center">{{ property_code_1_name }}</th>
+            <th class="td-code-2 text-center">{{ property_code_2_name }}</th>
             <th class="td-revision text-center">{{ (language == 'RUS') ? 'Рев' : 'Rev' }}</th>
             <th class="td-class text-center">{{ (language == 'RUS') ? 'Класс' : 'Class' }}</th>
             <th class="td-title-en text-center">{{ (language == 'RUS') ? 'Имя ENG' : 'Title ENG' }}</th>
@@ -128,7 +127,7 @@
             <td class="text-center td-code">
 
               <input
-                v-if="isValid(tcmCodeRegExp, item.code_1)"
+                v-if="isValid(property_code_1_reg_exp, item.code_1)"
                 type="text"
                 v-model="item.code_1"
                 class="full-width"
@@ -146,7 +145,7 @@
             <td class="text-center td-code">
 
               <input
-                v-if="isValid(niikCodeRegExp, item.code_2)"
+                v-if="isValid(property_code_2_reg_exp, item.code_2)"
                 type="text"
                 v-model="item.code_2"
                 class="full-width"
@@ -163,7 +162,7 @@
             <td class="text-center td-revision">
 
               <input
-                v-if="isValid(revRegExp, item.revision)"
+                v-if="isValid(property_rev_reg_exp, item.revision)"
                 type="text"
                 v-model="item.revision"
                 class="full-width"
@@ -180,7 +179,7 @@
 
             <td class="text-center td-class">
               <input
-                v-if="isValid(classRegExp, item.class)"
+                v-if="isValid(property_class_reg_exp, item.class)"
                 type="text"
                 v-model="item.class"
                 class="full-width"
@@ -230,13 +229,7 @@ export default {
 
       en: en,
       ru: ru,
-      maxFileSize: 1 * 1024 * 1024,
       isDragging: false,
-      tcmCodeRegExp: /^4022-[A-Z]{2}-[A-Z]{2}-(00000|66210|66220|66230|66321|66340|66341|66422|66450|66560|66570|66580|66690)(\d{4}|\d{2}-\d{3}|\d{1}-\d{3}(\s[A-Z]\d?)?)(_C_RH_(OP|CL))?$/,
-      niikCodeRegExp: /^7500081106-(00000|66210|66220|66230|66321|66340|66341|66422|66450|66560|66570|66580|66690)-(КМ|КЖ|АР|ЭГ|НВК|НВК|ОВ)\d{0,2}(\.(РР|ТИ|ТЗ))?-\d{4}$/,
-      revRegExp: /\d{1}[A-Z0-9]{1}$/,
-      classRegExp: /^(A|C|I|RQ|FI|IFC)$/,
-
 
       search: {
         transmittal: ""
@@ -297,6 +290,37 @@ export default {
       return this.$store.getters['docs_edit_file/give'];
     },
 
+    property_max_file_size: function () {
+        let mb = this.$store.getters['setting/give_property']('FRONTEND_DOCS_JSON_MAX_FILE_SIZE_MB');
+        return Number.parseInt(mb) * 1024 * 1024;
+    },
+
+    property_code_1_name: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_1_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_1_NAME_EN'); }
+    },
+
+    property_code_2_name: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_2_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_CODE_2_NAME_EN'); }
+    },
+
+    property_code_1_reg_exp: function () {
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CODE_1_REG_EXP'));
+    },
+
+    property_code_2_reg_exp: function () {
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CODE_2_REG_EXP'));
+    },
+
+    property_rev_reg_exp: function () {
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_REV_REG_EXP'));
+    },
+
+    property_class_reg_exp: function () {
+        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CLASS_REG_EXP'));
+    },
+
   },
 
   methods: {
@@ -354,7 +378,6 @@ export default {
       this.$store.dispatch('docs_edit_file/upload', {
         log_file: file,
         uin: uin,
-        // transmittal: this.search.transmittal,
 
         progressCallback: function (e) {
           progressCallback(uin, e.loaded, e.total)

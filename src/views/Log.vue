@@ -2,8 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 v-if="language === 'RUS'">Журнал событий проекта</h3>
-        <h3 v-else-if="language === 'ENG'">Project Log</h3>
+        <h3>{{ (language == 'RUS') ? 'Журнал событий проекта' : 'Project Log' }}</h3>
       </div>
     </div>
 
@@ -13,15 +12,13 @@
 
         <div class="row">
           <div class="col">
-            <label v-if="language === 'RUS'">Номер записи: {{targetItem.id}}</label>
-            <label v-else-if="language === 'ENG'">Item's ID: {{targetItem.id}}</label>
+            <label>{{ (language == 'RUS') ? 'Номер записи' : "Item's ID" }} : {{targetItem.id}}</label>
           </div>
         </div>
 
         <div class="row">
           <div class="col-3">
-            <label v-if="language === 'RUS'">Дата</label>
-            <label v-else-if="language === 'ENG'">Date</label>
+            <label>{{ (language == 'RUS') ? 'Дата' : 'Date' }}</label>
           </div>
           <div class="col-9">
             <datepicker
@@ -35,8 +32,7 @@
 
         <div class="row">
           <div class="col-3">
-            <label v-if="language === 'RUS'">От</label>
-            <label v-else-if="language === 'ENG'">From</label>
+            <label>{{ (language == 'RUS') ? 'От' : 'From' }}</label>
           </div>
           <div class="col-9">
             <select
@@ -57,8 +53,7 @@
 
         <div class="row">
           <div class="col-3">
-            <label v-if="language === 'RUS'">Кому</label>
-            <label v-else-if="language === 'ENG'">To</label>
+            <label>{{ (language == 'RUS') ? 'Кому' : 'To' }}</label>
           </div>
           <div class="col-9">
 
@@ -78,9 +73,7 @@
 
         <div class="row">
           <div class="col-3">
-
-            <label v-if="language === 'RUS'">Титул</label>
-            <label v-else-if="language === 'ENG'">Title</label>
+            <label>{{ (language == 'RUS') ? 'Титул' : 'Title' }}</label>
           </div>
           <div class="col-9">
             <input
@@ -182,33 +175,7 @@
                 @change="wordToBeAddedOnChange()"
                 v-model="wordToBeAdded"
               >
-                <option
-                  value=""
-                  selected
-                >{{ (language == 'RUS') ? 'Выберите' : 'Choose' }}...</option>
-                <option value="TQ пришел в ">TQ пришел в</option>
-                <option value="Выданы замечания ">Выданы замечания</option>
-                <option value="Задание на выполнение чертежей отправлено ">Задание на выполнение чертежей отправлено</option>
-                <option value="Замечания от НИПИГАЗ к чертежам ">Замечания от НИПИГАЗ к чертежам</option>
-                <option value="Замечания пришли ">Замечания пришли</option>
-                <option value="Комментарии к расчету на отправку ">Комментарии к расчету на отправку</option>
-                <option value="Комментарии к расчету на проверку ">Комментарии к расчету на проверку</option>
-                <option value="Комментарии к расчету отправлены в трансмиттале ">Комментарии к расчету отправлены в трансмиттале</option>
-                <option value="Комментарии НИИК к исходным чертежам корпуса ">Комментарии НИИК к исходным чертежам корпуса</option>
-                <option value="Комплект отправлен в трансмиттале ">Комплект отправлен в трансмиттале</option>
-                <option value="Комплект пришел в письме ">Комплект пришел в письме</option>
-                <option value="Комплект пришел в трансмиттале ">Комплект пришел в трансмиттале</option>
-                <option value="Комплект пришел повторно ">Комплект пришел повторно</option>
-                <option value="Ответы ТСМ на комментарии НИИК к исходным чертежам ">Ответы ТСМ на комментарии НИИК к исходным чертежам</option>
-                <option value="Отклонено в ">Отклонено в</option>
-                <option value="Отправлено на проверку ">Отправлено на проверку</option>
-                <option value="Отчет на отправку ">Отчет на отправку</option>
-                <option value="Отчет отправлен в трансмиттале ">Отчет отправлен в трансмиттале</option>
-                <option value="Отчет отправлен на проверку ">Отчет отправлен на проверку</option>
-                <option value="Ошибки пришли в ">Ошибки пришли в</option>
-                <option value="Согласовано в ">Согласовано в</option>
-                <option value="Создан TASK ">Создан TASK</option>
-                <option value="Чертежи отправлены на проверку ">Чертежи отправлены на проверку</option>
+                <option v-for="item in property_words_to_be_added" :key="item"> {{item}}</option>
               </select>
             </div>
           </div>
@@ -227,7 +194,7 @@
               v-else
               id="log-drop-area"
             >
-              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(maxFileSize) +')' : 'Drop file here (each not heavier ' + formatBytes(maxFileSize) +')' }}
+              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(property_max_file_size) +')' : 'Drop file here (each not heavier ' + formatBytes(property_max_file_size) +')' }}
             </div>
           </div>
         </div>
@@ -348,11 +315,11 @@
         <thead>
           <tr>
             <th class="text-center">ID</th>
-            <th class="td-date text-center">Date</th>
-            <th class="text-center">Title</th>
-            <th class="text-center">From (surname)</th>
-            <th class="text-center">What</th>
-            <th class="text-center">To (surname)</th>
+            <th class="td-date text-center">{{ (language == 'RUS') ? 'Дата' : 'Date' }}</th>
+            <th class="text-center">{{ (language == 'RUS') ? 'Титул' : 'Title' }}</th>
+            <th class="text-center">{{ (language == 'RUS') ? 'От (фамилия)' : 'From (surname)' }}</th>
+            <th class="text-center">{{ (language == 'RUS') ? 'Текст' : 'What' }}</th>
+            <th class="text-center">{{ (language == 'RUS') ? 'Кому (фамилия)' : 'To (surname)' }}</th>
           </tr>
         </thead>
         <tbody>
@@ -375,22 +342,18 @@
             <td class="text-center"><input
                 type="text"
                 v-model="search.title"
-                placeholder="Титул"
               /></td>
             <td class="text-center"><input
                 type="text"
                 v-model="search.from"
-                placeholder="От (фамилия)"
               /></td>
             <td class="text-center"><input
                 type="text"
                 v-model="search.what"
-                placeholder="Текст"
               /></td>
             <td class="text-center"><input
                 type="text"
                 v-model="search.to"
-                placeholder="Кому (фамилия)"
               /></td>
           </tr>
 
@@ -451,7 +414,6 @@ export default {
       ru: ru,
       isNewItemMayBeAdded: true,
       isDragging: false,
-      maxFileSize: 1000 * 1024 * 1024,
       wordToBeAdded: "",
 
       customEditorToolbar: [
@@ -552,10 +514,6 @@ export default {
       return this.$store.getters['log_file/give'];
     },
 
-    // uploadingFiles: function () {
-    //   return this.$store.getters['log_file/giveUploadingItems'];
-    // },
-
     userName: function () {
       return this.$store.state.user.name;
     },
@@ -574,6 +532,16 @@ export default {
 
     nameOfTitleToBeShown: function () {
       return this.$store.getters['log/giveNameOfTitleToBeShown'];
+    },
+
+    property_max_file_size: function () {
+        let mb = this.$store.getters['setting/give_property']('FRONTEND_RECORDS_MAX_FILE_SIZE_MB');
+        return Number.parseInt(mb) * 1024 * 1024;
+    },
+
+    property_words_to_be_added: function () {
+        let str = this.$store.getters['setting/give_property']('FRONTEND_RECORDS_ADD_WORDS_TO_TEXT');
+        return str.split('|');
     },
 
   },
@@ -831,7 +799,6 @@ export default {
     },
 
     wordToBeAddedOnChange: function () {
-      // console.log('HERE');
       this.targetItem.what = this.targetItem.what + this.wordToBeAdded;
     },
 
@@ -888,11 +855,9 @@ export default {
   border: 2px dashed #ccc;
   border-radius: 20px;
   height: 200px;
-  /* font-family: sans-serif; */
   margin-top: 40px;
   padding-top: 80px;
   text-align: center;
-  /* vertical-align: middle; */
   font: 21pt bold arial;
   color: gray;
 }

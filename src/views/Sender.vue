@@ -17,7 +17,7 @@
             id="col-drop-area"
           >
             <div id="check-drop-area">
-              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(maxFileSize) +')' : 'Drop file here (each not heavier ' + formatBytes(maxFileSize) +')' }}
+              {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(property_max_file_size) +')' : 'Drop file here (each not heavier ' + formatBytes(property_max_file_size) +')' }}
             </div>
           </div>
         </div>
@@ -232,7 +232,6 @@ export default {
       en: en,
       ru: ru,
       isDragging: false,
-      maxFileSize: 1000 * 1024 * 1024,
       nameOfFolder: '',
       activeFolderId: null
     };
@@ -298,6 +297,11 @@ export default {
 
     attachedFiles: function () {
       return this.$store.getters['sender_file/give'];
+    },
+
+    property_max_file_size: function () {
+        let mb = this.$store.getters['setting/give_property']('FRONTEND_SENDER_MAX_FILE_SIZE_MB');
+        return Number.parseInt(mb) * 1024 * 1024;
     },
 
   },

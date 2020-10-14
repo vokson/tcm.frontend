@@ -17,7 +17,7 @@
 
       <div class="col-8 col-drop-area">
         <div class="pdf-drop-area">
-          {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более 100 Мб)' : 'Drop file here (each not heavier 100MB)' }}
+          {{ (language == 'RUS') ? 'Брось файл сюда (каждый не более ' + formatBytes(property_max_file_size) +')' : 'Drop file here (each not heavier ' + formatBytes(property_max_file_size) +')' }}
         </div>
       </div>
 
@@ -209,6 +209,11 @@ export default {
 
     attachedFiles: function () {
       return this.$store.getters['pdf_merge_file/give'];
+    },
+
+    property_max_file_size: function () {
+        let mb = this.$store.getters['setting/give_property']('FRONTEND_MERGE_PDF_MAX_FILE_SIZE_MB');
+        return Number.parseInt(mb) * 1024 * 1024;
     },
 
   },

@@ -60,9 +60,7 @@
 
         <div class="row">
           <div class="col-5">
-
-            <label v-if="language === 'RUS'">Предшественник</label>
-            <label v-else-if="language === 'ENG'">Predecessor</label>
+            <label>{{property_field_1_name}}</label>
           </div>
 
           <div class="col-7">
@@ -76,9 +74,7 @@
 
         <div class="row">
           <div class="col-5">
-
-            <label v-if="language === 'RUS'">Описание</label>
-            <label v-else-if="language === 'ENG'">Description</label>
+            <label>{{property_field_2_name}}</label>
           </div>
 
           <div class="col-7">
@@ -92,9 +88,7 @@
 
         <div class="row">
           <div class="col-5">
-
-            <label v-if="language === 'RUS'">Объем</label>
-            <label v-else-if="language === 'ENG'">Volume</label>
+            <label>{{property_field_3_name}}</label>
           </div>
 
           <div class="col-7">
@@ -201,11 +195,11 @@
         <thead>
           <tr class="text-center">
             <th>ID</th>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Predecessor</th>
-            <th>Description</th>
-            <th>Volume</th>
+            <th>{{ (language == 'RUS') ? 'Титул' : 'Title' }}</th>
+            <th>{{ (language == 'RUS') ? 'Статус' : 'Status' }}</th>
+            <th>{{property_field_1_name}}</th>
+            <th>{{property_field_2_name}}</th>
+            <th>{{property_field_3_name}}</th>
           </tr>
         </thead>
         <tbody>
@@ -223,27 +217,22 @@
             <td><input
                 type="text"
                 v-model="search.name"
-                placeholder="Титул"
               /></td>
             <td><input
                 type="text"
                 v-model="search.status"
-                placeholder="Статус"
               /></td>
             <td><input
                 type="text"
                 v-model="search.predecessor"
-                placeholder="Предшественник"
               /></td>
             <td><input
                 type="text"
                 v-model="search.description"
-                placeholder="Описание"
               /></td>
             <td><input
                 type="text"
                 v-model="search.volume"
-                placeholder="Объем"
               /></td>
           </tr>
 
@@ -348,6 +337,21 @@ export default {
 
     nameOfTitleToBeShown: function () {
       return this.$store.getters['title/giveNameOfTitleToBeShown'];
+    },
+
+    property_field_1_name: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_TITLES_FIELD_1_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_TITLES_FIELD_1_NAME_EN'); }
+    },
+
+    property_field_2_name: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_TITLES_FIELD_2_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_TITLES_FIELD_2_NAME_EN'); }
+    },
+
+    property_field_3_name: function () {
+        if (this.language == "RUS") { return this.$store.getters['setting/give_property']('FRONTEND_TITLES_FIELD_3_NAME_RU'); }
+        if (this.language == "ENG") { return this.$store.getters['setting/give_property']('FRONTEND_TITLES_FIELD_3_NAME_EN'); }
     },
 
   },
