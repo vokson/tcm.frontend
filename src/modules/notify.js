@@ -470,7 +470,7 @@ let getRusText = function (code) {
         case 1010:
             return {
                 title: "Ошибка Документов - 1010",
-                text: "Ревизия не должна быть пустой",
+                text: "Неправильная ревизия",
                 type: "error"
             }
 
@@ -1208,7 +1208,7 @@ let getEngText = function (code) {
         case 1010:
             return {
                 title: "Docs Error - 1010",
-                text: "Revision should not be empty",
+                text: "Wrong revision",
                 type: "error"
             }
 

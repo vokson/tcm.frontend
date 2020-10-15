@@ -5,6 +5,8 @@ export default {
         items: null,
         properties: null,
         default_properties: {
+            'DOCS_REV_LIST': '',
+
             'FRONTEND_CODE_1_NAME_RU': 'КОД ДОКУМЕНТА 1',
             'FRONTEND_CODE_2_NAME_RU': 'КОД ДОКУМЕНТА 2',
             'FRONTEND_CODE_1_NAME_EN': 'DOC CODE 1',
@@ -16,7 +18,7 @@ export default {
             'FRONTEND_MERGE_PDF_MAX_FILE_SIZE_MB': '100',
             'FRONTEND_DOCS_CODE_1_JS_REG_EXP': '.*',
             'FRONTEND_DOCS_CODE_2_JS_REG_EXP': '.*',
-            'FRONTEND_DOCS_REV_JS_REG_EXP': '.*',
+            
             'FRONTEND_DOCS_CLASS_JS_REG_EXP': '.*',
             'FRONTEND_RECORDS_ADD_WORDS_TO_TEXT_IN_JSON': '["Здесь должны","быть слова","которые можно добавить"]',
             'FRONTEND_TITLES_FIELD_1_NAME_RU': 'Поле 1',

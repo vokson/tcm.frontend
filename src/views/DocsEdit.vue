@@ -162,7 +162,7 @@
             <td class="text-center td-revision">
 
               <input
-                v-if="isValid(property_rev_reg_exp, item.revision)"
+                v-if="isValidRevision(item.revision)"
                 type="text"
                 v-model="item.revision"
                 class="full-width"
@@ -313,8 +313,9 @@ export default {
         return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_CODE_2_JS_REG_EXP'));
     },
 
-    property_rev_reg_exp: function () {
-        return new RegExp(this.$store.getters['setting/give_property']('FRONTEND_DOCS_REV_JS_REG_EXP'));
+    property_rev_list: function () {
+        let str = this.$store.getters['setting/give_property']('DOCS_REV_LIST')
+        return str.split('|')
     },
 
     property_class_reg_exp: function () {
@@ -410,7 +411,11 @@ export default {
       return regexp.test(str);
     },
 
-     formatBytes: function(bytes, decimals) {
+    isValidRevision: function (str) {
+      return this.property_rev_list.includes(str);
+    },
+
+    formatBytes: function(bytes, decimals) {
       return window.$formatBytes(bytes, decimals);
     },
 
