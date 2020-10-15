@@ -56,6 +56,19 @@ export default {
 
         get: (context, payload) => {
 
+            let is_empty = true;
+
+            Object.values(payload).forEach(function(value){
+                if (value != "") {
+                    is_empty = false;
+                }
+            })
+
+            if (is_empty ===  true) {
+                context.dispatch('notify/showNotifyByCode', "E_TITLE_003", { root: true });
+                return;
+            }
+
             let parameters = {
                 queryName: "title_get",
                 data: payload,

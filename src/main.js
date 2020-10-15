@@ -51,7 +51,12 @@ window.$app = new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-
+// Разобраться с последними ревизиями
+// Убрать predecessor, description, volume
+// Переделать график титулов, имеющих даннный статус
+// Индексация базы данных
+// Переписать на новый Laravel
+// Разобраться с Docket образами
 
 window.$axios = axios.create({
     baseURL: "http://api.vlg/api", // НИИК

@@ -65,7 +65,7 @@ export default {
   watch: {
     newToken: function (val) {
       if (val != "") {
-        this.$router.push('home');
+         this.$router.push('home').catch((err) => {});
       }
     },
 
