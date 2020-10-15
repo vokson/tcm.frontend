@@ -238,6 +238,7 @@
 
           <tr
             class="text-center"
+          
             v-for="item in items"
             :key="item.id"
             v-on:click="editItem(item.id)"
