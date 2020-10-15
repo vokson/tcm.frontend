@@ -21,7 +21,18 @@ export default {
             };
 
             context.dispatch('query/send', parameters, { root: true })
+        },
+
+        updateDocsRevisionPriorityIndex: (context) => {
+
+            let parameters = {
+                queryName: "docs_update_priority_indexes",
+                data: {},
+            };
+
+            context.dispatch('query/send', parameters, { root: true })
         }
+
 
     }
 

@@ -233,6 +233,10 @@ export default {
                         context.dispatch("docs_edit_file_upload", payload);
                         break;
 
+                    case "docs_update_priority_indexes":
+                        context.dispatch("docs_update_priority_indexes", payload);
+                    break;
+
                     case "docs_search_get":
                         context.dispatch("docs_search_get", payload);
                         break;
@@ -755,6 +759,14 @@ export default {
                 context.dispatch('notify/showNotifyByCode', "E_DOCS_004", { root: true });
                 context.commit('docs_edit_file/uploadSuccess', payload, { root: true });
                 context.dispatch('docs_edit/get', context.rootGetters['docs_edit/givePreviousSearch'], { root: true });
+            }
+
+        },
+
+        docs_update_priority_indexes: (context, payload) => {
+
+            if (payload.success == 1) {
+                context.dispatch('notify/showNotifyByCode', "E_DATABASE_001", { root: true })
             }
 
         },

@@ -27,6 +27,10 @@
         <h4>Delete Files Without Articles</h4>
       </b-nav-item>
 
+      <b-nav-item v-on:click="updateDocsRevisionPriorityIndex">
+        <h4>Update Docs Revision Priority Index</h4>
+      </b-nav-item>
+
     </b-nav>
 
   </div>
@@ -48,6 +52,10 @@ export default {
 
     deleteFilesWithoutArticles: function () {
       this.$store.dispatch("service/deleteFilesWithoutArticles");
+    },
+
+    updateDocsRevisionPriorityIndex: function () {
+      this.$store.dispatch("service/updateDocsRevisionPriorityIndex");
     }
 
 

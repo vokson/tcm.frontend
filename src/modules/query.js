@@ -86,6 +86,7 @@ let urls = {
     docs_edit_add: "/docs/edit/add",
     docs_edit_delete: "/docs/edit/delete",
     docs_edit_file_upload: "/docs/edit/file/upload",
+    docs_update_priority_indexes: "/docs/update/priority/indexes",
 
     docs_search_get: "/docs/search/get",
 

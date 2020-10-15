@@ -71,7 +71,7 @@
                 v-model="sortBy"
                 name="sort-by-radios"
                 value="code_2"
-              >{{ property_code_1 }}</b-form-radio>
+              >{{ property_code_2 }}</b-form-radio>
 
 
               <b-form-radio
