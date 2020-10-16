@@ -234,6 +234,15 @@
 
       <div class="row actual_version_color">
         <div class="col-2">
+          <p>2.12.2 - 16.10.2020</p>
+        </div>
+        <div class="col-4">
+          <p>Обновлены последний ревизии</p>
+        </div>
+      </div>
+
+      <div class="row actual_version_color">
+        <div class="col-2">
           <p>2.12.1 - 15.10.2020</p>
         </div>
         <div class="col-4">
@@ -933,7 +942,7 @@ export default {
       choose_language: "",
       new_password_1: "",
       new_password_2: "",
-      version: '2.12.1'
+      version: '2.12.2'
     };
   },
 
